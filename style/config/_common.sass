@@ -1,0 +1,40 @@
+// flex
+.is-flex
+  display: flex
+
+// center
+.center
+  margin-left: auto
+  margin-right: auto
+
+// responsive
+@include pc
+  .is-pc
+    display: block
+  .is-tab
+    display: none
+  .is-sp
+    display: none
+
+@include tab
+  .is-pc
+    display: none
+  .is-tab
+    display: block
+  .is-sp
+    display: none
+
+@include sp
+  .is-pc
+    display: none
+  .is-tab
+    display: none
+  .is-sp
+    display: block
+
+.container
+  width: $c-width-pc
+  @include tab
+    width: $c-width-tab
+  @include sp
+    width: $c-width-sp
