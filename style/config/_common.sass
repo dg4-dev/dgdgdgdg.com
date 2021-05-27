@@ -1,3 +1,13 @@
+// font
+@import url(/font/Dont.ttf)
+body
+  font-family: "Dont", "Noto Sans SC", "游ゴシック", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif
+
+// image
+img
+  width: 100%
+  height: auto
+
 // flex
 .is-flex
   display: flex
@@ -6,6 +16,18 @@
 .center
   margin-left: auto
   margin-right: auto
+
+// container
+.container
+  width: $c-width-pc
+  @include tab
+    width: $c-width-tab
+    padding-left: 30px
+    padding-right: 30px
+  @include sp
+    width: $c-width-sp
+    padding-left: 12px
+    padding-right: 12px
 
 // responsive
 @include pc
@@ -31,10 +53,3 @@
     display: none
   .is-sp
     display: block
-
-.container
-  width: $c-width-pc
-  @include tab
-    width: $c-width-tab
-  @include sp
-    width: $c-width-sp
