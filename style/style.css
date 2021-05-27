@@ -1,6 +1,4 @@
-@charset "UTF-8";
 /* html5doctor.com Reset Stylesheet v1.6.1 Last Updated: 2010-09-17 Author: Richard Clark - http://richclarkdesign.com Twitter:@rich_clark */
-@import url(/font/Dont.ttf);
 html,
 body,
 div,
@@ -167,8 +165,13 @@ select {
   vertical-align: middle;
 }
 
+@font-face {
+  font-family: 'Dont';
+  src: url(/font/Dont.ttf);
+}
+
 body {
-  font-family: "Dont", "Noto Sans SC", "游ゴシック", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
+  font-family: Dont;
 }
 
 img {
