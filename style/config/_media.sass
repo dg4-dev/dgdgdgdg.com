@@ -1,0 +1,11 @@
+@mixin pc
+  @media (min-width: ($bp2))
+    @content
+
+@mixin tab
+  @media (max-width: ($bp2))
+    @content
+
+@mixin sp
+  @media (max-width: ($bp1))
+    @content
