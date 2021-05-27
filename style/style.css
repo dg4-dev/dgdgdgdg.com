@@ -317,7 +317,7 @@ img {
   padding-left: 20px;
 }
 
-.dont {
+.dont-page {
   width: 100%;
   height: 100vh;
   background-color: #ddd;
@@ -327,12 +327,12 @@ img {
 }
 
 @media (max-width: 1024px) {
-  .dont {
+  .dont-page {
     height: 100%;
   }
 }
 
-.dont .wrapper {
+.dont-page .wrapper {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -342,7 +342,7 @@ img {
 }
 
 @media (max-width: 1024px) {
-  .dont .wrapper {
+  .dont-page .wrapper {
     padding-top: 50px;
     padding-bottom: 50px;
     padding-left: 12px;
@@ -350,28 +350,28 @@ img {
   }
 }
 
-.dont .wrapper .title {
+.dont-page .wrapper .title {
   text-align: center;
   font-size: 32px;
   margin-bottom: 30px;
 }
 
-.dont .wrapper .title .blue {
+.dont-page .wrapper .title .blue {
   color: #00d4d4;
 }
 
-.dont .wrapper .sub-title {
+.dont-page .wrapper .sub-title {
   text-align: center;
   font-size: 24px;
   margin-bottom: 30px;
 }
 
-.dont .wrapper .desc-img {
+.dont-page .wrapper .desc-img {
   max-width: 600px;
   margin-bottom: 30px;
 }
 
-.dont .wrapper .dl-link {
+.dont-page .wrapper .dl-link {
   display: block;
   text-align: center;
   font-size: 24px;
