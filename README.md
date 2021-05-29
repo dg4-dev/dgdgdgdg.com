@@ -1,3 +1,3 @@
 # pages.dgdgdgdg.com
 
-## [Published link](https://pages.dgdgdgdgdg.com)
+## [Published link](https://pages.dgdgdgdg.com)
