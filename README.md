@@ -1,3 +1,3 @@
 # pages.dgdgdgdg.com
 
-## [Published link](https://pages.dgdgdgdg.com){:target="_blank"}
+<h2><a href="https://pages.dgdgdgdg.com" target="_blank">Published link</a></h2>
