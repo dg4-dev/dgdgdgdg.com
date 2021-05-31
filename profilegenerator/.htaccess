@@ -1,4 +1,0 @@
-AuthType Basic
-AuthName "SousakuSenka"
-AuthUserFile "/profilegenerator/.htpasswd"
-require valid-user
