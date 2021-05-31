@@ -433,13 +433,9 @@ img {
 }
 
 .profilegenerator-page footer .container {
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.profilegenerator-page footer .container p {
-  font-size: 12px;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 .profilegenerator-page footer .container a {
@@ -451,6 +447,10 @@ img {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+}
+
+.profilegenerator-page footer .container a:not(:first-child) {
+  margin-left: 15px;
 }
 
 .profilegenerator-page input[type="file"] {
