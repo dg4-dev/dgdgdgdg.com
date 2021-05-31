@@ -408,6 +408,12 @@ img {
           align-items: center;
 }
 
+@media (max-width: 1024px) {
+  .notfound {
+    height: 100%;
+  }
+}
+
 .notfound .wrapper {
   text-align: center;
   width: -webkit-fit-content;
@@ -416,6 +422,15 @@ img {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+}
+
+@media (max-width: 1024px) {
+  .notfound .wrapper {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
 }
 
 .notfound .wrapper h1 {
