@@ -5,8 +5,10 @@
   flex-direction: column
   padding-top: 50px
   padding-bottom: 100px
-  padding-left: 12px
-  padding-right: 12px
+  @include tab
+    width: calc( 100% - 24px )
+    padding-left: 12px
+    padding-right: 12px
   .page-title
     text-align: center
     font-size: 48px
@@ -26,6 +28,7 @@
         height: 5px
         background-color: $dg4-blue
         margin: auto
+        margin-top: 5px
 
     .sub-title
       text-align: center
@@ -42,7 +45,7 @@
       font-size: 24px
       text-decoration: none
       color: $text-black
-      padding: 5px
+      padding: 16px
       border: 4px solid $text-black
 
       &:hover
