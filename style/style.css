@@ -480,6 +480,11 @@ img {
   font-weight: bold;
 }
 
+.profilegenerator-page .note {
+  width: 700px;
+  margin-bottom: 30px;
+}
+
 .profilegenerator-page #profile {
   width: 700px;
   height: 750px;
