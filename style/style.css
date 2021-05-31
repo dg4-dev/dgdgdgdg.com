@@ -169,10 +169,13 @@ select {
 @font-face {
   font-family: 'Dont';
   src: url(/font/Dont.ttf);
+  font-family: 'Dont round';
+  src: url(/font/Dont-round.ttf);
 }
 
 body {
   font-family: Dont;
+  line-height: 3em;
   color: #00d4d4;
 }
 
@@ -333,53 +336,48 @@ img {
 
 .dont-page {
   width: 100%;
-  height: 100vh;
   background-color: rgba(51, 51, 51, 0.1);
   color: #333;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding-top: 50px;
+  padding-bottom: 100px;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
-@media (max-width: 1024px) {
-  .dont-page {
-    height: 100%;
-  }
+.dont-page .page-title {
+  text-align: center;
+  font-size: 48px;
+  line-height: 1.5em;
+  margin-bottom: 40px;
 }
 
-.dont-page .wrapper {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-}
-
-@media (max-width: 1024px) {
-  .dont-page .wrapper {
-    padding-top: 50px;
-    padding-bottom: 50px;
-    padding-left: 12px;
-    padding-right: 12px;
-  }
+.dont-page .page-title .blue {
+  color: #00d4d4;
 }
 
 .dont-page .wrapper .title {
   text-align: center;
   font-size: 32px;
-  margin-bottom: 30px;
-  color: #333;
+  margin-bottom: 16px;
 }
 
-.dont-page .wrapper .title .blue {
-  color: #00d4d4;
+.dont-page .wrapper .title::after {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 5px;
+  background-color: #00d4d4;
+  margin: auto;
 }
 
 .dont-page .wrapper .sub-title {
   text-align: center;
   font-size: 24px;
-  margin-bottom: 30px;
+  margin-bottom: 12px;
 }
 
 .dont-page .wrapper .desc-img {
@@ -393,14 +391,21 @@ img {
   font-size: 24px;
   text-decoration: none;
   color: #333;
-  padding: 16px;
+  padding: 5px;
   border: 4px solid #333;
-  margin-bottom: 30px;
 }
 
 .dont-page .wrapper .dl-link:hover {
   background-color: #333;
   color: rgba(255, 255, 255, 0.9);
+}
+
+.dont-page .normal {
+  margin-bottom: 60px;
+}
+
+.dont-page .round {
+  font-family: Dont round;
 }
 
 .notfound {
