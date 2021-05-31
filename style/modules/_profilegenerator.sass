@@ -23,14 +23,14 @@
     padding-bottom: 10px
     background-color: rgba($text-black, 0.2)
     .container
-      justify-content: space-between
-      p
-        font-size: 12px
+      justify-content: flex-end
       a
         display: block
         width: fit-content
         color: $dg4-navy
         height: fit-content
+        &:not(:first-child)
+          margin-left: 15px
 
   input[type="file"]
     display: none
