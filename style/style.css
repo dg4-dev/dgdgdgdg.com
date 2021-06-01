@@ -310,7 +310,8 @@ img {
   margin-left: auto;
 }
 
-.top .wrapper .domain li a .base {
+.top .wrapper .domain li a .sub::after {
+  content: "dgdgdgdg.com";
   color: #1055a1;
 }
 
