@@ -11,12 +11,14 @@
     <script type="text/javascript" src="/script/sha256.js"></script>
   </head>
   <body>
-    <main class="senka-login">
-      <form id="form">
-        <p id="message">Please enter password.</p>
-        <input type="password" placeholder="password" id="password">
+    <main class="senka-login is-flex">
+      <form class="center" id="form">
+        <p class="center" id="message">Please enter password.</p>
+        <input class="center" type="password" placeholder="password" id="password">
       </form>
     </main>
+
+    <script src="/script/hirahira.js"></script>
     <script>
       function hash(text) {
         const sha = new jsSHA('SHA-256', 'TEXT');
