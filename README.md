@@ -1,3 +1,14 @@
-# pages.dgdgdgdg.com
+# pages: dgdgdgdg's links
 
-<h2><a href="https://pages.dgdgdgdg.com" target="_blank">Published link</a></h2>
+dgdgdgdgのリンク集です。
+
+![ogp](https://pages.dgdgdgdg.com/image/ogp.png)
+
+![lang](https://img.shields.io/badge/-lang-333.svg?style=for-the-badge)
+![html](https://img.shields.io/badge/-html5-000.svg?logo=html5&style=for-the-badge)
+![Sass](https://img.shields.io/badge/-Sass-000.svg?logo=sass&style=for-the-badge)
+![JS](https://img.shields.io/badge/-Javascript-000.svg?logo=javascript&style=for-the-badge)
+
+![Commit Message](https://img.shields.io/badge/-commit%20message-333.svg?style=for-the-badge)
+![ja-jp](https://img.shields.io/badge/-ja__JP-004444.svg?style=for-the-badge)
+![en-us](https://img.shields.io/badge/-en__US-004444.svg?style=for-the-badge)
