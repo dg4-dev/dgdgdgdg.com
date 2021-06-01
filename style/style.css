@@ -769,4 +769,195 @@ img {
 .senka-login #form #password::-ms-input-placeholder {
   color: #ddd;
 }
+
+.senka {
+  font-family: Noto Sans JP;
+  color: #333;
+  font-size: 20px;
+}
+
+.senka .btn {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: block;
+  text-decoration: none;
+  color: #333;
+  padding: 8px 20px 8px 20px;
+  border-radius: 5px;
+}
+
+.senka .btn-header {
+  background-color: #00d4d4;
+}
+
+.senka .btn-mother {
+  background-color: #00d4d4;
+}
+
+.senka .btn-child {
+  min-width: 120px;
+  background-color: #009155;
+  color: #fff;
+}
+
+.senka .btn:not(:first-child) {
+  margin-left: 10px;
+}
+
+.senka .btn:hover {
+  opacity: 0.8;
+}
+
+.senka header {
+  background-color: #2c4b6e;
+  color: #fff;
+  padding: 16px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+@media (max-width: 640px) {
+  .senka header {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+.senka header h1 {
+  display: block;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-weight: bold;
+}
+
+@media (max-width: 640px) {
+  .senka header h1 {
+    margin-bottom: 10px;
+  }
+}
+
+.senka .construction {
+  padding-top: 100px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  min-width: 580px;
+  list-style-type: none;
+}
+
+@media (max-width: 1024px) {
+  .senka .construction {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+.senka .construction ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  position: relative;
+  margin-left: 30px;
+}
+
+.senka .construction ul:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  border-left: 2px solid #333;
+}
+
+.senka .construction ul li {
+  position: relative;
+  margin: 0;
+  padding: 15px 30px;
+}
+
+.senka .construction ul li:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 30px;
+  height: 0;
+  border-top: 2px solid #333;
+}
+
+.senka .construction ul li:last-child:before {
+  top: 30px;
+  bottom: 0;
+  height: auto;
+  background-color: #fff;
+}
+
+.senka .construction .description {
+  width: 400px;
+  background-color: #eee;
+  font-size: 16px;
+  line-height: 32px;
+  padding: 20px;
+  border-radius: 0 0 15px 15px;
+}
+
+.senka .construction .first-level .second-level details summary {
+  vertical-align: middle;
+  line-height: 28px;
+  cursor: pointer;
+}
+
+.senka .construction .first-level .second-level details summary::-webkit-details-marker {
+  display: none;
+}
+
+.senka .construction .first-level .second-level details summary:before {
+  content: "";
+  display: inline-block;
+  background-image: url(/image/marker.png);
+  width: 28px;
+  height: 28px;
+  background-size: cover;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.senka .construction .first-level .second-level details summary:hover {
+  opacity: 0.7;
+}
+
+.senka .construction .first-level .second-level details .third-level .server-title {
+  width: 400px;
+  background-color: #4ADEA0;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+  padding-left: 20px;
+  border-radius: 15px 15px 0 0;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.senka .construction .first-level .second-level details .third-level .server-title div {
+  line-height: 36px;
+  margin-right: 20px;
+}
+
+.senka .construction .first-level .second-level details[open] summary::before {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
 /*# sourceMappingURL=style.css.map */
