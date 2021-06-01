@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login | Senka</title>
+
+    <link rel="icon" href="/image/senka.png">
+    <link rel="stylesheet" href="/style/style.css">
+    <script type="text/javascript" src="/script/sha256.js"></script>
+  </head>
+  <body>
+    <main class="senka-login">
+      <form id="form">
+        <p id="message">Please enter your password.</p>
+        <input type="text" placeholder="password" id="password">
+        <p id="result">Hashed: </p>
+      </form>
+    </main>
+    <script>
+      function hash(text) {
+        const sha = new jsSHA('SHA-256', 'TEXT');
+        sha.update(text);
+        return sha.getHash('HEX');
+      }
+      const form = document.getElementById('form');
+      form.addEventListener('submit', function (event) {
+        const password = document.getElementById('password').value;
+        const result = document.getElementById('result');
+        result.innerHTML = 'Hashed: ' + hash(password);
+        event.preventDefault();
+      });
+    </script>
+  </body>
+</html>
