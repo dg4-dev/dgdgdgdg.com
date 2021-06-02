@@ -177,7 +177,7 @@ select {
 }
 
 body {
-  font-family: Dont;
+  font-family: Dont, sans-serif;
   color: #00d4d4;
 }
 
