@@ -1,1 +1,59 @@
-.notfound
+.notfound-page
+
+  .breadcrumbs
+    padding-top: 90px
+
+    @include tab
+      padding-top: 58px
+
+    @include sp
+      padding-top: 33px
+
+  .notfound-fv
+    width: 100%
+    height: calc( 100vh - 110px )
+
+    position: relative
+
+    align-items: center
+
+    padding-top: 0
+
+    @include tab
+      height: calc( 100vh - 70px )
+
+    @include sp
+      height: calc( 100vh - 50px )
+
+    &::before
+      width: 100%
+      height: 100%
+
+      position: absolute
+      top: 0
+      left: 0
+
+      content: ''
+      background-image: url(/image/top-fv.png)
+      background-position: center center
+      background-size: cover
+      filter: blur(16px)
+      opacity: 0.6
+
+      z-index: -1
+
+    .content
+      h1
+        width: fit-content
+        font-family: Dont
+        font-size: 120px
+
+        color: $dg4-blue
+      p
+        width: fit-content
+        font-family: Dont
+        font-size: 36px
+
+        margin-bottom: 30px
+      .btn
+        display: block
