@@ -2,3 +2,48 @@
   .page-title
     .bg
       background-image: url(/image/contact-fv.png)
+
+  .message
+    .content
+      width: 100%
+      max-width: 600px
+      justify-content: space-between
+
+      @include sp
+        flex-direction: column
+
+  .link
+    .content
+      width: 100%
+      max-width: 600px
+
+      .item
+        height: 188px
+
+        justify-content: space-between
+        flex-wrap: wrap
+
+        @include sp
+          width: fit-content
+          height: 500px
+
+          flex-direction: column
+          flex-wrap: nowrap
+
+        li
+          @include sp
+            width: fit-content
+          a
+            @include sp
+              width: fit-content
+            .icon
+              width: 32px
+              height: 32px
+            .sub
+              width: 150px
+
+              font-size: 20px
+              line-height: 32px
+              font-weight: bold
+
+              margin-left: 10px
