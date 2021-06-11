@@ -1,3 +1,63 @@
 .top-page
+
   .breadcrumbs
     padding-top: 90px
+
+  .top-fv
+    width: 100%
+    height: 100vh
+
+    background-image: url(/image/top-fv.png)
+    background-position: center center
+    background-size: cover
+
+    align-items: center
+
+    margin-top: 0
+    .logo
+      width: 600px
+      height: 166px
+
+  section
+    .container
+      .content
+        justify-content: space-around
+        .item
+          width: 100%
+          max-width: 230px
+          flex-direction: column
+          margin-right: 40px
+          p
+            line-height: 24px
+            margin-bottom: 20px
+        .image
+          width: 100%
+          max-width: 530px
+
+    &.works
+      .container
+        .content
+          flex-direction: row-reverse
+          .item
+            margin-right: 0
+            margin-left: 40px
+
+    &.contact
+      background-color: $dg4-indigo
+
+      height: 280px
+      align-items: center
+      .wrapper
+        width: 100%
+        max-width: 600px
+
+        justify-content: space-between
+
+        align-items: center
+        .content
+          flex-direction: column
+          color: $white
+          h2
+            font-family: Dont
+            font-size: 60px
+            margin-bottom: 20px
