@@ -67,3 +67,30 @@ img
     display: none
   .is-sp
     display: block
+
+.breadcrumbs
+  width: 100%
+  background-color: $dg4-blue
+
+  padding-top: 106px
+  padding-bottom: 20px
+
+  z-index: 10
+  .wrapper
+    width: 1024px
+    a
+      font-weight: bold
+      text-decoration: none
+      color: $white
+      &:not(:first-child)
+        &::before
+          content: ''
+          display: inline-block
+          width: 7px
+          height: 7px
+          border-top: solid 2px $white
+          border-right: solid 2px $white
+          transform: rotate(45deg)
+
+          margin-left: 3px
+          margin-right: 10px
