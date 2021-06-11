@@ -316,19 +316,74 @@ img {
   margin-right: 10px;
 }
 
+.page-title {
+  padding-top: 0px;
+  height: 300px;
+  position: relative;
+}
+
+@media (max-width: 1024px) {
+  .page-title {
+    height: 200px;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-title {
+    height: 120px;
+  }
+}
+
+.page-title h1 {
+  width: 100%;
+  max-width: 1024px;
+  font-family: Dont;
+  font-size: 100px;
+  color: #fff;
+  z-index: 5;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+          transform: translateY(-50%) translateX(-50%);
+}
+
+@media (max-width: 1024px) {
+  .page-title h1 {
+    max-width: none;
+    width: calc( 100% - 40px);
+  }
+}
+
+@media (max-width: 640px) {
+  .page-title h1 {
+    width: calc( 100% - 24px);
+    font-size: 60px;
+  }
+}
+
+.page-title .bg {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+  -webkit-filter: brightness(60%);
+          filter: brightness(60%);
+}
+
 section {
-  margin-top: 120px;
+  padding-top: 120px;
 }
 
 @media (max-width: 1024px) {
   section {
-    margin-top: 80px;
+    padding-top: 80px;
   }
 }
 
 @media (max-width: 640px) {
   section {
-    margin-top: 60px;
+    padding-top: 60px;
   }
 }
 
@@ -834,5 +889,17 @@ footer .container .credit p {
   .top-page section.contact .wrapper .btn {
     margin-right: auto;
   }
+}
+
+.about-page .page-title .bg {
+  background-image: url(/image/about-fv.png);
+}
+
+.works-page .page-title .bg {
+  background-image: url(/image/works-fv.png);
+}
+
+.contact-page .page-title .bg {
+  background-image: url(/image/contact-fv.png);
 }
 /*# sourceMappingURL=style.css.map */
