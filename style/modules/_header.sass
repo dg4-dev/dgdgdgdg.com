@@ -18,15 +18,71 @@ header
 
   z-index: 20
 
-  .logo
-    width: 150px
-    height: 42px
-  nav
+  @include tab
+    top: 0px
+
+    border-radius: 0px
+
+  @include sp
+    height: auto
+    flex-direction: column
+
+    padding: 11px 12px
+
+  .totop
+    @include sp
+      margin-right: auto
+    .logo
+      width: 150px
+      height: 42px
+      @include sp
+        width: 100px
+        height: 28px
+
+        margin-right: auto
+  #menu
     height: fit-content
+
+    @include sp
+      display: none
+
+    &.open
+      @include sp
+        display: block
+        width: 100%
+      ul
+        @include sp
+          width: 100%
+          justify-content: space-between
+          margin-top: 20px
+          margin-bottom: 10px
     ul
       li
         a
           font-family: Dont
           padding: 14px 20px
+          @include tab
+            font-size: 20px
+            padding: 16px
           &:hover
             color: $dg4-blue
+
+  #menuopen
+    position: fixed
+    top: 0
+    right: 12px
+    width: 50px
+    height: 50px
+
+    align-items: center
+    .hamburger
+      width: 16px
+      height: 11px
+
+      border-top: solid 3px $text-black
+      border-bottom: solid 3px $text-black
+
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translateY(-50%) translateX(-50%)

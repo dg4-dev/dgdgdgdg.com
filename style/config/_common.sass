@@ -76,8 +76,26 @@ img
   padding-bottom: 20px
 
   z-index: 10
+
+  @include tab
+    padding-top: 82px
+    padding-bottom: 12px
+    padding-left: 20px
+    padding-right: 20px
+
+  @include sp
+    padding-top: 67px
+    padding-bottom: 17px
+    padding-left: 12px
+    padding-right: 12px
+
   .wrapper
-    width: 1024px
+    width: 100%
+    max-width: 1024px
+
+    @include tab
+      max-width: none
+
     a
       font-weight: bold
       text-decoration: none
