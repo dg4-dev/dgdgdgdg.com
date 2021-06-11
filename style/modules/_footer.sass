@@ -3,10 +3,17 @@ footer
 
   padding-top: 30px
   padding-bottom: 30px
+
+  @include tab
+    padding-top: 20px
+    padding-bottom: 20px
+
   .container
     justify-content: space-between
     align-items: center
     ul
+      @include tab
+        display: none
       li
         flex-direction: column
 

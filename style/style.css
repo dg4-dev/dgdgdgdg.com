@@ -581,6 +581,13 @@ footer {
   padding-bottom: 30px;
 }
 
+@media (max-width: 1024px) {
+  footer {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+
 footer .container {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
@@ -588,6 +595,12 @@ footer .container {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+@media (max-width: 1024px) {
+  footer .container ul {
+    display: none;
+  }
 }
 
 footer .container ul li {
