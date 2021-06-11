@@ -19,8 +19,6 @@
 
     align-items: center
 
-    margin-top: 0
-
     @include sp
       padding-left: 12px
       padding-right: 12px
@@ -87,9 +85,16 @@
       height: 280px
       align-items: center
 
+      padding-top: 0
+      margin-top: 120px
+
+      @include tab
+        margin-top: 80px
+
       @include sp
         padding-left: 12px
         padding-right: 12px
+        margin-top: 60px
 
       .wrapper
         width: 100%
