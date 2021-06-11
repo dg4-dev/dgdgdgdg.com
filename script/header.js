@@ -1,11 +1,11 @@
 var html = `
 <header class="is-flex center">
-  <a href="/">
+  <a class="totop" href="/">
     <div class="logo">
       <img src="/image/logo.svg">
     </div>
   </a>
-  <nav>
+  <nav id="menu">
     <ul class="is-flex">
       <li>
         <a href="/about/">About</a>
@@ -18,6 +18,9 @@ var html = `
       </li>
     </ul>
   </nav>
+  <div class="is-sp is-flex" id="menuopen">
+    <div class="hamburger center"></div>
+  </div>
 </header>
 `;
 document.write(html);
