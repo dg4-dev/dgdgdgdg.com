@@ -2,3 +2,24 @@
   .page-title
     .bg
       background-image: url(/image/works-fv.png)
+
+  .coming
+    padding-top: 0
+    .wrapper
+      width: 100%
+      height: calc( 100vh - 442px )
+
+      align-items: center
+
+      @include tab
+        height: calc( 100vh - 310px )
+
+      @include sp
+        height: calc( 100vh - 220px )
+
+      .content
+        font-family: Dont
+        font-size: 64px
+
+        @include sp
+          font-size: 48px
