@@ -899,6 +899,41 @@ footer .container .credit p {
   background-image: url(/image/works-fv.png);
 }
 
+.works-page .coming {
+  padding-top: 0;
+}
+
+.works-page .coming .wrapper {
+  width: 100%;
+  height: calc( 100vh - 442px);
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .works-page .coming .wrapper {
+    height: calc( 100vh - 310px);
+  }
+}
+
+@media (max-width: 640px) {
+  .works-page .coming .wrapper {
+    height: calc( 100vh - 220px);
+  }
+}
+
+.works-page .coming .wrapper .content {
+  font-family: Dont;
+  font-size: 64px;
+}
+
+@media (max-width: 640px) {
+  .works-page .coming .wrapper .content {
+    font-size: 48px;
+  }
+}
+
 .contact-page .page-title .bg {
   background-image: url(/image/contact-fv.png);
 }
