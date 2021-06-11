@@ -10,7 +10,13 @@
       justify-content: space-between
 
       @include sp
+        width: fit-content
         flex-direction: column
+
+      a
+        &:not(:first-child)
+          @include sp
+            margin-top: 24px
 
   .link
     .content
@@ -18,14 +24,11 @@
       max-width: 600px
 
       .item
-        height: 188px
-
         justify-content: space-between
         flex-wrap: wrap
 
         @include sp
           width: fit-content
-          height: 500px
 
           flex-direction: column
           flex-wrap: nowrap
@@ -33,6 +36,15 @@
         li
           @include sp
             width: fit-content
+            height: fit-content
+
+          &:nth-child(n + 4)
+            margin-top: 20px
+
+          &:nth-child(n + 2)
+            @include sp
+              margin-top: 20px
+
           a
             @include sp
               width: fit-content
