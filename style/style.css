@@ -993,6 +993,7 @@ footer .container .credit p {
 
 .about-page section.overview .container .infomation .item tbody tr td {
   vertical-align: middle;
+  line-height: 32px;
 }
 
 .about-page section.overview .container .infomation .item tbody tr td.left {
@@ -1133,6 +1134,7 @@ footer .container .credit p {
 
 .about-page section.skill .container .content tbody tr td {
   vertical-align: middle;
+  line-height: 32px;
 }
 
 .about-page section.skill .container .content tbody tr td.left {
