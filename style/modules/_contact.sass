@@ -24,8 +24,9 @@
       max-width: 600px
 
       .item
-        justify-content: space-between
         flex-wrap: wrap
+
+        margin-top: -20px
 
         @include sp
           width: fit-content
@@ -34,16 +35,15 @@
           flex-wrap: nowrap
 
         li
+          margin-top: 20px
           @include sp
             width: fit-content
             height: fit-content
 
-          &:nth-child(n + 4)
-            margin-top: 20px
-
-          &:nth-child(n + 2)
+          &:not(:nth-child(3n - 2))
+            margin-left: 12px
             @include sp
-              margin-top: 20px
+              margin-left: 0
 
           a
             @include sp
