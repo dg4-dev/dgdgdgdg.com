@@ -269,19 +269,13 @@ img {
 
 @media (max-width: 1024px) {
   .breadcrumbs {
-    padding-top: 82px;
-    padding-bottom: 12px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 82px 20px 12px 20px;
   }
 }
 
 @media (max-width: 640px) {
   .breadcrumbs {
-    padding-top: 67px;
-    padding-bottom: 17px;
-    padding-left: 12px;
-    padding-right: 12px;
+    padding: 67px 12px 17px 12px;
   }
 }
 
@@ -303,6 +297,10 @@ img {
   font-size: 16px;
 }
 
+.breadcrumbs .wrapper a:not(:first-child) {
+  margin-left: 15px;
+}
+
 .breadcrumbs .wrapper a:not(:first-child)::before {
   content: '';
   display: inline-block;
@@ -312,8 +310,8 @@ img {
   border-right: solid 2px #fff;
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
-  margin-left: 3px;
-  margin-right: 10px;
+  margin-right: 20px;
+  margin-bottom: 1px;
 }
 
 .page-title {
