@@ -2,3 +2,130 @@
   .page-title
     .bg
       background-image: url(/image/about-fv.png)
+
+  section
+    .container
+      .content
+        flex-direction: column
+        .item
+    &.overview
+      .container
+
+        .infomation
+          .item
+
+            @include sp
+              flex-direction: column
+
+            .image
+              width: 160px
+              height: 160px
+
+              margin-right: 50px
+
+              @include sp
+                margin-right: 0
+                margin-bottom: 20px
+
+            tbody
+              height: 160px
+              tr
+                td
+                  vertical-align: middle
+                  &.left
+                    width: 110px
+                    font-weight: bold
+                  &.right
+
+        .logo
+          .item
+            p
+              text-align: center
+              margin-bottom: 16px
+            .images
+              align-items: center
+              justify-content: space-between
+
+              @include tab
+                flex-direction: column
+
+              .sq
+                width: 250px
+                height: 250px
+
+                @include tab
+                  margin-bottom: 50px
+
+                @include sp
+                  width: 150px
+                  height: 150px
+                  margin-bottom: 30px
+
+              .row
+                width: 500px
+                height: 138px
+
+                @include sp
+                  width: 300px
+                  height: 83px
+
+        .meaning
+          .item
+            width: 100%
+            max-width: 600px
+            flex-wrap: wrap
+            justify-content: space-around
+
+            @include sp
+              flex-wrap: nowrap
+              flex-direction: column
+
+            li
+              width: fit-content
+              &:nth-child( n + 4 )
+                margin-top: 50px
+
+                @include sp
+                  margin-top: 0
+
+              &:nth-child(n + 1)
+
+                @include sp
+                  margin-top: 30px
+
+              .phrase
+                font-family: Dont
+                font-size: 64px
+                margin-bottom: 12px
+
+                @include sp
+                  font-size: 56px
+
+                .blue
+                  color: $dg4-blue
+                .noto
+                  font-family: Noto Sans JP
+                  font-weight: bold
+              .mean
+                line-height: 24px
+
+    &.skill
+      .container
+        .content
+          width: fit-content
+          tbody
+            height: 126px
+            tr
+              td
+                vertical-align: middle
+                &.left
+                  width: 228px
+                  font-weight: bold
+                &.right
+
+    &.tool
+      .container
+        .content
+          .item
+            p
+              line-height: 24px
