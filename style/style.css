@@ -1377,6 +1377,7 @@ footer .container .credit p {
       -ms-flex-align: center;
           align-items: center;
   padding-top: 0;
+  margin-bottom: 0;
 }
 
 @media (max-width: 1024px) {
