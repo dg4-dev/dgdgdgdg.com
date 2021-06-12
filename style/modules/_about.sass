@@ -114,20 +114,72 @@
       .container
         .content
           width: fit-content
-          tbody
-            height: 126px
-            tr
-              td
-                vertical-align: middle
-                line-height: 32px
-                &.left
-                  width: 228px
-                  font-weight: bold
-                &.right
+          ul
+            li
+              &:not(:first-child)
+                margin-top: 40px
+              .skill-name
+                font-weight: bold
+                margin-bottom: 10px
+              .parameter
+                .part
+                  &:not(:first-child)
+                    margin-left: 2.25%
+
+          .btn
+            margin-top: 40px
 
     &.tool
       .container
         .content
-          .item
-            p
-              line-height: 24px
+          .items
+            width: 100%
+            flex-wrap: wrap
+
+            margin-top: -25px
+
+            @include tab
+              max-width: 719px
+              justify-content: space-between
+
+            .item
+              width: 180px
+
+              background-color: #f0f0f0
+
+              padding-top: 16px
+              padding-bottom: 12px
+
+              border-radius: 8px
+
+              margin-top: 25px
+
+              @include sp
+                width: 160px
+
+              &:not(:nth-child(4n - 3))
+                margin-left: 26px
+
+                @include tab
+                  margin-left: 0
+
+              &-img
+                width: 140px
+
+                margin-bottom: 10px
+
+              p
+                width: fit-content
+
+              &-name
+                font-size: 14px
+                font-weight: bold
+
+                margin-bottom: 5px
+
+                @include sp
+                  font-size: 12px
+
+              &-gen
+                font-size: 12px
+                color: #999
