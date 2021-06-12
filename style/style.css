@@ -542,6 +542,10 @@ a.btn {
   }
 }
 
+a.btn.mail {
+  cursor: pointer;
+}
+
 a.btn:hover {
   -webkit-box-shadow: 0px 0px 0px 0px #333;
           box-shadow: 0px 0px 0px 0px #333;
