@@ -185,11 +185,17 @@ body {
   font-weight: normal;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  cursor: default;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 img {
   width: 100%;
   height: auto;
+  pointer-events: none;
 }
 
 .is-flex {
@@ -512,6 +518,7 @@ a {
   font-size: 24px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
+  cursor: pointer;
 }
 
 @media (max-width: 640px) {
