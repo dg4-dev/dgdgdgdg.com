@@ -341,7 +341,7 @@ img {
 .page-title h1 {
   width: 100%;
   max-width: 1024px;
-  font-family: Dont;
+  font-family: Dont, sans-serif;
   font-size: 100px;
   color: #fff;
   z-index: 5;
@@ -397,7 +397,7 @@ section .container h2 {
   width: fit-content;
   height: 100px;
   position: relative;
-  font-family: Dont;
+  font-family: Dont, sans-serif;
   font-size: 60px;
   padding-top: 20px;
   margin-bottom: 80px;
@@ -475,7 +475,7 @@ section .container .content:not(:nth-of-type(1)) {
 }
 
 section .container .content h3 {
-  font-family: Dont;
+  font-family: Dont, sans-serif;
   font-size: 36px;
   margin-bottom: 30px;
   margin-bottom: 20px;
@@ -655,7 +655,7 @@ header #menu {
 }
 
 header #menu ul li a {
-  font-family: Dont;
+  font-family: Dont, sans-serif;
   padding: 14px 20px;
 }
 
@@ -739,7 +739,7 @@ footer .container ul li a {
 }
 
 footer .container ul li a.page-link {
-  font-family: Dont;
+  font-family: Dont, sans-serif;
   font-size: 32px;
   font-weight: normal;
   opacity: 0.6;
@@ -953,7 +953,7 @@ footer .container .credit p {
 }
 
 .top-page section.contact .wrapper .content h2 {
-  font-family: Dont;
+  font-family: Dont, sans-serif;
   font-size: 60px;
   margin-bottom: 20px;
 }
@@ -1108,7 +1108,7 @@ footer .container .credit p {
 }
 
 .about-page section.overview .container .meaning .item li .phrase {
-  font-family: Dont;
+  font-family: Dont, sans-serif;
   font-size: 64px;
   margin-bottom: 12px;
 }
@@ -1254,7 +1254,7 @@ footer .container .credit p {
 }
 
 .works-page .coming .wrapper .content {
-  font-family: Dont;
+  font-family: Dont, sans-serif;
   font-size: 64px;
 }
 
@@ -1424,7 +1424,7 @@ footer .container .credit p {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  font-family: Dont;
+  font-family: Dont, sans-serif;
   font-size: 120px;
   color: #00d4d4;
 }
@@ -1433,7 +1433,7 @@ footer .container .credit p {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  font-family: Dont;
+  font-family: Dont, sans-serif;
   font-size: 36px;
   margin-bottom: 30px;
 }
