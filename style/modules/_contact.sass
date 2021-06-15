@@ -12,11 +12,7 @@
       @include sp
         width: fit-content
         flex-direction: column
-
-      a
-        &:not(:first-child)
-          @include sp
-            margin-top: 24px
+        gap: 24px
 
   .link
     .content
@@ -26,7 +22,7 @@
       .item
         flex-wrap: wrap
 
-        margin-top: -20px
+        gap: 20px 12px
 
         @include sp
           width: fit-content
@@ -35,15 +31,9 @@
           flex-wrap: nowrap
 
         li
-          margin-top: 20px
           @include sp
             width: fit-content
             height: fit-content
-
-          &:not(:nth-child(3n - 2))
-            margin-left: 12px
-            @include sp
-              margin-left: 0
 
           a
             @include sp
@@ -51,11 +41,13 @@
             .icon
               width: 32px
               height: 32px
+              cursor: pointer
             .sub
               width: 150px
 
               font-size: 20px
               line-height: 32px
               font-weight: bold
+              cursor: pointer
 
               margin-left: 10px
