@@ -7,25 +7,20 @@
     .container
       .content
         flex-direction: column
-        .item
     &.overview
       .container
 
         .infomation
           .item
+            gap: 50px
 
             @include sp
               flex-direction: column
+              gap: 20px
 
             .image
               width: 160px
               height: 160px
-
-              margin-right: 50px
-
-              @include sp
-                margin-right: 0
-                margin-bottom: 20px
 
             tbody
               height: 160px
@@ -49,18 +44,18 @@
 
               @include tab
                 flex-direction: column
+                gap: 50px
+
+              @include sp
+                gap: 30px
 
               .sq
                 width: 250px
                 height: 250px
 
-                @include tab
-                  margin-bottom: 50px
-
                 @include sp
                   width: 150px
                   height: 150px
-                  margin-bottom: 30px
 
               .row
                 width: 500px
@@ -76,23 +71,15 @@
             max-width: 600px
             flex-wrap: wrap
             justify-content: space-around
+            gap: 50px
 
             @include sp
-              flex-wrap: nowrap
               flex-direction: column
+              width: fit-content
+              gap: 30px
 
             li
               width: fit-content
-              &:nth-child( n + 4 )
-                margin-top: 50px
-
-                @include sp
-                  margin-top: 0
-
-              &:nth-child(n + 1)
-
-                @include sp
-                  margin-top: 30px
 
               .phrase
                 font-family: Dont, sans-serif
@@ -122,9 +109,7 @@
                 font-weight: bold
                 margin-bottom: 10px
               .parameter
-                .part
-                  &:not(:first-child)
-                    margin-left: 2.25%
+                gap: 2.25%
 
           .btn
             margin-top: 40px
@@ -136,11 +121,14 @@
             width: 100%
             flex-wrap: wrap
 
-            margin-top: -25px
+            gap: 25px 26px
 
             @include tab
               max-width: 719px
               justify-content: space-between
+
+            @include sp
+              gap: 20px 5px
 
             .item
               width: 180px
@@ -152,16 +140,8 @@
 
               border-radius: 8px
 
-              margin-top: 25px
-
               @include sp
                 width: 160px
-
-              &:not(:nth-child(4n - 3))
-                margin-left: 26px
-
-                @include tab
-                  margin-left: 0
 
               &-img
                 width: 140px

@@ -41,6 +41,7 @@
     .container
       .content
         justify-content: space-around
+        gap: 40px
 
         @include sp
           flex-direction: column
@@ -49,12 +50,10 @@
           width: 100%
           max-width: 230px
           flex-direction: column
-          margin-right: 40px
 
           @include sp
             max-width: none
             margin-right: 0
-            margin-bottom: 40px
 
           p
             line-height: 24px
@@ -73,13 +72,6 @@
 
           @include sp
             flex-direction: column
-
-          .item
-            margin-right: 0
-            margin-left: 40px
-
-            @include sp
-              margin-left: 0
 
     &.contact
       background-color: $dg4-indigo

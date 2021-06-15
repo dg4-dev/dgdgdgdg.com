@@ -12,13 +12,12 @@ footer
     justify-content: space-between
     align-items: center
     ul
+      gap: 0 40px
       @include tab
         display: none
       li
         flex-direction: column
-
-        &:not(:first-child)
-          margin-left: 40px
+        gap: 16px 0
         a
           font-size: 16px
           font-weight: bold
@@ -28,9 +27,6 @@ footer
             font-size: 32px
             font-weight: normal
             opacity: 0.6
-
-          &:not(:first-child)
-            margin-top: 16px
 
     .credit
       .logo-white
