@@ -1,16 +1,18 @@
-const button = document.getElementById("menuopen");
-const menu = document.getElementById("menu");
+window.onload = function () {
+  const mailbutton = document.getElementById("sendmail");
 
-button.addEventListener("click", function () {
-  menu.classList.toggle("open");
-});
+  mailbutton.addEventListener("click", function () {
+    const result = window.confirm("メールを作成しますか？");
 
-const mailbutton = document.getElementById("sendmail");
+    if (result) {
+      location.href = "mailto:info@dgdgdgdg.com";
+    }
+  });
 
-mailbutton.addEventListener("click", function () {
-  const result = window.confirm("メールを作成しますか？");
+  const button = document.getElementById("menuopen");
+  const menu = document.getElementById("menu");
 
-  if (result) {
-    location.href = "mailto:info@dgdgdgdg.com";
-  }
-});
+  button.addEventListener("click", function () {
+    menu.classList.toggle("open");
+  });
+};
