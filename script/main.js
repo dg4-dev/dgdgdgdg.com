@@ -8,7 +8,9 @@ window.onload = function () {
       location.href = "mailto:info@dgdgdgdg.com";
     }
   });
+};
 
+window.onload = function () {
   const button = document.getElementById("menuopen");
   const menu = document.getElementById("menu");
 
