@@ -1193,40 +1193,162 @@ footer .container .credit p {
   background-image: url(/image/works-fv.webp);
 }
 
-.works-page .coming {
-  padding-top: 0;
-  margin-bottom: 0;
+.works-page .flow .container .content {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
-.works-page .coming .wrapper {
-  width: 100%;
-  height: calc( 100vh - 442px);
+.works-page .flow .container .content .items .item:not(:nth-of-type(1)) {
+  margin-top: 20px;
+}
+
+.works-page .flow .container .content .items .item .number {
+  width: 80px;
+  height: 100px;
+  font-family: Dont, sans-serif;
+  font-size: 64px;
+  background-color: #00d4d4;
+  color: #fff;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  padding-top: 8px;
+  padding-left: 8px;
 }
 
-@media (max-width: 1024px) {
-  .works-page .coming .wrapper {
-    height: calc( 100vh - 310px);
-  }
+.works-page .flow .container .content .items .item .number .fit {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
-@media (max-width: 640px) {
-  .works-page .coming .wrapper {
-    height: calc( 100vh - 220px);
-  }
+.works-page .flow .container .content .items .item .label {
+  width: 300px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 14px;
+  padding-left: 20px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #f0f0f0;
 }
 
-.works-page .coming .wrapper .content {
-  font-family: Dont, sans-serif;
+.works-page .flow .container .content .items .item .label .text {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.works-page .flow .container .content .items .item .label .badge {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  font-size: 14px;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 5px;
+}
+
+.works-page .flow .container .content .items .item .label .badge.hide {
+  visibility: hidden;
+}
+
+.works-page .flow .container .content .items .item .label .badge.blue {
+  background-color: #00d4d4;
+}
+
+.works-page .flow .container .content .items .item .label .badge.orange {
+  background-color: #d44e00;
+}
+
+.works-page .flow .container .content .items .item .label .badge.indigo {
+  background-color: #1055a1;
+}
+
+.works-page .plan .container .content .items {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 20px 40px;
+}
+
+.works-page .plan .container .content .items .item {
+  width: 380px;
+  font-weight: bold;
+  color: #fff;
+  padding: 16px;
+}
+
+.works-page .plan .container .content .items .item .title {
+  font-size: 20px;
+  text-align: center;
+}
+
+.works-page .plan .container .content .items .item .price {
+  font-family: Dont, sans-selif;
   font-size: 64px;
+  font-weight: normal;
+  text-align: center;
+  margin-top: 12px;
 }
 
-@media (max-width: 640px) {
-  .works-page .coming .wrapper .content {
-    font-size: 48px;
-  }
+.works-page .plan .container .content .items .item .text {
+  font-size: 16px;
+  line-height: 24px;
+  margin-top: 12px;
+}
+
+.works-page .plan .container .content.setplan .items .item {
+  background-color: #1055a1;
+}
+
+.works-page .plan .container .content.single .items .item {
+  background-color: #00d4d4;
+}
+
+.works-page .example .container .content .items {
+  gap: 25px;
+}
+
+.works-page .example .container .content .items .item {
+  width: 250px;
+  background-color: #f0f0f0;
+  padding-bottom: 24px;
+  border-radius: 10px;
+}
+
+.works-page .example .container .content .items .item .image img {
+  border-radius: 10px 10px 0 0;
+}
+
+.works-page .example .container .content .items .item .title {
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 18px;
+}
+
+.works-page .example .container .content .items .item .btn {
+  display: block;
+  margin-top: 15px;
+}
+
+.works-page .example .container .content .items .item .btn.disable {
+  pointer-events: none;
+  opacity: 60%;
+}
+
+.works-page .example .container .content.font .image-desc {
+  width: 500px;
+  margin-bottom: 30px;
 }
 
 .contact-page .page-title .bg {
