@@ -3,24 +3,112 @@
     .bg
       background-image: url(/image/works-fv.webp)
 
-  .coming
-    padding-top: 0
-    margin-bottom: 0
-    .wrapper
-      width: 100%
-      height: calc( 100vh - 442px )
-
-      align-items: center
-
-      @include tab
-        height: calc( 100vh - 310px )
-
-      @include sp
-        height: calc( 100vh - 220px )
-
+  .flow
+    .container
       .content
-        font-family: Dont, sans-serif
-        font-size: 64px
+        justify-content: space-between
+        .items
+          .item
+            &:not(:nth-of-type(1))
+              margin-top: 20px
 
-        @include sp
-          font-size: 48px
+            .number
+              width: 80px
+              height: 100px
+              font-family: Dont, sans-serif
+              font-size: 64px
+              background-color: $dg4-blue
+              color: $white
+              align-items: center
+              padding-top: 8px
+              padding-left: 8px
+              .fit
+                width: fit-content
+                height: fit-content
+            .label
+              width: 300px
+              flex-direction: column
+              gap: 14px
+              padding-left: 20px
+              justify-content: center
+              background-color: #f0f0f0
+              .text
+                font-size: 20px
+                font-weight: bold
+              .badge
+                width: fit-content
+                height: fit-content
+                font-size: 14px
+                color: $white
+                padding: 8px 14px
+                border-radius: 5px
+                &.hide
+                  visibility: hidden
+                &.blue
+                  background-color: $dg4-blue
+                &.orange
+                  background-color: $dg4-orange
+                &.indigo
+                  background-color: $dg4-indigo
+
+  .plan
+    .container
+      .content
+        .items
+          flex-wrap: wrap
+          gap: 20px 40px
+          .item
+            width: 380px
+            font-weight: bold
+            color: $white
+            padding: 16px
+            .title
+              font-size: 20px
+              text-align: center
+            .price
+              font-family: Dont, sans-selif
+              font-size: 64px
+              font-weight: normal
+              text-align: center
+              margin-top: 12px
+            .text
+              font-size: 16px
+              line-height: 24px
+              margin-top: 12px
+        &.setplan
+          .items
+            .item
+              background-color: $dg4-indigo
+        &.single
+          .items
+            .item
+              background-color: $dg4-blue
+
+  .example
+    .container
+      .content
+        .items
+          gap: 25px
+          .item
+            width: 250px
+            background-color: #f0f0f0
+            padding-bottom: 24px
+            border-radius: 10px
+            .image
+              img
+                border-radius: 10px 10px 0 0
+            .title
+              font-size: 20px
+              text-align: center
+              font-weight: bold
+              margin-top: 18px
+            .btn
+              display: block
+              margin-top: 15px
+              &.disable
+                pointer-events: none
+                opacity: 60%
+        &.font
+          .image-desc
+            width: 500px
+            margin-bottom: 30px
