@@ -10,7 +10,14 @@
         justify-content: space-between
         gap: 60px 20px
         .items
+
+          @include sp
+            width: 100%
           .item
+
+            @include sp
+              width: 100%
+
             &:not(:nth-of-type(1))
               margin-top: 20px
 
@@ -29,6 +36,10 @@
                 height: 80px
                 font-size: 56px
 
+              @include sp
+                width: 60px
+                font-size: 48px
+
               .fit
                 width: fit-content
                 height: fit-content
@@ -42,12 +53,18 @@
 
               @include tab
                 width: 270px
+
+              @include sp
+                width: 100%
+                padding-left: 12px
+
               .text
                 font-size: 20px
                 font-weight: bold
 
                 @include tab
                   font-size: 16px
+
               .badge
                 width: fit-content
                 height: fit-content
@@ -55,6 +72,10 @@
                 color: $white
                 padding: 8px 14px
                 border-radius: 5px
+
+                @include sp
+                  font-size: 12px
+
                 &.hide
                   visibility: hidden
                 &.blue
@@ -84,6 +105,9 @@
             @include tab
               width: 350px
 
+            @include sp
+              width: 100%
+
             .title
               font-size: 20px
               text-align: center
@@ -112,19 +136,36 @@
         .items
           flex-wrap: wrap
           gap: 25px
+
+          @include sp
+            gap: 20px
+
           .item
             width: 250px
             background-color: #f0f0f0
             padding-bottom: 24px
             border-radius: 10px
+
+            @include sp
+              width: 160px
+              padding-bottom: 16px
+
             .image
+              height: 170px
+
+              @include sp
+                height: 100px
+
               img
                 border-radius: 10px 10px 0 0
             .title
               font-size: 20px
               text-align: center
               font-weight: bold
-              margin-top: 18px
+              margin-top: 20px
+
+              @include sp
+                font-size: 16px
             .btn
               display: block
               margin-top: 15px
@@ -133,5 +174,5 @@
                 opacity: 60%
         &.font
           .image-desc
-            width: 500px
+            max-width: 500px
             margin-bottom: 30px
