@@ -6,7 +6,9 @@
   .flow
     .container
       .content
+        flex-wrap: wrap
         justify-content: space-between
+        gap: 60px 20px
         .items
           .item
             &:not(:nth-of-type(1))
@@ -22,6 +24,11 @@
               align-items: center
               padding-top: 8px
               padding-left: 8px
+
+              @include tab
+                height: 80px
+                font-size: 56px
+
               .fit
                 width: fit-content
                 height: fit-content
@@ -32,9 +39,15 @@
               padding-left: 20px
               justify-content: center
               background-color: #f0f0f0
+
+              @include tab
+                width: 270px
               .text
                 font-size: 20px
                 font-weight: bold
+
+                @include tab
+                  font-size: 16px
               .badge
                 width: fit-content
                 height: fit-content
@@ -57,11 +70,20 @@
         .items
           flex-wrap: wrap
           gap: 20px 40px
+          justify-content: space-between
+
+          @include tab
+            gap: 20px 25px
+
           .item
             width: 380px
             font-weight: bold
             color: $white
             padding: 16px
+
+            @include tab
+              width: 350px
+
             .title
               font-size: 20px
               text-align: center
@@ -88,6 +110,7 @@
     .container
       .content
         .items
+          flex-wrap: wrap
           gap: 25px
           .item
             width: 250px

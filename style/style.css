@@ -1194,9 +1194,12 @@ footer .container .credit p {
 }
 
 .works-page .flow .container .content {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  gap: 60px 20px;
 }
 
 .works-page .flow .container .content .items .item:not(:nth-of-type(1)) {
@@ -1215,6 +1218,13 @@ footer .container .credit p {
           align-items: center;
   padding-top: 8px;
   padding-left: 8px;
+}
+
+@media (max-width: 1024px) {
+  .works-page .flow .container .content .items .item .number {
+    height: 80px;
+    font-size: 56px;
+  }
 }
 
 .works-page .flow .container .content .items .item .number .fit {
@@ -1240,9 +1250,21 @@ footer .container .credit p {
   background-color: #f0f0f0;
 }
 
+@media (max-width: 1024px) {
+  .works-page .flow .container .content .items .item .label {
+    width: 270px;
+  }
+}
+
 .works-page .flow .container .content .items .item .label .text {
   font-size: 20px;
   font-weight: bold;
+}
+
+@media (max-width: 1024px) {
+  .works-page .flow .container .content .items .item .label .text {
+    font-size: 16px;
+  }
 }
 
 .works-page .flow .container .content .items .item .label .badge {
@@ -1278,6 +1300,15 @@ footer .container .credit p {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   gap: 20px 40px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+@media (max-width: 1024px) {
+  .works-page .plan .container .content .items {
+    gap: 20px 25px;
+  }
 }
 
 .works-page .plan .container .content .items .item {
@@ -1285,6 +1316,12 @@ footer .container .credit p {
   font-weight: bold;
   color: #fff;
   padding: 16px;
+}
+
+@media (max-width: 1024px) {
+  .works-page .plan .container .content .items .item {
+    width: 350px;
+  }
 }
 
 .works-page .plan .container .content .items .item .title {
@@ -1315,6 +1352,8 @@ footer .container .credit p {
 }
 
 .works-page .example .container .content .items {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   gap: 25px;
 }
 
