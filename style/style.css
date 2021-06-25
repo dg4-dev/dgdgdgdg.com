@@ -697,13 +697,13 @@ header #menuopen .hamburger {
 footer {
   background-color: #00d4d4;
   padding-top: 30px;
-  padding-bottom: 30px;
+  padding-bottom: 90px;
 }
 
 @media (max-width: 1024px) {
   footer {
     padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 70px;
   }
 }
 
@@ -755,6 +755,33 @@ footer .container .credit .logo-white {
 
 footer .container .credit p {
   font-size: 12px;
+  color: #fff;
+}
+
+footer .support {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #1055a1;
+  border-radius: 5px;
+  padding: 4px 18px 6px 18px;
+}
+
+footer .support .wrap {
+  height: 25px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+footer .support .wrap .icon {
+  margin-right: 5px;
+  width: 15px;
+}
+
+footer .support .wrap .text {
+  font-size: 16px;
+  font-weight: bold;
   color: #fff;
 }
 
