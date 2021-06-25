@@ -772,17 +772,20 @@ footer .support .wrap {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  cursor: pointer;
 }
 
 footer .support .wrap .icon {
   margin-right: 5px;
   width: 15px;
+  cursor: pointer;
 }
 
 footer .support .wrap .text {
   font-size: 16px;
   font-weight: bold;
   color: #fff;
+  cursor: pointer;
 }
 
 .top-page .breadcrumbs {
