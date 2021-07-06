@@ -528,6 +528,7 @@ a {
 }
 
 a.btn {
+  display: block;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   font-weight: bold;
@@ -547,6 +548,11 @@ a.btn {
     height: 40px;
     line-height: 40px;
   }
+}
+
+a.btn.blue {
+  background-color: #00d4d4;
+  color: #fff;
 }
 
 a.btn.mail {
@@ -834,22 +840,8 @@ footer .support .wrap .text {
 }
 
 .top-page .top-fv .logo {
-  width: 600px;
-  height: 166px;
-}
-
-@media (max-width: 1024px) {
-  .top-page .top-fv .logo {
-    width: 400px;
-    height: 111px;
-  }
-}
-
-@media (max-width: 640px) {
-  .top-page .top-fv .logo {
-    width: 100%;
-    height: auto;
-  }
+  width: 800px;
+  margin-bottom: 150px;
 }
 
 .top-page section .container .content {
@@ -1368,6 +1360,10 @@ footer .support .wrap .text {
   background-color: #1055a1;
 }
 
+.works-page .flow .container .btn {
+  margin-top: 40px;
+}
+
 .works-page .plan .container .content .items {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
@@ -1429,6 +1425,10 @@ footer .support .wrap .text {
   background-color: #00d4d4;
 }
 
+.works-page .plan .container .btn {
+  margin-top: 32px;
+}
+
 .works-page .example .container .content .items {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
@@ -1483,7 +1483,6 @@ footer .support .wrap .text {
 }
 
 .works-page .example .container .content .items .item .btn {
-  display: block;
   margin-top: 15px;
 }
 
@@ -1499,6 +1498,11 @@ footer .support .wrap .text {
 
 .contact-page .page-title .bg {
   background-image: url(/image/contact-fv.webp);
+}
+
+.contact-page .message .text {
+  text-align: center;
+  margin-bottom: 32px;
 }
 
 .contact-page .message .content {
@@ -1652,9 +1656,5 @@ footer .support .wrap .text {
   font-family: Dont, sans-serif;
   font-size: 36px;
   margin-bottom: 30px;
-}
-
-.notfound-page .notfound-fv .content .btn {
-  display: block;
 }
 /*# sourceMappingURL=style.css.map */
