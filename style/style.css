@@ -755,10 +755,16 @@ footer .container ul li a.page-link {
 footer .container .credit .logo-white {
   width: 150px;
   height: 42px;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 }
 
-footer .container .credit p {
+footer .container .credit a {
+  text-decoration: underline;
+  display: block;
+  margin-bottom: 12px;
+}
+
+footer .container .credit a, footer .container .credit p {
   font-size: 12px;
   color: #fff;
 }
@@ -1582,6 +1588,28 @@ footer .support .wrap .text {
   font-weight: bold;
   cursor: pointer;
   margin-left: 10px;
+}
+
+.privacy-page .container .content h3 {
+  font-size: 24px;
+  line-height: 1.2em;
+  font-weight: bold;
+}
+
+.privacy-page .container .content .item {
+  font-size: 16px;
+  line-height: 2em;
+}
+
+.privacy-page .container .content .item ul {
+  padding-top: 8px;
+  padding-left: 24px;
+}
+
+.privacy-page .container .content .item ul a {
+  font-size: 16px;
+  color: #00d4d4;
+  text-decoration: underline;
 }
 
 .notfound-page .breadcrumbs {
