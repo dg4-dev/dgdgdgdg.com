@@ -1607,6 +1607,7 @@ footer .support .wrap .text {
 }
 
 .privacy-page .container .content .item ul a {
+  word-break: break-all;
   font-size: 16px;
   color: #00d4d4;
   text-decoration: underline;
