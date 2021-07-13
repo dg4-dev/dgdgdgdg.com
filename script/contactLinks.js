@@ -5,6 +5,7 @@ const linkData = [
   { name: "Twitter" },
   { name: "Facebook" },
   { name: "Behance" },
+  { name: "Discord" },
   { name: "YouTube" },
   { name: "Apple Music" },
   { name: "Instagram" },
@@ -27,7 +28,7 @@ for (i = 0; i < linkData.length; i++) {
       ".webp' alt='" +
       formated +
       " icon'></div><span class='sub'>" +
-      formated +
+      linkData[i].name +
       "</span></a></li>"
   );
 }
