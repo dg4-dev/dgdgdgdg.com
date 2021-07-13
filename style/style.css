@@ -168,12 +168,12 @@ select {
 
 @font-face {
   font-family: 'Dont';
-  src: url(/font/Dont.ttf);
+  src: url(/font/dont.ttf);
 }
 
 @font-face {
   font-family: 'Dont round';
-  src: url(/font/Dont-round.ttf);
+  src: url(/font/dont-round.ttf);
 }
 
 body {
