@@ -993,12 +993,12 @@ footer .support .wrap .text {
           flex-direction: column;
 }
 
-.about-page section.overview .container .infomation .item {
+.about-page section.overview .container .information .item {
   gap: 50px;
 }
 
 @media (max-width: 640px) {
-  .about-page section.overview .container .infomation .item {
+  .about-page section.overview .container .information .item {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
@@ -1007,21 +1007,21 @@ footer .support .wrap .text {
   }
 }
 
-.about-page section.overview .container .infomation .item .image {
+.about-page section.overview .container .information .item .image {
   width: 160px;
   height: 160px;
 }
 
-.about-page section.overview .container .infomation .item tbody {
+.about-page section.overview .container .information .item tbody {
   height: 160px;
 }
 
-.about-page section.overview .container .infomation .item tbody tr td {
+.about-page section.overview .container .information .item tbody tr td {
   vertical-align: middle;
   line-height: 32px;
 }
 
-.about-page section.overview .container .infomation .item tbody tr td.left {
+.about-page section.overview .container .information .item tbody tr td.left {
   width: 110px;
   font-weight: bold;
 }
