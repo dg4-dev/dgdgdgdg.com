@@ -13,3 +13,7 @@ xhr.onreadystatechange = function () {
   }
 };
 xhr.send();
+
+function menuOpen() {
+  menu.classList.toggle("open");
+}
