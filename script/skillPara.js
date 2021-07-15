@@ -33,8 +33,6 @@ for (i = 0; i < skillList.length; i++) {
   skillList[i].months = elapsedMonths;
 }
 
-console.log(skillList);
-
 skillList.sort((a, b) => {
   if (a.months < b.months) return 1;
   if (a.months > b.months) return -1;
