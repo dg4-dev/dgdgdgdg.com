@@ -1,23 +1,51 @@
-// this skill was updated at 2021/07/14.
-
 const skillList = [
-  { name: "デザイン", month: 75 },
-  { name: "映像制作", month: 52 },
-  { name: "モーショングラフィックス", month: 28 },
-  { name: "Webフロントエンド", month: 16 },
+  {
+    name: "デザイン",
+    start: new Date(2015, 4),
+  },
+  {
+    name: "映像制作",
+    start: new Date(2017, 3),
+  },
+  {
+    name: "モーショングラフィックス",
+    start: new Date(2019, 3),
+  },
+  {
+    name: "Webフロントエンド",
+    start: new Date(2019, 3),
+  },
+  {
+    name: "写真撮影",
+    start: new Date(2020, 10),
+  },
 ];
 
+for (i = 0; i < skillList.length; i++) {
+  const nowDate = new Date();
+  const startYear = skillList[i].start.getFullYear();
+  const startMonth = skillList[i].start.getMonth();
+  const nowYear = nowDate.getFullYear();
+  const nowMonth = nowDate.getMonth();
+
+  const elapsedMonths = (nowYear - startYear) * 12 + nowMonth - startMonth;
+
+  skillList[i].months = elapsedMonths;
+}
+
+console.log(skillList);
+
 skillList.sort((a, b) => {
-  if (a.month < b.month) return 1;
-  if (a.month > b.month) return -1;
+  if (a.months < b.months) return 1;
+  if (a.months > b.months) return -1;
   return 0;
 });
 
 for (i = 0; i < skillList.length; i++) {
   const logoLength = 6;
   const skillName = JSON.stringify(skillList[i].name).replace(/"/g, "");
-  const skillMonth = JSON.stringify(skillList[i].month);
-  const firstMonth = JSON.stringify(skillList[0].month);
+  const skillMonth = JSON.stringify(skillList[i].months);
+  const firstMonth = JSON.stringify(skillList[0].months);
   const round = Math.floor((skillMonth / firstMonth) * logoLength);
 
   const skillOutput = document.getElementById("skillOutput");
