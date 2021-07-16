@@ -57,52 +57,35 @@ for (i = 0; i < skillList.length; i++) {
 
   const logoParts = document.getElementById(`logoParts${i}`);
 
-  logoParts.insertAdjacentHTML(
-    "beforeend",
-    "<div class='part'><img src='/image/dg4-init.svg'></div>"
-  );
-  for (k = 0; k < round; k++) {
-    if (k % 2 != 0) {
-      logoParts.insertAdjacentHTML(
-        "beforeend",
-        "<div class='part'><img src='/image/d-blue.svg'></div>"
-      );
+  function insertImage(imageName) {
+    logoParts.insertAdjacentHTML(
+      "beforeend",
+      "<div class='part'><img src='/image/" + imageName + ".svg'></div>"
+    );
+  }
+
+  insertImage("dg4-init");
+  for (j = 0; j < round; j++) {
+    if (j % 2 != 0) {
+      insertImage("d-blue");
     } else {
-      logoParts.insertAdjacentHTML(
-        "beforeend",
-        "<div class='part'><img src='/image/g-blue.svg'></div>"
-      );
+      insertImage("g-blue");
     }
   }
-  for (k = 0; k < logoLength - round; k++) {
+  for (j = 0; j < logoLength - round; j++) {
     if (round % 2 != 0) {
-      if (k % 2 != 0) {
-        logoParts.insertAdjacentHTML(
-          "beforeend",
-          "<div class='part'><img src='/image/g-gray.svg'></div>"
-        );
+      if (j % 2 != 0) {
+        insertImage("g-gray");
       } else {
-        logoParts.insertAdjacentHTML(
-          "beforeend",
-          "<div class='part'><img src='/image/d-gray.svg'></div>"
-        );
+        insertImage("d-gray");
       }
     } else {
-      if (k % 2 != 0) {
-        logoParts.insertAdjacentHTML(
-          "beforeend",
-          "<div class='part'><img src='/image/d-gray.svg'></div>"
-        );
+      if (j % 2 != 0) {
+        insertImage("d-gray");
       } else {
-        logoParts.insertAdjacentHTML(
-          "beforeend",
-          "<div class='part'><img src='/image/g-gray.svg'></div>"
-        );
+        insertImage("g-gray");
       }
     }
   }
-  logoParts.insertAdjacentHTML(
-    "beforeend",
-    "<div class='part'><img src='/image/g-gray.svg'></div>"
-  );
+  insertImage("g-gray");
 }
