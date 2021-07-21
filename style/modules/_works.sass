@@ -3,181 +3,47 @@
     .bg
       background-image: url(/image/works-fv.webp)
 
-  .flow
+  section
     .container
-      .content
+      .items
         flex-wrap: wrap
-        justify-content: space-between
-        gap: 60px 20px
-        .items
+        gap: 25px
+
+        @include sp
+          gap: 20px
+
+        .item
+          width: 250px
+          background-color: #f0f0f0
+          padding-bottom: 24px
+          border-radius: 10px
 
           @include sp
-            width: 100%
-          .item
+            width: 160px
+            padding-bottom: 16px
+
+          .image
+            height: 170px
 
             @include sp
-              width: 100%
-
-            &:not(:nth-of-type(1))
-              margin-top: 20px
-
-            .number
-              width: 80px
               height: 100px
-              font-family: 'Dont', sans-serif
-              font-size: 64px
-              background-color: $dg4-blue
-              color: $white
-              align-items: center
-              padding-top: 8px
-              padding-left: 8px
 
-              @include tab
-                height: 80px
-                font-size: 56px
-
-              @include sp
-                width: 60px
-                font-size: 48px
-
-              .fit
-                width: fit-content
-                height: fit-content
-            .label
-              width: 300px
-              flex-direction: column
-              gap: 14px
-              padding-left: 20px
-              justify-content: center
-              background-color: #f0f0f0
-
-              @include tab
-                width: 270px
-
-              @include sp
-                width: 100%
-                padding-left: 12px
-
-              .text
-                font-size: 20px
-                font-weight: bold
-
-                @include tab
-                  font-size: 16px
-
-              .badge
-                width: fit-content
-                height: fit-content
-                font-size: 14px
-                color: $white
-                padding: 8px 14px
-                border-radius: 5px
-
-                @include sp
-                  font-size: 12px
-
-                &.hide
-                  visibility: hidden
-                &.blue
-                  background-color: $dg4-blue
-                &.orange
-                  background-color: $dg4-orange
-                &.indigo
-                  background-color: $dg4-indigo
-      .btn
-        margin-top: 40px
-
-  .plan
-    .container
-      .text
-        width: fit-content
-      .content
-        .items
-          flex-wrap: wrap
-          gap: 20px 40px
-          justify-content: space-between
-
-          @include tab
-            gap: 20px 25px
-
-          .item
-            width: 380px
+            img
+              border-radius: 10px 10px 0 0
+          .title
+            font-size: 20px
+            text-align: center
             font-weight: bold
-            color: $white
-            padding: 16px
-
-            @include tab
-              width: 350px
+            margin-top: 20px
 
             @include sp
-              width: 100%
-
-            .title
-              font-size: 20px
-              text-align: center
-            .price
-              font-family: 'Dont', sans-selif
-              font-size: 64px
-              font-weight: normal
-              text-align: center
-              margin-top: 12px
-            .text
               font-size: 16px
-              line-height: 24px
-              margin-top: 12px
-        &.setplan
-          .items
-            .item
-              background-color: $dg4-indigo
-        &.single
-          .items
-            .item
-              background-color: $dg4-blue
-      .btn
-        margin-top: 32px
-
-  .example
-    .container
-      .content
-        .items
-          flex-wrap: wrap
-          gap: 25px
-
-          @include sp
-            gap: 20px
-
-          .item
-            width: 250px
-            background-color: #f0f0f0
-            padding-bottom: 24px
-            border-radius: 10px
-
-            @include sp
-              width: 160px
-              padding-bottom: 16px
-
-            .image
-              height: 170px
-
-              @include sp
-                height: 100px
-
-              img
-                border-radius: 10px 10px 0 0
-            .title
-              font-size: 20px
-              text-align: center
-              font-weight: bold
-              margin-top: 20px
-
-              @include sp
-                font-size: 16px
-            .btn
-              margin-top: 15px
-              &.disable
-                pointer-events: none
-                opacity: 60%
-        &.font
-          .image-desc
-            max-width: 500px
-            margin-bottom: 30px
+          .btn
+            margin-top: 15px
+            &.disable
+              pointer-events: none
+              opacity: 60%
+    &.font
+      .image-desc
+        max-width: 500px
+        margin-bottom: 30px
