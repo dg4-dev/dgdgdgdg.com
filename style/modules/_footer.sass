@@ -9,24 +9,44 @@ footer
     padding-bottom: 70px
 
   .container
+    width: 1024px
     justify-content: space-between
     align-items: center
+    padding: 0 40px
+
+    @include tab
+      padding: 0 20px
+
+    @include sp
+      padding: 0 12px
+
     ul
       gap: 0 40px
+
       @include tab
         display: none
+
       li
         flex-direction: column
-        gap: 16px 0
         a
+          display: block
           font-size: 16px
           font-weight: bold
           color: $white
+
+          padding: 10px 0
+
+          &:hover
+            opacity: 0.5
+
           &.page-link
             font-family: 'Dont', sans-serif
             font-size: 32px
             font-weight: normal
             opacity: 0.6
+
+            &:hover
+              opacity: 0.3
 
     .credit
       .logo-white
@@ -37,6 +57,9 @@ footer
         text-decoration: underline
         display: block
         margin-bottom: 12px
+
+        &:hover
+          opacity: 0.5
 
       a, p
         font-size: 12px
