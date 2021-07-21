@@ -729,12 +729,26 @@ footer {
 }
 
 footer .container {
+  width: 1024px;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  padding: 0 40px;
+}
+
+@media (max-width: 1024px) {
+  footer .container {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  footer .container {
+    padding: 0 12px;
+  }
 }
 
 footer .container ul {
@@ -752,13 +766,18 @@ footer .container ul li {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  gap: 16px 0;
 }
 
 footer .container ul li a {
+  display: block;
   font-size: 16px;
   font-weight: bold;
   color: #fff;
+  padding: 10px 0;
+}
+
+footer .container ul li a:hover {
+  opacity: 0.5;
 }
 
 footer .container ul li a.page-link {
@@ -766,6 +785,10 @@ footer .container ul li a.page-link {
   font-size: 32px;
   font-weight: normal;
   opacity: 0.6;
+}
+
+footer .container ul li a.page-link:hover {
+  opacity: 0.3;
 }
 
 footer .container .credit .logo-white {
@@ -778,6 +801,10 @@ footer .container .credit a {
   text-decoration: underline;
   display: block;
   margin-bottom: 12px;
+}
+
+footer .container .credit a:hover {
+  opacity: 0.5;
 }
 
 footer .container .credit a, footer .container .credit p {
