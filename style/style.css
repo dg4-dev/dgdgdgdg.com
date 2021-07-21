@@ -1666,6 +1666,10 @@ footer .support .wrap .text {
   text-decoration: underline;
 }
 
+.privacy-page .container .content .item ul a:hover {
+  opacity: 0.5;
+}
+
 .notfound-page .breadcrumbs {
   padding-top: 90px;
 }
