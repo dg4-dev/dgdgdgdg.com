@@ -2,7 +2,7 @@
 
 dgdgdgdgのWebサイトです。
 
-![ogp](https://www.dgdgdgdg.com/image/ogp.webp)
+![ogp](https://www.dgdgdgdg.com/assets/image/ogp.webp)
 
 ![lang](https://img.shields.io/badge/-lang-333.svg?style=for-the-badge)
 ![html](https://img.shields.io/badge/-html5-000.svg?logo=html5&style=for-the-badge)
