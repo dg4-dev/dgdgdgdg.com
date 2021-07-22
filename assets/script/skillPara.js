@@ -60,7 +60,7 @@ for (i = 0; i < skillList.length; i++) {
   function insertImage(imageName) {
     logoParts.insertAdjacentHTML(
       "beforeend",
-      "<div class='part'><img src='/image/" + imageName + ".svg'></div>"
+      "<div class='part'><img src='/assets/image/" + imageName + ".svg'></div>"
     );
   }
 

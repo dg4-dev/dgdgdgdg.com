@@ -1,6 +1,6 @@
 const xhr = new XMLHttpRequest(),
   Hmethod = "GET",
-  Hurl = "/common/header.html";
+  Hurl = "/assets/common/header.html";
 const Hbox = document.getElementById("header");
 
 xhr.responseType = "document";
