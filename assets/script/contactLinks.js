@@ -23,7 +23,7 @@ for (i = 0; i < linkData.length; i++) {
     "beforeend",
     "<li><a href='https://" +
       formated +
-      ".dgdgdgdg.com' target='_blank' rel='noopener norefferer' class='is-flex'><div class='icon'><img src='/image/i-" +
+      ".dgdgdgdg.com' target='_blank' rel='noopener norefferer' class='is-flex'><div class='icon'><img src='/assets/image/i-" +
       formated +
       ".webp' alt='" +
       formated +

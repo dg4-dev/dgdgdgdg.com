@@ -168,7 +168,7 @@ select {
 
 @font-face {
   font-family: 'Dont';
-  src: url(/font/Dont.ttf);
+  src: url(/assets/font/Dont.ttf);
 }
 
 body {
@@ -180,7 +180,7 @@ body {
   font-weight: normal;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  cursor: -webkit-image-set(url(/image/cursor-normal.png) 1x, url(/image/cursor-normal@2x.png) 2x), default;
+  cursor: -webkit-image-set(url(/assets/image/cursor-normal.png) 1x, url(/assets/image/cursor-normal@2x.png) 2x), default;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -418,7 +418,7 @@ section .container h2::before {
   position: absolute;
   width: 100px;
   height: 100px;
-  background-image: url(/image/h2-l.svg);
+  background-image: url(/assets/image/h2-l.svg);
   background-size: cover;
   background-position: center center;
   top: 0px;
@@ -438,7 +438,7 @@ section .container h2::after {
   position: absolute;
   width: 100px;
   height: 100px;
-  background-image: url(/image/h2-r.svg);
+  background-image: url(/assets/image/h2-r.svg);
   background-size: cover;
   background-position: center center;
   top: 0px;
@@ -513,7 +513,7 @@ a {
   font-size: 24px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  cursor: -webkit-image-set(url(/image/cursor-pointer.png) 1x, url(/image/cursor-pointer@2x.png) 2x), pointer;
+  cursor: -webkit-image-set(url(/assets/image/cursor-pointer.png) 1x, url(/assets/image/cursor-pointer@2x.png) 2x), pointer;
 }
 
 @media (max-width: 640px) {
@@ -550,7 +550,7 @@ a.btn.blue {
 }
 
 a.btn.mail {
-  cursor: -webkit-image-set(url(/image/cursor-pointer.png) 1x, url(/image/cursor-pointer@2x.png) 2x), pointer;
+  cursor: -webkit-image-set(url(/assets/image/cursor-pointer.png) 1x, url(/assets/image/cursor-pointer@2x.png) 2x), pointer;
 }
 
 a.btn:hover {
@@ -615,7 +615,7 @@ header {
 header .totop .logo {
   width: 150px;
   height: 42px;
-  cursor: -webkit-image-set(url(/image/cursor-pointer.png) 1x, url(/image/cursor-pointer@2x.png) 2x), pointer;
+  cursor: -webkit-image-set(url(/assets/image/cursor-pointer.png) 1x, url(/assets/image/cursor-pointer@2x.png) 2x), pointer;
 }
 
 @media (max-width: 640px) {
@@ -826,20 +826,20 @@ footer .support .wrap {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  cursor: -webkit-image-set(url(/image/cursor-pointer.png) 1x, url(/image/cursor-pointer@2x.png) 2x), pointer;
+  cursor: -webkit-image-set(url(/assets/image/cursor-pointer.png) 1x, url(/assets/image/cursor-pointer@2x.png) 2x), pointer;
 }
 
 footer .support .wrap .icon {
   margin-right: 5px;
   width: 15px;
-  cursor: -webkit-image-set(url(/image/cursor-pointer.png) 1x, url(/image/cursor-pointer@2x.png) 2x), pointer;
+  cursor: -webkit-image-set(url(/assets/image/cursor-pointer.png) 1x, url(/assets/image/cursor-pointer@2x.png) 2x), pointer;
 }
 
 footer .support .wrap .text {
   font-size: 16px;
   font-weight: bold;
   color: #fff;
-  cursor: -webkit-image-set(url(/image/cursor-pointer.png) 1x, url(/image/cursor-pointer@2x.png) 2x), pointer;
+  cursor: -webkit-image-set(url(/assets/image/cursor-pointer.png) 1x, url(/assets/image/cursor-pointer@2x.png) 2x), pointer;
 }
 
 .top-page .breadcrumbs {
@@ -862,7 +862,7 @@ footer .support .wrap .text {
   width: 100%;
   height: calc(100vh - 110px);
   min-height: calc( 750px - 110px);
-  background-image: url(/image/top-fv.webp);
+  background-image: url(/assets/image/top-fv.webp);
   background-position: center center;
   background-size: cover;
   -webkit-box-align: center;
@@ -1031,7 +1031,7 @@ footer .support .wrap .text {
 }
 
 .about-page .page-title .bg {
-  background-image: url(/image/about-fv.webp);
+  background-image: url(/assets/image/about-fv.webp);
 }
 
 .about-page section .container .content {
@@ -1270,7 +1270,7 @@ footer .support .wrap .text {
 }
 
 .works-page .page-title .bg {
-  background-image: url(/image/works-fv.webp);
+  background-image: url(/assets/image/works-fv.webp);
 }
 
 .works-page section .container .items {
@@ -1341,7 +1341,7 @@ footer .support .wrap .text {
 }
 
 .service-page .page-title .bg {
-  background-image: url(/image/service-fv.webp);
+  background-image: url(/assets/image/service-fv.webp);
 }
 
 .service-page .flow .container .content {
@@ -1555,7 +1555,7 @@ footer .support .wrap .text {
 }
 
 .contact-page .page-title .bg {
-  background-image: url(/image/contact-fv.webp);
+  background-image: url(/assets/image/contact-fv.webp);
 }
 
 .contact-page .message .text {
@@ -1631,7 +1631,7 @@ footer .support .wrap .text {
 .contact-page .link .content .item li a .icon {
   width: 32px;
   height: 32px;
-  cursor: -webkit-image-set(url(/image/cursor-pointer.png) 1x, url(/image/cursor-pointer@2x.png) 2x), pointer;
+  cursor: -webkit-image-set(url(/assets/image/cursor-pointer.png) 1x, url(/assets/image/cursor-pointer@2x.png) 2x), pointer;
 }
 
 .contact-page .link .content .item li a .sub {
@@ -1639,7 +1639,7 @@ footer .support .wrap .text {
   font-size: 20px;
   line-height: 32px;
   font-weight: bold;
-  cursor: -webkit-image-set(url(/image/cursor-pointer.png) 1x, url(/image/cursor-pointer@2x.png) 2x), pointer;
+  cursor: -webkit-image-set(url(/assets/image/cursor-pointer.png) 1x, url(/assets/image/cursor-pointer@2x.png) 2x), pointer;
   margin-left: 10px;
 }
 
@@ -1716,7 +1716,7 @@ footer .support .wrap .text {
   top: 0;
   left: 0;
   content: '';
-  background-image: url(/image/top-fv.webp);
+  background-image: url(/assets/image/top-fv.webp);
   background-position: center center;
   background-size: cover;
   -webkit-filter: blur(16px);

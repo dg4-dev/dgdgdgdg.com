@@ -1,6 +1,6 @@
 const xfr = new XMLHttpRequest(),
   Fmethod = "GET",
-  Furl = "/common/footer.html";
+  Furl = "/assets/common/footer.html";
 const Fbox = document.getElementById("footer");
 
 xfr.responseType = "document";
