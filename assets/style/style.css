@@ -176,6 +176,12 @@ body {
   color: #333;
 }
 
+header,
+main,
+footer {
+  overflow: hidden;
+}
+
 * {
   font-weight: normal;
   -webkit-box-sizing: border-box;
