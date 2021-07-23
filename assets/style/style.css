@@ -1,5 +1,4 @@
 /* html5doctor.com Reset Stylesheet v1.6.1 Last Updated: 2010-09-17 Author: Richard Clark - http://richclarkdesign.com Twitter:@rich_clark */
-@import url(https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap);
 html,
 body,
 div,
@@ -169,6 +168,18 @@ select {
 @font-face {
   font-family: 'Dont';
   src: url(/assets/font/Dont.ttf);
+}
+
+@font-face {
+  font-family: 'Noto Sans JP';
+  font-weight: normal;
+  src: url(/assets/font/NotoSansJP-Regular.otf);
+}
+
+@font-face {
+  font-family: 'Noto Sans JP';
+  font-weight: bold;
+  src: url(/assets/font/NotoSansJP-Bold.otf);
 }
 
 body {
@@ -1181,7 +1192,7 @@ footer .support .wrap .text {
 }
 
 .about-page section.overview .container .meaning .item li .phrase .noto {
-  font-family: Noto Sans JP;
+  font-family: 'Noto Sans JP';
   font-weight: bold;
 }
 
