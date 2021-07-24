@@ -1098,53 +1098,8 @@ footer .support .wrap .text {
   margin-bottom: 16px;
 }
 
-.about-page section.overview .container .logo .item .images {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-@media (max-width: 1024px) {
-  .about-page section.overview .container .logo .item .images {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    gap: 50px;
-  }
-}
-
-@media (max-width: 640px) {
-  .about-page section.overview .container .logo .item .images {
-    gap: 30px;
-  }
-}
-
-.about-page section.overview .container .logo .item .images .sq {
-  width: 250px;
-  height: 250px;
-}
-
-@media (max-width: 640px) {
-  .about-page section.overview .container .logo .item .images .sq {
-    width: 150px;
-    height: 150px;
-  }
-}
-
-.about-page section.overview .container .logo .item .images .row {
-  width: 500px;
-  height: 138px;
-}
-
-@media (max-width: 640px) {
-  .about-page section.overview .container .logo .item .images .row {
-    width: 300px;
-    height: 83px;
-  }
+.about-page section.overview .container .logo .item .logo {
+  width: 100%;
 }
 
 .about-page section.overview .container .meaning .item {
