@@ -534,6 +534,10 @@ a {
   cursor: -webkit-image-set(url(/assets/image/cursor-pointer.png) 1x, url(/assets/image/cursor-pointer@2x.png) 2x), pointer;
 }
 
+a > * {
+  cursor: -webkit-image-set(url(/assets/image/cursor-pointer.png) 1x, url(/assets/image/cursor-pointer@2x.png) 2x), pointer;
+}
+
 @media (max-width: 640px) {
   a {
     font-size: 16px;
@@ -565,10 +569,6 @@ a.btn {
 a.btn.blue {
   background-color: #00d4d4;
   color: #fff;
-}
-
-a.btn.mail {
-  cursor: -webkit-image-set(url(/assets/image/cursor-pointer.png) 1x, url(/assets/image/cursor-pointer@2x.png) 2x), pointer;
 }
 
 a.btn:hover {
@@ -633,7 +633,6 @@ header {
 header .totop .logo {
   width: 150px;
   height: 42px;
-  cursor: -webkit-image-set(url(/assets/image/cursor-pointer.png) 1x, url(/assets/image/cursor-pointer@2x.png) 2x), pointer;
 }
 
 @media (max-width: 640px) {
@@ -839,25 +838,27 @@ footer .support {
   padding: 4px 18px 6px 18px;
 }
 
+footer .support:hover {
+  -webkit-filter: brightness(0.5);
+          filter: brightness(0.5);
+}
+
 footer .support .wrap {
   height: 25px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  cursor: -webkit-image-set(url(/assets/image/cursor-pointer.png) 1x, url(/assets/image/cursor-pointer@2x.png) 2x), pointer;
 }
 
 footer .support .wrap .icon {
   margin-right: 5px;
   width: 15px;
-  cursor: -webkit-image-set(url(/assets/image/cursor-pointer.png) 1x, url(/assets/image/cursor-pointer@2x.png) 2x), pointer;
 }
 
 footer .support .wrap .text {
   font-size: 16px;
   font-weight: bold;
   color: #fff;
-  cursor: -webkit-image-set(url(/assets/image/cursor-pointer.png) 1x, url(/assets/image/cursor-pointer@2x.png) 2x), pointer;
 }
 
 .top-page .breadcrumbs {
@@ -1646,10 +1647,13 @@ footer .support .wrap .text {
   }
 }
 
+.contact-page .link .content .item li a:hover {
+  opacity: 0.5;
+}
+
 .contact-page .link .content .item li a .icon {
   width: 32px;
   height: 32px;
-  cursor: -webkit-image-set(url(/assets/image/cursor-pointer.png) 1x, url(/assets/image/cursor-pointer@2x.png) 2x), pointer;
 }
 
 .contact-page .link .content .item li a .sub {
@@ -1657,7 +1661,6 @@ footer .support .wrap .text {
   font-size: 20px;
   line-height: 32px;
   font-weight: bold;
-  cursor: -webkit-image-set(url(/assets/image/cursor-pointer.png) 1x, url(/assets/image/cursor-pointer@2x.png) 2x), pointer;
   margin-left: 10px;
 }
 
