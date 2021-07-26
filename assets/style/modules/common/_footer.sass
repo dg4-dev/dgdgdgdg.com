@@ -1,12 +1,14 @@
 footer
   background-color: $dg4-blue
 
-  padding-top: 30px
-  padding-bottom: 90px
+  padding:
+    top: 30px
+    bottom: 90px
 
   @include tab
-    padding-top: 20px
-    padding-bottom: 70px
+    padding:
+      top: 20px
+      bottom: 70px
 
   .container
     width: 1024px
@@ -30,8 +32,9 @@ footer
         flex-direction: column
         a
           display: block
-          font-size: 16px
-          font-weight: bold
+          font:
+            size: 16px
+            weight: bold
           color: $white
 
           padding: 10px 0
@@ -40,9 +43,10 @@ footer
             opacity: 0.5
 
           &.page-link
-            font-family: 'Dont', sans-serif
-            font-size: 32px
-            font-weight: normal
+            font:
+              family: 'Dont', sans-serif
+              size: 32px
+              weight: normal
             opacity: 0.6
 
             &:hover
@@ -83,6 +87,7 @@ footer
         margin-right: 5px
         width: 15px
       .text
-        font-size: 16px
-        font-weight: bold
+        font:
+          size: 16px
+          weight: bold
         color: $white
