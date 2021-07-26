@@ -197,16 +197,18 @@ section
         padding-top: 10px
         margin-bottom: 40px
 
-      &::before
+      &::before, &::after
         content: ''
         position: absolute
         width: 100px
         height: 100px
-        background-image: url(/assets/image/h2-l.svg)
         background-size: cover
         background-position: center center
 
         top: 0px
+
+      &::before
+        background-image: url(/assets/image/h2-l.svg)
         left: -130px
 
         @include sp
@@ -215,15 +217,7 @@ section
           left: -75px
 
       &::after
-        content: ''
-        position: absolute
-        width: 100px
-        height: 100px
         background-image: url(/assets/image/h2-r.svg)
-        background-size: cover
-        background-position: center center
-
-        top: 0px
         right: -130px
 
         @include sp
@@ -272,7 +266,7 @@ a
   text-decoration: none
   color: $text-black
   font-size: 24px
-  transition: all 0.3s
+  transition: all 0.2s
 
   cursor: -webkit-image-set(url(/assets/image/cursor-pointer.png) 1x, url(/assets/image/cursor-pointer@2x.png) 2x), pointer
 
@@ -286,7 +280,7 @@ a
   &.btn
     display: block
 
-    transition: all 0.3s
+    transition: all 0.2s
     font-weight: bold
     background-color: $white
 
@@ -312,4 +306,4 @@ a
       transform: translate(4px, 4px)
 
   &:hover
-    transition: all 0.3s
+    transition: all 0.2s
