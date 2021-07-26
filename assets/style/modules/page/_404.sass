@@ -36,9 +36,10 @@
       left: 0
 
       content: ''
-      background-image: url(/assets/image/top-fv.webp)
-      background-position: center center
-      background-size: cover
+      background:
+        image: url(/assets/image/top-fv.webp)
+        position: center center
+        size: cover
       filter: blur(16px)
       opacity: 0.6
 
@@ -47,13 +48,15 @@
     .content
       h1
         width: fit-content
-        font-family: 'Dont', sans-serif
-        font-size: 120px
+        font:
+          size: 120px
+          family: 'Dont', sans-serif
 
         color: $dg4-blue
       p
         width: fit-content
-        font-family: 'Dont', sans-serif
-        font-size: 36px
+        font:
+          size: 36px
+          family: 'Dont', sans-serif
 
         margin-bottom: 30px

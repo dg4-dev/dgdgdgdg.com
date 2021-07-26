@@ -4,13 +4,15 @@
   src: url(/assets/font/Dont.ttf)
 
 @font-face
-  font-family: 'Noto Sans JP'
-  font-weight: normal
+  font:
+    family: 'Noto Sans JP'
+    weight: normal
   src: url(/assets/font/NotoSansJP-Regular.otf)
 
 @font-face
-  font-family: 'Noto Sans JP'
-  font-weight: bold
+  font:
+    family: 'Noto Sans JP'
+    weight: bold
   src: url(/assets/font/NotoSansJP-Bold.otf)
 
 body
@@ -43,20 +45,23 @@ img
 
 // center
 .center
-  margin-left: auto
-  margin-right: auto
+  margin:
+    left: auto
+    right: auto
 
 // container
 .container
   width: $c-width-pc
   @include tab
     width: $c-width-tab
-    padding-left: 20px
-    padding-right: 20px
+    padding:
+      left: 20px
+      right: 20px
   @include sp
     width: $c-width-sp
-    padding-left: 12px
-    padding-right: 12px
+    padding:
+      left: 12px
+      right: 12px
 
 // responsive
 @include pc
@@ -88,8 +93,9 @@ img
   width: 100%
   background-color: $dg4-blue
 
-  padding-top: 106px
-  padding-bottom: 20px
+  padding:
+    top: 106px
+    bottom: 20px
 
   z-index: 10
 
@@ -107,10 +113,11 @@ img
       max-width: none
 
     a
-      font-weight: bold
+      font:
+        size: 16px
+        weight: bold
       text-decoration: none
       color: $white
-      font-size: 16px
       &:not(:first-child)
         margin-left: 15px
         &::before
@@ -118,12 +125,14 @@ img
           display: inline-block
           width: 7px
           height: 7px
-          border-top: solid 2px $white
-          border-right: solid 2px $white
+          border:
+            top: solid 2px $white
+            right: solid 2px $white
           transform: rotate(45deg)
 
-          margin-right: 20px
-          margin-bottom: 1px
+          margin:
+            right: 20px
+            bottom: 1px
 
 // pagetitle
 .page-title
@@ -140,8 +149,9 @@ img
   h1
     width: 100%
     max-width: 1024px
-    font-family: 'Dont', sans-serif
-    font-size: 100px
+    font:
+      family: 'Dont', sans-serif
+      size: 100px
     color: $white
     z-index: 5
     position: absolute
@@ -162,8 +172,9 @@ img
     width: 100%
     height: 100%
 
-    background-size: cover
-    background-position: center center
+    background:
+      size: cover
+      position: center center
     filter: brightness(60%)
 
 // section
@@ -180,8 +191,9 @@ section
       width: fit-content
       height: 100px
       position: relative
-      font-family: 'Dont', sans-serif
-      font-size: 60px
+      font:
+        family: 'Dont', sans-serif
+        size: 60px
 
       padding-top: 20px
 
@@ -202,8 +214,9 @@ section
         position: absolute
         width: 100px
         height: 100px
-        background-size: cover
-        background-position: center center
+        background:
+          size: cover
+          position: center center
 
         top: 0px
 
@@ -236,13 +249,14 @@ section
           padding-top: 40px
 
       h3
-        font-family: 'Dont', sans-serif
-        font-size: 36px
+        font:
+          family: 'Dont', sans-serif
+          size: 36px
         margin-bottom: 30px
 
         @include sp
           font-size: 22px
-        margin-bottom: 20px
+          margin-bottom: 20px
 
         &::after
           content: ''

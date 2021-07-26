@@ -30,8 +30,9 @@
         @include sp
           width: fit-content
 
-          flex-direction: column
-          flex-wrap: nowrap
+          flex:
+            direction: column
+            wrap: nowrap
 
         li
           @include sp
@@ -51,8 +52,9 @@
             .sub
               width: 150px
 
-              font-size: 20px
+              font:
+                size: 20px
+                weight: bold
               line-height: 32px
-              font-weight: bold
 
               margin-left: 10px

@@ -310,10 +310,10 @@ img {
 }
 
 .breadcrumbs .wrapper a {
+  font-size: 16px;
   font-weight: bold;
   text-decoration: none;
   color: #fff;
-  font-size: 16px;
 }
 
 .breadcrumbs .wrapper a:not(:first-child) {
@@ -487,12 +487,12 @@ section .container .content h3 {
   font-family: 'Dont', sans-serif;
   font-size: 36px;
   margin-bottom: 30px;
-  margin-bottom: 20px;
 }
 
 @media (max-width: 640px) {
   section .container .content h3 {
     font-size: 22px;
+    margin-bottom: 20px;
   }
 }
 
@@ -1285,8 +1285,8 @@ footer .support .wrap .text {
 
 .works-page section .container .items .item .title {
   font-size: 20px;
-  text-align: center;
   font-weight: bold;
+  text-align: center;
   margin-top: 20px;
 }
 
@@ -1610,15 +1610,15 @@ footer .support .wrap .text {
 .contact-page .link .content .item li a .sub {
   width: 150px;
   font-size: 20px;
-  line-height: 32px;
   font-weight: bold;
+  line-height: 32px;
   margin-left: 10px;
 }
 
 .privacy-page .container .content h3 {
   font-size: 24px;
-  line-height: 1.2em;
   font-weight: bold;
+  line-height: 1.2em;
 }
 
 .privacy-page .container .content .item {
@@ -1701,8 +1701,8 @@ footer .support .wrap .text {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  font-family: 'Dont', sans-serif;
   font-size: 120px;
+  font-family: 'Dont', sans-serif;
   color: #00d4d4;
 }
 
@@ -1710,8 +1710,8 @@ footer .support .wrap .text {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  font-family: 'Dont', sans-serif;
   font-size: 36px;
+  font-family: 'Dont', sans-serif;
   margin-bottom: 30px;
 }
 /*# sourceMappingURL=style.css.map */
