@@ -1,1 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="38.22" height="111" viewBox="0 0 38.22 111"><defs><style>.a{fill:#00d4d4;}.b{fill:none;}</style></defs><g transform="translate(0 0.033)"><path class="a" d="M-1387.953-1611.8l-.031,37.256-27.2,27.2,38.185,38.184.035-102.64Zm-.031,76.107-11.656-11.655,11.656-11.656Z" transform="translate(1415.184 1611.795)"/><rect class="b" width="38" height="111" transform="translate(0 -0.033)"/></g></svg>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="38.22"
+  height="111"
+  viewbox="0 0 38.22 111"
+>
+  <defs>
+    <style>
+      .a {
+        fill: #00d4d4;
+      }
+      .b {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g transform="translate(0 0.033)">
+    <path
+      class="a"
+      d="M-1387.953-1611.8l-.031,37.256-27.2,27.2,38.185,38.184.035-102.64Zm-.031,76.107-11.656-11.655,11.656-11.656Z"
+      transform="translate(1415.184 1611.795)"
+    />
+    <rect
+      class="b"
+      width="38"
+      height="111"
+      transform="translate(0 -0.033)"
+    />
+  </g>
+</svg>
