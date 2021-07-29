@@ -45,6 +45,34 @@
               pointer-events: none
               opacity: 60%
     &.font
-      .image-desc
-        max-width: 500px
-        margin-bottom: 30px
+      .container
+        .image-desc
+          max-width: 500px
+          margin-bottom: 30px
+        .items
+          .item
+            .item-letter
+              height: 170px
+              background-color: $dg4-blue
+              border-radius: 10px 10px 0 0
+
+              align-items: center
+
+              .letter-des
+                width: fit-content
+                height: fit-content
+
+                color: $white
+                font-size: 56px
+
+            &.normal
+              .letter-des
+                font-family: 'Dont', sans-serif
+
+            &.round
+              .letter-des
+                font-family: 'Dont Round', sans-serif
+
+            &.circle
+              .letter-des
+                font-family: 'Dont Circle', sans-serif

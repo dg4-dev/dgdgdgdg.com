@@ -171,6 +171,16 @@ select {
 }
 
 @font-face {
+  font-family: 'Dont Round';
+  src: url(/assets/font/DontRound.ttf);
+}
+
+@font-face {
+  font-family: 'Dont Circle';
+  src: url(/assets/font/DontCircle.ttf);
+}
+
+@font-face {
   font-family: 'Noto Sans JP';
   font-weight: normal;
   src: url(/assets/font/NotoSansJP-Regular.otf);
@@ -1305,9 +1315,41 @@ footer .support .wrap .text {
   opacity: 60%;
 }
 
-.works-page section.font .image-desc {
+.works-page section.font .container .image-desc {
   max-width: 500px;
   margin-bottom: 30px;
+}
+
+.works-page section.font .container .items .item .item-letter {
+  height: 170px;
+  background-color: #00d4d4;
+  border-radius: 10px 10px 0 0;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.works-page section.font .container .items .item .item-letter .letter-des {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  color: #fff;
+  font-size: 56px;
+}
+
+.works-page section.font .container .items .item.normal .letter-des {
+  font-family: 'Dont', sans-serif;
+}
+
+.works-page section.font .container .items .item.round .letter-des {
+  font-family: 'Dont Round', sans-serif;
+}
+
+.works-page section.font .container .items .item.circle .letter-des {
+  font-family: 'Dont Circle', sans-serif;
 }
 
 .service-page .page-title .bg {
