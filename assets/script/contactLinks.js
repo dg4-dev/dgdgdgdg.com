@@ -4,7 +4,6 @@ const linkData = [
   { name: "Note" },
   { name: "Twitter" },
   { name: "Facebook" },
-  { name: "Behance" },
   { name: "Discord" },
   { name: "YouTube" },
   { name: "Apple Music" },
