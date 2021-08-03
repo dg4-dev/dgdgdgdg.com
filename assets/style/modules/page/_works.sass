@@ -58,12 +58,18 @@
 
               align-items: center
 
+              @include sp
+                height: 100px
+
               .letter-des
                 width: fit-content
                 height: fit-content
 
                 color: $white
                 font-size: 56px
+
+                @include sp
+                  font-size: 32px
 
             &.normal
               .letter-des

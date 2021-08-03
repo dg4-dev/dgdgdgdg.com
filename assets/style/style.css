@@ -1329,6 +1329,12 @@ footer .support .wrap .text {
           align-items: center;
 }
 
+@media (max-width: 640px) {
+  .works-page section.font .container .items .item .item-letter {
+    height: 100px;
+  }
+}
+
 .works-page section.font .container .items .item .item-letter .letter-des {
   width: -webkit-fit-content;
   width: -moz-fit-content;
@@ -1338,6 +1344,12 @@ footer .support .wrap .text {
   height: fit-content;
   color: #fff;
   font-size: 56px;
+}
+
+@media (max-width: 640px) {
+  .works-page section.font .container .items .item .item-letter .letter-des {
+    font-size: 32px;
+  }
 }
 
 .works-page section.font .container .items .item.normal .letter-des {
