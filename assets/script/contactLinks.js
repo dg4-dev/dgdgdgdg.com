@@ -24,9 +24,7 @@ for (i = 0; i < linkData.length; i++) {
       formated +
       ".dgdgdgdg.com' target='_blank' rel='noopener norefferer' class='is-flex'><div class='icon'><img src='/assets/image/i-" +
       formated +
-      ".webp' alt='" +
-      formated +
-      " icon'></div><span class='sub'>" +
+      ".webp' alt='icon'></div><span class='sub'>" +
       linkData[i].name +
       "</span></a></li>"
   );
