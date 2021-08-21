@@ -739,7 +739,7 @@ header #menuopen .hamburger {
 }
 
 footer {
-  background-color: #00d4d4;
+  background-color: #4d4d4d;
   padding-top: 30px;
   padding-bottom: 90px;
 }
@@ -1495,8 +1495,8 @@ footer .support .wrap .text {
   visibility: hidden;
 }
 
-.service-page .flow .container .content .items .item .label .badge.blue {
-  background-color: #00d4d4;
+.service-page .flow .container .content .items .item .label .badge.gray {
+  background-color: #4d4d4d;
 }
 
 .service-page .flow .container .content .items .item .label .badge.orange {
