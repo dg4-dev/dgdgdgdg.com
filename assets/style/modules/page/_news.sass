@@ -1,0 +1,40 @@
+.news-page
+  .news
+    .container
+      .news-list
+        .news-item
+
+          &:not(:first-child)
+            margin-top: 20px
+
+          a
+            height: 50px
+            align-items: center
+
+            @include sp
+              height: fit-content
+              flex-direction: column
+
+            .news-date
+              height: fit-content
+              min-width: 150px
+              font:
+                family: 'Dont', sans-serif
+                size: 20px
+              color: $dg4-blue
+
+              @include sp
+                margin-right: auto
+
+            .news-title
+              width: 100%
+              height: fit-content
+              font-size: 16px
+              overflow: hidden
+              white-space: nowrap
+              text-overflow: ellipsis
+
+              margin-bottom: 7px
+
+              @include sp
+                margin-top: 8px
