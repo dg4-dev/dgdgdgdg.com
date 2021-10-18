@@ -42,8 +42,8 @@ skillList.sort((a, b) => {
 for (i = 0; i < skillList.length; i++) {
   const logoLength = 6;
   const skillName = JSON.stringify(skillList[i].name).replace(/"/g, "");
-  const skillMonth = JSON.stringify(skillList[i].months);
-  const firstMonth = JSON.stringify(skillList[0].months);
+  const skillMonth = JSON.stringify(skillList[i].start.months);
+  const firstMonth = JSON.stringify(skillList[0].start.months);
   const round = Math.floor((skillMonth / firstMonth) * logoLength);
 
   const skillOutput = document.getElementById("skillOutput");
@@ -52,10 +52,10 @@ for (i = 0; i < skillList.length; i++) {
     "beforeend",
     "<li><p class='skill-name'>" +
       skillName +
-      `</p><div class='parameter is-flex' id='logoParts${i}'></div></li>`
+      `</p><div class='parameter is-flex' id='logoParts${[i]}'></div></li>`
   );
 
-  const logoParts = document.getElementById(`logoParts${i}`);
+  const logoParts = document.getElementById(`logoParts${[i]}`);
 
   function insertImage(imageName) {
     logoParts.insertAdjacentHTML(
