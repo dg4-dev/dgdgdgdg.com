@@ -30,12 +30,12 @@ for (i = 0; i < skillList.length; i++) {
 
   const elapsedMonths = (nowYear - startYear) * 12 + nowMonth - startMonth;
 
-  skillList[i].months = elapsedMonths;
+  skillList[i].start.months = elapsedMonths;
 }
 
 skillList.sort((a, b) => {
-  if (a.months < b.months) return 1;
-  if (a.months > b.months) return -1;
+  if (a.start.months < b.start.months) return 1;
+  if (a.start.months > b.start.months) return -1;
   return 0;
 });
 
