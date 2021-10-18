@@ -17,7 +17,7 @@ const skillList = [
   },
   {
     name: "写真撮影",
-    start: new Date(2020, 10),
+    start: new Date(2019, 10),
   },
 ];
 
