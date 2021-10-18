@@ -1,12 +1,9 @@
 const linkData = [
-  { name: "Clubhouse" },
-  { name: "Qiita" },
   { name: "Note" },
   { name: "Twitter" },
   { name: "Facebook" },
   { name: "Discord" },
   { name: "YouTube" },
-  { name: "Apple Music" },
   { name: "Instagram" },
   { name: "Gitlab" },
   { name: "Github" },
