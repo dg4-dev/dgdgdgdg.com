@@ -223,6 +223,14 @@ footer {
   display: block;
 }
 
+.chrome .about-page section.overview .container .ar .item .none {
+  display: block;
+}
+
+.chrome .about-page section.overview .container .ar .item .block {
+  display: none;
+}
+
 * {
   font-weight: normal;
   -webkit-box-sizing: border-box;
