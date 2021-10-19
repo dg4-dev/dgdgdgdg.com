@@ -55,9 +55,8 @@ for (i = 0; i < skillList.length; i++) {
       `</p><div class='parameter is-flex' id='logoParts${[i]}'></div></li>`
   );
 
-  const logoParts = document.getElementById(`logoParts${[i]}`);
-
   function insertImage(imageName) {
+    const logoParts = document.getElementById(`logoParts${[i]}`);
     logoParts.insertAdjacentHTML(
       "beforeend",
       "<div class='part'><img src='/assets/image/" + imageName + ".svg'></div>"
