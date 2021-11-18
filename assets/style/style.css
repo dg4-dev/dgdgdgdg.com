@@ -197,6 +197,10 @@ body {
   color: #444444;
 }
 
+object {
+  pointer-events: none;
+}
+
 main {
   min-height: calc(100vh - 142px);
 }
@@ -666,13 +670,13 @@ header {
 
 header .totop .logo {
   width: 150px;
-  height: 42px;
+  height: 37px;
 }
 
 @media (max-width: 640px) {
   header .totop .logo {
     width: 100px;
-    height: 28px;
+    height: 25px;
     margin-right: auto;
   }
 }
@@ -844,7 +848,7 @@ footer .container ul li a.page-link:hover {
 
 footer .container .credit .logo-white {
   width: 150px;
-  height: 42px;
+  height: 37px;
   margin-bottom: 16px;
 }
 
@@ -909,8 +913,7 @@ footer .container .credit a, footer .container .credit p {
 }
 
 .top-page .top-fv .logo {
-  width: 800px;
-  margin-bottom: 150px;
+  width: 600px;
 }
 
 .top-page section .container .content {
@@ -1189,11 +1192,17 @@ footer .container .credit a, footer .container .credit p {
 
 .about-page section.overview .container .logo .item p {
   text-align: center;
-  margin-bottom: 16px;
+  margin-bottom: 40px;
 }
 
 .about-page section.overview .container .logo .item .logo {
-  width: 100%;
+  width: 600px;
+}
+
+@media (max-width: 640px) {
+  .about-page section.overview .container .logo .item .logo {
+    width: 100%;
+  }
 }
 
 .about-page section.overview .container .ar .item .none .alert {
