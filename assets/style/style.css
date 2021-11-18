@@ -1342,17 +1342,32 @@ footer .support .wrap .text {
   width: fit-content;
 }
 
-.about-page section.skill .container .content ul li:not(:first-child) {
+.about-page section.skill .container .content ul .skill-item:not(:first-child) {
   margin-top: 40px;
 }
 
-.about-page section.skill .container .content ul li .skill-name {
+.about-page section.skill .container .content ul .skill-item .skill-name {
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-.about-page section.skill .container .content ul li .parameter {
-  gap: 2.25%;
+.about-page section.skill .container .content ul .skill-item .skill-bar {
+  width: 350px;
+  height: 10px;
+  background-color: #eee;
+  position: relative;
+}
+
+@media (max-width: 640px) {
+  .about-page section.skill .container .content ul .skill-item .skill-bar {
+    width: 100%;
+  }
+}
+
+.about-page section.skill .container .content ul .skill-item .skill-bar .skill-param {
+  height: 100%;
+  background-color: #00d4d4;
+  position: absolute;
 }
 
 .about-page section.skill .container .content .btn {
