@@ -863,33 +863,6 @@ footer .container .credit a, footer .container .credit p {
   color: #ffffff;
 }
 
-footer .support {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background-color: #0044dd;
-  border-radius: 5px;
-  padding: 4px 18px 6px 18px;
-}
-
-footer .support:hover {
-  -webkit-filter: brightness(0.5);
-          filter: brightness(0.5);
-}
-
-footer .support .wrap {
-  height: 25px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-footer .support .wrap .text {
-  font-size: 16px;
-  font-weight: bold;
-  color: #ffffff;
-}
-
 .top-page .breadcrumbs {
   padding-top: 90px;
 }
