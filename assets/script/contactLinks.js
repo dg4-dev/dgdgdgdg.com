@@ -2,7 +2,6 @@ const linkData = [
   { name: "Note" },
   { name: "Twitter" },
   { name: "Facebook" },
-  { name: "Discord" },
   { name: "YouTube" },
   { name: "Instagram" },
   { name: "Gitlab" },
