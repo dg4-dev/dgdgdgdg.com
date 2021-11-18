@@ -1,64 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
 <svg
+  version="1.1"
   xmlns="http://www.w3.org/2000/svg"
-  width="600"
-  height="165.747"
-  viewbox="0 0 600 165.747"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  x="0px"
+  y="0px"
+  viewBox="0 0 600 149.3"
+  xml:space="preserve"
 >
-  <defs>
-    <style>
-      .a {
-        fill: #00d4d4;
-      }
-    </style>
-  </defs>
-  <g transform="translate(-1166.801 -450.771)">
-    <g transform="translate(1320.18 467.255)">
-      <path
-        d="M1761.394,549.688,1720.6,590.481l57.276,57.276V510.288h-16.483Zm0,58.276-17.483-17.483L1761.394,573Z"
-        transform="translate(-1720.601 -510.288)"
-      />
-      <path
-        d="M1976.209,550.449v77.967h36.863l-36.863,36.863v23.31l69.071-69.07Zm16.483,61.484V590.242l21.691,21.691Z"
-        transform="translate(-1905.416 -539.326)"
-      />
-    </g>
-    <g transform="translate(1473.559 467.255)">
-      <path
-        d="M2315.194,549.688,2274.4,590.481l57.277,57.276V510.288h-16.483Zm0,58.276-17.483-17.483L2315.194,573Z"
-        transform="translate(-2274.401 -510.288)"
-      />
-      <path
-        d="M2530.009,550.449v77.967h36.863l-36.863,36.863v23.31l69.07-69.07Zm16.482,61.484V590.242l21.691,21.691Z"
-        transform="translate(-2459.217 -539.326)"
-      />
-    </g>
-    <g transform="translate(1626.938 467.255)">
-      <path
-        d="M2868.994,549.688,2828.2,590.481l57.277,57.276V510.288h-16.483Zm0,58.276-17.483-17.483L2868.994,573Z"
-        transform="translate(-2828.201 -510.288)"
-      />
-      <path
-        d="M3083.809,550.449v77.967h36.863l-36.863,36.863v23.31l69.07-69.07Zm16.482,61.484V590.242l21.691,21.691Z"
-        transform="translate(-3013.017 -539.326)"
-      />
-    </g>
-    <g transform="translate(1166.801 450.771)">
-      <path
-        class="a"
-        d="M1207.594,549.688,1166.8,590.481l57.276,57.276V510.288h-16.483Zm0,58.276-17.483-17.483L1207.594,573Z"
-        transform="translate(-1166.801 -493.804)"
-      />
-      <path
-        class="a"
-        d="M1422.409,550.449v77.967h36.863l-36.863,36.863v23.31l69.071-69.07Zm16.483,61.484V590.242l21.691,21.691Z"
-        transform="translate(-1351.616 -522.842)"
-      />
-      <rect
-        class="a"
-        width="16.484"
-        height="16.484"
-        transform="translate(40.845 0)"
-      />
-    </g>
+  <g>
+    <path
+      class="st0" id="d1"
+      d="M40.8,39.4L0,80.2l57.3,57.3V0H40.8V39.4z M40.8,97.7L23.3,80.2l17.5-17.5V97.7z"
+    />
+    <path
+      class="st0" id="g1"
+      d="M70.8,11.1l0,78h36.9L70.8,126v1.7v21.6l69.1-69.1L70.8,11.1z M87.3,72.6V50.9L109,72.6L87.3,72.6z"
+    />
+    <path
+      class="st0" id="d2"
+      d="M194.2,39.4l-40.8,40.8l57.3,57.3V0h-16.5V39.4z M194.2,97.7l-17.5-17.5l17.5-17.5V97.7z"
+    />
+    <path
+      class="st0" id="g2"
+      d="M224.2,11.1l0,78H261L224.2,126v1.7v21.6l69.1-69.1L224.2,11.1z M240.7,72.6V50.9l21.7,21.7L240.7,72.6z"
+    />
+    <path
+      class="st0" id="d3"
+      d="M347.6,39.4l-40.8,40.8l57.3,57.3V0h-16.5V39.4z M347.6,97.7l-17.5-17.5l17.5-17.5V97.7z"
+    />
+    <path
+      class="st0" id="g3"
+      d="M377.6,11.1l0,78h36.9L377.6,126v1.7v21.6l69.1-69.1L377.6,11.1z M394,72.6V50.9l21.7,21.7L394,72.6z"
+    />
+    <path
+      class="st0" id="d4"
+      d="M500.9,39.4l-40.8,40.8l57.3,57.3V0h-16.5V39.4z M500.9,97.7l-17.5-17.5l17.5-17.5V97.7z"
+    />
+    <path
+      class="st0" id="g4"
+      d="M530.9,11.1v78h36.9L530.9,126v1.7v21.6L600,80.2L530.9,11.1z M547.4,72.6V50.9l21.7,21.7L547.4,72.6z"
+    />
   </g>
+  <script>//<![CDATA[
+    const skillList = [
+      {
+        name: "デザイン",
+        start: new Date(2015, 4),
+      },
+      {
+        name: "映像制作",
+        start: new Date(2017, 3),
+      },
+      {
+        name: "モーショングラフィックス",
+        start: new Date(2019, 3),
+      },
+      {
+        name: "Web制作",
+        start: new Date(2019, 9),
+      },
+    ];
+
+    for (i = 0; i < skillList.length; i++) {
+      const nowDate = new Date();
+      const startYear = skillList[i].start.getFullYear();
+      const startMonth = skillList[i].start.getMonth();
+      const nowYear = nowDate.getFullYear();
+      const nowMonth = nowDate.getMonth();
+
+      const elapsedMonths = (nowYear - startYear) * 12 + nowMonth - startMonth;
+
+      skillList[i].start.months = elapsedMonths;
+    }
+
+    skillList.sort((a, b) => {
+      if (a.start.months < b.start.months) return 1;
+      if (a.start.months > b.start.months) return -1;
+      return 0;
+    });
+
+    const styleTag = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+
+    let elmArray = [];
+
+    for (i = 0; i < skillList.length; i++) {
+      const skillName = JSON.stringify(skillList[i].name).replace(/"/g, "");
+
+      const skillMonth = JSON.stringify(skillList[i].start.months);
+      const firstMonth = JSON.stringify(skillList[0].start.months);
+      const round = Math.floor((skillMonth / firstMonth) * 100);
+
+      elmArray.push(`#d${i + 1} {fill: #00${Math.floor((212 * round) / 100).toString(16)}${Math.floor((212 * round) / 100).toString(16)};}#g${i + 1}{fill: #00${Math.floor((212 * round) / 100).toString(16)}${Math.floor((212 * round) / 100).toString(16)};}`);}
+
+
+    document.getElementsByTagName('svg')[0].insertAdjacentElement('beforeend', styleTag);
+      
+    styleTag.innerHTML = ("beforeend", `${elmArray.join("")}`);
+  //]]>
+  </script>
+  
 </svg>
