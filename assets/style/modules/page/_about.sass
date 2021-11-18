@@ -127,14 +127,28 @@
         .content
           width: fit-content
           ul
-            li
+            .skill-item
               &:not(:first-child)
                 margin-top: 40px
               .skill-name
                 font-weight: bold
                 margin-bottom: 10px
-              .parameter
-                gap: 2.25%
+              .skill-bar
+                width: 350px
+                height: 10px
+
+                background-color: #eee
+
+                position: relative
+
+                @include sp
+                  width: 100%
+                .skill-param
+                  height: 100%
+
+                  background-color: $dg4-blue
+
+                  position: absolute
 
           .btn
             margin-top: 40px

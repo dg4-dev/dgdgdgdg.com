@@ -12,12 +12,8 @@ const skillList = [
     start: new Date(2019, 3),
   },
   {
-    name: "Webフロントエンド",
-    start: new Date(2019, 3),
-  },
-  {
-    name: "写真撮影",
-    start: new Date(2019, 10),
+    name: "Web制作",
+    start: new Date(2019, 9),
   },
 ];
 
@@ -40,51 +36,26 @@ skillList.sort((a, b) => {
 });
 
 for (i = 0; i < skillList.length; i++) {
-  const logoLength = 6;
   const skillName = JSON.stringify(skillList[i].name).replace(/"/g, "");
+
   const skillMonth = JSON.stringify(skillList[i].start.months);
   const firstMonth = JSON.stringify(skillList[0].start.months);
-  const round = Math.floor((skillMonth / firstMonth) * logoLength);
+  const round = Math.floor((skillMonth / firstMonth) * 100);
 
+  console.log(skillName, round);
   const skillOutput = document.getElementById("skillOutput");
+
+  console.log(skillOutput.insertAdjacentHTML);
 
   skillOutput.insertAdjacentHTML(
     "beforeend",
-    "<li><p class='skill-name'>" +
-      skillName +
-      `</p><div class='parameter is-flex' id='logoParts${[i]}'></div></li>`
+    `
+    <li class="skill-item">
+      <p class="skill-name">${skillName}</p>
+      <div class="skill-bar">
+        <div class="skill-param" style="width: ${round * 0.95}%;"></div>
+      </div>
+    </li>
+    `
   );
-
-  function insertImage(imageName) {
-    const logoParts = document.getElementById(`logoParts${[i]}`);
-    logoParts.insertAdjacentHTML(
-      "beforeend",
-      "<div class='part'><img src='/assets/image/" + imageName + ".svg'></div>"
-    );
-  }
-
-  insertImage("dg4-init");
-  for (j = 0; j < round; j++) {
-    if (j % 2 != 0) {
-      insertImage("d-blue");
-    } else {
-      insertImage("g-blue");
-    }
-  }
-  for (j = 0; j < logoLength - round; j++) {
-    if (round % 2 != 0) {
-      if (j % 2 != 0) {
-        insertImage("g-gray");
-      } else {
-        insertImage("d-gray");
-      }
-    } else {
-      if (j % 2 != 0) {
-        insertImage("d-gray");
-      } else {
-        insertImage("g-gray");
-      }
-    }
-  }
-  insertImage("g-gray");
 }
