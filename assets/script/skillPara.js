@@ -41,11 +41,7 @@ for (i = 0; i < skillList.length; i++) {
   const skillMonth = JSON.stringify(skillList[i].start.months);
   const firstMonth = JSON.stringify(skillList[0].start.months);
   const round = Math.floor((skillMonth / firstMonth) * 100);
-
-  console.log(skillName, round);
   const skillOutput = document.getElementById("skillOutput");
-
-  console.log(skillOutput.insertAdjacentHTML);
 
   skillOutput.insertAdjacentHTML(
     "beforeend",
