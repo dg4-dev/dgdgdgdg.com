@@ -3,42 +3,42 @@ const toolList = [
     contentName: "Software",
     items: [
       {
-        image: "tool-adobe-ai",
+        image: "adobe-ai",
         name: "Adobe Illustrator",
         gen: "Latest version",
       },
       {
-        image: "tool-adobe-xd",
+        image: "adobe-xd",
         name: "Adobe XD",
         gen: "Latest version",
       },
       {
-        image: "tool-adobe-pr",
+        image: "adobe-pr",
         name: "Adobe Premiere Pro",
         gen: "Latest version",
       },
       {
-        image: "tool-adobe-ae",
+        image: "adobe-ae",
         name: "Adobe After Effects",
         gen: "Latest version",
       },
       {
-        image: "tool-adobe-ps",
+        image: "adobe-ps",
         name: "Adobe Photoshop",
         gen: "Latest version",
       },
       {
-        image: "tool-adobe-lr",
+        image: "adobe-lr",
         name: "Adobe Lightroom",
         gen: "Latest version",
       },
       {
-        image: "tool-studio",
+        image: "studio",
         name: "STUDIO",
         gen: "Latest version",
       },
       {
-        image: "tool-figma",
+        image: "figma",
         name: "Figma",
         gen: "Latest version",
       },
@@ -48,27 +48,27 @@ const toolList = [
     contentName: "Hardware",
     items: [
       {
-        image: "tool-macbook",
+        image: "macbook",
         name: 'MacBook Pro 16"',
         gen: "2019",
       },
       {
-        image: "tool-ipad",
+        image: "ipad",
         name: 'iPad Pro 12.9"',
         gen: "2020 (4th Gen)",
       },
       {
-        image: "tool-ipadmini",
+        image: "ipadmini",
         name: "iPad mini",
         gen: "2021 (6th Gen)",
       },
       {
-        image: "tool-iphone13pro",
+        image: "iphone13pro",
         name: "iPhone 13 Pro",
         gen: "2021",
       },
       {
-        image: "tool-iphone",
+        image: "iphone",
         name: "iPhone SE",
         gen: "2020 (2nd Gen)",
       },
@@ -78,32 +78,32 @@ const toolList = [
     contentName: "Shooting equipment",
     items: [
       {
-        image: "tool-xs10",
+        image: "xs10",
         name: "FUJIFILM X-S10",
         gen: "2020",
       },
       {
-        image: "tool-xf35",
+        image: "xf35",
         name: "XF 35mm F1.4 R",
         gen: "2012",
       },
       {
-        image: "tool-xf1855",
+        image: "xf1855",
         name: "XF 18-55mm F2.8-4 R OIS",
         gen: "2012",
       },
       {
-        image: "tool-wtulens",
+        image: "wtulens",
         name: "GIZMON Wtulens L",
         gen: "2018",
       },
       {
-        image: "tool-rsc2",
+        image: "rsc2",
         name: "DJI RSC 2",
         gen: "2020",
       },
       {
-        image: "tool-om4",
+        image: "om4",
         name: "DJI OM4",
         gen: "2020",
       },
@@ -125,7 +125,7 @@ for (i = 0; i < toolList.length; i++) {
     const toolContent = document.getElementById(`toolContent${[i]}`);
     toolContent.insertAdjacentHTML(
       "beforeend",
-      `<div class="item"><div class="item-img center"><img src="/assets/image/${toolList[i].items[j].image}.webp" /></div><p class="item-name center">${toolList[i].items[j].name}</p><p class="item-gen center">${toolList[i].items[j].gen}</p></div>`
+      `<div class="item"><div class="item-img center"><img src="/assets/image/tool-${toolList[i].items[j].image}.webp" /></div><p class="item-name center">${toolList[i].items[j].name}</p><p class="item-gen center">${toolList[i].items[j].gen}</p></div>`
     );
   }
 }
