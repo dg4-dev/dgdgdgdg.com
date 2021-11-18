@@ -1,30 +1,6 @@
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  width="100"
-  height="100"
-  viewbox="0 0 100 100"
->
-  <defs>
-    <style>
-      .a {
-        fill: #00d4d4;
-      }
-      .b {
-        fill: none;
-      }
-    </style>
-  </defs>
-  <g transform="translate(-546 -635)">
-    <path
-      class="a"
-      d="M-1544.917-1874.06v27.415h12.96l-12.96,12.962v8.2l24.285-24.287Zm5.8,21.619v-7.623l7.626,7.627Z"
-      transform="translate(2128.917 2539.767)"
-    />
-    <rect
-      class="b"
-      width="100"
-      height="100"
-      transform="translate(546 635)"
-    />
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <g id="グループ_24" data-name="グループ 24" transform="translate(-546 -635)">
+    <rect id="長方形_17" data-name="長方形 17" width="100" height="100" transform="translate(546 635)" fill="none"/>
+    <path id="パス_81" data-name="パス 81" d="M262.319,56.363l8.832,8.832h-8.832Zm-6.712,15.544h15.01l-15.01,15.01v9.492l28.124-28.124L255.607,40.16Z" transform="translate(326.331 618.98)" fill="#00d4d4"/>
   </g>
 </svg>
