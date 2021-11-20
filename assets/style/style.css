@@ -181,19 +181,19 @@ select {
 }
 
 @font-face {
-  font-family: 'Noto Sans JP';
+  font-family: 'Zen Kaku Gothic New';
   font-weight: normal;
-  src: url(/assets/font/NotoSansJP-Regular.otf);
+  src: url(/assets/font/ZenKakuGothicNew-Regular.ttf);
 }
 
 @font-face {
-  font-family: 'Noto Sans JP';
+  font-family: 'Zen Kaku Gothic New';
   font-weight: bold;
-  src: url(/assets/font/NotoSansJP-Bold.otf);
+  src: url(/assets/font/ZenKakuGothicNew-Bold.ttf);
 }
 
 body {
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: 'Zen Kaku Gothic New', sans-serif;
   color: #444444;
 }
 
@@ -1163,7 +1163,7 @@ footer .container .credit a, footer .container .credit p {
 }
 
 .about-page section.overview .container .meaning .item li .phrase .noto {
-  font-family: 'Noto Sans JP';
+  font-family: 'Zen Kaku Gothic New';
   font-weight: bold;
 }
 
