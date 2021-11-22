@@ -1867,6 +1867,10 @@ footer .container .credit a, footer .container .credit p {
   height: 32px;
 }
 
+.contact-page .link .content .item li a .icon img {
+  border-radius: 8px;
+}
+
 .contact-page .link .content .item li a .sub {
   width: 150px;
   font-size: 20px;
