@@ -1,98 +1,191 @@
+body
+  &.is-open
+    overflow: hidden
+
 header
-  max-width: 1024px
-  width: 100%
-  height: 70px
-  justify-content: space-between
-  align-items: center
-  background-color: $white
-
-  padding: 0 40px
-
   position: fixed
-  left: 0
-  right: 0
-  top: 20px
+  width: 100%
 
-  border-radius: 100px
-  box-shadow: 3px 3px 30px 0px rgba(0, 0, 0, 0.16)
-
-  z-index: 20
-
-  @include tab
-    top: 0px
-    padding: 0 20px
-    border-radius: 0px
-
-  @include sp
-    height: auto
-    flex-direction: column
-
-    padding: 11px 12px
-
-  .totop
-    @include sp
-      margin-right: auto
-    .logo
-      width: 150px
-      height: 37px
-      @include sp
-        width: 100px
-        height: 25px
-
-        margin-right: auto
-  #menu
-    height: fit-content
-
-    @include sp
-      display: none
-
-    &.open
-      @include sp
-        display: block
-        width: 100%
-      ul
-        @include sp
-          width: 100%
-          align-items: flex-end
-          flex-direction: column
-          margin-top: 20px
-        li
-          @include sp
-            display: inline-block
-            width: fit-content
-            height: 55px
-            vertical-align: middle
-          a
-            @include sp
-              display: block
-    ul
-      li
-        a
-          font-family: 'Dont', sans-serif
-          padding: 14px 20px
-          @include tab
-            font-size: 20px
-            padding: 16px
-          &:hover
-            color: $dg4-blue
-
-  #menuopen
+  z-index: 1000
+  .outside
     position: fixed
-    top: 0
-    right: 12px
-    width: 50px
-    height: 50px
-
+    width: 100%
     align-items: center
-    .hamburger
-      width: 16px
-      height: 11px
+    justify-content: space-between
 
-      border:
-        top: solid 3px $dg4-black
-        bottom: solid 3px $dg4-black
+    padding-left: 26px
+    z-index: 1000
 
+    @include sp
+      padding-left: 12px
+    .totop
+      .logo
+        width: 150px
+        height: auto
+
+        @include sp
+          width: 120px
+    .burger
+      width: 90px
+      height: 90px
+      background-color: $dg4-blue
+
+      justify-content: center
+      align-items: center
+
+      @include sp
+        width: 65px
+        height: 65px
+
+      .line
+        width: 35px
+        height: 27px
+
+        position: relative
+
+        @include sp
+          width: 30px
+          height: 21px
+
+        &-item
+          width: 100%
+          height: 3px
+
+          position: absolute
+
+          background-color: $white
+          border-radius: 4px
+
+          &:first-child
+            top: 0
+
+          &:nth-child(2)
+            visibility: visible
+            opacity: 1
+            top: 0
+            bottom: 0
+            margin: auto 0
+
+          &:nth-child(3)
+            top: 24px
+            @include sp
+              top: 18px
+
+          &.is-open
+            &:first-child
+              top: 12px
+              transform: rotate(45deg)
+              @include sp
+                top: 10px
+
+            &:nth-child(2)
+              visibility: hidden
+              opacity: 0
+
+            &:nth-child(3)
+              top: 12px
+              transform: rotate(-45deg)
+              @include sp
+                top: 10px
+
+  .inside
+    position: fixed
+    width: 100%
+    z-index: 999
+
+    justify-content: space-between
+
+    &.is-open
+      height: 100vh
+
+    .white
       position: absolute
-      top: 50%
-      left: 50%
-      transform: translateY(-50%) translateX(-50%)
+      top: 0
+      left: -60%
+      width: 60%
+      height: 100vh
+      background-color: $white
+
+      justify-content: center
+      align-items: center
+      @include tab
+        display: none
+
+      .link-wrapper
+        ul
+          li
+            &:not(:first-child)
+              margin-top: 20px
+
+      &.is-open
+        left: 0
+
+    .blue
+      width: 90px
+      height: 90px
+      background-color: $dg4-blue
+
+      flex-direction: column
+
+      justify-content: center
+      align-items: center
+      margin-left: auto
+
+      @include sp
+        width: 65px
+        height: 65px
+        visibility: hidden
+
+      &.is-open
+        width: 40%
+        height: 100vh
+
+        @include tab
+          width: 100%
+          justify-content: normal
+          padding-top: 100px
+          padding-bottom: 100px
+
+          overflow-y: auto
+
+        @include sp
+          visibility: visible
+          padding-top: 70px
+          padding-bottom: 70px
+
+      .nav
+        visibility: hidden
+        opacity: 0
+        @include tab
+          width: 354px
+        @include sp
+          width: 284px
+
+        &.is-open
+          visibility: visible
+          opacity: 1
+
+        ul
+          li
+            &:not(:first-child)
+              margin-top: 26px
+
+              @include sp
+                margin-top: 16px
+
+      .link-wrapper
+        display: none
+        visibility: hidden
+        opacity: 0
+        margin-top: 24px
+        @include tab
+          display: block
+
+        &.is-open
+          visibility: visible
+          opacity: 1
+
+        ul
+          li
+            &:not(:first-child)
+              margin-top: 20px

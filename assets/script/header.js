@@ -15,5 +15,8 @@ xhr.onreadystatechange = function () {
 xhr.send();
 
 function menuOpen() {
-  menu.classList.toggle("open");
+  const toggle = document.getElementsByClassName("toggle");
+  for (let i = 0; i < toggle.length; i++) {
+    toggle[i].classList.toggle("is-open");
+  }
 }
