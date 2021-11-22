@@ -11,8 +11,8 @@ const linkData = [
 
 const linkList = document.getElementById("linkList");
 
-for (i = 0; i < linkData.length; i++) {
-  const formated = linkData[i].name.toLowerCase().replace(/\s+/g, "");
+linkData.forEach((value) => {
+  const formated = value.name.toLowerCase().replace(/\s+/g, "");
 
   linkList.insertAdjacentHTML(
     "beforeend",
@@ -21,7 +21,7 @@ for (i = 0; i < linkData.length; i++) {
       ".dgdgdgdg.com' target='_blank' rel='noopener norefferer' class='is-flex'><div class='icon'><img src='/assets/image/i-" +
       formated +
       ".webp' alt='icon'></div><span class='sub'>" +
-      linkData[i].name +
+      value.name +
       "</span></a></li>"
   );
-}
+});
