@@ -574,7 +574,7 @@ section .container .content:not(:nth-of-type(1)) {
 }
 
 section .container .content h3 {
-  font-family: 'Dont', sans-serif;
+  font-family: 'Dont', 'Zen Kaku Gothic New', sans-serif;
   font-size: 36px;
   margin-bottom: 30px;
 }
