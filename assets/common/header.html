@@ -5,31 +5,98 @@
     <link rel="stylesheet" href="/assets/style/style.css" />
   </head>
   <body>
-    <header class="center is-flex">
-      <a class="totop" href="/">
-        <div class="logo">
-          <!-- <img src="/assets/image/logo.svg" /> -->
-          <object data="/assets/image/logo.svg" type="image/svg+xml"></object>
+    <header class="is-flex">
+      <div class="outside is-flex">
+        <a href="/" class="totop">
+          <div class="logo">
+            <object data="/assets/image/logo.svg" type="image/svg+xml"></object>
+          </div>
+        </a>
+        <div class="burger click is-flex" onclick="menuOpen();">
+          <div class="line is-flex">
+            <div class="line-item toggle"></div>
+            <div class="line-item toggle"></div>
+            <div class="line-item toggle"></div>
+          </div>
         </div>
-      </a>
-      <nav id="menu">
-        <ul class="is-flex">
-          <li class="is-flex">
-            <a href="/about/">About</a>
-          </li>
-          <li class="is-flex">
-            <a href="/works/">Works</a>
-          </li>
-          <li class="is-flex">
-            <a href="/service/">Service</a>
-          </li>
-          <li class="is-flex">
-            <a href="/contact/">Contact</a>
-          </li>
-        </ul>
-      </nav>
-      <div class="is-sp is-flex" id="menuopen" onclick="menuOpen();">
-        <div class="hamburger center"></div>
+      </div>
+      <div class="inside is-flex toggle">
+        <div class="white is-flex toggle">
+          <div class="link-wrapper">
+            <ul>
+              <li>
+                <a
+                  class="nav-link external"
+                  href="https://www.radio.dgdgdgdg.com/"
+                >
+                  <div class="en">Enter the radio title</div>
+                  <div class="ja">ラジオのタイトルを入力</div>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="nav-link external"
+                  href="https://www.apps.dgdgdgdg.com/"
+                >
+                  <div class="en">dg4 app archive</div>
+                  <div class="ja">dg4アプリアーカイブ</div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="blue is-flex toggle">
+          <div class="nav toggle">
+            <ul>
+              <li>
+                <a class="nav-link" href="/about/">
+                  <div class="en">About</div>
+                  <div class="ja">dgdgdgdgとは</div>
+                </a>
+              </li>
+              <li>
+                <a class="nav-link" href="/works/">
+                  <div class="en">Works</div>
+                  <div class="ja">dgdgdgdgの作品</div>
+                </a>
+              </li>
+              <li>
+                <a class="nav-link" href="/service/">
+                  <div class="en">Service</div>
+                  <div class="ja">dgdgdgdgのプラン</div>
+                </a>
+              </li>
+              <li>
+                <a class="nav-link" href="/contact/">
+                  <div class="en">Contact</div>
+                  <div class="ja">dgdgdgdgに問い合わせる</div>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="link-wrapper toggle">
+            <ul>
+              <li>
+                <a
+                  class="nav-link external"
+                  href="https://www.radio.dgdgdgdg.com/"
+                >
+                  <div class="en">Enter the radio title</div>
+                  <div class="ja">ラジオのタイトルを入力</div>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="nav-link external"
+                  href="https://www.apps.dgdgdgdg.com/"
+                >
+                  <div class="en">dg4 app archive</div>
+                  <div class="ja">dg4アプリアーカイブ</div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </header>
   </body>
