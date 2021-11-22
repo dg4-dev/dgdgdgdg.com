@@ -38,24 +38,6 @@ main,
 footer
   overflow: hidden
 
-.iphone .about-page section.overview .container .ar .item
-  .none
-    display: none
-  .block
-    display: block
-
-.ipad .about-page section.overview .container .ar .item
-  .none
-    display: none
-  .block
-    display: block
-
-.chrome .about-page section.overview .container .ar .item
-  .none
-    display: block
-  .block
-    display: none
-
 *
   font-weight: normal
   box-sizing: border-box
@@ -120,63 +102,114 @@ img
   .is-sp
     display: block
 
-// breadcrumbs
-.breadcrumbs
+.toggle
+  transition: all 0.3s
+  & > *,
+  & > * > *,
+  & > * > * > *,
+    transition: all 0.3s
+
+// nav-link
+.nav-link
+  display: block
   width: 100%
-  background-color: $dg4-blue
+  height: fit-content
+  padding: 10px 20px
 
-  padding:
-    top: 106px
-    bottom: 20px
+  &:hover
+    opacity: 0.5
 
-  z-index: 10
+  .en
+    font-family: 'Dont', sans-serif
+    font-size: 14px
+    line-height: 14px
+    color: rgba($white, 0.5)
 
-  @include tab
-    padding: 82px 20px 12px 20px
+    margin-left: 2px
+  .ja
+    font-weight: bold
+    font-size: 24px
+    line-height: 35px
+    color: $white
 
-  @include sp
-    padding: 67px 12px 17px 12px
+    @include sp
+      font-size: 20px
+  &.external
+    display: block
+    width: 360px
+    height: 80px
 
-  .wrapper
-    width: 100%
-    max-width: 1024px
+    padding: 15px 20px
+    background-color: $white
+    border: 3px solid $dg4-blue
 
-    @include tab
-      max-width: none
+    position: relative
 
-    a
-      font:
-        size: 16px
-        weight: bold
-      text-decoration: none
-      color: $white
-      &:not(:first-child)
-        margin-left: 15px
-        &::before
-          content: ''
-          display: inline-block
-          width: 7px
-          height: 7px
-          border:
-            top: solid 2px $white
-            right: solid 2px $white
-          transform: rotate(45deg)
+    @include sp
+      width: 290px
+      height: 70px
 
-          margin:
-            right: 20px
-            bottom: 1px
+      padding: 10px 20px
+
+    &::before
+      content: ''
+      position: absolute
+      display: block
+      width: 0
+      height: 100%
+      background-color: $dg4-blue
+
+      top: 0
+      left: 0
+      transition: all 0.3s
+
+    .en
+      position: relative
+      color: rgba($dg4-blue, 0.5)
+    .ja
+      color: $dg4-blue
+      position: relative
+      width: fit-content
+      &::after
+        content: ''
+        position: absolute
+        width: 13px
+        height: 13px
+
+        right: -18px
+        top: 0
+        bottom: 0
+
+        margin: auto 0
+
+        background-image: url(/assets/image/icon-ext.svg)
+        background-size: contain
+        background-repeat: no-repeat
+
+    &:hover
+      opacity: 1
+      &::before
+        width: 100%
+        transition: all 0.3s
+
+      .en
+        color: rgba($white, 0.5)
+      .ja
+        color: $white
+        &::after
+          background-image: url(/assets/image/icon-ext-white.svg)
 
 // pagetitle
 .page-title
   padding-top: 0px
-  height: 300px
+  height: 370px
   position: relative
 
   @include tab
-    height: 200px
+    height: 270px
 
   @include sp
-    height: 120px
+    height: 200px
 
   h1
     width: 100%
@@ -187,6 +220,8 @@ img
     color: $white
     z-index: 5
     position: absolute
+
+    margin-top: 35px
 
     top: 50%
     left: 50%
@@ -308,6 +343,13 @@ section
       margin-bottom: 80px
 
 // link
+.click
+  cursor: -webkit-image-set(url(/assets/image/cursor-pointer.png) 1x, url(/assets/image/cursor-pointer@2x.png) 2x), pointer
+
+  & > *,
+  & > * > *
+    cursor: -webkit-image-set(url(/assets/image/cursor-pointer.png) 1x, url(/assets/image/cursor-pointer@2x.png) 2x), pointer
+
 a
   text-decoration: none
   color: $dg4-black
