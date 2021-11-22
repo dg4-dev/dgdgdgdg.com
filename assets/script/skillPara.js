@@ -17,17 +17,17 @@ const skillList = [
   },
 ];
 
-for (i = 0; i < skillList.length; i++) {
+skillList.forEach((value) => {
   const nowDate = new Date();
-  const startYear = skillList[i].start.getFullYear();
-  const startMonth = skillList[i].start.getMonth();
+  const startYear = value.start.getFullYear();
+  const startMonth = value.start.getMonth();
   const nowYear = nowDate.getFullYear();
   const nowMonth = nowDate.getMonth();
 
   const elapsedMonths = (nowYear - startYear) * 12 + nowMonth - startMonth;
 
-  skillList[i].start.months = elapsedMonths;
-}
+  value.start.months = elapsedMonths;
+});
 
 skillList.sort((a, b) => {
   if (a.start.months < b.start.months) return 1;
@@ -35,10 +35,10 @@ skillList.sort((a, b) => {
   return 0;
 });
 
-for (i = 0; i < skillList.length; i++) {
-  const skillName = JSON.stringify(skillList[i].name).replace(/"/g, "");
+skillList.forEach((value) => {
+  const skillName = JSON.stringify(value.name).replace(/"/g, "");
 
-  const skillMonth = JSON.stringify(skillList[i].start.months);
+  const skillMonth = JSON.stringify(value.start.months);
   const firstMonth = JSON.stringify(skillList[0].start.months);
   const round = Math.floor((skillMonth / firstMonth) * 100);
   const skillOutput = document.getElementById("skillOutput");
@@ -54,4 +54,4 @@ for (i = 0; i < skillList.length; i++) {
     </li>
     `
   );
-}
+});

@@ -5,7 +5,7 @@ const Fbox = document.getElementById("footer");
 
 xfr.responseType = "document";
 xfr.open(Fmethod, Furl, true);
-xfr.onreadystatechange = function () {
+xfr.onreadystatechange = () => {
   if (xfr.readyState === 4 && xfr.status === 200) {
     const restxt = xfr.responseXML;
     const int = restxt.getElementsByTagName("footer")[0];

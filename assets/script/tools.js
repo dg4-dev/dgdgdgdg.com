@@ -111,21 +111,19 @@ const toolList = [
   },
 ];
 
-for (i = 0; i < toolList.length; i++) {
+toolList.forEach((value, index) => {
   const toolOutput = document.getElementById("toolOutput");
 
   toolOutput.insertAdjacentHTML(
     "beforeend",
-    `<div class='content is-flex'><h3>${
-      toolList[i].contentName
-    }</h3><div id='toolContent${[i]}' class="items center is-flex"></div></div>`
+    `<div class='content is-flex'><h3>${value.contentName}</h3><div id='toolContent${index}' class="items center is-flex"></div></div>`
   );
 
-  for (j = 0; j < toolList[i].items.length; j++) {
-    const toolContent = document.getElementById(`toolContent${[i]}`);
+  value.items.forEach((valueChild) => {
+    const toolContent = document.getElementById(`toolContent${index}`);
     toolContent.insertAdjacentHTML(
       "beforeend",
-      `<div class="item"><div class="item-img center"><img src="/assets/image/tool-${toolList[i].items[j].image}.webp" /></div><p class="item-name center">${toolList[i].items[j].name}</p><p class="item-gen center">${toolList[i].items[j].gen}</p></div>`
+      `<div class="item"><div class="item-img center"><img src="/assets/image/tool-${valueChild.image}.webp" /></div><p class="item-name center">${valueChild.name}</p><p class="item-gen center">${valueChild.gen}</p></div>`
     );
-  }
-}
+  });
+});
