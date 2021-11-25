@@ -97,7 +97,12 @@ toolList.forEach((value, index) => {
 
   toolOutput.insertAdjacentHTML(
     "beforeend",
-    `<div class='content is-flex'><h3>${value.contentName}</h3><div id='toolContent${index}' class="items center is-flex"></div></div>`
+    `
+    <div class='content is-flex'>
+      <h3>${value.contentName}</h3>
+      <div id='toolContent${index}' class="items center is-flex"></div>
+    </div>
+    `
   );
 
   value.items.forEach((valueChild) => {
@@ -107,7 +112,19 @@ toolList.forEach((value, index) => {
     console.log(imgName);
     toolContent.insertAdjacentHTML(
       "beforeend",
-      `<div class="item"><div class="item-img center"><img src="/assets/image/tool-${imgName}.webp" /></div><p class="item-name center">${valueChild.name}</p><p class="item-gen center">${valueChild.gen}</p></div>`
+      `
+      <div class="item">
+        <div class="item-img center">
+          <img src="/assets/image/tool-${imgName}.webp" />
+        </div>
+        <p class="item-name center">
+          ${valueChild.name}
+        </p>
+        <p class="item-gen center">
+          ${valueChild.gen}
+        </p>
+      </div>
+      `
     );
   });
 });
