@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* html5doctor.com Reset Stylesheet v1.6.1 Last Updated: 2010-09-17 Author: Richard Clark - http://richclarkdesign.com Twitter:@rich_clark */
 html,
 body,
@@ -1017,13 +1018,17 @@ footer .container .page-list li a {
   padding: 10px 0;
 }
 
+footer .container .page-list li a.child-page::before {
+  content: '└ ';
+}
+
 footer .container .page-list li a:hover {
   opacity: 0.5;
 }
 
 footer .container .page-list li a.page-link {
   font-family: 'Dont', sans-serif;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: normal;
   opacity: 0.6;
 }
