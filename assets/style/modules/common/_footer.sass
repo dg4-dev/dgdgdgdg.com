@@ -11,18 +11,19 @@ footer
       bottom: 70px
 
   .container
-    width: 1024px
+    max-width: 1024px
+    width: 100%
     justify-content: space-between
-    align-items: center
     padding: 0 40px
 
     @include tab
       padding: 0 20px
+      justify-content: flex-end
 
     @include sp
       padding: 0 12px
 
-    ul
+    .page-list
       gap: 0 40px
 
       @include tab
@@ -53,11 +54,32 @@ footer
               opacity: 0.1
 
     .credit
-      .logo-white
-        width: 150px
-        height: 37px
+      flex-direction: column
+      align-items: flex-end
+      margin-top: 10px
+      .icon-wrapper
+        align-items: center
+        gap: 8px
         margin-bottom: 16px
-      a
+        .text
+          display: block
+          color: $dg4-blue
+          font:
+            family: 'dont', sans-serif
+            size: 16px
+          margin-right: 8px
+        a
+          display: block
+          width: 40px
+          height: 40px
+          padding: 8px
+
+          &:hover
+            opacity: 0.5
+          img
+            width: 100%
+            height: 100%
+      .link-privacy
         text-decoration: underline
         display: block
         margin-bottom: 12px
