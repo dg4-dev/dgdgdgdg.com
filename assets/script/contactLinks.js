@@ -1,16 +1,16 @@
 const linkData = [
-  { name: "Note" },
-  { name: "Twitter" },
-  { name: "Facebook" },
-  { name: "YouTube" },
-  { name: "Instagram" },
-  { name: "Gitlab" },
-  { name: "Github" },
-  { name: "Suzuri" },
+  "Note",
+  "Twitter",
+  "Facebook",
+  "YouTube",
+  "Instagram",
+  "Gitlab",
+  "Github",
+  "Suzuri",
 ];
 
 linkData.forEach((value) => {
-  const formated = value.name.toLowerCase().replace(/\s+/g, "");
+  const formated = value.toLowerCase().replace(/\s+/g, "");
 
   $("#linkList").insertAdjacentHTML(
     "beforeend",
@@ -19,7 +19,7 @@ linkData.forEach((value) => {
       ".dgdgdgdg.com' target='_blank' rel='noopener norefferer' class='is-flex'><div class='icon'><img src='/assets/image/i-" +
       formated +
       ".webp' alt='icon'></div><span class='sub'>" +
-      value.name +
+      value +
       "</span></a></li>"
   );
 });
