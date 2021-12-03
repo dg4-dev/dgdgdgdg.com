@@ -9,12 +9,10 @@ const linkData = [
   { name: "Suzuri" },
 ];
 
-const linkList = document.getElementById("linkList");
-
 linkData.forEach((value) => {
   const formated = value.name.toLowerCase().replace(/\s+/g, "");
 
-  linkList.insertAdjacentHTML(
+  $("#linkList").insertAdjacentHTML(
     "beforeend",
     "<li><a href='https://" +
       formated +

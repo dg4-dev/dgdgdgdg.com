@@ -41,9 +41,8 @@ skillList.forEach((value) => {
   const skillMonth = JSON.stringify(value.start.months);
   const firstMonth = JSON.stringify(skillList[0].start.months);
   const round = Math.floor((skillMonth / firstMonth) * 100);
-  const skillOutput = document.getElementById("skillOutput");
 
-  skillOutput.insertAdjacentHTML(
+  $("#skillOutput").insertAdjacentHTML(
     "beforeend",
     `
     <li class="skill-item">

@@ -93,9 +93,7 @@ const toolList = [
 ];
 
 toolList.forEach((value, index) => {
-  const toolOutput = document.getElementById("toolOutput");
-
-  toolOutput.insertAdjacentHTML(
+  $("#toolOutput").insertAdjacentHTML(
     "beforeend",
     `
     <div class='content is-flex'>
@@ -106,11 +104,9 @@ toolList.forEach((value, index) => {
   );
 
   value.items.forEach((valueChild) => {
-    const toolContent = document.getElementById(`toolContent${index}`);
     const imgName = valueChild.name.toLowerCase().replace(/[." -]/g, "");
 
-    console.log(imgName);
-    toolContent.insertAdjacentHTML(
+    $(`#toolContent${index}`).insertAdjacentHTML(
       "beforeend",
       `
       <div class="item">
