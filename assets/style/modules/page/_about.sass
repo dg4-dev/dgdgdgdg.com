@@ -1,162 +1,152 @@
 .about-page
-  .page-title
-    .bg
-      background-image: url(/assets/image/about-fv.webp)
+  .page-title .bg
+    background-image: url(/assets/image/about-fv.webp)
 
   section
-    .container
-      .content
-        flex-direction: column
-    &.overview
-      .container
+    .container .content
+      flex-direction: column
+    &.overview .container
 
-        .information
-          .item
-            gap: 50px
+      .information .item
+        gap: 50px
 
+        @include sp
+          flex-direction: column
+          gap: 20px
+
+        .image
+          width: 160px
+          height: 160px
+
+        tbody
+          height: 160px
+          tr td
+            vertical-align: middle
+            line-height: 32px
+            &.left
+              width: 110px
+              font-weight: bold
+            &.right
+
+            span
+              opacity: 0.7
+
+      .logo
+        .item
+          p
+            text-align: center
+            margin-bottom: 40px
+          .logo
+            width: 600px
             @include sp
-              flex-direction: column
-              gap: 20px
+              width: 100%
+        .btn
+          margin-top: 40px
 
-            .image
-              width: 160px
-              height: 160px
+      .meaning .item
+        width: 100%
+        max-width: 600px
+        flex-wrap: wrap
+        justify-content: space-around
+        gap: 50px
 
-            tbody
-              height: 160px
-              tr
-                td
-                  vertical-align: middle
-                  line-height: 32px
-                  &.left
-                    width: 110px
-                    font-weight: bold
-                  &.right
-
-                  span
-                    opacity: 0.7
-
-        .logo
-          .item
-            p
-              text-align: center
-              margin-bottom: 40px
-            .logo
-              width: 600px
-              @include sp
-                width: 100%
-
-        .meaning
-          .item
-            width: 100%
-            max-width: 600px
-            flex-wrap: wrap
-            justify-content: space-around
-            gap: 50px
-
-            @include sp
-              flex-direction: column
-              width: fit-content
-              gap: 30px
-
-            li
-              width: fit-content
-
-              .phrase
-                font-family: 'Dont', sans-serif
-                font-size: 64px
-                margin-bottom: 12px
-
-                @include sp
-                  font-size: 56px
-
-                .blue
-                  color: $dg4-blue
-                .noto
-                  font-family: 'Zen Kaku Gothic New'
-                  font-weight: bold
-              .mean
-                line-height: 24px
-
-    &.skill
-      .container
-        .content
+        @include sp
+          flex-direction: column
           width: fit-content
-          ul
-            .skill-item
-              &:not(:first-child)
-                margin-top: 40px
-              .skill-name
-                font-weight: bold
-                margin-bottom: 10px
-              .skill-bar
-                width: 350px
-                height: 10px
+          gap: 30px
 
-                background-color: #eee
+        li
+          width: fit-content
 
-                position: relative
-
-                @include sp
-                  width: 100%
-                .skill-param
-                  height: 100%
-
-                  background-color: $dg4-blue
-
-                  position: absolute
-
-          .btn
-            margin-top: 40px
-
-    &.tool
-      .container
-        .content
-          .items
-            width: 100%
-            flex-wrap: wrap
-
-            gap: 25px 26px
-
-            @include tab
-              max-width: 719px
-              justify-content: space-between
+          .phrase
+            font-family: 'Dont', sans-serif
+            font-size: 64px
+            margin-bottom: 12px
 
             @include sp
-              gap: 20px 5px
+              font-size: 56px
 
-            .item
-              width: 180px
+            .blue
+              color: $dg4-blue
+            .noto
+              font-family: 'Zen Kaku Gothic New'
+              font-weight: bold
+          .mean
+            line-height: 24px
 
-              background-color: #f0f0f0
+    &.skill .container .content
+      width: fit-content
+      ul .skill-item
+        &:not(:first-child)
+          margin-top: 40px
+        .skill-name
+          font-weight: bold
+          margin-bottom: 10px
+        .skill-bar
+          width: 350px
+          height: 10px
 
-              padding:
-                top: 16px
-                bottom: 12px
+          background-color: #eee
 
-              border-radius: 8px
+          position: relative
 
-              @include sp
-                width: 160px
+          @include sp
+            width: 100%
+          .skill-param
+            height: 100%
 
-              &-img
-                width: 140px
+            background-color: $dg4-blue
 
-                margin-bottom: 10px
+            position: absolute
 
-              p
-                width: fit-content
+      .btn
+        margin-top: 40px
 
-              &-name
-                font:
-                  size: 14px
-                  weight: bold
+    &.tool .container .content .items
+      width: 100%
+      flex-wrap: wrap
 
-                margin-bottom: 5px
+      gap: 25px 26px
 
-                @include sp
-                  font-size: 12px
+      @include tab
+        max-width: 719px
+        justify-content: space-between
 
-              &-gen
-                font-size: 12px
-                color: #999
+      @include sp
+        gap: 20px 5px
+
+      .item
+        width: 180px
+
+        background-color: #f0f0f0
+
+        padding:
+          top: 16px
+          bottom: 12px
+
+        border-radius: 8px
+
+        @include sp
+          width: 160px
+
+        &-img
+          width: 140px
+
+          margin-bottom: 10px
+
+        p
+          width: fit-content
+
+        &-name
+          font:
+            size: 14px
+            weight: bold
+
+          margin-bottom: 5px
+
+          @include sp
+            font-size: 12px
+
+        &-gen
+          font-size: 12px
+          color: #999
