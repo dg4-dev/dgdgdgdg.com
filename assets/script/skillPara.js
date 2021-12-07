@@ -29,17 +29,13 @@ skillList.forEach((value) => {
   value.start.months = elapsedMonths;
 });
 
-skillList.sort((a, b) => {
-  if (a.start.months < b.start.months) return 1;
-  if (a.start.months > b.start.months) return -1;
-  return 0;
-});
+skillList.sort((a, b) => b.start.months - a.start.months);
 
 skillList.forEach((value) => {
-  const skillName = JSON.stringify(value.name).replace(/"/g, "");
+  const skillName = value.name.replace(/"/g, "");
 
-  const skillMonth = JSON.stringify(value.start.months);
-  const firstMonth = JSON.stringify(skillList[0].start.months);
+  const skillMonth = value.start.months;
+  const firstMonth = skillList[0].start.months;
   const round = Math.floor((skillMonth / firstMonth) * 100);
 
   $("#skillOutput").insertAdjacentHTML(
