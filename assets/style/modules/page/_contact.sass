@@ -1,59 +1,54 @@
 .contact-page
-  .page-title
-    .bg
-      background-image: url(/assets/image/contact-fv.webp)
+  .page-title .bg
+    background-image: url(/assets/image/contact-fv.webp)
 
-  .message
-    .content
-      width: 100%
-      max-width: 600px
-      justify-content: space-between
+  .message .content
+    justify-content: center
+    gap: 32px
+
+    @include sp
+      width: fit-content
+      flex-direction: column
+      gap: 24px
+
+  .link .content
+    width: 100%
+    max-width: 600px
+
+    .item
+      flex-wrap: wrap
+      gap: 20px 12px
 
       @include sp
         width: fit-content
-        flex-direction: column
-        gap: 24px
 
-  .link
-    .content
-      width: 100%
-      max-width: 600px
+        flex:
+          direction: column
+          wrap: nowrap
 
-      .item
-        flex-wrap: wrap
-
-        gap: 20px 12px
-
+      li
         @include sp
           width: fit-content
+          height: fit-content
 
-          flex:
-            direction: column
-            wrap: nowrap
-
-        li
+        a
           @include sp
             width: fit-content
-            height: fit-content
 
-          a
-            @include sp
-              width: fit-content
+          &:hover
+            opacity: 0.5
 
-            &:hover
-              opacity: 0.5
+          .icon
+            width: 32px
+            height: 32px
+            img
+              border-radius: 8px
+          .sub
+            width: 150px
 
-            .icon
-              width: 32px
-              height: 32px
-              img
-                border-radius: 8px
-            .sub
-              width: 150px
+            font:
+              size: 20px
+              weight: bold
+            line-height: 32px
 
-              font:
-                size: 20px
-                weight: bold
-              line-height: 32px
-
-              margin-left: 10px
+            margin-left: 10px
