@@ -944,6 +944,21 @@ header .inside .blue .nav ul li:not(:first-child) {
   }
 }
 
+header .inside .blue .nav ul li.indent {
+  padding-left: 32px;
+  margin-top: 0px;
+}
+
+header .inside .blue .nav ul li.indent .nav-link .ja {
+  font-size: 20px;
+}
+
+@media (max-width: 640px) {
+  header .inside .blue .nav ul li.indent .nav-link .ja {
+    font-size: 16px;
+  }
+}
+
 header .inside .blue .link-wrapper {
   display: none;
   visibility: hidden;
