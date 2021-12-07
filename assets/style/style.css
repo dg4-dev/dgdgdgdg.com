@@ -1733,6 +1733,16 @@ footer .container .credit a, footer .container .credit p {
   text-align: center;
   font-size: 32px;
   line-height: 48px;
+  padding: 16px;
+  background-color: #eee;
+}
+
+@media (max-width: 640px) {
+  .brand-page section.font .container .content .sample {
+    font-size: 24px;
+    line-height: 36px;
+    padding: 12px;
+  }
 }
 
 .brand-page section.font .container .content-dont .sample {
