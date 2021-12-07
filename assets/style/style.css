@@ -1564,6 +1564,32 @@ footer .container .credit a, footer .container .credit p {
   opacity: 60%;
 }
 
+.works-page section.photo .container #postList {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.works-page section.photo .container #postList .post-photo {
+  width: 20%;
+  height: auto;
+}
+
+@media (max-width: 640px) {
+  .works-page section.photo .container #postList .post-photo {
+    width: calc( 100% / 3);
+  }
+}
+
+.works-page section.photo .container #postList .post-photo a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.works-page section.photo .container .btn {
+  margin-top: 32px;
+}
+
 .works-page section.font .container .image-desc {
   max-width: 500px;
   margin-bottom: 30px;
