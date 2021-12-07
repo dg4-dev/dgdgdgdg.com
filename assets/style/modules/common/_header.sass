@@ -1,6 +1,5 @@
-body
-  &.is-open
-    overflow: hidden
+body.is-open
+  overflow: hidden
 
 header
   position: fixed
@@ -18,13 +17,12 @@ header
 
     @include sp
       padding-left: 12px
-    .totop
-      .logo
-        width: 150px
-        height: auto
+    .totop .logo
+      width: 150px
+      height: auto
 
-        @include sp
-          width: 120px
+      @include sp
+        width: 120px
     .burger
       width: 90px
       height: 90px
@@ -111,11 +109,8 @@ header
       @include tab
         display: none
 
-      .link-wrapper
-        ul
-          li
-            &:not(:first-child)
-              margin-top: 20px
+      .link-wrapper ul li:not(:first-child)
+        margin-top: 20px
 
       &.is-open
         left: 0
@@ -165,13 +160,20 @@ header
           visibility: visible
           opacity: 1
 
-        ul
-          li
-            &:not(:first-child)
-              margin-top: 26px
+        ul li
+          &:not(:first-child)
+            margin-top: 26px
 
+            @include sp
+              margin-top: 16px
+
+          &.indent
+            padding-left: 32px
+            margin-top: 0px
+            .nav-link .ja
+              font-size: 20px
               @include sp
-                margin-top: 16px
+                font-size: 16px
 
       .link-wrapper
         display: none
@@ -185,7 +187,5 @@ header
           visibility: visible
           opacity: 1
 
-        ul
-          li
-            &:not(:first-child)
-              margin-top: 20px
+        ul li:not(:first-child)
+          margin-top: 20px
