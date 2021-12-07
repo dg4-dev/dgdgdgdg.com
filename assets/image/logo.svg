@@ -44,39 +44,27 @@
   </g>
   <script>//<![CDATA[
     const skillList = [
-      {
-        name: "デザイン",
-        start: new Date(2015, 4),
-      },
-      {
-        name: "映像制作",
-        start: new Date(2017, 3),
-      },
-      {
-        name: "モーショングラフィックス",
-        start: new Date(2019, 3),
-      },
-      {
-        name: "Web制作",
-        start: new Date(2019, 9),
-      },
+      new Date(2015, 4),
+      new Date(2017, 3),
+      new Date(2019, 3),
+      new Date(2019, 9),
     ];
 
     for (i = 0; i < skillList.length; i++) {
       const nowDate = new Date();
-      const startYear = skillList[i].start.getFullYear();
-      const startMonth = skillList[i].start.getMonth();
+      const startYear = skillList[i].getFullYear();
+      const startMonth = skillList[i].getMonth();
       const nowYear = nowDate.getFullYear();
       const nowMonth = nowDate.getMonth();
 
       const elapsedMonths = (nowYear - startYear) * 12 + nowMonth - startMonth;
 
-      skillList[i].start.months = elapsedMonths;
+      skillList[i].months = elapsedMonths;
     }
 
     skillList.sort((a, b) => {
-      if (a.start.months < b.start.months) return 1;
-      if (a.start.months > b.start.months) return -1;
+      if (a.months < b.months) return 1;
+      if (a.months > b.months) return -1;
       return 0;
     });
 
@@ -85,10 +73,8 @@
     let elmArray = [];
 
     for (i = 0; i < skillList.length; i++) {
-      const skillName = JSON.stringify(skillList[i].name).replace(/"/g, "");
-
-      const skillMonth = JSON.stringify(skillList[i].start.months);
-      const firstMonth = JSON.stringify(skillList[0].start.months);
+      const skillMonth = JSON.stringify(skillList[i].months);
+      const firstMonth = JSON.stringify(skillList[0].months);
       const round = Math.floor((skillMonth / firstMonth) * 100);
 
       elmArray.push(`#d${i + 1} {fill: #00${Math.floor((212 * round) / 100).toString(16)}${Math.floor((212 * round) / 100).toString(16)};}#g${i + 1}{fill: #00${Math.floor((212 * round) / 100).toString(16)}${Math.floor((212 * round) / 100).toString(16)};}`);}
