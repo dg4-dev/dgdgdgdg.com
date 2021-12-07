@@ -1471,10 +1471,8 @@ footer .container .credit a, footer .container .credit p {
 
 .about-page section.tool .container .content .items .item {
   width: 180px;
-  background-color: #f0f0f0;
   padding-top: 16px;
   padding-bottom: 12px;
-  border-radius: 8px;
 }
 
 @media (max-width: 640px) {
