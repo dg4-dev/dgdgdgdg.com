@@ -38,8 +38,8 @@
           margin-top: 56px
 
         .number
-          width: 24px
-          height: 24px
+          min-width: 24px
+          min-height: 24px
           background-color: $dg4-blue
 
           border: 6px solid $white
@@ -91,40 +91,41 @@
     .text
       width: fit-content
       margin-bottom: 32px
-    .content .items
-      flex-wrap: wrap
-      gap: 20px 40px
-      justify-content: space-between
-
-      @include tab
-        gap: 20px 25px
-
-      .item
-        width: 380px
-        font-weight: bold
-        color: $white
-        padding: 16px
+    .content
+      .items
+        flex-wrap: wrap
+        gap: 20px 40px
+        justify-content: space-between
 
         @include tab
-          width: 350px
+          gap: 20px 25px
 
-        @include sp
-          width: 100%
+        .item
+          width: 380px
+          font-weight: bold
+          color: $white
+          padding: 16px
 
-        .title
-          font-size: 20px
-          text-align: center
-        .price
-          font:
-            family: 'Dont', sans-selif
-            size: 64px
-            weight: normal
-          text-align: center
-          margin-top: 12px
-        .text
-          font-size: 16px
-          line-height: 24px
-          margin-top: 12px
+          @include tab
+            width: 350px
+
+          @include sp
+            width: 100%
+
+          .title
+            font-size: 20px
+            text-align: center
+          .price
+            font:
+              family: 'Dont', sans-selif
+              size: 64px
+              weight: normal
+            text-align: center
+            margin-top: 12px
+          .text
+            font-size: 16px
+            line-height: 24px
+            margin-top: 12px
       &.setplan .items .item
         background-color: $dg4-indigo
       &.single .items .item
