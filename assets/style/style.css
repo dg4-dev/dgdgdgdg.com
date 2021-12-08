@@ -1938,8 +1938,8 @@ footer .container .credit a, footer .container .credit p {
 }
 
 .service-page .flow .container .content .items .item .number {
-  width: 24px;
-  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
   background-color: #00d4d4;
   border: 6px solid #ffffff;
   border-radius: 18px;
@@ -2076,11 +2076,11 @@ footer .container .credit a, footer .container .credit p {
   margin-top: 12px;
 }
 
-.service-page .plan .container .content .items.setplan .items .item {
+.service-page .plan .container .content.setplan .items .item {
   background-color: #0044dd;
 }
 
-.service-page .plan .container .content .items.single .items .item {
+.service-page .plan .container .content.single .items .item {
   background-color: #00d4d4;
 }
 
