@@ -68,9 +68,24 @@ const toolList = [
         gen: "2018",
       },
       {
+        name: "X-7",
+        maker: "MINOLTA",
+        gen: "1980",
+      },
+      {
         name: "MD ROKKOR 50mm F1.7",
         maker: "MINOLTA",
         gen: "1979",
+      },
+      {
+        name: "MD ZOOM 35-70mm F3.5",
+        maker: "MINOLTA",
+        gen: "1981",
+      },
+      {
+        name: "MD ZOOM 75-150mm F4",
+        maker: "MINOLTA",
+        gen: "1981",
       },
       {
         name: "AUTO HALF",
