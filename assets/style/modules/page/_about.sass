@@ -105,23 +105,18 @@
       width: 100%
       flex-wrap: wrap
 
-      gap: 25px 26px
-
       @include tab
         max-width: 719px
         justify-content: space-between
 
-      @include sp
-        gap: 20px 5px
-
       .item
-        width: 180px
+        width: 25%
         padding:
           top: 16px
           bottom: 12px
 
         @include sp
-          width: 160px
+          width: 50%
 
         &-img
           width: 140px
@@ -140,6 +135,11 @@
 
           @include sp
             font-size: 12px
+
+        &-maker
+          font-size: 12px
+          color: #999
+          margin-bottom: 4px
 
         &-gen
           font-size: 12px

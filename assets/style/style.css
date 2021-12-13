@@ -1446,7 +1446,6 @@ footer .container .credit a, footer .container .credit p {
   width: 100%;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  gap: 25px 26px;
 }
 
 @media (max-width: 1024px) {
@@ -1458,21 +1457,15 @@ footer .container .credit a, footer .container .credit p {
   }
 }
 
-@media (max-width: 640px) {
-  .about-page section.tool .container .content .items {
-    gap: 20px 5px;
-  }
-}
-
 .about-page section.tool .container .content .items .item {
-  width: 180px;
+  width: 25%;
   padding-top: 16px;
   padding-bottom: 12px;
 }
 
 @media (max-width: 640px) {
   .about-page section.tool .container .content .items .item {
-    width: 160px;
+    width: 50%;
   }
 }
 
@@ -1497,6 +1490,12 @@ footer .container .credit a, footer .container .credit p {
   .about-page section.tool .container .content .items .item-name {
     font-size: 12px;
   }
+}
+
+.about-page section.tool .container .content .items .item-maker {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 4px;
 }
 
 .about-page section.tool .container .content .items .item-gen {
