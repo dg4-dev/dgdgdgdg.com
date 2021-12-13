@@ -105,42 +105,32 @@
       width: 100%
       flex-wrap: wrap
 
-      @include tab
-        max-width: 719px
-        justify-content: space-between
-
       .item
-        width: 25%
-        padding:
-          top: 16px
-          bottom: 12px
+        width: calc(100% / 3)
+        padding: 16px 32px
 
         @include sp
           width: 50%
+          padding: 16px 8px
 
         &-img
-          width: 140px
-
-          margin-bottom: 10px
-
-        p
-          width: fit-content
+          margin-bottom: 16px
 
         &-name
           font:
-            size: 14px
+            size: 16px
             weight: bold
 
-          margin-bottom: 5px
-
-          @include sp
-            font-size: 12px
+          text-align: center
+          margin-bottom: 8px
 
         &-maker
           font-size: 12px
           color: #999
-          margin-bottom: 4px
+          text-align: center
+          margin-bottom: 8px
 
         &-gen
           font-size: 12px
+          text-align: center
           color: #999

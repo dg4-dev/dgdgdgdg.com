@@ -115,12 +115,12 @@ const toolList = [
       {
         name: 'iPad Pro 12.9"',
         maker: "Apple",
-        gen: "2020 (4th Gen)",
+        gen: "2020",
       },
       {
         name: "iPad mini",
         maker: "Apple",
-        gen: "2021 (6th Gen)",
+        gen: "2021",
       },
       {
         name: "iPhone 13 Pro",
@@ -130,7 +130,7 @@ const toolList = [
       {
         name: "iPhone SE",
         maker: "Apple",
-        gen: "2020 (2nd Gen)",
+        gen: "2020",
       },
     ],
   },
