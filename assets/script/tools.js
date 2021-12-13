@@ -3,36 +3,89 @@ const toolList = [
     contentName: "Software",
     items: [
       {
-        name: "Adobe Illustrator",
+        name: "Illustrator",
+        maker: "Adobe",
         gen: "Latest version",
       },
       {
-        name: "Adobe XD",
+        name: "XD",
+        maker: "Adobe",
         gen: "Latest version",
       },
       {
-        name: "Adobe Premiere Pro",
+        name: "Premiere Pro",
+        maker: "Adobe",
         gen: "Latest version",
       },
       {
-        name: "Adobe After Effects",
+        name: "After Effects",
+        maker: "Adobe",
         gen: "Latest version",
       },
       {
-        name: "Adobe Photoshop",
+        name: "Photoshop",
+        maker: "Adobe",
         gen: "Latest version",
       },
       {
-        name: "Adobe Lightroom",
+        name: "Lightroom",
+        maker: "Adobe",
         gen: "Latest version",
       },
       {
         name: "STUDIO",
+        maker: "STUDIO",
         gen: "Latest version",
       },
       {
         name: "Figma",
+        maker: "Figma",
         gen: "Latest version",
+      },
+    ],
+  },
+  {
+    contentName: "Shooting equipment",
+    items: [
+      {
+        name: "X-S10",
+        maker: "FUJIFILM",
+        gen: "2020",
+      },
+      {
+        name: "XF 35mm F1.4 R",
+        maker: "FUJIFILM",
+        gen: "2012",
+      },
+      {
+        name: "XF 18-55mm F2.8-4 R OIS",
+        maker: "FUJIFILM",
+        gen: "2012",
+      },
+      {
+        name: "Wtulens L",
+        maker: "GIZMON",
+        gen: "2018",
+      },
+      {
+        name: "MD ROKKOR 50mm F1.7",
+        maker: "MINOLTA",
+        gen: "1979",
+      },
+      {
+        name: "AUTO HALF",
+        maker: "RICOH",
+        gen: "1962",
+      },
+      {
+        name: "RSC 2",
+        maker: "DJI",
+        gen: "2020",
+      },
+      {
+        name: "OM4",
+        maker: "DJI",
+        gen: "2020",
       },
     ],
   },
@@ -41,52 +94,28 @@ const toolList = [
     items: [
       {
         name: 'MacBook Pro 16"',
+        maker: "Apple",
         gen: "2019",
       },
       {
         name: 'iPad Pro 12.9"',
+        maker: "Apple",
         gen: "2020 (4th Gen)",
       },
       {
         name: "iPad mini",
+        maker: "Apple",
         gen: "2021 (6th Gen)",
       },
       {
         name: "iPhone 13 Pro",
+        maker: "Apple",
         gen: "2021",
       },
       {
         name: "iPhone SE",
+        maker: "Apple",
         gen: "2020 (2nd Gen)",
-      },
-    ],
-  },
-  {
-    contentName: "Shooting equipment",
-    items: [
-      {
-        name: "FUJIFILM X-S10",
-        gen: "2020",
-      },
-      {
-        name: "XF 35mm F1.4 R",
-        gen: "2012",
-      },
-      {
-        name: "XF 18-55mm F2.8-4 R OIS",
-        gen: "2012",
-      },
-      {
-        name: "GIZMON Wtulens L",
-        gen: "2018",
-      },
-      {
-        name: "DJI RSC 2",
-        gen: "2020",
-      },
-      {
-        name: "DJI OM4",
-        gen: "2020",
       },
     ],
   },
@@ -104,7 +133,11 @@ toolList.forEach((value, index) => {
   );
 
   value.items.forEach((valueChild) => {
-    const imgName = valueChild.name.toLowerCase().replace(/[." -]/g, "");
+    const imgName = `${valueChild.maker
+      .toLowerCase()
+      .replace(/[." -]/g, "")}-${valueChild.name
+      .toLowerCase()
+      .replace(/[." -]/g, "")}`;
 
     $(`#toolContent${index}`).insertAdjacentHTML(
       "beforeend",
@@ -115,6 +148,9 @@ toolList.forEach((value, index) => {
         </div>
         <p class="item-name center">
           ${valueChild.name}
+        </p>
+        <p class="item-maker center">
+          ${valueChild.maker}
         </p>
         <p class="item-gen center">
           ${valueChild.gen}
