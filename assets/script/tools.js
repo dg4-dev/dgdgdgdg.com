@@ -159,7 +159,7 @@ toolList.forEach((value, index) => {
       `
       <div class="item">
         <div class="item-img center">
-          <img src="/assets/image/tool-${imgName}.webp" />
+          <img src="/assets/image/tool/${imgName}.webp" />
         </div>
         <p class="item-name center">
           ${valueChild.name}
