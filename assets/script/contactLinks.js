@@ -1,31 +1,27 @@
 const linkData = [
-  "Note",
-  "Twitter",
-  "Facebook",
-  "YouTube",
-  "Instagram",
-  "Gitlab",
-  "Github",
-  "Suzuri",
+  "note",
+  "twitter",
+  "facebook",
+  "youtube",
+  "instagram",
+  "gitlab",
+  "github",
+  "suzuri",
 ];
 
 linkData.forEach((value) => {
-  const formated = value.toLowerCase().replace(/\s+/g, "");
-
   $("#linkList").insertAdjacentHTML(
     "beforeend",
     `
     <li>
       <a
-        href='https://${formated}.dgdgdgdg.com'
+        href='https://${value}.dgdgdgdg.com'
         target='_blank'
         rel='noopener norefferer'
-        class='is-flex'
       >
       <div class='icon'>
-        <img src='/assets/image/icon/${formated}.webp'>
+        <img src='/assets/image/icon/${value}.webp'>
       </div>
-      <span class='sub'>${value}</span>
       </a>
     </li>
     `
