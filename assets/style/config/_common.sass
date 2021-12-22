@@ -42,9 +42,17 @@ footer
   font-weight: normal
   box-sizing: border-box
 
+  transition: all 0.3s
+
   cursor: -webkit-image-set(url(/assets/image/cursor-normal.png) 1x, url(/assets/image/cursor-normal@2x.png) 2x), default
   user-select: none
   scroll-behavior: smooth
+
+  -ms-overflow-style: none
+  scrollbar-width: none
+
+  &::-webkit-scrollbar
+    display: none
 
 // image
 img
@@ -101,13 +109,6 @@ img
     display: none
   .is-sp
     display: block
-
-.toggle
-  transition: all 0.3s
-  & > *,
-  & > * > *,
-  & > * > * > *,
-    transition: all 0.3s
 
 // nav-link
 .nav-link
