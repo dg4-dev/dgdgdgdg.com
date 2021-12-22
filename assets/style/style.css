@@ -2042,80 +2042,40 @@ footer .container .credit a, footer .container .credit p {
 
 @media (max-width: 640px) {
   .contact-page .message .content {
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
     gap: 24px;
   }
 }
 
-.contact-page .link .content {
-  width: 100%;
-  max-width: 600px;
-}
-
 .contact-page .link .content .item {
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  gap: 20px 12px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 @media (max-width: 640px) {
   .contact-page .link .content .item {
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -ms-flex-wrap: nowrap;
-        flex-wrap: nowrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
   }
+}
+
+.contact-page .link .content .item li {
+  width: 48px;
+  margin: 8px;
 }
 
 @media (max-width: 640px) {
   .contact-page .link .content .item li {
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-    height: -webkit-fit-content;
-    height: -moz-fit-content;
-    height: fit-content;
+    width: calc(25% - 16px);
   }
 }
 
-@media (max-width: 640px) {
-  .contact-page .link .content .item li a {
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-  }
-}
-
-.contact-page .link .content .item li a:hover {
+.contact-page .link .content .item li:hover {
   opacity: 0.5;
 }
 
-.contact-page .link .content .item li a .icon {
-  width: 32px;
-  height: 32px;
-}
-
-.contact-page .link .content .item li a .icon img {
-  border-radius: 8px;
-}
-
-.contact-page .link .content .item li a .sub {
-  width: 150px;
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 32px;
-  margin-left: 10px;
+.contact-page .link .content .item li a {
+  display: block;
 }
 
 .privacy-page .container .content h3 {
