@@ -1283,6 +1283,10 @@ footer .container .credit a, footer .container .credit p {
   background-image: url(/assets/image/about-fv.webp);
 }
 
+.about-page section .container-meaning {
+  width: 100%;
+}
+
 .about-page section .container .content {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -1346,39 +1350,23 @@ footer .container .credit a, footer .container .credit p {
   margin-top: 40px;
 }
 
-.about-page section.overview .container .meaning .item {
-  width: 100%;
-  max-width: 600px;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  gap: 50px;
+.about-page section.overview .container .meaning h3 {
+  margin-bottom: 80px;
 }
 
-@media (max-width: 640px) {
-  .about-page section.overview .container .meaning .item {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-    gap: 30px;
-  }
+.about-page section.overview .container .meaning .item {
+  width: 100%;
 }
 
 .about-page section.overview .container .meaning .item li {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
+  padding: 0 24px;
 }
 
 .about-page section.overview .container .meaning .item li .phrase {
+  white-space: nowrap;
   font-family: 'Dont', sans-serif;
   font-size: 64px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 @media (max-width: 640px) {
@@ -1392,11 +1380,12 @@ footer .container .credit a, footer .container .credit p {
 }
 
 .about-page section.overview .container .meaning .item li .phrase .noto {
-  font-family: 'Zen Kaku Gothic New';
+  font-family: 'Zen Kaku Gothic New', sans-serif;
   font-weight: bold;
 }
 
 .about-page section.overview .container .meaning .item li .mean {
+  white-space: nowrap;
   line-height: 24px;
 }
 
