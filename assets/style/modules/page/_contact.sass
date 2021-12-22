@@ -7,48 +7,22 @@
     gap: 32px
 
     @include sp
-      width: fit-content
-      flex-direction: column
       gap: 24px
 
-  .link .content
-    width: 100%
-    max-width: 600px
+  .link .content .item
+    width: fit-content
 
-    .item
+    @include sp
       flex-wrap: wrap
-      gap: 20px 12px
 
+    li
+      width: 48px
+      margin: 8px
       @include sp
-        width: fit-content
+        width: calc(25% - 16px)
 
-        flex:
-          direction: column
-          wrap: nowrap
+      &:hover
+        opacity: 0.5
 
-      li
-        @include sp
-          width: fit-content
-          height: fit-content
-
-        a
-          @include sp
-            width: fit-content
-
-          &:hover
-            opacity: 0.5
-
-          .icon
-            width: 32px
-            height: 32px
-            img
-              border-radius: 8px
-          .sub
-            width: 150px
-
-            font:
-              size: 20px
-              weight: bold
-            line-height: 32px
-
-            margin-left: 10px
+      a
+        display: block
