@@ -3,8 +3,11 @@
     background-image: url(/assets/image/about-fv.webp)
 
   section
-    .container .content
-      flex-direction: column
+    .container
+      &-meaning
+        width: 100%
+      .content
+        flex-direction: column
     &.overview .container
       .information .item
         gap: 50px
@@ -42,36 +45,33 @@
         .btn
           margin-top: 40px
 
-      .meaning .item
-        width: 100%
-        max-width: 600px
-        flex-wrap: wrap
-        justify-content: space-around
-        gap: 50px
+      .meaning
+        h3
+          margin-bottom: 80px
 
-        @include sp
-          flex-direction: column
-          width: fit-content
-          gap: 30px
+        .item
+          width: 100%
 
-        li
-          width: fit-content
+          li
+            padding: 0 24px
 
-          .phrase
-            font-family: 'Dont', sans-serif
-            font-size: 64px
-            margin-bottom: 12px
+            .phrase
+              white-space: nowrap
+              font-family: 'Dont', sans-serif
+              font-size: 64px
+              margin-bottom: 16px
 
-            @include sp
-              font-size: 56px
+              @include sp
+                font-size: 56px
 
-            .blue
-              color: $dg4-blue
-            .noto
-              font-family: 'Zen Kaku Gothic New'
-              font-weight: bold
-          .mean
-            line-height: 24px
+              .blue
+                color: $dg4-blue
+              .noto
+                font-family: 'Zen Kaku Gothic New', sans-serif
+                font-weight: bold
+            .mean
+              white-space: nowrap
+              line-height: 24px
 
     &.skill .container .content
       width: fit-content
