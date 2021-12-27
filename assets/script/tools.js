@@ -137,15 +137,19 @@ const toolList = [
 ];
 
 toolList.forEach((value, index) => {
-  $("#toolOutput").insertAdjacentHTML(
-    "beforeend",
-    `
-    <div class='content is-flex'>
-      <h3>${value.contentName}</h3>
-      <div id='toolContent${index}' class="items center is-flex"></div>
-    </div>
-    `
-  );
+  const content = document.createElement("div");
+  content.className = "content is-flex";
+
+  const contentName = document.createElement("h3");
+  contentName.innerText = `${value.contentName}`;
+
+  const toolList = document.createElement("div");
+  toolList.id = `toolContent${index}`;
+  toolList.className = "items center is-flex";
+
+  content.appendChild(contentName);
+  content.appendChild(toolList);
+  $("#toolOutput").appendChild(content);
 
   value.items.forEach((valueChild) => {
     const imgName = `${valueChild.maker
@@ -154,24 +158,32 @@ toolList.forEach((value, index) => {
       .toLowerCase()
       .replace(/[." -]/g, "")}`;
 
-    $(`#toolContent${index}`).insertAdjacentHTML(
-      "beforeend",
-      `
-      <div class="item">
-        <div class="item-img center">
-          <img src="/assets/image/tool/${imgName}.webp" />
-        </div>
-        <p class="item-name center">
-          ${valueChild.name}
-        </p>
-        <p class="item-maker center">
-          ${valueChild.maker}
-        </p>
-        <p class="item-gen center">
-          ${valueChild.gen}
-        </p>
-      </div>
-      `
-    );
+    const toolItem = document.createElement("div");
+    toolItem.className = "item";
+
+    const itemImg = document.createElement("div");
+    itemImg.className = "item-img center";
+
+    const itemImage = document.createElement("img");
+    itemImage.src = `/assets/image/tool/${imgName}.webp`;
+
+    const itemName = document.createElement("p");
+    itemName.className = "item-name center";
+    itemName.innerText = `${valueChild.name}`;
+
+    const itemMaker = document.createElement("p");
+    itemMaker.className = "item-maker center";
+    itemMaker.innerText = `${valueChild.maker}`;
+
+    const itemGen = document.createElement("p");
+    itemGen.className = "item-gen center";
+    itemGen.innerText = `${valueChild.gen}`;
+
+    itemImg.appendChild(itemImage);
+    toolItem.appendChild(itemImg);
+    toolItem.appendChild(itemName);
+    toolItem.appendChild(itemMaker);
+    toolItem.appendChild(itemGen);
+    $(`#toolContent${index}`).appendChild(toolItem);
   });
 });

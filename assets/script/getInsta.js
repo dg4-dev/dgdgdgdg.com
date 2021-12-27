@@ -19,18 +19,18 @@ const getData = () => {
 const instaData = getData();
 
 instaData.media.data.forEach((elm) => {
-  $("#postList").insertAdjacentHTML(
-    "beforeend",
-    `
-    <div class="post-photo">
-      <a
-        href="${elm.permalink}"
-        target="_blank"
-        rel="noopener norefferer"
-      >
-        <img src="${elm.media_url}" alt="" />
-      </a>
-    </div>
-    `
-  );
+  const instaPost = document.createElement("div");
+  instaPost.className = "post-photo";
+
+  const instaLink = document.createElement("a");
+  instaLink.href = elm.permalink;
+  instaLink.target = "_blank";
+  instaLink.rel = "noopener norefferer";
+
+  const instaImg = document.createElement("img");
+  instaImg.src = elm.media_url;
+
+  instaLink.appendChild(instaImg);
+  instaPost.appendChild(instaLink);
+  $("#postList").appendChild(instaPost);
 });
