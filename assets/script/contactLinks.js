@@ -10,20 +10,21 @@ const linkData = [
 ];
 
 linkData.forEach((value) => {
-  $("#linkList").insertAdjacentHTML(
-    "beforeend",
-    `
-    <li>
-      <a
-        href='https://${value}.dgdgdgdg.com'
-        target='_blank'
-        rel='noopener norefferer'
-      >
-      <div class='icon'>
-        <img src='/assets/image/icon/${value}.webp'>
-      </div>
-      </a>
-    </li>
-    `
-  );
+  const li = document.createElement("li");
+
+  const linkLink = document.createElement("a");
+  linkLink.href = `https://${value}.dgdgdgdg.com`;
+  linkLink.target = "_blank";
+  linkLink.rel = "noopener norefferer";
+
+  const linkIcon = document.createElement("div");
+  linkIcon.class = "icon";
+
+  const linkImg = document.createElement("img");
+  linkImg.src = `/assets/image/icon/${value}.webp`;
+
+  linkIcon.appendChild(linkImg);
+  linkLink.appendChild(linkIcon);
+  li.appendChild(linkLink);
+  $("#linkList").appendChild(li);
 });
