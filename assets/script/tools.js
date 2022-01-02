@@ -68,6 +68,11 @@ const toolList = [
         gen: "2018",
       },
       {
+        name: "X-700",
+        maker: "MINOLTA",
+        gen: "1981",
+      },
+      {
         name: "X-7",
         maker: "MINOLTA",
         gen: "1980",
@@ -91,6 +96,11 @@ const toolList = [
         name: "RMC 80-200mm f4.0",
         maker: "Tokina",
         gen: "1984",
+      },
+      {
+        name: "Fujica 35-M",
+        maker: "FUJIFILM",
+        gen: "1957",
       },
       {
         name: "AUTO HALF",
