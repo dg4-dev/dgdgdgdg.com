@@ -1,7 +1,7 @@
 const xhr = new XMLHttpRequest(),
   Hmethod = "GET",
   Hurl = "/assets/common/header.html";
-const Hbox = document.getElementById("header");
+const Hbox = $("#header");
 
 xhr.responseType = "document";
 xhr.open(Hmethod, Hurl, true);
@@ -14,7 +14,7 @@ xhr.onreadystatechange = function () {
 };
 xhr.send();
 
-const menuOpen = () => {
-  const toggle = Array.from(document.getElementsByClassName("toggle"));
-  toggle.forEach((value) => value.classList.toggle("is-open"));
-};
+const menuOpen = () =>
+  Array.from($(".toggle")).forEach((value) =>
+    value.classList.toggle("is-open")
+  );
