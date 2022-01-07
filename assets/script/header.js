@@ -15,6 +15,6 @@ xhr.onreadystatechange = function () {
 xhr.send();
 
 const menuOpen = () =>
-  Array.from($(".toggle")).forEach((value) =>
+  Array.from($(".header-menu")).forEach((value) =>
     value.classList.toggle("is-open")
   );
