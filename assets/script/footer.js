@@ -1,7 +1,7 @@
 const xfr = new XMLHttpRequest(),
   Fmethod = "GET",
   Furl = "/assets/common/footer.html";
-const Fbox = document.getElementById("footer");
+const Fbox = $("#footer");
 
 xfr.responseType = "document";
 xfr.open(Fmethod, Furl, true);
