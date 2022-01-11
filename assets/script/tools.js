@@ -98,16 +98,6 @@ const toolList = [
         gen: "1984",
       },
       {
-        name: "Fujica 35-M",
-        maker: "FUJIFILM",
-        gen: "1957",
-      },
-      {
-        name: "AUTO HALF",
-        maker: "RICOH",
-        gen: "1962",
-      },
-      {
         name: "RSC 2",
         maker: "DJI",
         gen: "2020",
