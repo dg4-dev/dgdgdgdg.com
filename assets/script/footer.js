@@ -1,15 +1,12 @@
-const xfr = new XMLHttpRequest(),
-  Fmethod = "GET",
-  Furl = "/assets/common/footer.html";
-const Fbox = $("#footer");
-
-xfr.responseType = "document";
-xfr.open(Fmethod, Furl, true);
-xfr.onreadystatechange = () => {
-  if (xfr.readyState === 4 && xfr.status === 200) {
-    const restxt = xfr.responseXML;
-    const int = restxt.getElementsByTagName("footer")[0];
-    Fbox.innerHTML = int.innerHTML;
-  }
+const writeFooter = (getData) => {
+  const writeText = getData.getElementsByTagName("footer")[0].innerHTML;
+  $("#footer").innerHTML = writeText;
 };
-xfr.send();
+
+const footerUrl = "/assets/common/footer.html";
+
+fetch(footerUrl)
+  .then((response) => response.text())
+  .then((data) => {
+    writeFooter(new DOMParser().parseFromString(data, "text/html"));
+  });
