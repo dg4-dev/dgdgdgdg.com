@@ -1152,20 +1152,29 @@ footer .container .credit a, footer .container .credit p {
   }
 }
 
-.top-page section.works .container .content {
+.top-page section .container .content.about-brand .item {
+  width: 100%;
+  max-width: none;
   -webkit-box-orient: horizontal;
-  -webkit-box-direction: reverse;
-      -ms-flex-direction: row-reverse;
-          flex-direction: row-reverse;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  gap: 40px;
 }
 
 @media (max-width: 640px) {
-  .top-page section.works .container .content {
+  .top-page section .container .content.about-brand .item {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
   }
+}
+
+.top-page section .container .content.about-brand .item .text {
+  max-width: 230px;
 }
 
 .top-page section.contact {
