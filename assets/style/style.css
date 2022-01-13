@@ -1804,6 +1804,10 @@ footer .container .credit a, footer .container .credit p {
   margin-top: 32px;
 }
 
+.works-page section.video .container #videoList .item .image {
+  display: block;
+}
+
 .service-page .page-title .bg {
   background-image: url(/assets/image/service-fv.webp);
 }
