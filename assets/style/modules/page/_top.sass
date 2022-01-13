@@ -51,11 +51,18 @@
         @include sp
           max-width: none
 
-    &.works .container .content
-      flex-direction: row-reverse
+      &.about-brand .item
+        width: 100%
+        max-width: none
+        flex-direction: row
+        justify-content: space-around
+        gap: 40px
 
-      @include sp
-        flex-direction: column
+        @include sp
+          flex-direction: column
+
+        .text
+          max-width: 230px
 
     &.contact
       background-color: $dg4-indigo
