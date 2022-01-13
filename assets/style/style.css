@@ -1730,6 +1730,13 @@ footer .container .credit a, footer .container .credit p {
   margin-top: 20px;
 }
 
+@media (max-width: 640px) {
+  .works-page section .container .items .item .title {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
 .works-page section .container .items .item .btn {
   margin-top: 15px;
 }
