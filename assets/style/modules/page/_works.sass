@@ -15,18 +15,21 @@
         @include sp
           width: calc( 50% - 16px )
 
+        .image
+          display: block
+          object
+            padding: 50px 0
+
         .title
           font:
             size: 20px
             weight: bold
+          line-height: 24px
           text-align: center
           margin-top: 20px
 
         .btn
           margin-top: 15px
-          &.disable
-            pointer-events: none
-            opacity: 60%
 
     &.font .container
       .image-desc
@@ -80,4 +83,19 @@
         margin-top: 32px
 
     &.video .container #videoList .item .image
-      display: block
+      position: relative
+      height: auto
+      &::before
+        content: ""
+        display: block
+        padding-top: 56.25%
+      img
+        position: absolute
+        width: 100%
+        height: 100%
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+        margin: auto
+        object-fit: cover
