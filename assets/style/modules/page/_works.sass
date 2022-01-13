@@ -4,30 +4,17 @@
 
   section
     .container .items
+      width: 100%
       flex-wrap: wrap
-      gap: 25px
-
-      @include sp
-        gap: 20px
 
       .item
-        width: 250px
-        background-color: #f0f0f0
+        width: calc( (100% / 3) - 16px )
         padding-bottom: 24px
-        border-radius: 10px
+        margin: 8px
 
         @include sp
-          width: 160px
-          padding-bottom: 16px
+          width: calc( 50% - 16px )
 
-        .image
-          height: 170px
-
-          @include sp
-            height: 100px
-
-          img
-            border-radius: 10px 10px 0 0
         .title
           font:
             size: 20px
@@ -35,13 +22,46 @@
           text-align: center
           margin-top: 20px
 
-          @include sp
-            font-size: 16px
         .btn
           margin-top: 15px
           &.disable
             pointer-events: none
             opacity: 60%
+
+    &.font .container
+      .image-desc
+        max-width: 500px
+        margin-bottom: 30px
+      .content
+        flex-direction: column
+        .item
+          width: 100%
+          padding: 0
+          position: relative
+          .item-letter
+            text-align: center
+            font-size: 32px
+            line-height: 48px
+            padding: 16px 16px 32px
+            background-color: #eee
+
+            &.normal
+              font-family: 'Dont', sans-serif
+
+            &.round
+              font-family: 'Dont Round', sans-serif
+
+            &.circle
+              font-family: 'Dont Circle', sans-serif
+
+          .dl-link
+            position: absolute
+            bottom: 10px
+            right: 10px
+            font-size: 20px
+            font-weight: bold
+            color: $dg4-blue
+            text-decoration: underline
 
     &.photo .container
       #postList
@@ -58,37 +78,3 @@
             height: 100%
       .btn
         margin-top: 32px
-
-    &.font .container
-      .image-desc
-        max-width: 500px
-        margin-bottom: 30px
-      .items .item
-        .item-letter
-          height: 170px
-          background-color: $dg4-blue
-          border-radius: 10px 10px 0 0
-
-          align-items: center
-
-          @include sp
-            height: 100px
-
-          .letter-des
-            width: fit-content
-            height: fit-content
-
-            color: $white
-            font-size: 56px
-
-            @include sp
-              font-size: 32px
-
-        &.normal .letter-des
-          font-family: 'Dont', sans-serif
-
-        &.round .letter-des
-          font-family: 'Dont Round', sans-serif
-
-        &.circle .letter-des
-          font-family: 'Dont Circle', sans-serif
