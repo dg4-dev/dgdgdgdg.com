@@ -1412,10 +1412,46 @@ footer .container .credit a, footer .container .credit p {
   margin-top: 40px;
 }
 
+.about-page section.tool .container .content h3 {
+  position: relative;
+}
+
+.about-page section.tool .container .content h3 .accord-arrow {
+  position: absolute;
+  right: 3px;
+  top: 0px;
+  bottom: 0px;
+  width: 16px;
+  height: 16px;
+  -webkit-transform: rotate(225deg);
+          transform: rotate(225deg);
+  border-right: 4px solid #444444;
+  border-bottom: 4px solid #444444;
+  margin: auto 0;
+}
+
+@media (max-width: 640px) {
+  .about-page section.tool .container .content h3 .accord-arrow {
+    border-right: 3px solid #444444;
+    border-bottom: 3px solid #444444;
+  }
+}
+
+.about-page section.tool .container .content h3 .accord-arrow.ac-open {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
 .about-page section.tool .container .content .items {
   width: 100%;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.about-page section.tool .container .content .items.ac-open {
+  max-height: 50000px;
 }
 
 .about-page section.tool .container .content .items .item {

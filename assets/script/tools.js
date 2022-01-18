@@ -147,13 +147,22 @@ toolList.forEach((value, index) => {
   $("#toolOutput").appendChild(content);
 
   const contentName = document.createElement("h3");
+  contentName.className = "click";
   contentName.innerText = `${value.contentName}`;
   content.appendChild(contentName);
 
+  const contentArrow = document.createElement("div");
+  contentArrow.className = "accord-arrow";
+  contentName.appendChild(contentArrow);
+
   const toolList = document.createElement("div");
-  toolList.id = `toolContent${index}`;
   toolList.className = "items center is-flex";
   content.appendChild(toolList);
+
+  contentName.addEventListener("click", () => {
+    toolList.classList.toggle("ac-open");
+    contentArrow.classList.toggle("ac-open");
+  });
 
   value.items.forEach((valueChild) => {
     const imgName = `${valueChild.maker
@@ -164,7 +173,7 @@ toolList.forEach((value, index) => {
 
     const toolItem = document.createElement("div");
     toolItem.className = "item";
-    $(`#toolContent${index}`).appendChild(toolItem);
+    toolList.appendChild(toolItem);
 
     const itemImg = document.createElement("div");
     itemImg.className = "item-img center";
