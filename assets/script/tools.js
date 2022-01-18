@@ -1,46 +1,16 @@
 const toolList = [
   {
-    contentName: "Software",
+    contentName: "?",
     items: [
       {
-        name: "Illustrator",
-        maker: "Adobe",
-        gen: "Latest version",
+        name: "RC-704",
+        maker: "National",
+        gen: "1972",
       },
       {
-        name: "XD",
-        maker: "Adobe",
-        gen: "Latest version",
-      },
-      {
-        name: "Premiere Pro",
-        maker: "Adobe",
-        gen: "Latest version",
-      },
-      {
-        name: "After Effects",
-        maker: "Adobe",
-        gen: "Latest version",
-      },
-      {
-        name: "Photoshop",
-        maker: "Adobe",
-        gen: "Latest version",
-      },
-      {
-        name: "Lightroom",
-        maker: "Adobe",
-        gen: "Latest version",
-      },
-      {
-        name: "STUDIO",
-        maker: "STUDIO",
-        gen: "Latest version",
-      },
-      {
-        name: "Figma",
-        maker: "Figma",
-        gen: "Latest version",
+        name: "10J-U50",
+        maker: "TOSHIBA",
+        gen: "1986",
       },
     ],
   },
@@ -110,7 +80,7 @@ const toolList = [
     ],
   },
   {
-    contentName: "Hardware",
+    contentName: "Terminal",
     items: [
       {
         name: 'MacBook Pro 16"',
@@ -136,6 +106,51 @@ const toolList = [
         name: "iPhone SE",
         maker: "Apple",
         gen: "2020",
+      },
+    ],
+  },
+  {
+    contentName: "Software",
+    items: [
+      {
+        name: "Illustrator",
+        maker: "Adobe",
+        gen: "Latest version",
+      },
+      {
+        name: "XD",
+        maker: "Adobe",
+        gen: "Latest version",
+      },
+      {
+        name: "Premiere Pro",
+        maker: "Adobe",
+        gen: "Latest version",
+      },
+      {
+        name: "After Effects",
+        maker: "Adobe",
+        gen: "Latest version",
+      },
+      {
+        name: "Photoshop",
+        maker: "Adobe",
+        gen: "Latest version",
+      },
+      {
+        name: "Lightroom",
+        maker: "Adobe",
+        gen: "Latest version",
+      },
+      {
+        name: "STUDIO",
+        maker: "STUDIO",
+        gen: "Latest version",
+      },
+      {
+        name: "Figma",
+        maker: "Figma",
+        gen: "Latest version",
       },
     ],
   },
