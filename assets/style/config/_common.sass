@@ -234,11 +234,8 @@ section
       width: fit-content
       height: 100px
       position: relative
-      font:
-        family: 'Dont', sans-serif
-        size: 60px
 
-      padding-top: 23px
+      padding-top: 8px
       margin-bottom: 80px
 
       @include tab
@@ -246,10 +243,29 @@ section
 
       @include sp
         height: 50px
-        font-size: 36px
 
-        padding-top: 10px
+        padding-top: 0px
         margin-bottom: 40px
+
+      span
+        display: block
+        text-align: center
+
+      .en
+        font-family: 'Dont', sans-serif
+        font-size: 60px
+
+        @include sp
+          font-size: 40px
+
+      .ja
+        font-family: 'Zen Kaku Gothic New', sans-serif
+        font-size: 16px
+        font-weight: bold
+        letter-spacing: 0.2em
+        color: $dg4-blue
+
+        margin-top: 8px
 
       &::before, &::after
         content: ''
