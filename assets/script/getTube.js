@@ -7,24 +7,23 @@ const writeTube = (getData) => {
 
     const videoItem = document.createElement("div");
     videoItem.className = "item";
+    $("#videoList").appendChild(videoItem);
 
     const videoLink = document.createElement("a");
     videoLink.href = `https://youtube.com/watch?v=${value.snippet.resourceId.videoId}`;
     videoLink.target = "_blank";
     videoLink.rel = "noopener norefferer";
     videoLink.className = "image";
+    videoItem.appendChild(videoLink);
 
     const videoThumb = document.createElement("img");
     videoThumb.src = value.snippet.thumbnails[sizeName].url;
+    videoLink.appendChild(videoThumb);
 
     const videoTitle = document.createElement("h4");
     videoTitle.className = "title";
     videoTitle.innerText = value.snippet.title;
-
-    videoLink.appendChild(videoThumb);
-    videoItem.appendChild(videoLink);
     videoItem.appendChild(videoTitle);
-    $("#videoList").appendChild(videoItem);
   });
 };
 

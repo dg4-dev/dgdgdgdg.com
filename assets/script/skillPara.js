@@ -30,20 +30,19 @@ skillList.forEach((value) => {
 
   const li = document.createElement("li");
   li.className = "skill-item";
+  $("#skillOutput").appendChild(li);
 
   const skillName = document.createElement("p");
   skillName.className = "skill-name";
   skillName.innerText = `${value.name}`;
+  li.appendChild(skillName);
 
   const skillBar = document.createElement("div");
   skillBar.className = "skill-bar";
+  li.appendChild(skillBar);
 
   const skillParam = document.createElement("div");
   skillParam.className = "skill-param";
   skillParam.style = `width: ${round * 0.95}%;`;
-
   skillBar.appendChild(skillParam);
-  li.appendChild(skillName);
-  li.appendChild(skillBar);
-  $("#skillOutput").appendChild(li);
 });
