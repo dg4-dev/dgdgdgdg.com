@@ -190,9 +190,6 @@ img
   h1
     width: 100%
     max-width: 1024px
-    font:
-      family: 'Dont', sans-serif
-      size: 100px
     color: $white
     z-index: 5
     position: absolute
@@ -209,7 +206,27 @@ img
 
     @include sp
       width: calc( 100% - 24px )
-      font-size: 60px
+
+    span
+      display: block
+
+    .en
+      font:
+        family: 'Dont', sans-serif
+        size: 100px
+
+      @include tab
+        font-size: 64px
+
+      @include sp
+        font-size: 48px
+
+    .ja
+      font:
+        family: 'Zen Kaku Gothic New', sans-serif
+        size: 16px
+        weight: bold
+      letter-spacing: 0.2em
 
   .bg
     width: 100%
@@ -234,11 +251,8 @@ section
       width: fit-content
       height: 100px
       position: relative
-      font:
-        family: 'Dont', sans-serif
-        size: 60px
 
-      padding-top: 23px
+      padding-top: 8px
       margin-bottom: 80px
 
       @include tab
@@ -246,10 +260,29 @@ section
 
       @include sp
         height: 50px
-        font-size: 36px
 
-        padding-top: 10px
+        padding-top: 0px
         margin-bottom: 40px
+
+      span
+        display: block
+        text-align: center
+
+      .en
+        font-family: 'Dont', sans-serif
+        font-size: 60px
+
+        @include sp
+          font-size: 40px
+
+      .ja
+        font-family: 'Zen Kaku Gothic New', sans-serif
+        font-size: 16px
+        font-weight: bold
+        letter-spacing: 0.2em
+        color: $dg4-blue
+
+        margin-top: 8px
 
       &::before, &::after
         content: ''
@@ -291,24 +324,40 @@ section
           padding-top: 40px
 
       h3
-        font:
-          family: 'Dont', 'Zen Kaku Gothic New', sans-serif
-          size: 36px
-        margin-bottom: 30px
+        margin-bottom: 32px
+
+        position: relative
+        padding-left: 24px
 
         @include sp
-          font-size: 22px
           margin-bottom: 20px
 
-        &::after
+        span
+          display: block
+
+        .en
+          font-family: 'Dont', 'Zen Kaku Gothic New', sans-serif
+          font-size: 36px
+
+          @include sp
+            font-size: 22px
+
+        .ja
+          font-size: 12px
+          font-weight: bold
+          letter-spacing: 0.2em
+          margin-top: 8px
+          color: $dg4-blue
+
+        &::before
           content: ''
           display: block
-          width: 50px
-          height: 4px
+          width: 4px
+          height: 100%
           background-color: $dg4-blue
-          margin-top: 20px
 
-      .content-item
+          position: absolute
+          left: 0
 
     .note
       line-height: 1.5
