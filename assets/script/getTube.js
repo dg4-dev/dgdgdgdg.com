@@ -1,16 +1,9 @@
 const writeTube = (getData) => {
   getData.items.forEach((value) => {
-    const thumbWidth = [];
-    Object.values(value.snippet.thumbnails).forEach((thumbValue) =>
-      thumbWidth.push(thumbValue.width)
+    const sizeNames = ["maxres", "standard", "high", "medium", "default"];
+    const sizeName = sizeNames.find(
+      (sizeName) => value.snippet.thumbnails[sizeName]
     );
-
-    let sizeName;
-
-    thumbWidth.forEach((wides, i) => {
-      if (wides == Math.max(...thumbWidth))
-        sizeName = Object.keys(value.snippet.thumbnails)[i];
-    });
 
     const videoItem = document.createElement("div");
     videoItem.className = "item";
