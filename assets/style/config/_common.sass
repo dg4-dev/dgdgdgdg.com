@@ -190,9 +190,6 @@ img
   h1
     width: 100%
     max-width: 1024px
-    font:
-      family: 'Dont', sans-serif
-      size: 100px
     color: $white
     z-index: 5
     position: absolute
@@ -210,6 +207,21 @@ img
     @include sp
       width: calc( 100% - 24px )
       font-size: 60px
+
+    span
+      display: block
+
+    .en
+      font:
+        family: 'Dont', sans-serif
+        size: 100px
+
+    .ja
+      font:
+        family: 'Zen Kaku Gothic New', sans-serif
+        size: 16px
+        weight: bold
+      letter-spacing: 0.2em
 
   .bg
     width: 100%
