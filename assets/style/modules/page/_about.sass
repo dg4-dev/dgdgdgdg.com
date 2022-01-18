@@ -106,31 +106,64 @@
       .btn
         margin-top: 40px
 
-    &.tool .container .content .items
-      width: 100%
-      flex-wrap: wrap
+    &.tool .container .content
+      h3
+        position: relative
+        .accord-arrow
+          position: absolute
+          right: 3px
+          top: 0px
+          bottom: 0px
 
-      .item
-        width: calc(100% / 3)
-        padding: 16px 32px
+          width: 16px
+          height: 16px
 
-        @include sp
-          width: 50%
-          padding: 16px 8px
+          transform: rotate(225deg)
 
-        &-img
-          margin-bottom: 16px
+          border:
+            right: 4px solid $dg4-black
+            bottom: 4px solid $dg4-black
 
-        &-name
-          font:
-            size: 16px
-            weight: bold
+          margin: auto 0
 
-          text-align: center
-          margin-bottom: 8px
+          @include sp
+            border:
+              right: 3px solid $dg4-black
+              bottom: 3px solid $dg4-black
 
-        &-maker-n-gen
-          font-size: 12px
-          color: #999
-          text-align: center
-          margin-bottom: 8px
+          &.ac-open
+            transform: rotate(45deg)
+
+      .items
+        width: 100%
+        flex-wrap: wrap
+        max-height: 0
+        overflow: hidden
+
+        &.ac-open
+          max-height: 50000px
+
+        .item
+          width: calc(100% / 3)
+          padding: 16px 32px
+
+          @include sp
+            width: 50%
+            padding: 16px 8px
+
+          &-img
+            margin-bottom: 16px
+
+          &-name
+            font:
+              size: 16px
+              weight: bold
+
+            text-align: center
+            margin-bottom: 8px
+
+          &-maker-n-gen
+            font-size: 12px
+            color: #999
+            text-align: center
+            margin-bottom: 8px
