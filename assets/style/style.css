@@ -1441,17 +1441,11 @@ footer .container .credit a, footer .container .credit p {
   margin-bottom: 8px;
 }
 
-.about-page section.tool .container .content .items .item-maker {
+.about-page section.tool .container .content .items .item-maker-n-gen {
   font-size: 12px;
   color: #999;
   text-align: center;
   margin-bottom: 8px;
-}
-
-.about-page section.tool .container .content .items .item-gen {
-  font-size: 12px;
-  text-align: center;
-  color: #999;
 }
 
 .brand-page .page-title .bg {

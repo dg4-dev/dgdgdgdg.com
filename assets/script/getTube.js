@@ -1,46 +1,29 @@
 const writeTube = (getData) => {
   getData.items.forEach((value) => {
-    const thumbWidth = [];
-
-    Object.values(value.snippet.thumbnails).forEach((thumbValue, index) => {
-      thumbWidth.push({
-        width: thumbValue.width,
-        sizeName: Object.keys(value.snippet.thumbnails)[index],
-      });
-    });
-
-    const thumbMaxWidth = Math.max(...thumbWidth.map((w) => w.width));
-
-    let sizeName;
-
-    thumbWidth
-      .map((w) => w.width)
-      .forEach((wides, i) => {
-        if (wides == thumbMaxWidth) {
-          sizeName = thumbWidth.map((w) => w.sizeName)[i];
-        }
-      });
+    const sizeNames = ["maxres", "standard", "high", "medium", "default"];
+    const sizeName = sizeNames.find(
+      (sizeName) => value.snippet.thumbnails[sizeName]
+    );
 
     const videoItem = document.createElement("div");
     videoItem.className = "item";
+    $("#videoList").appendChild(videoItem);
 
     const videoLink = document.createElement("a");
     videoLink.href = `https://youtube.com/watch?v=${value.snippet.resourceId.videoId}`;
     videoLink.target = "_blank";
     videoLink.rel = "noopener norefferer";
     videoLink.className = "image";
+    videoItem.appendChild(videoLink);
 
     const videoThumb = document.createElement("img");
     videoThumb.src = value.snippet.thumbnails[sizeName].url;
+    videoLink.appendChild(videoThumb);
 
     const videoTitle = document.createElement("h4");
     videoTitle.className = "title";
     videoTitle.innerText = value.snippet.title;
-
-    videoLink.appendChild(videoThumb);
-    videoItem.appendChild(videoLink);
     videoItem.appendChild(videoTitle);
-    $("#videoList").appendChild(videoItem);
   });
 };
 

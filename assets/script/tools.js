@@ -144,17 +144,16 @@ const toolList = [
 toolList.forEach((value, index) => {
   const content = document.createElement("div");
   content.className = "content is-flex";
+  $("#toolOutput").appendChild(content);
 
   const contentName = document.createElement("h3");
   contentName.innerText = `${value.contentName}`;
+  content.appendChild(contentName);
 
   const toolList = document.createElement("div");
   toolList.id = `toolContent${index}`;
   toolList.className = "items center is-flex";
-
-  content.appendChild(contentName);
   content.appendChild(toolList);
-  $("#toolOutput").appendChild(content);
 
   value.items.forEach((valueChild) => {
     const imgName = `${valueChild.maker
@@ -165,30 +164,24 @@ toolList.forEach((value, index) => {
 
     const toolItem = document.createElement("div");
     toolItem.className = "item";
+    $(`#toolContent${index}`).appendChild(toolItem);
 
     const itemImg = document.createElement("div");
     itemImg.className = "item-img center";
+    toolItem.appendChild(itemImg);
 
     const itemImage = document.createElement("img");
     itemImage.src = `/assets/image/tool/${imgName}.webp`;
+    itemImg.appendChild(itemImage);
 
     const itemName = document.createElement("p");
     itemName.className = "item-name center";
     itemName.innerText = `${valueChild.name}`;
-
-    const itemMaker = document.createElement("p");
-    itemMaker.className = "item-maker center";
-    itemMaker.innerText = `${valueChild.maker}`;
-
-    const itemGen = document.createElement("p");
-    itemGen.className = "item-gen center";
-    itemGen.innerText = `${valueChild.gen}`;
-
-    itemImg.appendChild(itemImage);
-    toolItem.appendChild(itemImg);
     toolItem.appendChild(itemName);
-    toolItem.appendChild(itemMaker);
-    toolItem.appendChild(itemGen);
-    $(`#toolContent${index}`).appendChild(toolItem);
+
+    const itemMakerNGen = document.createElement("p");
+    itemMakerNGen.className = "item-maker-n-gen center";
+    itemMakerNGen.innerText = `${valueChild.maker}・${valueChild.gen}`;
+    toolItem.appendChild(itemMakerNGen);
   });
 });
