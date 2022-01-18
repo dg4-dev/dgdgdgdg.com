@@ -291,22 +291,40 @@ section
           padding-top: 40px
 
       h3
-        font:
-          family: 'Dont', 'Zen Kaku Gothic New', sans-serif
-          size: 36px
-        margin-bottom: 30px
+        margin-bottom: 32px
+
+        position: relative
+        padding-left: 24px
 
         @include sp
-          font-size: 22px
           margin-bottom: 20px
 
-        &::after
+        span
+          display: block
+
+        .en
+          font-family: 'Dont', 'Zen Kaku Gothic New', sans-serif
+          font-size: 36px
+
+          @include sp
+            font-size: 22px
+
+        .ja
+          font-size: 12px
+          font-weight: bold
+          letter-spacing: 0.2em
+          margin-top: 8px
+          color: $dg4-blue
+
+        &::before
           content: ''
           display: block
-          width: 50px
-          height: 4px
+          width: 4px
+          height: 100%
           background-color: $dg4-blue
-          margin-top: 20px
+
+          position: absolute
+          left: 0
 
     .note
       line-height: 1.5

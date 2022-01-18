@@ -1,6 +1,10 @@
 const toolList = [
   {
-    contentName: "?",
+    // contentName: "?",
+    contentName: {
+      en: "?",
+      ja: "?",
+    },
     items: [
       {
         name: "RC-704",
@@ -15,7 +19,10 @@ const toolList = [
     ],
   },
   {
-    contentName: "Shooting equipment",
+    contentName: {
+      en: "Shooting equipment",
+      ja: "撮影機材",
+    },
     items: [
       {
         name: "X-S10",
@@ -80,7 +87,10 @@ const toolList = [
     ],
   },
   {
-    contentName: "Terminal",
+    contentName: {
+      en: "Terminal",
+      ja: "端末",
+    },
     items: [
       {
         name: 'MacBook Pro 16"',
@@ -110,7 +120,10 @@ const toolList = [
     ],
   },
   {
-    contentName: "Software",
+    contentName: {
+      en: "Software",
+      ja: "ソフトウェア",
+    },
     items: [
       {
         name: "Illustrator",
@@ -156,15 +169,24 @@ const toolList = [
   },
 ];
 
-toolList.forEach((value, index) => {
+toolList.forEach((value) => {
   const content = document.createElement("div");
   content.className = "content is-flex";
   $("#toolOutput").appendChild(content);
 
   const contentName = document.createElement("h3");
   contentName.className = "click";
-  contentName.innerText = `${value.contentName}`;
   content.appendChild(contentName);
+
+  const contentNameEn = document.createElement("span");
+  contentNameEn.innerText = `${value.contentName.en}`;
+  contentNameEn.className = "en";
+  contentName.appendChild(contentNameEn);
+
+  const contentNameJa = document.createElement("span");
+  contentNameJa.innerText = `${value.contentName.ja}`;
+  contentNameJa.className = "ja";
+  contentName.appendChild(contentNameJa);
 
   const contentArrow = document.createElement("div");
   contentArrow.className = "accord-arrow";
