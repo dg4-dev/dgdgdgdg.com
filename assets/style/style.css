@@ -535,25 +535,48 @@ section .container .content:not(:nth-of-type(1)) {
 }
 
 section .container .content h3 {
-  font-family: 'Dont', 'Zen Kaku Gothic New', sans-serif;
-  font-size: 36px;
-  margin-bottom: 30px;
+  margin-bottom: 32px;
+  position: relative;
+  padding-left: 24px;
 }
 
 @media (max-width: 640px) {
   section .container .content h3 {
-    font-size: 22px;
     margin-bottom: 20px;
   }
 }
 
-section .container .content h3::after {
+section .container .content h3 span {
+  display: block;
+}
+
+section .container .content h3 .en {
+  font-family: 'Dont', 'Zen Kaku Gothic New', sans-serif;
+  font-size: 36px;
+}
+
+@media (max-width: 640px) {
+  section .container .content h3 .en {
+    font-size: 22px;
+  }
+}
+
+section .container .content h3 .ja {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+  margin-top: 8px;
+  color: #00d4d4;
+}
+
+section .container .content h3::before {
   content: '';
   display: block;
-  width: 50px;
-  height: 4px;
+  width: 4px;
+  height: 100%;
   background-color: #00d4d4;
-  margin-top: 20px;
+  position: absolute;
+  left: 0;
 }
 
 section .container .note {
@@ -1410,10 +1433,6 @@ footer .container .credit a, footer .container .credit p {
 
 .about-page section.skill .container .content .btn {
   margin-top: 40px;
-}
-
-.about-page section.tool .container .content h3 {
-  position: relative;
 }
 
 .about-page section.tool .container .content h3 .accord-arrow {
