@@ -1,46 +1,16 @@
 const toolList = [
   {
-    contentName: "Software",
+    contentName: "?",
     items: [
       {
-        name: "Illustrator",
-        maker: "Adobe",
-        gen: "Latest version",
+        name: "RC-704",
+        maker: "National",
+        gen: "1972",
       },
       {
-        name: "XD",
-        maker: "Adobe",
-        gen: "Latest version",
-      },
-      {
-        name: "Premiere Pro",
-        maker: "Adobe",
-        gen: "Latest version",
-      },
-      {
-        name: "After Effects",
-        maker: "Adobe",
-        gen: "Latest version",
-      },
-      {
-        name: "Photoshop",
-        maker: "Adobe",
-        gen: "Latest version",
-      },
-      {
-        name: "Lightroom",
-        maker: "Adobe",
-        gen: "Latest version",
-      },
-      {
-        name: "STUDIO",
-        maker: "STUDIO",
-        gen: "Latest version",
-      },
-      {
-        name: "Figma",
-        maker: "Figma",
-        gen: "Latest version",
+        name: "10J-U50",
+        maker: "TOSHIBA",
+        gen: "1986",
       },
     ],
   },
@@ -110,7 +80,7 @@ const toolList = [
     ],
   },
   {
-    contentName: "Hardware",
+    contentName: "Terminal",
     items: [
       {
         name: 'MacBook Pro 16"',
@@ -139,6 +109,51 @@ const toolList = [
       },
     ],
   },
+  {
+    contentName: "Software",
+    items: [
+      {
+        name: "Illustrator",
+        maker: "Adobe",
+        gen: "Latest version",
+      },
+      {
+        name: "XD",
+        maker: "Adobe",
+        gen: "Latest version",
+      },
+      {
+        name: "Premiere Pro",
+        maker: "Adobe",
+        gen: "Latest version",
+      },
+      {
+        name: "After Effects",
+        maker: "Adobe",
+        gen: "Latest version",
+      },
+      {
+        name: "Photoshop",
+        maker: "Adobe",
+        gen: "Latest version",
+      },
+      {
+        name: "Lightroom",
+        maker: "Adobe",
+        gen: "Latest version",
+      },
+      {
+        name: "STUDIO",
+        maker: "STUDIO",
+        gen: "Latest version",
+      },
+      {
+        name: "Figma",
+        maker: "Figma",
+        gen: "Latest version",
+      },
+    ],
+  },
 ];
 
 toolList.forEach((value, index) => {
@@ -147,13 +162,22 @@ toolList.forEach((value, index) => {
   $("#toolOutput").appendChild(content);
 
   const contentName = document.createElement("h3");
+  contentName.className = "click";
   contentName.innerText = `${value.contentName}`;
   content.appendChild(contentName);
 
+  const contentArrow = document.createElement("div");
+  contentArrow.className = "accord-arrow";
+  contentName.appendChild(contentArrow);
+
   const toolList = document.createElement("div");
-  toolList.id = `toolContent${index}`;
   toolList.className = "items center is-flex";
   content.appendChild(toolList);
+
+  contentName.addEventListener("click", () => {
+    toolList.classList.toggle("ac-open");
+    contentArrow.classList.toggle("ac-open");
+  });
 
   value.items.forEach((valueChild) => {
     const imgName = `${valueChild.maker
@@ -164,7 +188,7 @@ toolList.forEach((value, index) => {
 
     const toolItem = document.createElement("div");
     toolItem.className = "item";
-    $(`#toolContent${index}`).appendChild(toolItem);
+    toolList.appendChild(toolItem);
 
     const itemImg = document.createElement("div");
     itemImg.className = "item-img center";
