@@ -118,7 +118,7 @@
           width: 16px
           height: 16px
 
-          transform: rotate(225deg)
+          transform: rotate(45deg)
 
           border:
             right: 4px solid $dg4-black
@@ -126,22 +126,27 @@
 
           margin: auto 0
 
+          transition: all 0.2s
+
           @include sp
             border:
               right: 3px solid $dg4-black
               bottom: 3px solid $dg4-black
 
           &.ac-open
-            transform: rotate(45deg)
+            transform: rotate(225deg)
+            transition: all 0.2s
 
       .items
         width: 100%
         flex-wrap: wrap
         max-height: 0
         overflow: hidden
+        transition: all 0.2s
 
         &.ac-open
-          max-height: 50000px
+          max-height: 5000px
+          transition: all 0.2s
 
         .item
           width: calc(100% / 3)

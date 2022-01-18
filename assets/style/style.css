@@ -1423,11 +1423,13 @@ footer .container .credit a, footer .container .credit p {
   bottom: 0px;
   width: 16px;
   height: 16px;
-  -webkit-transform: rotate(225deg);
-          transform: rotate(225deg);
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
   border-right: 4px solid #444444;
   border-bottom: 4px solid #444444;
   margin: auto 0;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
 }
 
 @media (max-width: 640px) {
@@ -1438,8 +1440,10 @@ footer .container .credit a, footer .container .credit p {
 }
 
 .about-page section.tool .container .content h3 .accord-arrow.ac-open {
-  -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
+  -webkit-transform: rotate(225deg);
+          transform: rotate(225deg);
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
 }
 
 .about-page section.tool .container .content .items {
@@ -1448,10 +1452,14 @@ footer .container .credit a, footer .container .credit p {
       flex-wrap: wrap;
   max-height: 0;
   overflow: hidden;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
 }
 
 .about-page section.tool .container .content .items.ac-open {
-  max-height: 50000px;
+  max-height: 5000px;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
 }
 
 .about-page section.tool .container .content .items .item {
