@@ -179,14 +179,9 @@ toolList.forEach((value, index) => {
     itemName.innerText = `${valueChild.name}`;
     toolItem.appendChild(itemName);
 
-    const itemMaker = document.createElement("p");
-    itemMaker.className = "item-maker center";
-    itemMaker.innerText = `${valueChild.maker}`;
-    toolItem.appendChild(itemMaker);
-
-    const itemGen = document.createElement("p");
-    itemGen.className = "item-gen center";
-    itemGen.innerText = `${valueChild.gen}`;
-    toolItem.appendChild(itemGen);
+    const itemMakerNGen = document.createElement("p");
+    itemMakerNGen.className = "item-maker-n-gen center";
+    itemMakerNGen.innerText = `${valueChild.maker}・${valueChild.gen}`;
+    toolItem.appendChild(itemMakerNGen);
   });
 });
