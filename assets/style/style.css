@@ -461,9 +461,7 @@ section .container h2 {
   width: fit-content;
   height: 100px;
   position: relative;
-  font-family: 'Dont', sans-serif;
-  font-size: 60px;
-  padding-top: 23px;
+  padding-top: 8px;
   margin-bottom: 80px;
 }
 
@@ -476,10 +474,34 @@ section .container h2 {
 @media (max-width: 640px) {
   section .container h2 {
     height: 50px;
-    font-size: 36px;
-    padding-top: 10px;
+    padding-top: 0px;
     margin-bottom: 40px;
   }
+}
+
+section .container h2 span {
+  display: block;
+  text-align: center;
+}
+
+section .container h2 .en {
+  font-family: 'Dont', sans-serif;
+  font-size: 60px;
+}
+
+@media (max-width: 640px) {
+  section .container h2 .en {
+    font-size: 40px;
+  }
+}
+
+section .container h2 .ja {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+  color: #00d4d4;
+  margin-top: 8px;
 }
 
 section .container h2::before, section .container h2::after {
