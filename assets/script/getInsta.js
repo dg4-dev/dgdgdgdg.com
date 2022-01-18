@@ -2,18 +2,17 @@ const writeInsta = (getData) => {
   getData.media.data.forEach((elm) => {
     const instaPost = document.createElement("div");
     instaPost.className = "post-photo";
+    $("#postList").appendChild(instaPost);
 
     const instaLink = document.createElement("a");
     instaLink.href = elm.permalink;
     instaLink.target = "_blank";
     instaLink.rel = "noopener norefferer";
+    instaPost.appendChild(instaLink);
 
     const instaImg = document.createElement("img");
     instaImg.src = elm.media_url;
-
     instaLink.appendChild(instaImg);
-    instaPost.appendChild(instaLink);
-    $("#postList").appendChild(instaPost);
   });
 };
 
