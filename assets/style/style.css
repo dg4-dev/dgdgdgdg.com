@@ -404,8 +404,6 @@ img {
 .page-title h1 {
   width: 100%;
   max-width: 1024px;
-  font-family: 'Dont', sans-serif;
-  font-size: 100px;
   color: #ffffff;
   z-index: 5;
   position: absolute;
@@ -428,6 +426,22 @@ img {
     width: calc( 100% - 24px);
     font-size: 60px;
   }
+}
+
+.page-title h1 span {
+  display: block;
+}
+
+.page-title h1 .en {
+  font-family: 'Dont', sans-serif;
+  font-size: 100px;
+}
+
+.page-title h1 .ja {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.2em;
 }
 
 .page-title .bg {
