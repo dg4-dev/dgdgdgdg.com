@@ -206,7 +206,6 @@ img
 
     @include sp
       width: calc( 100% - 24px )
-      font-size: 60px
 
     span
       display: block
@@ -215,6 +214,12 @@ img
       font:
         family: 'Dont', sans-serif
         size: 100px
+
+      @include tab
+        font-size: 64px
+
+      @include sp
+        font-size: 48px
 
     .ja
       font:
