@@ -405,22 +405,24 @@ a
     font-weight: bold
     background-color: $white
 
-    width: 160px
+    width: fit-content
     height: 50px
     line-height: 50px
     text-align: center
 
+    padding: 0 16px
     box-shadow: 4px 4px 0px 0px $dg4-black
 
+    transform: translate(-4px, -4px)
+
     @include sp
-      width: 120px
       height: 40px
       line-height: 40px
 
     &:hover
       box-shadow: 0px 0px 0px 0px $dg4-black
 
-      transform: translate(4px, 4px)
+      transform: translate(0px, 0px)
 
   &:hover
     transition: all 0.2s
