@@ -1,6 +1,5 @@
 const toolList = [
   {
-    // contentName: "?",
     contentName: {
       en: "?",
       ja: "?",
@@ -15,6 +14,16 @@ const toolList = [
         name: "10J-U50",
         maker: "TOSHIBA",
         gen: "1986",
+      },
+      {
+        name: "AQUOS LC-13C1",
+        maker: "SHARP",
+        gen: "2001",
+      },
+      {
+        name: 'STRiDA EVO 16"',
+        maker: "STRiDA",
+        gen: "2019",
       },
     ],
   },
