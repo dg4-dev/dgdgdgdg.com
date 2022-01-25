@@ -891,7 +891,7 @@ header .inside .white.is-open {
   left: 0;
 }
 
-header .inside .blue {
+header .inside .cyan {
   width: 90px;
   height: 90px;
   background-color: #00d4d4;
@@ -909,20 +909,20 @@ header .inside .blue {
 }
 
 @media (max-width: 640px) {
-  header .inside .blue {
+  header .inside .cyan {
     width: 65px;
     height: 65px;
     visibility: hidden;
   }
 }
 
-header .inside .blue.is-open {
+header .inside .cyan.is-open {
   width: 40%;
   height: 100vh;
 }
 
 @media (max-width: 1024px) {
-  header .inside .blue.is-open {
+  header .inside .cyan.is-open {
     width: 100%;
     -webkit-box-pack: normal;
         -ms-flex-pack: normal;
@@ -934,61 +934,61 @@ header .inside .blue.is-open {
 }
 
 @media (max-width: 640px) {
-  header .inside .blue.is-open {
+  header .inside .cyan.is-open {
     visibility: visible;
     padding-top: 70px;
     padding-bottom: 70px;
   }
 }
 
-header .inside .blue .nav {
+header .inside .cyan .nav {
   visibility: hidden;
   opacity: 0;
 }
 
 @media (max-width: 1024px) {
-  header .inside .blue .nav {
+  header .inside .cyan .nav {
     width: 354px;
   }
 }
 
 @media (max-width: 640px) {
-  header .inside .blue .nav {
+  header .inside .cyan .nav {
     width: 284px;
   }
 }
 
-header .inside .blue .nav.is-open {
+header .inside .cyan .nav.is-open {
   visibility: visible;
   opacity: 1;
 }
 
-header .inside .blue .nav ul li:not(:first-child) {
+header .inside .cyan .nav ul li:not(:first-child) {
   margin-top: 26px;
 }
 
 @media (max-width: 640px) {
-  header .inside .blue .nav ul li:not(:first-child) {
+  header .inside .cyan .nav ul li:not(:first-child) {
     margin-top: 16px;
   }
 }
 
-header .inside .blue .nav ul li.indent {
+header .inside .cyan .nav ul li.indent {
   padding-left: 32px;
   margin-top: 0px;
 }
 
-header .inside .blue .nav ul li.indent .nav-link .ja {
+header .inside .cyan .nav ul li.indent .nav-link .ja {
   font-size: 20px;
 }
 
 @media (max-width: 640px) {
-  header .inside .blue .nav ul li.indent .nav-link .ja {
+  header .inside .cyan .nav ul li.indent .nav-link .ja {
     font-size: 16px;
   }
 }
 
-header .inside .blue .link-wrapper {
+header .inside .cyan .link-wrapper {
   display: none;
   visibility: hidden;
   opacity: 0;
@@ -996,17 +996,17 @@ header .inside .blue .link-wrapper {
 }
 
 @media (max-width: 1024px) {
-  header .inside .blue .link-wrapper {
+  header .inside .cyan .link-wrapper {
     display: block;
   }
 }
 
-header .inside .blue .link-wrapper.is-open {
+header .inside .cyan .link-wrapper.is-open {
   visibility: visible;
   opacity: 1;
 }
 
-header .inside .blue .link-wrapper ul li:not(:first-child) {
+header .inside .cyan .link-wrapper ul li:not(:first-child) {
   margin-top: 20px;
 }
 
@@ -1434,7 +1434,7 @@ footer .container .credit a, footer .container .credit p {
   }
 }
 
-.about-page section.overview .container .meaning .item li .phrase .blue {
+.about-page section.overview .container .meaning .item li .phrase .cyan {
   color: #00d4d4;
 }
 
@@ -1645,7 +1645,7 @@ footer .container .credit a, footer .container .credit p {
   font-weight: bold;
 }
 
-.brand-page section.color .container .content .dg4-blue {
+.brand-page section.color .container .content .dg4-cyan {
   background-color: #00d4d4;
   -ms-grid-row: 1;
   -ms-grid-row-span: 2;
@@ -1665,7 +1665,7 @@ footer .container .credit a, footer .container .credit p {
   grid-column: 2 / 4;
 }
 
-.brand-page section.color .container .content .dg4-indigo {
+.brand-page section.color .container .content .dg4-blue {
   background-color: #0044dd;
   -ms-grid-row: 2;
   -ms-grid-row-span: 1;
@@ -2142,6 +2142,10 @@ footer .container .credit a, footer .container .credit p {
 
 .service-page .plan .container .content.setplan .items .item {
   background-color: #0044dd;
+}
+
+.service-page .plan .container .content.setplan .items .item .text {
+  margin-bottom: 0;
 }
 
 .service-page .plan .container .content.single .items .item {
