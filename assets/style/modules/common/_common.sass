@@ -117,7 +117,7 @@ img
 
     padding: 15px 20px
     background-color: $white
-    border: 3px solid $dg4-blue
+    border: 3px solid $dg4-cyan
 
     position: relative
 
@@ -133,7 +133,7 @@ img
       display: block
       width: 0
       height: 100%
-      background-color: $dg4-blue
+      background-color: $dg4-cyan
 
       top: 0
       left: 0
@@ -141,9 +141,9 @@ img
 
     .en
       position: relative
-      color: rgba($dg4-blue, 0.5)
+      color: rgba($dg4-cyan, 0.5)
     .ja
-      color: $dg4-blue
+      color: $dg4-cyan
       position: relative
       width: fit-content
       &::after
@@ -237,6 +237,10 @@ img
       position: center center
     filter: brightness(60%)
 
+@each $pageName in about, brand, works, service, contact
+  .#{$pageName}-page .page-title .bg
+    background-image: url('/assets/image/#{$pageName}-fv.webp')
+
 // section
 section
   padding-top: 120px
@@ -280,7 +284,7 @@ section
         font-size: 16px
         font-weight: bold
         letter-spacing: 0.2em
-        color: $dg4-blue
+        color: $dg4-cyan
 
         margin-top: 8px
 
@@ -347,14 +351,14 @@ section
           font-weight: bold
           letter-spacing: 0.2em
           margin-top: 8px
-          color: $dg4-blue
+          color: $dg4-cyan
 
         &::before
           content: ''
           display: block
           width: 4px
           height: 100%
-          background-color: $dg4-blue
+          background-color: $dg4-cyan
 
           position: absolute
           left: 0

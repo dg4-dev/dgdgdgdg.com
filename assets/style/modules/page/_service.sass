@@ -1,7 +1,4 @@
 .service-page
-  .page-title .bg
-    background-image: url(/assets/image/service-fv.webp)
-
   .flow .container .content
     flex-wrap: wrap
     justify-content: space-between
@@ -23,7 +20,7 @@
         width: 8px
         height: calc(100% - 130px)
 
-        background-color: $dg4-blue
+        background-color: $dg4-cyan
 
         position: absolute
         bottom: 0
@@ -40,7 +37,7 @@
         .number
           min-width: 24px
           min-height: 24px
-          background-color: $dg4-blue
+          background-color: $dg4-cyan
 
           border: 6px solid $white
           border-radius: 18px
@@ -82,7 +79,7 @@
             &.orange
               background-color: $dg4-orange
             &.indigo
-              background-color: $dg4-indigo
+              background-color: $dg4-blue
 
   .btn
     margin-top: 40px
@@ -127,8 +124,10 @@
             line-height: 24px
             margin-top: 12px
       &.setplan .items .item
-        background-color: $dg4-indigo
-      &.single .items .item
         background-color: $dg4-blue
+        .text
+          margin-bottom: 0
+      &.single .items .item
+        background-color: $dg4-cyan
     .btn
       margin-top: 32px

@@ -1,105 +1,101 @@
-.works-page
-  .page-title .bg
-    background-image: url(/assets/image/works-fv.webp)
+.works-page section
+  .container .items
+    width: 100%
+    flex-wrap: wrap
 
-  section
-    .container .items
-      width: 100%
-      flex-wrap: wrap
+    .item
+      width: calc( (100% / 3) - 16px )
+      padding-bottom: 24px
+      margin: 8px
 
-      .item
-        width: calc( (100% / 3) - 16px )
-        padding-bottom: 24px
-        margin: 8px
+      @include sp
+        width: calc( 50% - 16px )
+
+      .image
+        display: block
+        object
+          padding: 50px 0
+
+      .title
+        font:
+          size: 20px
+          weight: bold
+        line-height: 24px
+        text-align: center
+        margin-top: 20px
 
         @include sp
-          width: calc( 50% - 16px )
+          font-size: 14px
+          line-height: 20px
 
-        .image
-          display: block
-          object
-            padding: 50px 0
-
-        .title
-          font:
-            size: 20px
-            weight: bold
-          line-height: 24px
-          text-align: center
-          margin-top: 20px
-
-          @include sp
-            font-size: 14px
-            line-height: 20px
-
-        .btn
-          margin-top: 15px
-
-    &.font .container
-      .image-desc
-        max-width: 500px
-        margin-bottom: 30px
-      .content
-        flex-direction: column
-        .item
-          width: 100%
-          padding: 0
-          position: relative
-          .item-letter
-            text-align: center
-            font-size: 32px
-            line-height: 48px
-            padding: 16px 16px 32px
-            background-color: #eee
-
-            &.normal
-              font-family: 'Dont', sans-serif
-
-            &.round
-              font-family: 'Dont Round', sans-serif
-
-            &.circle
-              font-family: 'Dont Circle', sans-serif
-
-          .dl-link
-            position: absolute
-            bottom: 10px
-            right: 10px
-            font-size: 20px
-            font-weight: bold
-            color: $dg4-blue
-            text-decoration: underline
-
-    &.photo .container
-      #postList
-        flex-wrap: wrap
-        .post-photo
-          width: 20%
-          height: auto
-
-          @include sp
-            width: calc( 100% / 3 )
-          a
-            display: block
-            width: 100%
-            height: 100%
       .btn
-        margin-top: 32px
+        margin-top: 15px
 
-    &.video .container #videoList .item .image
-      position: relative
-      height: auto
-      &::before
-        content: ""
-        display: block
-        padding-top: 56.25%
-      img
-        position: absolute
+  &.font .container
+    .image-desc
+      max-width: 500px
+      margin-bottom: 30px
+    .content
+      flex-direction: column
+      .item
         width: 100%
-        height: 100%
-        top: 0
-        right: 0
-        bottom: 0
-        left: 0
-        margin: auto
-        object-fit: cover
+        padding: 0
+        position: relative
+        .item-letter
+          text-align: center
+          font-size: 32px
+          line-height: 48px
+          padding: 16px 16px 32px
+          background-color: #eee
+
+          &.normal
+            font-family: 'Dont', sans-serif
+
+          &.round
+            font-family: 'Dont Round', sans-serif
+
+          &.circle
+            font-family: 'Dont Circle', sans-serif
+
+        .dl-link
+          position: absolute
+          bottom: 10px
+          right: 10px
+          font-size: 20px
+          font-weight: bold
+          color: $dg4-cyan
+          text-decoration: underline
+
+  &.photo .container
+    #postList
+      flex-wrap: wrap
+      .post-photo
+        width: 20%
+        height: auto
+
+        @include sp
+          width: calc( 100% / 3 )
+        a
+          display: block
+          width: 100%
+          height: 100%
+    .btn
+      margin-top: 32px
+
+  &.video .container #videoList .item .image
+    position: relative
+    height: auto
+    &::before
+      content: ""
+      display: block
+      padding-top: 56.25%
+    img
+      position: absolute
+      width: 100%
+      height: 100%
+      top: 0
+      right: 0
+      bottom: 0
+      left: 0
+      margin: auto
+      object-fit: cover

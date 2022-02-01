@@ -21,6 +21,4 @@ const instaUrl =
 
 fetch(instaUrl)
   .then((response) => response.json())
-  .then((data) => {
-    writeInsta(data);
-  });
+  .then((data) => writeInsta(data));
