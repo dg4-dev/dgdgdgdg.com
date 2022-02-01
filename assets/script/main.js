@@ -1,16 +1,12 @@
 const $ = (target) => {
-  const firstChar = target.charAt(0);
-
-  if (firstChar === "#") {
-    target = target.slice(1);
-    const Elm = document.getElementById(`${target}`);
-    return Elm;
-  } else if (firstChar === ".") {
-    target = target.slice(1);
-    const Elm = document.getElementsByClassName(`${target}`);
-    return Elm.length === 0 ? undefined : Elm;
+  if (target[0] === "#") {
+    const Elm = document.getElementById(`${target.slice(1)}`);
+    return Elm ? Elm : undefined;
+  } else if (target[0] === ".") {
+    const Elm = document.getElementsByClassName(`${target.slice(1)}`);
+    return Elm ? Elm : undefined;
   } else {
     const Elm = document.getElementsByTagName(`${target}`);
-    return Elm.length === 0 ? undefined : Elm;
+    return Elm ? Elm : undefined;
   }
 };
