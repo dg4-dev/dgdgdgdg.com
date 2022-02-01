@@ -8,19 +8,9 @@ const $ = (target) => {
   } else if (firstChar === ".") {
     target = target.slice(1);
     const Elm = document.getElementsByClassName(`${target}`);
-
-    if (Elm.length === 0) {
-      return null;
-    } else {
-      return Elm;
-    }
+    return Elm.length === 0 ? undefined : Elm;
   } else {
     const Elm = document.getElementsByTagName(`${target}`);
-
-    if (Elm.length === 0) {
-      return null;
-    } else {
-      return Elm;
-    }
+    return Elm.length === 0 ? undefined : Elm;
   }
 };

@@ -7,6 +7,6 @@ const footerUrl = "/assets/common/footer.html";
 
 fetch(footerUrl)
   .then((response) => response.text())
-  .then((data) => {
-    writeFooter(new DOMParser().parseFromString(data, "text/html"));
-  });
+  .then((data) =>
+    writeFooter(new DOMParser().parseFromString(data, "text/html"))
+  );
