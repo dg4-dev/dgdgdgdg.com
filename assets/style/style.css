@@ -464,6 +464,26 @@ img {
           filter: brightness(60%);
 }
 
+.about-page .page-title .bg {
+  background-image: url("/assets/image/about-fv.webp");
+}
+
+.brand-page .page-title .bg {
+  background-image: url("/assets/image/brand-fv.webp");
+}
+
+.works-page .page-title .bg {
+  background-image: url("/assets/image/works-fv.webp");
+}
+
+.service-page .page-title .bg {
+  background-image: url("/assets/image/service-fv.webp");
+}
+
+.contact-page .page-title .bg {
+  background-image: url("/assets/image/contact-fv.webp");
+}
+
 section {
   padding-top: 120px;
 }
@@ -1326,10 +1346,6 @@ footer .container .credit a, footer .container .credit p {
   }
 }
 
-.about-page .page-title .bg {
-  background-image: url(/assets/image/about-fv.webp);
-}
-
 .about-page section .container-meaning {
   width: 100%;
 }
@@ -1560,10 +1576,6 @@ footer .container .credit a, footer .container .credit p {
   color: #999;
   text-align: center;
   margin-bottom: 8px;
-}
-
-.brand-page .page-title .bg {
-  background-image: url(/assets/image/brand-fv.webp);
 }
 
 .brand-page section .container .content {
@@ -1800,10 +1812,6 @@ footer .container .credit a, footer .container .credit p {
   font-family: 'Dont', sans-serif;
 }
 
-.works-page .page-title .bg {
-  background-image: url(/assets/image/works-fv.webp);
-}
-
 .works-page section .container .items {
   width: 100%;
   -ms-flex-wrap: wrap;
@@ -1945,10 +1953,6 @@ footer .container .credit a, footer .container .credit p {
   margin: auto;
   -o-object-fit: cover;
      object-fit: cover;
-}
-
-.service-page .page-title .bg {
-  background-image: url(/assets/image/service-fv.webp);
 }
 
 .service-page .flow .container .content {
@@ -2154,10 +2158,6 @@ footer .container .credit a, footer .container .credit p {
 
 .service-page .plan .container .btn {
   margin-top: 32px;
-}
-
-.contact-page .page-title .bg {
-  background-image: url(/assets/image/contact-fv.webp);
 }
 
 .contact-page .message .content {

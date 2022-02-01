@@ -1,172 +1,169 @@
-.about-page
-  .page-title .bg
-    background-image: url(/assets/image/about-fv.webp)
+.about-page section
+  .container
+    &-meaning
+      width: 100%
+    .content
+      flex-direction: column
 
-  section
-    .container
-      &-meaning
-        width: 100%
-      .content
+  &.overview .container
+    .information .item
+      gap: 50px
+
+      @include sp
         flex-direction: column
-    &.overview .container
-      .information .item
-        gap: 50px
+        gap: 20px
+
+      .image
+        width: calc(100% - 370px)
+        height: auto
 
         @include sp
-          flex-direction: column
-          gap: 20px
-
-        .image
-          width: calc(100% - 370px)
-          height: auto
-
-          @include sp
-            width: 100%
-            padding: 32px
-            margin: 0 auto
-
-        table
-          display: block
-          tbody
-            height: 160px
-            tr td
-              vertical-align: middle
-              line-height: 32px
-              &.left
-                width: 120px
-                font-weight: bold
-              &.right
-                width: 230px
-
-      .logo
-        .item
-          p
-            text-align: center
-            margin-bottom: 40px
-          .logo
-            width: 600px
-            @include sp
-              width: 100%
-        .btn
-          margin-top: 40px
-
-      .meaning
-        h3
-          margin-bottom: 80px
-
-        .item
           width: 100%
+          padding: 32px
+          margin: 0 auto
 
-          li
-            padding: 0 24px
+      table
+        display: block
+        tbody
+          height: 160px
+          tr td
+            vertical-align: middle
+            line-height: 32px
+            &.left
+              width: 120px
+              font-weight: bold
+            &.right
+              width: 230px
 
-            .phrase
-              white-space: nowrap
-              font-family: 'Dont', sans-serif
-              font-size: 64px
-              margin-bottom: 16px
-
-              @include sp
-                font-size: 56px
-
-              .cyan
-                color: $dg4-cyan
-              .noto
-                font-family: 'Zen Kaku Gothic New', sans-serif
-                font-weight: bold
-            .mean
-              white-space: nowrap
-              line-height: 24px
-
-    &.skill .container .content
-      width: fit-content
-      ul .skill-item
-        &:not(:first-child)
-          margin-top: 40px
-        .skill-name
-          font-weight: bold
-          margin-bottom: 10px
-        .skill-bar
-          width: 350px
-          height: 10px
-
-          background-color: #eee
-
-          position: relative
-
+    .logo
+      .item
+        p
+          text-align: center
+          margin-bottom: 40px
+        .logo
+          width: 600px
           @include sp
             width: 100%
-          .skill-param
-            height: 100%
-
-            background-color: $dg4-cyan
-
-            position: absolute
-
       .btn
         margin-top: 40px
 
-    &.tool .container .content
-      h3 .accord-arrow
-        position: absolute
-        right: 3px
-        top: 0px
-        bottom: 0px
+    .meaning
+      h3
+        margin-bottom: 80px
 
-        width: 16px
-        height: 16px
-
-        transform: rotate(45deg)
-
-        border:
-          right: 4px solid $dg4-black
-          bottom: 4px solid $dg4-black
-
-        margin: auto 0
-
-        transition: all 0.2s
-
-        @include sp
-          border:
-            right: 3px solid $dg4-black
-            bottom: 3px solid $dg4-black
-
-        &.ac-open
-          transform: rotate(225deg)
-          transition: all 0.2s
-
-      .items
+      .item
         width: 100%
-        flex-wrap: wrap
-        max-height: 0
-        overflow: hidden
-        transition: all 0.2s
 
-        &.ac-open
-          max-height: 1700px
-          transition: all 0.2s
+        li
+          padding: 0 24px
 
-        .item
-          width: calc(100% / 3)
-          padding: 16px 32px
-
-          @include sp
-            width: 50%
-            padding: 16px 8px
-
-          &-img
+          .phrase
+            white-space: nowrap
+            font-family: 'Dont', sans-serif
+            font-size: 64px
             margin-bottom: 16px
 
-          &-name
-            font:
-              size: 16px
-              weight: bold
+            @include sp
+              font-size: 56px
 
-            text-align: center
-            margin-bottom: 8px
+            .cyan
+              color: $dg4-cyan
+            .noto
+              font-family: 'Zen Kaku Gothic New', sans-serif
+              font-weight: bold
+          .mean
+            white-space: nowrap
+            line-height: 24px
 
-          &-maker-n-gen
-            font-size: 12px
-            color: #999
-            text-align: center
-            margin-bottom: 8px
+  &.skill .container .content
+    width: fit-content
+    ul .skill-item
+      &:not(:first-child)
+        margin-top: 40px
+      .skill-name
+        font-weight: bold
+        margin-bottom: 10px
+      .skill-bar
+        width: 350px
+        height: 10px
+
+        background-color: #eee
+
+        position: relative
+
+        @include sp
+          width: 100%
+        .skill-param
+          height: 100%
+
+          background-color: $dg4-cyan
+
+          position: absolute
+
+    .btn
+      margin-top: 40px
+
+  &.tool .container .content
+    h3 .accord-arrow
+      position: absolute
+      right: 3px
+      top: 0px
+      bottom: 0px
+
+      width: 16px
+      height: 16px
+
+      transform: rotate(45deg)
+
+      border:
+        right: 4px solid $dg4-black
+        bottom: 4px solid $dg4-black
+
+      margin: auto 0
+
+      transition: all 0.2s
+
+      @include sp
+        border:
+          right: 3px solid $dg4-black
+          bottom: 3px solid $dg4-black
+
+      &.ac-open
+        transform: rotate(225deg)
+        transition: all 0.2s
+
+    .items
+      width: 100%
+      flex-wrap: wrap
+      max-height: 0
+      overflow: hidden
+      transition: all 0.2s
+
+      &.ac-open
+        max-height: 1700px
+        transition: all 0.2s
+
+      .item
+        width: calc(100% / 3)
+        padding: 16px 32px
+
+        @include sp
+          width: 50%
+          padding: 16px 8px
+
+        &-img
+          margin-bottom: 16px
+
+        &-name
+          font:
+            size: 16px
+            weight: bold
+
+          text-align: center
+          margin-bottom: 8px
+
+        &-maker-n-gen
+          font-size: 12px
+          color: #999
+          text-align: center
+          margin-bottom: 8px
