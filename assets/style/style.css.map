@@ -7,7 +7,7 @@
         "config/_color.sass",
         "config/_size.sass",
         "config/_media.sass",
-        "config/_common.sass",
+        "modules/common/_common.sass",
         "modules/common/_header.sass",
         "modules/common/_footer.sass",
         "modules/page/_top.sass",
