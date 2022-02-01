@@ -32,6 +32,4 @@ const tubeUrl =
 
 fetch(tubeUrl)
   .then((response) => response.json())
-  .then((data) => {
-    writeTube(data);
-  });
+  .then((data) => writeTube(data));
