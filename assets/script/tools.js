@@ -79,11 +79,6 @@ const toolList = [
         gen: "1981",
       },
       {
-        name: "RMC 80-200mm f4.0",
-        maker: "Tokina",
-        gen: "1984",
-      },
-      {
         name: "RSC 2",
         maker: "DJI",
         gen: "2020",
