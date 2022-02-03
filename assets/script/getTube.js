@@ -12,7 +12,7 @@ const writeTube = (getData) => {
     const videoLink = document.createElement("a");
     videoLink.href = `https://youtube.com/watch?v=${value.snippet.resourceId.videoId}`;
     videoLink.target = "_blank";
-    videoLink.rel = "noopener norefferer";
+    videoLink.rel = "noopener noreferrer";
     videoLink.className = "image";
     videoItem.appendChild(videoLink);
 

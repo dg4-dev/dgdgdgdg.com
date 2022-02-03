@@ -7,7 +7,7 @@ const writeInsta = (getData) => {
     const instaLink = document.createElement("a");
     instaLink.href = elm.permalink;
     instaLink.target = "_blank";
-    instaLink.rel = "noopener norefferer";
+    instaLink.rel = "noopener noreferrer";
     instaPost.appendChild(instaLink);
 
     const instaImg = document.createElement("img");
