@@ -16,7 +16,7 @@ linkData.forEach((value) => {
   const linkLink = document.createElement("a");
   linkLink.href = `https://${value}.dgdgdgdg.com`;
   linkLink.target = "_blank";
-  linkLink.rel = "noopener norefferer";
+  linkLink.rel = "noopener noreferrer";
   li.appendChild(linkLink);
 
   const linkIcon = document.createElement("div");
