@@ -806,7 +806,7 @@ header .outside .burger .line {
 @media (max-width: 640px) {
   header .outside .burger .line {
     width: 30px;
-    height: 21px;
+    height: 19px;
   }
 }
 
@@ -815,57 +815,81 @@ header .outside .burger .line-item {
   height: 3px;
   position: absolute;
   background-color: #ffffff;
-  border-radius: 4px;
 }
 
-header .outside .burger .line-item:first-child {
-  top: 0;
-}
-
-header .outside .burger .line-item:nth-child(2) {
-  visibility: visible;
-  opacity: 1;
-  top: 0;
-  bottom: 0;
-  margin: auto 0;
-}
-
-header .outside .burger .line-item:nth-child(3) {
-  top: 24px;
+header .outside .burger:hover .line-item1 {
+  top: 6px;
 }
 
 @media (max-width: 640px) {
-  header .outside .burger .line-item:nth-child(3) {
-    top: 18px;
+  header .outside .burger:hover .line-item1 {
+    top: 4px;
   }
 }
 
-header .outside .burger .line-item.is-open:first-child {
-  top: 12px;
-  -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
-}
-
-@media (max-width: 640px) {
-  header .outside .burger .line-item.is-open:first-child {
-    top: 10px;
-  }
-}
-
-header .outside .burger .line-item.is-open:nth-child(2) {
+header .outside .burger:hover .line-item2 {
   visibility: hidden;
   opacity: 0;
 }
 
-header .outside .burger .line-item.is-open:nth-child(3) {
-  top: 12px;
-  -webkit-transform: rotate(-45deg);
-          transform: rotate(-45deg);
+header .outside .burger:hover .line-item3 {
+  top: 18px;
 }
 
 @media (max-width: 640px) {
-  header .outside .burger .line-item.is-open:nth-child(3) {
-    top: 10px;
+  header .outside .burger:hover .line-item3 {
+    top: 12px;
+  }
+}
+
+header .outside .burger .line-item1 {
+  top: 0;
+}
+
+header .outside .burger .line-item1.is-open {
+  top: 12px;
+}
+
+@media (max-width: 640px) {
+  header .outside .burger .line-item1.is-open {
+    top: 8px;
+  }
+}
+
+header .outside .burger .line-item2 {
+  visibility: visible;
+  opacity: 1;
+  top: 12px;
+}
+
+@media (max-width: 640px) {
+  header .outside .burger .line-item2 {
+    top: 8px;
+  }
+}
+
+header .outside .burger .line-item2.is-open {
+  visibility: hidden;
+  opacity: 0;
+}
+
+header .outside .burger .line-item3 {
+  top: 24px;
+}
+
+@media (max-width: 640px) {
+  header .outside .burger .line-item3 {
+    top: 16px;
+  }
+}
+
+header .outside .burger .line-item3.is-open {
+  top: 12px;
+}
+
+@media (max-width: 640px) {
+  header .outside .burger .line-item3.is-open {
+    top: 8px;
   }
 }
 
