@@ -221,7 +221,7 @@ toolList.forEach((value) => {
     toolItem.appendChild(itemImg);
 
     const itemImage = document.createElement("img");
-    itemImage.src = `/assets/image/tool/${imgName}.webp`;
+    itemImage.src = `/assets/image/tool/${imgName}.png`;
     itemImg.appendChild(itemImage);
 
     const itemName = document.createElement("p");
