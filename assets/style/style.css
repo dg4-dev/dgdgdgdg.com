@@ -1197,30 +1197,7 @@ footer .container .credit a, footer .container .credit p {
   width: 100%;
   height: 100vh;
   min-height: 750px;
-  background-image: url(/assets/image/top-fv.webp);
-  background-position: center center;
-  background-size: cover;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   padding-top: 0;
-}
-
-@media (max-width: 1024px) {
-  .top-page .top-fv {
-    min-height: 600px;
-  }
-}
-
-@media (max-width: 640px) {
-  .top-page .top-fv {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-}
-
-.top-page .top-fv .logo {
-  width: 600px;
 }
 
 .top-page section .container .content {

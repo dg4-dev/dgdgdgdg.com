@@ -86,9 +86,7 @@
 
     <main class="top-page">
       <section class="top-fv is-flex">
-        <div class="logo center">
-          <object data="/assets/image/logo.svg" type="image/svg+xml"></object>
-        </div>
+        <canvas id="canvas3d"></canvas>
       </section>
 
       <section class="about" id="about">
@@ -180,5 +178,10 @@
     <script src="/assets/script/main.js"></script>
     <script src="/assets/script/header.js"></script>
     <script src="/assets/script/footer.js"></script>
+    <script type="module">
+      import { Application } from "/assets/script/three/runtime.js";
+      const app = new Application();
+      app.load("/assets/script/three/scene.json");
+    </script>
   </body>
 </html>
