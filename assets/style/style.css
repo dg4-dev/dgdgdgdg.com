@@ -232,6 +232,23 @@ footer {
   display: none;
 }
 
+#loadElm {
+  position: fixed;
+  z-index: 65535;
+  width: 100%;
+  height: 100vh;
+  background-color: #00d4d4;
+  line-height: 100vh;
+  text-align: center;
+  font-size: 64px;
+  font-family: 'Dont', sans-serif;
+  color: #ffffff;
+}
+
+#loadElm::before {
+  content: "Loading...";
+}
+
 img {
   width: 100%;
   height: auto;
