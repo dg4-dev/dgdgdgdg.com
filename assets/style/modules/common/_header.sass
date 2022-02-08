@@ -26,7 +26,7 @@ header
     .burger
       width: 90px
       height: 90px
-      background-color: $dg4-blue
+      background-color: $dg4-cyan
 
       justify-content: center
       align-items: center
@@ -43,7 +43,7 @@ header
 
         @include sp
           width: 30px
-          height: 21px
+          height: 19px
 
         &-item
           width: 100%
@@ -52,39 +52,56 @@ header
           position: absolute
 
           background-color: $white
-          border-radius: 4px
 
-          &:first-child
-            top: 0
+      &:hover
+        .line-item1
+          top: 6px
 
-          &:nth-child(2)
-            visibility: visible
-            opacity: 1
-            top: 0
-            bottom: 0
-            margin: auto 0
+          @include sp
+            top: 4px
 
-          &:nth-child(3)
-            top: 24px
-            @include sp
-              top: 18px
+        .line-item2
+          visibility: hidden
+          opacity: 0
 
-          &.is-open
-            &:first-child
-              top: 12px
-              transform: rotate(45deg)
-              @include sp
-                top: 10px
+        .line-item3
+          top: 18px
 
-            &:nth-child(2)
-              visibility: hidden
-              opacity: 0
+          @include sp
+            top: 12px
 
-            &:nth-child(3)
-              top: 12px
-              transform: rotate(-45deg)
-              @include sp
-                top: 10px
+      .line-item1
+        top: 0
+
+        &.is-open
+          top: 12px
+
+          @include sp
+            top: 8px
+
+      .line-item2
+        visibility: visible
+        opacity: 1
+        top: 12px
+
+        @include sp
+          top: 8px
+
+        &.is-open
+          visibility: hidden
+          opacity: 0
+
+      .line-item3
+        top: 24px
+
+        @include sp
+          top: 16px
+
+        &.is-open
+          top: 12px
+
+          @include sp
+            top: 8px
 
   .inside
     position: fixed
@@ -115,10 +132,10 @@ header
       &.is-open
         left: 0
 
-    .blue
+    .cyan
       width: 90px
       height: 90px
-      background-color: $dg4-blue
+      background-color: $dg4-cyan
 
       flex-direction: column
 

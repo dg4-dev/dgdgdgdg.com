@@ -1,51 +1,37 @@
 const toolList = [
   {
-    contentName: "Software",
+    contentName: {
+      en: "?",
+      ja: "?",
+    },
     items: [
       {
-        name: "Illustrator",
-        maker: "Adobe",
-        gen: "Latest version",
+        name: "RC-704",
+        maker: "National",
+        gen: "1972",
       },
       {
-        name: "XD",
-        maker: "Adobe",
-        gen: "Latest version",
+        name: "10J-U50",
+        maker: "TOSHIBA",
+        gen: "1986",
       },
       {
-        name: "Premiere Pro",
-        maker: "Adobe",
-        gen: "Latest version",
+        name: "AQUOS LC-13C1",
+        maker: "SHARP",
+        gen: "2001",
       },
       {
-        name: "After Effects",
-        maker: "Adobe",
-        gen: "Latest version",
-      },
-      {
-        name: "Photoshop",
-        maker: "Adobe",
-        gen: "Latest version",
-      },
-      {
-        name: "Lightroom",
-        maker: "Adobe",
-        gen: "Latest version",
-      },
-      {
-        name: "STUDIO",
-        maker: "STUDIO",
-        gen: "Latest version",
-      },
-      {
-        name: "Figma",
-        maker: "Figma",
-        gen: "Latest version",
+        name: 'STRiDA EVO 16"',
+        maker: "STRiDA",
+        gen: "2019",
       },
     ],
   },
   {
-    contentName: "Shooting equipment",
+    contentName: {
+      en: "Shooting equipment",
+      ja: "撮影機材",
+    },
     items: [
       {
         name: "X-S10",
@@ -93,11 +79,6 @@ const toolList = [
         gen: "1981",
       },
       {
-        name: "RMC 80-200mm f4.0",
-        maker: "Tokina",
-        gen: "1984",
-      },
-      {
         name: "RSC 2",
         maker: "DJI",
         gen: "2020",
@@ -110,7 +91,10 @@ const toolList = [
     ],
   },
   {
-    contentName: "Hardware",
+    contentName: {
+      en: "Terminal",
+      ja: "端末",
+    },
     items: [
       {
         name: 'MacBook Pro 16"',
@@ -139,22 +123,87 @@ const toolList = [
       },
     ],
   },
+  {
+    contentName: {
+      en: "Software",
+      ja: "ソフトウェア",
+    },
+    items: [
+      {
+        name: "Illustrator",
+        maker: "Adobe",
+        gen: "Latest version",
+      },
+      {
+        name: "XD",
+        maker: "Adobe",
+        gen: "Latest version",
+      },
+      {
+        name: "Premiere Pro",
+        maker: "Adobe",
+        gen: "Latest version",
+      },
+      {
+        name: "After Effects",
+        maker: "Adobe",
+        gen: "Latest version",
+      },
+      {
+        name: "Photoshop",
+        maker: "Adobe",
+        gen: "Latest version",
+      },
+      {
+        name: "Lightroom",
+        maker: "Adobe",
+        gen: "Latest version",
+      },
+      {
+        name: "STUDIO",
+        maker: "STUDIO",
+        gen: "Latest version",
+      },
+      {
+        name: "Figma",
+        maker: "Figma",
+        gen: "Latest version",
+      },
+    ],
+  },
 ];
 
-toolList.forEach((value, index) => {
+toolList.forEach((value) => {
   const content = document.createElement("div");
   content.className = "content is-flex";
+  $("#toolOutput").appendChild(content);
 
   const contentName = document.createElement("h3");
-  contentName.innerText = `${value.contentName}`;
+  contentName.className = "click";
+  content.appendChild(contentName);
+
+  const contentNameEn = document.createElement("span");
+  contentNameEn.innerText = `${value.contentName.en}`;
+  contentNameEn.className = "en";
+  contentName.appendChild(contentNameEn);
+
+  const contentNameJa = document.createElement("span");
+  contentNameJa.innerText = `${value.contentName.ja}`;
+  contentNameJa.className = "ja";
+  contentName.appendChild(contentNameJa);
+
+  const contentArrow = document.createElement("div");
+  contentArrow.className = "accord-arrow";
+  contentName.appendChild(contentArrow);
 
   const toolList = document.createElement("div");
-  toolList.id = `toolContent${index}`;
   toolList.className = "items center is-flex";
-
-  content.appendChild(contentName);
   content.appendChild(toolList);
-  $("#toolOutput").appendChild(content);
+
+  contentName.addEventListener("click", () => {
+    toolList.classList.toggle("ac-open");
+    contentArrow.classList.toggle("ac-open");
+  });
 
   value.items.forEach((valueChild) => {
     const imgName = `${valueChild.maker
@@ -165,30 +214,24 @@ toolList.forEach((value, index) => {
 
     const toolItem = document.createElement("div");
     toolItem.className = "item";
+    toolList.appendChild(toolItem);
 
     const itemImg = document.createElement("div");
     itemImg.className = "item-img center";
+    toolItem.appendChild(itemImg);
 
     const itemImage = document.createElement("img");
     itemImage.src = `/assets/image/tool/${imgName}.webp`;
+    itemImg.appendChild(itemImage);
 
     const itemName = document.createElement("p");
     itemName.className = "item-name center";
     itemName.innerText = `${valueChild.name}`;
-
-    const itemMaker = document.createElement("p");
-    itemMaker.className = "item-maker center";
-    itemMaker.innerText = `${valueChild.maker}`;
-
-    const itemGen = document.createElement("p");
-    itemGen.className = "item-gen center";
-    itemGen.innerText = `${valueChild.gen}`;
-
-    itemImg.appendChild(itemImage);
-    toolItem.appendChild(itemImg);
     toolItem.appendChild(itemName);
-    toolItem.appendChild(itemMaker);
-    toolItem.appendChild(itemGen);
-    $(`#toolContent${index}`).appendChild(toolItem);
+
+    const itemMakerNGen = document.createElement("p");
+    itemMakerNGen.className = "item-maker-n-gen center";
+    itemMakerNGen.innerText = `${valueChild.maker}・${valueChild.gen}`;
+    toolItem.appendChild(itemMakerNGen);
   });
 });

@@ -82,18 +82,21 @@
     ></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
+    <div id="loadElm"></div>
+
     <header class="is-flex" id="header"></header>
 
     <main class="top-page">
       <section class="top-fv is-flex">
-        <div class="logo center">
-          <object data="/assets/image/logo.svg" type="image/svg+xml"></object>
-        </div>
+        <canvas id="canvas3d"></canvas>
       </section>
 
       <section class="about" id="about">
         <div class="container center">
-          <h2 class="center">About</h2>
+          <h2 class="center">
+            <span class="en">About</span>
+            <span class="ja">dgdgdgdgとは</span>
+          </h2>
           <div class="content is-flex">
             <div class="item is-flex">
               <p>dgdgdgdgの概要、スキル、使用ツールについての説明です。</p>
@@ -104,7 +107,10 @@
             </div>
           </div>
           <div class="content about-brand">
-            <h3>Brand resource</h3>
+            <h3>
+              <span class="en">Brand resource</span>
+              <span class="ja">ブランドリソース</span>
+            </h3>
             <div class="item is-flex">
               <div class="text">
                 <p>サイトのカラーやロゴについて詳しく説明します。</p>
@@ -120,7 +126,10 @@
 
       <section class="works" id="works">
         <div class="container center">
-          <h2 class="center">Works</h2>
+          <h2 class="center">
+            <span class="en">Works</span>
+            <span class="ja">dgdgdgdgの作品</span>
+          </h2>
           <div class="content is-flex">
             <div class="item is-flex">
               <p>
@@ -137,7 +146,10 @@
 
       <section class="service" id="service">
         <div class="container center">
-          <h2 class="center">Service</h2>
+          <h2 class="center">
+            <span class="en">Service</span>
+            <span class="ja">dgdgdgdgのプラン</span>
+          </h2>
           <div class="content is-flex">
             <div class="item is-flex">
               <p>
@@ -166,6 +178,11 @@
     <footer id="footer"></footer>
 
     <script src="/assets/script/main.js"></script>
+    <script type="module">
+      import { Application } from "/assets/script/three/runtime.js";
+      const app = new Application();
+      app.load("/assets/script/three/scene.json");
+    </script>
     <script src="/assets/script/header.js"></script>
     <script src="/assets/script/footer.js"></script>
   </body>
