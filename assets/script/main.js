@@ -10,3 +10,5 @@ const $ = (target, doc = document) => {
     return Elm ? Elm : undefined;
   }
 };
+
+window.addEventListener("load", () => $("#loadElm").remove());

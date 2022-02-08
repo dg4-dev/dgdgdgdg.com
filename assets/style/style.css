@@ -232,6 +232,23 @@ footer {
   display: none;
 }
 
+#loadElm {
+  position: fixed;
+  z-index: 65535;
+  width: 100%;
+  height: 100vh;
+  background-color: #00d4d4;
+  line-height: 100vh;
+  text-align: center;
+  font-size: 64px;
+  font-family: 'Dont', sans-serif;
+  color: #ffffff;
+}
+
+#loadElm::before {
+  content: "Loading...";
+}
+
 img {
   width: 100%;
   height: auto;
@@ -1196,31 +1213,23 @@ footer .container .credit a, footer .container .credit p {
 .top-page .top-fv {
   width: 100%;
   height: 100vh;
-  min-height: 750px;
-  background-image: url(/assets/image/top-fv.webp);
-  background-position: center center;
-  background-size: cover;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   padding-top: 0;
 }
 
+.top-page .top-fv .scroll-arrow {
+  width: 60px;
+  height: 84px;
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 40px;
+}
+
 @media (max-width: 1024px) {
-  .top-page .top-fv {
-    min-height: 600px;
+  .top-page .top-fv .scroll-arrow {
+    width: 45px;
+    height: 63px;
   }
-}
-
-@media (max-width: 640px) {
-  .top-page .top-fv {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-}
-
-.top-page .top-fv .logo {
-  width: 600px;
 }
 
 .top-page section .container .content {
