@@ -2,27 +2,21 @@
   .top-fv
     width: 100%
     height: 100vh
-    min-height: 750px
-
-    background:
-      image: url(/assets/image/top-fv.webp)
-      position: center center
-      size: cover
-
-    align-items: center
 
     padding-top: 0
 
-    @include tab
-      min-height: 600px
+    .scroll-arrow
+      width: 60px
+      height: 84px
 
-    @include sp
-      padding:
-        left: 12px
-        right: 12px
+      position: absolute
+      right: 0
+      left: 0
+      bottom: 40px
 
-    .logo
-      width: 600px
+      @include tab
+        width: 45px
+        height: 63px
 
   section
     .container .content
