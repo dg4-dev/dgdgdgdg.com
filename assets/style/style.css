@@ -203,7 +203,7 @@ object {
 }
 
 main {
-  min-height: calc(100vh - 142px);
+  min-height: 100vh;
 }
 
 header,
@@ -272,17 +272,13 @@ img {
 
 @media (max-width: 1024px) {
   .container {
-    width: 100%;
-    padding-left: 20px;
-    padding-right: 20px;
+    width: calc(100% - (20px * 2));
   }
 }
 
 @media (max-width: 640px) {
   .container {
-    width: 100%;
-    padding-left: 12px;
-    padding-right: 12px;
+    width: calc(100% - (12px * 2));
   }
 }
 
