@@ -31,7 +31,7 @@ object
   pointer-events: none
 
 main
-  min-height: calc(100vh - 142px)
+  min-height: 100vh
 
 header,
 main,
@@ -90,15 +90,9 @@ img
 .container
   width: $c-width-pc
   @include tab
-    width: $c-width-tab
-    padding:
-      left: 20px
-      right: 20px
+    width: calc(#{$c-width-tab} - (20px * 2))
   @include sp
-    width: $c-width-sp
-    padding:
-      left: 12px
-      right: 12px
+    width: calc(#{$c-width-tab} - (12px * 2))
 
 // nav-link
 .nav-link
