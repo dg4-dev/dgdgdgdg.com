@@ -29,6 +29,39 @@ const toolList = [
   },
   {
     contentName: {
+      en: "Terminal",
+      ja: "端末",
+    },
+    items: [
+      {
+        name: 'MacBook Pro 16"',
+        maker: "Apple",
+        gen: "2019",
+      },
+      {
+        name: 'iPad Pro 12.9"',
+        maker: "Apple",
+        gen: "2020",
+      },
+      {
+        name: "iPad mini",
+        maker: "Apple",
+        gen: "2021",
+      },
+      {
+        name: "iPhone 13 Pro",
+        maker: "Apple",
+        gen: "2021",
+      },
+      {
+        name: "iPhone SE",
+        maker: "Apple",
+        gen: "2020",
+      },
+    ],
+  },
+  {
+    contentName: {
       en: "Shooting equipment",
       ja: "撮影機材",
     },
@@ -92,39 +125,6 @@ const toolList = [
   },
   {
     contentName: {
-      en: "Terminal",
-      ja: "端末",
-    },
-    items: [
-      {
-        name: 'MacBook Pro 16"',
-        maker: "Apple",
-        gen: "2019",
-      },
-      {
-        name: 'iPad Pro 12.9"',
-        maker: "Apple",
-        gen: "2020",
-      },
-      {
-        name: "iPad mini",
-        maker: "Apple",
-        gen: "2021",
-      },
-      {
-        name: "iPhone 13 Pro",
-        maker: "Apple",
-        gen: "2021",
-      },
-      {
-        name: "iPhone SE",
-        maker: "Apple",
-        gen: "2020",
-      },
-    ],
-  },
-  {
-    contentName: {
       en: "Software",
       ja: "ソフトウェア",
     },
@@ -173,6 +173,64 @@ const toolList = [
         name: "STUDIO",
         maker: "STUDIO",
         gen: "Latest version",
+      },
+    ],
+  },
+  {
+    contentName: {
+      en: "Musical Instrument",
+      ja: "楽器",
+    },
+    items: [
+      {
+        name: "SW108",
+        maker: "ARCO",
+        gen: "カホン",
+      },
+      {
+        name: "5000CJ",
+        maker: "DW",
+        gen: "カホンペダル",
+      },
+      {
+        name: "MUS1455M",
+        maker: "Pearl",
+        gen: "スネアドラム",
+      },
+      {
+        name: "P-932",
+        maker: "Pearl",
+        gen: "ペダル",
+      },
+      {
+        name: "CC16MC-B",
+        maker: "MEINL",
+        gen: 'シンバル 16"',
+      },
+      {
+        name: "CC12S-B",
+        maker: "MEINL",
+        gen: 'シンバル 12"',
+      },
+      {
+        name: "PST-7 Crash",
+        maker: "Paiste",
+        gen: 'シンバル 16"',
+      },
+      {
+        name: "PST-7 Splash",
+        maker: "Paiste",
+        gen: 'シンバル 10"',
+      },
+      {
+        name: "PTM-10GH",
+        maker: "Pearl",
+        gen: "タンバリン",
+      },
+      {
+        name: "SH50",
+        maker: "MEINL",
+        gen: "シェイカー",
       },
     ],
   },
