@@ -160,6 +160,11 @@ const toolList = [
         gen: "Latest version",
       },
       {
+        name: "Visual Studio Code",
+        maker: "Microsoft",
+        gen: "Latest version",
+      },
+      {
         name: "STUDIO",
         maker: "STUDIO",
         gen: "Latest version",
