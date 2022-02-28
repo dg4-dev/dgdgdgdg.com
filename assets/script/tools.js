@@ -165,13 +165,13 @@ const toolList = [
         gen: "Latest version",
       },
       {
-        name: "STUDIO",
-        maker: "STUDIO",
+        name: "Figma",
+        maker: "Figma",
         gen: "Latest version",
       },
       {
-        name: "Figma",
-        maker: "Figma",
+        name: "STUDIO",
+        maker: "STUDIO",
         gen: "Latest version",
       },
     ],
