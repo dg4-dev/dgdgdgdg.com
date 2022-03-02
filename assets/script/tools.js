@@ -29,8 +29,8 @@ const toolList = [
   },
   {
     contentName: {
-      en: "Terminal",
-      ja: "端末",
+      en: "Terminal device",
+      ja: "端末機器",
     },
     items: [
       {
@@ -178,7 +178,50 @@ const toolList = [
   },
   {
     contentName: {
-      en: "Musical Instrument",
+      en: "Audio device",
+      ja: "音響機器",
+    },
+    items: [
+      {
+        name: "DRUMSET SESSION I",
+        maker: "AKG",
+        gen: "ドラムマイクセット",
+      },
+      {
+        name: "ATR2100x-USB",
+        maker: "audio-technica",
+        gen: "マイク",
+      },
+      {
+        name: "QX1002USB",
+        maker: "behringer",
+        gen: "AIF",
+      },
+      {
+        name: "ATH-M40x",
+        maker: "audio-technica",
+        gen: "ヘッドホン",
+      },
+      {
+        name: "ear (1)",
+        maker: "Nothing",
+        gen: "イヤホン",
+      },
+      {
+        name: "Powerbeats Pro",
+        maker: "Beats",
+        gen: "イヤホン",
+      },
+      {
+        name: "Beats Flex",
+        maker: "Beats",
+        gen: "イヤホン",
+      },
+    ],
+  },
+  {
+    contentName: {
+      en: "Music Instrument",
       ja: "楽器",
     },
     items: [
@@ -196,6 +239,11 @@ const toolList = [
         name: "MUS1455M",
         maker: "Pearl",
         gen: "スネアドラム",
+      },
+      {
+        name: "FTS1410",
+        maker: "Foldrum",
+        gen: "フロアタムスネア",
       },
       {
         name: "P-932",
@@ -269,12 +317,6 @@ toolList.forEach((value) => {
   });
 
   value.items.forEach((valueChild) => {
-    const imgName = `${valueChild.maker
-      .toLowerCase()
-      .replace(/[." -]/g, "")}-${valueChild.name
-      .toLowerCase()
-      .replace(/[." -]/g, "")}`;
-
     const toolItem = document.createElement("div");
     toolItem.className = "item";
     toolList.appendChild(toolItem);
@@ -284,7 +326,9 @@ toolList.forEach((value) => {
     toolItem.appendChild(itemImg);
 
     const itemImage = document.createElement("img");
-    itemImage.src = `/assets/image/tool/${imgName}.png`;
+    const fmtMaker = valueChild.maker.toLowerCase().replace(/[." -]/g, "");
+    const fmtName = valueChild.name.toLowerCase().replace(/[." -]/g, "");
+    itemImage.src = `/assets/image/tool/${fmtMaker}-${fmtName}.png`;
     itemImg.appendChild(itemImage);
 
     const itemName = document.createElement("p");
