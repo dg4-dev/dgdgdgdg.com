@@ -1,6 +1,9 @@
 .about-page section
-  .container .content
-    flex-direction: column
+  .container
+    &-meaning
+      width: 100%
+    .content
+      flex-direction: column
 
   &.overview .container
     .information .item
@@ -50,6 +53,7 @@
         width: 100%
 
         li
+          width: fit-content
           padding: 0 24px
 
           .phrase
