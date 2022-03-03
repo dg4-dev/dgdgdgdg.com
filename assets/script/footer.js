@@ -1,5 +1,5 @@
 const writeFooter = (getData) =>
-  ($("#footer").innerHTML = $("footer", getData)[0].innerHTML);
+  ($("footer")[0].innerHTML = $("footer", getData)[0].innerHTML);
 
 const footerUrl = "/assets/common/footer.html";
 
