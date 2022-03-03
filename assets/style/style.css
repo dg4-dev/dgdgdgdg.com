@@ -1417,21 +1417,14 @@ footer .container .credit a, footer .container .credit p {
   display: block;
 }
 
-.about-page section.overview .container .information .item table tbody {
-  height: 160px;
+.about-page section.overview .container .information .item table tbody tr th {
+  width: 120px;
+  font-weight: bold;
+  text-align: left;
+  padding: 8px 0;
 }
 
 .about-page section.overview .container .information .item table tbody tr td {
-  vertical-align: middle;
-  line-height: 32px;
-}
-
-.about-page section.overview .container .information .item table tbody tr td.left {
-  width: 120px;
-  font-weight: bold;
-}
-
-.about-page section.overview .container .information .item table tbody tr td.right {
   width: 230px;
 }
 
