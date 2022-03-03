@@ -63,6 +63,12 @@
 
     <link rel="icon" href="/assets/image/favicon.png" />
     <link rel="stylesheet" href="/assets/style/style.css" />
+
+    <!-- Swiper -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
+    />
   </head>
 
   <body class="header-menu">
@@ -152,50 +158,54 @@
               <span class="en">Meaning of "dgdgdgdg"</span>
               <span class="ja">"だがし"に含まれる意味</span>
             </h3>
-            <ul id="meanItems" class="item center is-flex">
-              <li>
+          </div>
+        </div>
+        <div class="container container-meaning center">
+          <div class="content meaning is-flex swiper">
+            <ul id="meanItems" class="item center is-flex swiper-wrapper">
+              <li class="swiper-slide">
                 <div class="phrase"><span class="cyan">4</span></div>
                 <p class="mean">
                   四季<br />四つ葉のクローバー<br />四次元<br />.mp4
                 </p>
               </li>
-              <li>
+              <li class="swiper-slide">
                 <div class="phrase"><span class="cyan">dgdg</span></div>
                 <p class="mean">ドラムの音</p>
               </li>
-              <li>
+              <li class="swiper-slide">
                 <div class="phrase"><span class="cyan">d</span>eep</div>
                 <p class="mean">深い、奥行きのある</p>
               </li>
-              <li>
+              <li class="swiper-slide">
                 <div class="phrase"><span class="cyan noto">駄菓子</span></div>
                 <p class="mean">多種多様、多方面</p>
               </li>
-              <li>
+              <li class="swiper-slide">
                 <div class="phrase">
                   <span class="cyan">d</span>i<span class="cyan">g</span>
                 </div>
                 <p class="mean">調べる、いいものを発掘する</p>
               </li>
-              <li>
+              <li class="swiper-slide">
                 <div class="phrase">
                   <span class="cyan">d</span>i<span class="cyan">g</span>ital
                 </div>
                 <p class="mean">デジタル</p>
               </li>
-              <li>
+              <li class="swiper-slide">
                 <div class="phrase">
                   <span class="cyan">d</span>eli<span class="cyan">g</span>ht
                 </div>
                 <p class="mean">喜び、楽しみ</p>
               </li>
-              <li>
+              <li class="swiper-slide">
                 <div class="phrase">
                   <span class="cyan">d</span>esi<span class="cyan">g</span>n
                 </div>
                 <p class="mean">デザイン</p>
               </li>
-              <li>
+              <li class="swiper-slide">
                 <div class="phrase"><span class="cyan">g</span>eek</div>
                 <p class="mean">オタク</p>
               </li>
@@ -234,6 +244,24 @@
     <script src="/assets/script/footer.js"></script>
     <script src="/assets/script/skillPara.js"></script>
     <script src="/assets/script/tools.js"></script>
-    <script src="/assets/script/infinite-carousel.js"></script>
+
+    <!-- Swiper -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+      const swiper = new Swiper(".swiper", {
+        freeMode: true,
+        loop: true,
+        slidesPerView: "auto",
+        speed: 1500,
+        autoplay: {
+          delay: 0,
+        },
+        on: {
+          slideChangeTransitionStart: () => {
+            $("#meanItems").style.transitionTimingFunction = "linear";
+          },
+        },
+      });
+    </script>
   </body>
 </html>
