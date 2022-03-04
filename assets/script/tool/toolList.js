@@ -65,14 +65,26 @@ const writeTools = (getData) => {
       cardImageInner.src = coverImage.src;
       cardImage.appendChild(cardImageInner);
 
-      modalCard.insertAdjacentHTML(
-        "beforeend",
-        `<div class="desc">
-          <div class="name">${cateItem.name}</div>
-          <div class="maker-and-gen">${cateItem.maker}　${cateItem.gen}</div>
-          <div class="about">${cateItem.about}</div>
-        </div>`
-      );
+      const cardDesc = document.createElement("div");
+      cardDesc.className = "desc";
+      modalCard.appendChild(cardDesc);
+
+      const descName = document.createElement("div");
+      descName.className = "name";
+      descName.textContent = cateItem.name;
+      cardDesc.appendChild(descName);
+
+      const descMakerNGen = document.createElement("div");
+      descMakerNGen.className = "maker-and-gen";
+      descMakerNGen.textContent = cateItem.maker;
+      cateItem.gen &&
+        (descMakerNGen.textContent = `${cateItem.maker}・${cateItem.gen}`);
+      cardDesc.appendChild(descMakerNGen);
+
+      const descAbout = document.createElement("div");
+      descAbout.className = "about";
+      descAbout.textContent = cateItem.about;
+      cardDesc.appendChild(descAbout);
 
       const modalCloseBtn = document.createElement("div");
       modalCloseBtn.className = "close-btn click";
