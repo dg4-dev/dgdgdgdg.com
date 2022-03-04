@@ -1255,7 +1255,12 @@ footer .container .credit a, footer .container .credit p {
   width: 100%;
 }
 .about-page section.tool .swiper-tool #toolList .tool-item {
-  width: 20%;
+  width: 250px;
+}
+@media (max-width: 1024px) {
+  .about-page section.tool .swiper-tool #toolList .tool-item {
+    width: 20%;
+  }
 }
 @media (max-width: 640px) {
   .about-page section.tool .swiper-tool #toolList .tool-item {
