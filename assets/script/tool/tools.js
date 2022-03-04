@@ -83,23 +83,29 @@ const writeTools = (getData) => {
 
   slicedItems = sliceByNumber(shuffledItems, 2);
 
-  slicedItems.forEach((twoItems) => {
-    const toolItem = document.createElement("div");
-    toolItem.className = "tool-item swiper-slide";
-    $("#toolList").appendChild(toolItem);
+  const fakeLoop = () => {
+    slicedItems.forEach((twoItems) => {
+      const toolItem = document.createElement("div");
+      toolItem.className = "tool-item swiper-slide";
+      $("#toolList").appendChild(toolItem);
 
-    twoItems.forEach((item) => {
-      const toolItemChild = document.createElement("div");
-      toolItemChild.className = "tool-item-child";
-      toolItem.appendChild(toolItemChild);
+      twoItems.forEach((item) => {
+        const toolItemChild = document.createElement("div");
+        toolItemChild.className = "tool-item-child";
+        toolItem.appendChild(toolItemChild);
 
-      const itemImage = document.createElement("img");
-      const fmtMaker = item.maker.toLowerCase().replace(/[." -]/g, "");
-      const fmtName = item.name.toLowerCase().replace(/[." -]/g, "");
-      itemImage.src = `/assets/image/tool/${fmtMaker}-${fmtName}.png`;
-      toolItemChild.appendChild(itemImage);
+        const itemImage = document.createElement("img");
+        const fmtMaker = item.maker.toLowerCase().replace(/[." -]/g, "");
+        const fmtName = item.name.toLowerCase().replace(/[." -]/g, "");
+        itemImage.src = `/assets/image/tool/${fmtMaker}-${fmtName}.png`;
+        toolItemChild.appendChild(itemImage);
+      });
     });
-  });
+  };
+
+  fakeLoop();
+  fakeLoop();
+  fakeLoop();
 };
 
 const toolDataURL = "/assets/script/tool/toolData.json";
