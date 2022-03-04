@@ -175,5 +175,111 @@
         "gen": "Latest version"
       }
     ]
+  },
+  {
+    "contentName": {
+      "en": "Audio device",
+      "ja": "音響機器"
+    },
+    "items": [
+      {
+        "name": "DRUMSET SESSION I",
+        "maker": "AKG",
+        "gen": "ドラムマイクセット"
+      },
+      {
+        "name": "ATR2100x-USB",
+        "maker": "audio-technica",
+        "gen": "マイク"
+      },
+      {
+        "name": "QX1002USB",
+        "maker": "behringer",
+        "gen": "AIF"
+      },
+      {
+        "name": "ATH-M40x",
+        "maker": "audio-technica",
+        "gen": "ヘッドホン"
+      },
+      {
+        "name": "ear (1)",
+        "maker": "Nothing",
+        "gen": "イヤホン"
+      },
+      {
+        "name": "Powerbeats Pro",
+        "maker": "Beats",
+        "gen": "イヤホン"
+      },
+      {
+        "name": "Beats Flex",
+        "maker": "Beats",
+        "gen": "イヤホン"
+      }
+    ]
+  },
+  {
+    "contentName": {
+      "en": "Music Instrument",
+      "ja": "楽器"
+    },
+    "items": [
+      {
+        "name": "SW108",
+        "maker": "ARCO",
+        "gen": "カホン"
+      },
+      {
+        "name": "5000CJ",
+        "maker": "DW",
+        "gen": "カホンペダル"
+      },
+      {
+        "name": "MUS1455M",
+        "maker": "Pearl",
+        "gen": "スネアドラム"
+      },
+      {
+        "name": "FTS1410",
+        "maker": "Foldrum",
+        "gen": "フロアタムスネア"
+      },
+      {
+        "name": "P-932",
+        "maker": "Pearl",
+        "gen": "ペダル"
+      },
+      {
+        "name": "CC16MC-B",
+        "maker": "MEINL",
+        "gen": "シンバル 16\""
+      },
+      {
+        "name": "CC12S-B",
+        "maker": "MEINL",
+        "gen": "シンバル 12\""
+      },
+      {
+        "name": "PST-7 Crash",
+        "maker": "Paiste",
+        "gen": "シンバル 16\""
+      },
+      {
+        "name": "PST-7 Splash",
+        "maker": "Paiste",
+        "gen": "シンバル 10\""
+      },
+      {
+        "name": "PTM-10GH",
+        "maker": "Pearl",
+        "gen": "タンバリン"
+      },
+      {
+        "name": "SH50",
+        "maker": "MEINL",
+        "gen": "シェイカー"
+      }
+    ]
   }
 ]
