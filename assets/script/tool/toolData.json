@@ -8,21 +8,25 @@
       {
         "name": "RC-704",
         "maker": "National",
+        "about": "Clock with radio",
         "gen": "1972"
       },
       {
         "name": "10J-U50",
         "maker": "TOSHIBA",
+        "about": "TV",
         "gen": "1986"
       },
       {
         "name": "AQUOS LC-13C1",
         "maker": "SHARP",
+        "about": "TV",
         "gen": "2001"
       },
       {
         "name": "STRiDA EVO 16\"",
         "maker": "STRiDA",
+        "about": "Bicycle",
         "gen": "2019"
       }
     ]
@@ -36,26 +40,31 @@
       {
         "name": "MacBook Pro 16\"",
         "maker": "Apple",
+        "about": "Laptop",
         "gen": "2019"
       },
       {
         "name": "iPad Pro 12.9\"",
         "maker": "Apple",
+        "about": "Tablet",
         "gen": "2020"
       },
       {
         "name": "iPad mini",
         "maker": "Apple",
+        "about": "Tablet",
         "gen": "2021"
       },
       {
         "name": "iPhone 13 Pro",
         "maker": "Apple",
+        "about": "Smart phone",
         "gen": "2021"
       },
       {
         "name": "iPhone SE",
         "maker": "Apple",
+        "about": "Smart phone",
         "gen": "2020"
       }
     ]
@@ -69,56 +78,67 @@
       {
         "name": "X-S10",
         "maker": "FUJIFILM",
+        "about": "Mirrorless camera",
         "gen": "2020"
       },
       {
         "name": "XF 35mm F1.4 R",
         "maker": "FUJIFILM",
+        "about": "Lens",
         "gen": "2012"
       },
       {
         "name": "XF 18-55mm F2.8-4 R OIS",
         "maker": "FUJIFILM",
+        "about": "Lens",
         "gen": "2012"
       },
       {
         "name": "Wtulens L",
         "maker": "GIZMON",
+        "about": "Lens",
         "gen": "2018"
       },
       {
         "name": "X-700",
         "maker": "MINOLTA",
+        "about": "Film camera",
         "gen": "1981"
       },
       {
         "name": "X-7",
         "maker": "MINOLTA",
+        "about": "Film camera",
         "gen": "1980"
       },
       {
         "name": "MD ROKKOR 50mm F1.7",
         "maker": "MINOLTA",
+        "about": "Lens",
         "gen": "1979"
       },
       {
         "name": "MD ZOOM 35-70mm F3.5",
         "maker": "MINOLTA",
+        "about": "Lens",
         "gen": "1981"
       },
       {
         "name": "MD ZOOM 75-150mm F4",
         "maker": "MINOLTA",
+        "about": "Lens",
         "gen": "1981"
       },
       {
         "name": "RSC 2",
         "maker": "DJI",
+        "about": "Camera stabilizer",
         "gen": "2020"
       },
       {
         "name": "OM4",
         "maker": "DJI",
+        "about": "Camera stabilizer",
         "gen": "2020"
       }
     ]
@@ -132,46 +152,55 @@
       {
         "name": "Illustrator",
         "maker": "Adobe",
+        "about": "Vector graphics editor",
         "gen": "Latest version"
       },
       {
         "name": "XD",
         "maker": "Adobe",
+        "about": "UX design software",
         "gen": "Latest version"
       },
       {
         "name": "Premiere Pro",
         "maker": "Adobe",
+        "about": "Video editor",
         "gen": "Latest version"
       },
       {
         "name": "After Effects",
         "maker": "Adobe",
+        "about": "Motion graphics editor",
         "gen": "Latest version"
       },
       {
         "name": "Photoshop",
         "maker": "Adobe",
+        "about": "Raster graphics editor",
         "gen": "Latest version"
       },
       {
         "name": "Lightroom",
         "maker": "Adobe",
+        "about": "Image manipulation software",
         "gen": "Latest version"
       },
       {
         "name": "Visual Studio Code",
         "maker": "Microsoft",
+        "about": "Source code editor",
         "gen": "Latest version"
       },
       {
         "name": "Figma",
         "maker": "Figma",
+        "about": "UX design software",
         "gen": "Latest version"
       },
       {
         "name": "STUDIO",
         "maker": "STUDIO",
+        "about": "No code web creator",
         "gen": "Latest version"
       }
     ]

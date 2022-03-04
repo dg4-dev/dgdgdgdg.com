@@ -161,7 +161,7 @@
           </div>
         </div>
         <div class="container container-meaning center">
-          <div class="content meaning is-flex swiper">
+          <div class="content meaning is-flex swiper-container">
             <ul id="meanItems" class="item center is-flex swiper-wrapper">
               <li class="swiper-slide">
                 <div class="phrase"><span class="cyan">4</span></div>
@@ -228,17 +228,20 @@
       </section>
 
       <section class="tool" id="tool">
-        <div id="toolOutput" class="container center">
+        <div class="container center">
           <h2 class="center">
             <span class="en">Tool</span>
             <span class="ja">ツール</span>
           </h2>
         </div>
+        <div class="container swiper-tool">
+          <div id="toolList" class="is-flex swiper-wrapper"></div>
+          <a class="btn center" href="/about/tool/">more tools</a>
+        </div>
       </section>
     </main>
 
     <footer></footer>
-
     <script src="/assets/script/main.js"></script>
     <script src="/assets/script/header.js"></script>
     <script src="/assets/script/footer.js"></script>
@@ -248,7 +251,7 @@
     <!-- Swiper -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
-      const swiper = new Swiper(".swiper", {
+      const swiper = new Swiper(".swiper-container", {
         freeMode: true,
         loop: true,
         slidesPerView: "auto",
@@ -258,7 +261,24 @@
         },
         on: {
           slideChangeTransitionStart: () => {
-            $("#meanItems").style.transitionTimingFunction = "linear";
+            document.getElementById(
+              "meanItems"
+            ).style.transitionTimingFunction = "linear";
+          },
+        },
+      });
+      const swiperTool = new Swiper(".swiper-tool", {
+        freeMode: true,
+        loop: true,
+        slidesPerView: "auto",
+        speed: 1500,
+        autoplay: {
+          delay: 0,
+        },
+        on: {
+          slideChangeTransitionStart: () => {
+            document.getElementById("toolList").style.transitionTimingFunction =
+              "linear";
           },
         },
       });
