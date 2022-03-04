@@ -1445,6 +1445,16 @@ footer .container .credit a, footer .container .credit p {
   font-family: "Dont", sans-serif;
 }
 
+@media (max-width: 1024px) {
+  .tool-page .tool-category .container h2 .en {
+    font-size: 40px;
+  }
+}
+@media (max-width: 640px) {
+  .tool-page .tool-category .container h2 .en {
+    font-size: 24px;
+  }
+}
 .tool-page .tool-category .tool-wrapper .tool-list {
   flex-wrap: wrap;
 }
