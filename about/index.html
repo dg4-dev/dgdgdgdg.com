@@ -252,11 +252,12 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
       const swiper = new Swiper(".swiper-container", {
-        freeMode: true,
         loop: true,
         slidesPerView: "auto",
+        allowTouchMove: false,
         speed: 1500,
         autoplay: {
+          disableOnInteraction: false,
           delay: 0,
         },
         on: {
@@ -267,12 +268,13 @@
           },
         },
       });
+
       const swiperTool = new Swiper(".swiper-tool", {
-        freeMode: true,
-        loop: true,
         slidesPerView: "auto",
-        speed: 1500,
+        allowTouchMove: false,
+        speed: 5000,
         autoplay: {
+          disableOnInteraction: false,
           delay: 0,
         },
         on: {
