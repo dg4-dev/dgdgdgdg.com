@@ -1,0 +1,103 @@
+.tool-page
+  .tool-category
+    .tool-wrapper
+      .tool-list
+        flex-wrap: wrap
+        .tool-item
+          width: 20%
+          @include tab
+            width: calc(100% / 3)
+          .cover
+            img
+              display: block
+          .modal
+            display: none
+            position: fixed
+
+            z-index: 2000
+            top: 0
+            left: 0
+
+            width: 100%
+            height: 100vh
+            .close-area
+              background-color: $dg4-black
+              opacity: 0.2
+
+              width: 100%
+              height: 100%
+
+            .card
+              background-color: $white
+              align-items: center
+
+              width: 800px
+              position: absolute
+              transform: translate(-50%, -50%)
+              top: -100%
+              left: 50%
+
+              border-radius: 32px
+              padding: 64px
+
+              transition: all .3s
+
+              @include tab
+                width: 90vw
+
+              @include sp
+                flex-direction: column
+                justify-content: center
+                width: 100%
+                height: 100%
+
+                border-radius: 0
+                padding: 24px
+
+              .img
+                width: 60%
+                @include sp
+                  width: 100%
+                  max-width: 380px
+              .desc
+                width: 40%
+                line-height: 1.5
+                margin-left: 40px
+                @include sp
+                  width: 100%
+                  margin-left: 0
+                  margin-top: 24px
+                .name
+                  font:
+                    weight: bold
+                    size: 24px
+              .close-btn
+                position: absolute
+                top: 32px
+                right: 32px
+
+                width: 40px
+                height: 40px
+
+                @include sp
+                  top: 20px
+                  right: 20px
+                &::before,
+                &::after
+                  content: ""
+                  display: block
+                  width: 40px
+                  border-top: 4px solid $dg4-black
+                  position: absolute
+                  top: 50%
+                  @include sp
+                    border-width: 3px
+                &::before
+                  transform: rotate(45deg)
+                &::after
+                  transform: rotate(-45deg)
+            &.active
+              display: block
+              .card
+                top: 50%
+            
