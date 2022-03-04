@@ -102,67 +102,15 @@
     .btn
       margin-top: 40px
 
-  &.tool .container .content
-    h3 .accord-arrow
-      position: absolute
-      right: 3px
-      top: 0px
-      bottom: 0px
-
-      width: 16px
-      height: 16px
-
-      transform: rotate(45deg)
-
-      border:
-        right: 4px solid $dg4-black
-        bottom: 4px solid $dg4-black
-
-      margin: auto 0
-
-      transition: all 0.2s
-
+  &.tool .swiper-tool
+    width: 100%
+    #toolList .tool-item
+      width: 250px
+      @include tab
+        width: 20%
       @include sp
-        border:
-          right: 3px solid $dg4-black
-          bottom: 3px solid $dg4-black
-
-      &.ac-open
-        transform: rotate(225deg)
-        transition: all 0.2s
-
-    .items
-      width: 100%
-      flex-wrap: wrap
-      max-height: 0
-      overflow: hidden
-      transition: all 0.2s
-
-      &.ac-open
-        max-height: 1700px
-        transition: all 0.2s
-
-      .item
         width: calc(100% / 3)
-        padding: 16px 32px
-
-        @include sp
-          width: 50%
-          padding: 16px 8px
-
-        &-img
-          margin-bottom: 16px
-
-        &-name
-          font:
-            size: 16px
-            weight: bold
-
-          text-align: center
-          margin-bottom: 8px
-
-        &-maker-n-gen
-          font-size: 12px
-          color: #999
-          text-align: center
-          margin-bottom: 8px
+      &-child img
+          display: block
+    .btn
+      margin-top: 40px
