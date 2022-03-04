@@ -214,37 +214,37 @@
       {
         "name": "DRUMSET SESSION I",
         "maker": "AKG",
-        "gen": "ドラムマイクセット"
+        "about": "Drum microphone set"
       },
       {
         "name": "ATR2100x-USB",
         "maker": "audio-technica",
-        "gen": "マイク"
+        "about": "USB Microphone"
       },
       {
         "name": "QX1002USB",
         "maker": "behringer",
-        "gen": "AIF"
+        "about": "Audio interface"
       },
       {
         "name": "ATH-M40x",
         "maker": "audio-technica",
-        "gen": "ヘッドホン"
+        "about": "Headphone"
       },
       {
         "name": "ear (1)",
         "maker": "Nothing",
-        "gen": "イヤホン"
+        "about": "Earphone"
       },
       {
         "name": "Powerbeats Pro",
         "maker": "Beats",
-        "gen": "イヤホン"
+        "about": "Earphone"
       },
       {
         "name": "Beats Flex",
         "maker": "Beats",
-        "gen": "イヤホン"
+        "about": "Earphone"
       }
     ]
   },
@@ -257,57 +257,57 @@
       {
         "name": "SW108",
         "maker": "ARCO",
-        "gen": "カホン"
+        "about": "Cajon"
       },
       {
         "name": "5000CJ",
         "maker": "DW",
-        "gen": "カホンペダル"
+        "about": "Cajon pedal"
       },
       {
         "name": "MUS1455M",
         "maker": "Pearl",
-        "gen": "スネアドラム"
+        "about": "Snare drum"
       },
       {
         "name": "FTS1410",
         "maker": "Foldrum",
-        "gen": "フロアタムスネア"
+        "about": "Floor tom and snare drum"
       },
       {
         "name": "P-932",
         "maker": "Pearl",
-        "gen": "ペダル"
+        "about": "Pedal"
       },
       {
         "name": "CC16MC-B",
         "maker": "MEINL",
-        "gen": "シンバル 16\""
+        "about": "Cymbal 16\""
       },
       {
         "name": "CC12S-B",
         "maker": "MEINL",
-        "gen": "シンバル 12\""
+        "about": "Cymbal 12\""
       },
       {
         "name": "PST-7 Crash",
         "maker": "Paiste",
-        "gen": "シンバル 16\""
+        "about": "Cymbal 16\""
       },
       {
         "name": "PST-7 Splash",
         "maker": "Paiste",
-        "gen": "シンバル 10\""
+        "about": "Cymbal 10\""
       },
       {
         "name": "PTM-10GH",
         "maker": "Pearl",
-        "gen": "タンバリン"
+        "about": "Tambourine"
       },
       {
         "name": "SH50",
         "maker": "MEINL",
-        "gen": "シェイカー"
+        "about": "Shaker"
       }
     ]
   }
