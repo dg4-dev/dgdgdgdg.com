@@ -1069,7 +1069,7 @@ footer .container .credit a, footer .container .credit p {
     max-width: none;
   }
 }
-.top-page section .container .content.about-brand .item {
+.top-page section .container .content.about-brand .item, .top-page section .container .content.about-tool .item {
   width: 100%;
   max-width: none;
   flex-direction: row;
@@ -1077,11 +1077,11 @@ footer .container .credit a, footer .container .credit p {
   gap: 40px;
 }
 @media (max-width: 640px) {
-  .top-page section .container .content.about-brand .item {
+  .top-page section .container .content.about-brand .item, .top-page section .container .content.about-tool .item {
     flex-direction: column;
   }
 }
-.top-page section .container .content.about-brand .item .text {
+.top-page section .container .content.about-brand .item .text, .top-page section .container .content.about-tool .item .text {
   max-width: 230px;
 }
 .top-page section.contact {
