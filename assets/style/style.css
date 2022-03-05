@@ -1459,7 +1459,7 @@ footer .container .credit a, footer .container .credit p {
   flex-wrap: wrap;
 }
 .tool-page .tool-category .tool-wrapper .tool-list .tool-item {
-  width: 20%;
+  width: 16.6666666667%;
 }
 @media (max-width: 1024px) {
   .tool-page .tool-category .tool-wrapper .tool-list .tool-item {
@@ -1470,7 +1470,7 @@ footer .container .credit a, footer .container .credit p {
   display: block;
 }
 .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal {
-  display: none;
+  visibility: hidden;
   position: fixed;
   z-index: 2000;
   top: 0;
@@ -1480,21 +1480,20 @@ footer .container .credit a, footer .container .credit p {
 }
 .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .close-area {
   background-color: #444444;
-  opacity: 0.2;
+  opacity: 0;
+  pointer-events: none;
   width: 100%;
   height: 100%;
 }
 .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card {
   background-color: #ffffff;
   align-items: center;
-  width: 800px;
+  width: 70vw;
   position: absolute;
   transform: translate(-50%, -50%);
-  top: -100%;
+  top: 150%;
   left: 50%;
-  border-radius: 32px;
   padding: 64px;
-  transition: all 0.3s;
 }
 @media (max-width: 1024px) {
   .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card {
@@ -1507,7 +1506,6 @@ footer .container .credit a, footer .container .credit p {
     justify-content: center;
     width: 100%;
     height: 100%;
-    border-radius: 0;
     padding: 24px;
   }
 }
@@ -1553,23 +1551,22 @@ footer .container .credit a, footer .container .credit p {
   content: "";
   display: block;
   width: 40px;
-  border-top: 4px solid #444444;
+  border-top: 3px solid #444444;
   position: absolute;
   top: 50%;
 }
-@media (max-width: 640px) {
-  .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .close-btn::before, .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .close-btn::after {
-    border-width: 3px;
-  }
-}
 .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .close-btn::before {
-  transform: rotate(45deg);
+  transform: rotate(25deg);
 }
 .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .close-btn::after {
-  transform: rotate(-45deg);
+  transform: rotate(-25deg);
 }
 .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal.active {
-  display: block;
+  visibility: visible;
+}
+.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal.active .close-area {
+  opacity: 0.5;
+  pointer-events: auto;
 }
 .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal.active .card {
   top: 50%;
