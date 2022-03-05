@@ -853,7 +853,7 @@ header .inside .cyan.is-open {
   header .inside .cyan.is-open {
     visibility: visible;
     padding-top: 70px;
-    padding-bottom: 70px;
+    padding-bottom: 170px;
   }
 }
 header .inside .cyan .nav {
