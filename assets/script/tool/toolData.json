@@ -14,19 +14,19 @@
       {
         "name": "10J-U50",
         "maker": "TOSHIBA",
-        "about": "TV",
+        "about": "CRT TV",
         "gen": "1986"
       },
       {
         "name": "AQUOS LC-13C1",
         "maker": "SHARP",
-        "about": "TV",
+        "about": "Analog LCD TV",
         "gen": "2001"
       },
       {
         "name": "STRiDA EVO 16\"",
         "maker": "STRiDA",
-        "about": "Bicycle",
+        "about": "Folding bicycle",
         "gen": "2019"
       }
     ]
@@ -78,25 +78,25 @@
       {
         "name": "X-S10",
         "maker": "FUJIFILM",
-        "about": "Mirrorless camera",
+        "about": "Mirrorless single-lens camera",
         "gen": "2020"
       },
       {
         "name": "XF 35mm F1.4 R",
         "maker": "FUJIFILM",
-        "about": "Lens",
+        "about": "Lens for single-lens camera",
         "gen": "2012"
       },
       {
         "name": "XF 18-55mm F2.8-4 R OIS",
         "maker": "FUJIFILM",
-        "about": "Lens",
+        "about": "Lens for single-lens camera",
         "gen": "2012"
       },
       {
         "name": "Wtulens L",
         "maker": "GIZMON",
-        "about": "Lens",
+        "about": "Lens for single-lens camera",
         "gen": "2018"
       },
       {
@@ -114,31 +114,31 @@
       {
         "name": "MD ROKKOR 50mm F1.7",
         "maker": "MINOLTA",
-        "about": "Lens",
+        "about": "Lens for single-lens camera",
         "gen": "1979"
       },
       {
         "name": "MD ZOOM 35-70mm F3.5",
         "maker": "MINOLTA",
-        "about": "Lens",
+        "about": "Lens for single-lens camera",
         "gen": "1981"
       },
       {
         "name": "MD ZOOM 75-150mm F4",
         "maker": "MINOLTA",
-        "about": "Lens",
+        "about": "Lens for single-lens camera",
         "gen": "1981"
       },
       {
         "name": "RSC 2",
         "maker": "DJI",
-        "about": "Camera stabilizer",
+        "about": "Camera stabilizer for single-lens camera",
         "gen": "2020"
       },
       {
         "name": "OM4",
         "maker": "DJI",
-        "about": "Camera stabilizer",
+        "about": "Camera stabilizer for smart phone",
         "gen": "2020"
       }
     ]
@@ -152,25 +152,25 @@
       {
         "name": "Illustrator",
         "maker": "Adobe",
-        "about": "Vector graphics editor",
+        "about": "Vector graphics editor and design program",
         "gen": "Latest version"
       },
       {
         "name": "XD",
         "maker": "Adobe",
-        "about": "UX design software",
+        "about": "Vector-based user experience design tool for web apps and mobile apps",
         "gen": "Latest version"
       },
       {
         "name": "Premiere Pro",
         "maker": "Adobe",
-        "about": "Video editor",
+        "about": "Timeline-based video editing software application",
         "gen": "Latest version"
       },
       {
         "name": "After Effects",
         "maker": "Adobe",
-        "about": "Motion graphics editor",
+        "about": "Digital visual effects, motion graphics, and compositing application",
         "gen": "Latest version"
       },
       {
@@ -182,7 +182,7 @@
       {
         "name": "Lightroom",
         "maker": "Adobe",
-        "about": "Image manipulation software",
+        "about": "Creative image organization and image manipulation software",
         "gen": "Latest version"
       },
       {
@@ -194,13 +194,13 @@
       {
         "name": "Figma",
         "maker": "Figma",
-        "about": "UX design software",
+        "about": "Vector graphics editor and prototyping tool",
         "gen": "Latest version"
       },
       {
         "name": "STUDIO",
         "maker": "STUDIO",
-        "about": "No code web creator",
+        "about": "Cloud-based no code website creation tool",
         "gen": "Latest version"
       }
     ]
