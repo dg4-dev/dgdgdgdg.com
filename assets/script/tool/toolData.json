@@ -140,6 +140,42 @@
         "maker": "DJI",
         "about": "Camera stabilizer for smart phone",
         "gen": "2020"
+      },
+      {
+        "name": "UT-3AR",
+        "maker": "Velbon",
+        "about": "Tripod",
+        "gen": "2019"
+      },
+      {
+        "name": "MT-03 + LH-25",
+        "maker": "Leofoto",
+        "about": "Tripod",
+        "gen": "2019"
+      },
+      {
+        "name": "MT-16",
+        "maker": "Ulanzi",
+        "about": "Tripod",
+        "gen": "2020"
+      },
+      {
+        "name": "G1S",
+        "maker": "Pixel",
+        "about": "Full-color video light",
+        "gen": "2020"
+      },
+      {
+        "name": "SpyderCHECKR SCK100",
+        "maker": "Datacolor",
+        "about": "Color reference tool",
+        "gen": "2017"
+      },
+      {
+        "name": "SR3374",
+        "maker": "SmallRig",
+        "about": "Teleprompter for tablet",
+        "gen": "2021"
       }
     ]
   },
@@ -202,125 +238,6 @@
         "maker": "STUDIO",
         "about": "Cloud-based no code website creation tool",
         "gen": "Latest version"
-      }
-    ]
-  },
-  {
-    "contentName": {
-      "en": "Audio device",
-      "ja": "音響機器"
-    },
-    "items": [
-      {
-        "name": "DRUMSET SESSION I",
-        "maker": "AKG",
-        "about": "Drum microphone set",
-        "gen": "2016"
-      },
-      {
-        "name": "ATR2100x-USB",
-        "maker": "audio-technica",
-        "about": "USB Microphone",
-        "gen": "2020"
-      },
-      {
-        "name": "QX1002USB",
-        "maker": "behringer",
-        "about": "Analog mixer with audio interface",
-        "gen": "2012"
-      },
-      {
-        "name": "ATH-M40x",
-        "maker": "audio-technica",
-        "about": "Headphone",
-        "gen": "2014"
-      },
-      {
-        "name": "ear (1)",
-        "maker": "Nothing",
-        "about": "True wireless earphone",
-        "gen": "2021"
-      },
-      {
-        "name": "ear (1) black",
-        "maker": "Nothing",
-        "about": "True wireless earphone",
-        "gen": "2021"
-      },
-      {
-        "name": "Powerbeats Pro",
-        "maker": "Beats",
-        "about": "True wireless earphone",
-        "gen": "2020"
-      },
-      {
-        "name": "Beats Flex",
-        "maker": "Beats",
-        "about": "Left and right integrated earphones",
-        "gen": "2020"
-      }
-    ]
-  },
-  {
-    "contentName": {
-      "en": "Music Instrument",
-      "ja": "楽器"
-    },
-    "items": [
-      {
-        "name": "SW108",
-        "maker": "ARCO",
-        "about": "Cajon"
-      },
-      {
-        "name": "5000CJ",
-        "maker": "DW",
-        "about": "Cajon pedal"
-      },
-      {
-        "name": "MUS1455M",
-        "maker": "Pearl",
-        "about": "Snare drum"
-      },
-      {
-        "name": "Custom Snare Drum",
-        "maker": "Foldrum",
-        "about": "Floor tom and snare drum"
-      },
-      {
-        "name": "P-932",
-        "maker": "Pearl",
-        "about": "Drum pedal"
-      },
-      {
-        "name": "CC16MC-B",
-        "maker": "MEINL",
-        "about": "16\" clash cymbal"
-      },
-      {
-        "name": "CC12S-B",
-        "maker": "MEINL",
-        "about": "12\" splash cymbal"
-      },
-      {
-        "name": "PST-7 Crash",
-        "maker": "Paiste",
-        "about": "16\" clash cymbal"
-      },
-      {
-        "name": "PST-7 Splash",
-        "maker": "Paiste",
-        "about": "10\" splash cymbal"
-      },
-      {
-        "name": "PTM-10GH",
-        "maker": "Pearl",
-        "about": "Tambourine"
-      },
-      {
-        "name": "SH50",
-        "maker": "MEINL",
-        "about": "Shaker"
       }
     ]
   }
