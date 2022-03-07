@@ -853,7 +853,7 @@ header .inside .cyan.is-open {
   header .inside .cyan.is-open {
     visibility: visible;
     padding-top: 70px;
-    padding-bottom: 70px;
+    padding-bottom: 170px;
   }
 }
 header .inside .cyan .nav {
@@ -1533,6 +1533,9 @@ footer .container .credit a, footer .container .credit p {
 .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .desc .name {
   font-weight: bold;
   font-size: 24px;
+}
+.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .desc .about {
+  margin-top: 16px;
 }
 .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .close-btn {
   position: absolute;
