@@ -1534,6 +1534,9 @@ footer .container .credit a, footer .container .credit p {
   font-weight: bold;
   font-size: 24px;
 }
+.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .desc .about {
+  margin-top: 16px;
+}
 .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .close-btn {
   position: absolute;
   top: 32px;
