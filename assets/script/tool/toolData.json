@@ -240,5 +240,61 @@
         "gen": "Latest version"
       }
     ]
+  },
+  {
+    "contentName": {
+      "en": "Audio device",
+      "ja": "音響機器"
+    },
+    "items": [
+      {
+        "name": "DRUMSET SESSION I",
+        "maker": "AKG",
+        "about": "Drum microphone set",
+        "gen": "2016"
+      },
+      {
+        "name": "ATR2100x-USB",
+        "maker": "audio-technica",
+        "about": "USB Microphone",
+        "gen": "2020"
+      },
+      {
+        "name": "QX1002USB",
+        "maker": "behringer",
+        "about": "Analog mixer with audio interface",
+        "gen": "2012"
+      },
+      {
+        "name": "ATH-M40x",
+        "maker": "audio-technica",
+        "about": "Headphone",
+        "gen": "2014"
+      },
+      {
+        "name": "ear (1)",
+        "maker": "Nothing",
+        "about": "True wireless earphone",
+        "gen": "2021"
+      },
+      {
+        "name": "ear (1) black",
+        "maker": "Nothing",
+        "about": "True wireless earphone",
+        "gen": "2021"
+      },
+      {
+        "name": "Powerbeats Pro",
+        "maker": "Beats",
+        "about": "True wireless earphone",
+        "gen": "2020"
+      },
+      {
+        "name": "Beats Flex",
+        "maker": "Beats",
+        "about": "Left and right integrated earphones",
+        "gen": "2020"
+      }
+    ]
   }
 ]
