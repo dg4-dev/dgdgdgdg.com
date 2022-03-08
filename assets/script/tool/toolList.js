@@ -40,8 +40,8 @@ const writeTools = (getData) => {
       toolItem.appendChild(toolItemCover);
 
       const coverImage = document.createElement("img");
-      const fmtMaker = cateItem.maker.toLowerCase().replace(/[."+ -]/g, "");
-      const fmtName = cateItem.name.toLowerCase().replace(/[."+ -]/g, "");
+      const fmtMaker = cateItem.maker.toLowerCase().replace(/[."+() -]/g, "");
+      const fmtName = cateItem.name.toLowerCase().replace(/[."+() -]/g, "");
       coverImage.src = `/assets/image/tool/${fmtMaker}-${fmtName}.png`;
       toolItemCover.appendChild(coverImage);
 

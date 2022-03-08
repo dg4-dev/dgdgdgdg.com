@@ -36,8 +36,8 @@ const writeTools = (getData) => {
         toolItem.appendChild(toolItemChild);
 
         const itemImage = document.createElement("img");
-        const fmtMaker = item.maker.toLowerCase().replace(/[."+ -]/g, "");
-        const fmtName = item.name.toLowerCase().replace(/[."+ -]/g, "");
+        const fmtMaker = item.maker.toLowerCase().replace(/[."+() -]/g, "");
+        const fmtName = item.name.toLowerCase().replace(/[."+() -]/g, "");
         itemImage.src = `/assets/image/tool/${fmtMaker}-${fmtName}.png`;
         toolItemChild.appendChild(itemImage);
       });
