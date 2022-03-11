@@ -90,20 +90,15 @@ const writeTools = (getData) => {
       modalCloseBtn.className = "close-btn click";
       modalCard.appendChild(modalCloseBtn);
 
-      toolItemCover.addEventListener("click", () => {
-        toolItemModal.classList.toggle("active");
-        document.body.classList.toggle("is-open");
-      });
-
-      modalCloseArea.addEventListener("click", () => {
-        toolItemModal.classList.toggle("active");
-        document.body.classList.toggle("is-open");
-      });
-
-      modalCloseBtn.addEventListener("click", () => {
-        toolItemModal.classList.toggle("active");
-        document.body.classList.toggle("is-open");
-      });
+      const modalEvent = (elm) => {
+        elm.addEventListener("click", () => {
+          toolItemModal.classList.toggle("active");
+          document.body.classList.toggle("is-open");
+        });
+      };
+      modalEvent(toolItemCover);
+      modalEvent(modalCloseArea);
+      modalEvent(modalCloseBtn);
     });
   });
 };
