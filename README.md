@@ -1,8 +1,8 @@
 # pages: dgdgdgdg's Website
 
-dgdgdgdgのWebサイトです。
+dgdgdgdg の Web サイトです。
 
-![ogp](https://www.dgdgdgdg.com/assets/image/ogp.webp)
+![ogp](https://dgdgdgdg.com/assets/image/ogp.webp)
 
 ![lang](https://img.shields.io/badge/-lang-333.svg?style=for-the-badge)
 ![html](https://img.shields.io/badge/-html-000.svg?logo=html5&style=for-the-badge)
