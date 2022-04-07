@@ -1,32 +1,29 @@
 const skillList = [
   {
     name: "デザイン",
-    start: new Date(2015, 4),
+    start: dayjs("2015-05-01"),
   },
   {
     name: "映像制作",
-    start: new Date(2017, 3),
+    start: dayjs("2017-04-01"),
   },
   {
     name: "モーショングラフィックス",
-    start: new Date(2019, 3),
+    start: dayjs("2019-04-01"),
   },
   {
     name: "Web制作",
-    start: new Date(2019, 9),
+    start: dayjs("2019-10-01"),
   },
 ];
 
 skillList.forEach((value) => {
-  const nowDate = new Date();
+  const nowDate = dayjs();
 
-  const skillMonth =
-    (nowDate.getFullYear() - value.start.getFullYear()) * 12 +
-    (nowDate.getMonth() - value.start.getMonth());
-  const firstMonth =
-    (nowDate.getFullYear() - skillList[0].start.getFullYear()) * 12 +
-    (nowDate.getMonth() - skillList[0].start.getMonth());
-  const round = Math.floor((skillMonth / firstMonth) * 100);
+  const skillTime = nowDate - value.start;
+  const firstTime = nowDate - skillList[0].start;
+  const round = ~~((skillTime / firstTime) * 100);
+  console.log(round);
 
   const li = document.createElement("li");
   li.className = "skill-item";
