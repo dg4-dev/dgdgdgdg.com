@@ -18,12 +18,9 @@ const skillList = [
 ];
 
 skillList.forEach((value) => {
-  const nowDate = dayjs();
-
-  const skillTime = nowDate - value.start;
-  const firstTime = nowDate - skillList[0].start;
+  const skillTime = dayjs() - value.start;
+  const firstTime = dayjs() - skillList[0].start;
   const round = ~~((skillTime / firstTime) * 100);
-  console.log(round);
 
   const li = document.createElement("li");
   li.className = "skill-item";
