@@ -11,4 +11,4 @@ const $ = (target, doc = document) => {
   }
 };
 
-window.addEventListener("load", () => $("#loadElm").remove());
+window.addEventListener("load", () => $("#loadElm") && $("#loadElm").remove());
