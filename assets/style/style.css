@@ -2305,9 +2305,10 @@ footer .container .credit a, footer .container .credit p {
 }
 
 .contact-page .link .content .item {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
+  max-width: 600px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 @media (max-width: 640px) {
@@ -2318,13 +2319,13 @@ footer .container .credit a, footer .container .credit p {
 }
 
 .contact-page .link .content .item li {
-  width: 48px;
-  margin: 8px;
+  width: calc((100% / 8) - 8px);
 }
 
 @media (max-width: 640px) {
   .contact-page .link .content .item li {
     width: calc(25% - 16px);
+    margin: 8px;
   }
 }
 

@@ -7,16 +7,18 @@
       gap: 24px
 
   .link .content .item
-    width: fit-content
+    max-width: 600px
+    justify-content: space-between
 
     @include sp
       flex-wrap: wrap
 
     li
-      width: 48px
-      margin: 8px
+      width: calc((100% / 8) - 8px)
+
       @include sp
         width: calc(25% - 16px)
+        margin: 8px
 
       &:hover
         opacity: 0.5
