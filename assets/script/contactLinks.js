@@ -24,6 +24,6 @@ linkData.forEach((value) => {
   linkLink.appendChild(linkIcon);
 
   const linkImg = document.createElement("img");
-  linkImg.src = `/assets/image/icon/${value}.webp`;
+  linkImg.src = `/assets/image/icon/${value}.svg`;
   linkIcon.appendChild(linkImg);
 });
