@@ -49,7 +49,15 @@ const writeTools = (getData) => {
       toolItemModal.className = "modal is-flex";
       toolItem.appendChild(toolItemModal);
 
-      const cardImage = document.createElement("div");
+      let cardImage;
+      if (cateItem.storeLink) {
+        cardImage = document.createElement("a");
+        cardImage.href = cateItem.storeLink;
+        cardImage.target = "_blank";
+        cardImage.rel = "noopener noreferrer";
+      } else {
+        cardImage = document.createElement("div");
+      }
       cardImage.className = "img";
       toolItemModal.appendChild(cardImage);
 
