@@ -1828,108 +1828,81 @@ footer .container .credit a, footer .container .credit p {
 }
 
 .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal {
-  visibility: hidden;
   position: fixed;
-  z-index: 2000;
-  top: 0;
+  top: 100%;
   left: 0;
+  z-index: 1000;
   width: 100%;
   height: 100vh;
-}
-
-.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .close-area {
-  background-color: #444444;
-  opacity: 0;
-  pointer-events: none;
-  width: 100%;
-  height: 100%;
-}
-
-.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card {
-  background-color: #ffffff;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 70vw;
-  position: absolute;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  top: 150%;
-  left: 50%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #ffffff;
   padding: 64px;
 }
 
-@media (max-width: 1024px) {
-  .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card {
-    width: 90vw;
-  }
-}
-
 @media (max-width: 640px) {
-  .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card {
+  .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    width: 100%;
-    height: 100%;
     padding: 24px;
   }
 }
 
-.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .img {
+.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .img {
   width: 60%;
+  max-width: 760px;
 }
 
 @media (max-width: 640px) {
-  .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .img {
+  .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .img {
     width: 100%;
     max-width: 380px;
   }
 }
 
-.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .desc {
+.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .desc {
   width: 40%;
   line-height: 1.5;
   margin-left: 40px;
 }
 
 @media (max-width: 640px) {
-  .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .desc {
+  .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .desc {
     width: 100%;
     margin-left: 0;
     margin-top: 24px;
   }
 }
 
-.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .desc .name {
+.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .desc .name {
   font-weight: bold;
   font-size: 24px;
 }
 
-.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .desc .about {
+.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .desc .about {
   margin-top: 16px;
 }
 
-.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .close-btn {
+.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .close-btn {
   position: absolute;
   top: 32px;
-  right: 32px;
   width: 40px;
   height: 40px;
 }
 
 @media (max-width: 640px) {
-  .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .close-btn {
+  .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .close-btn {
     top: 20px;
-    right: 20px;
   }
 }
 
-.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .close-btn::before, .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .close-btn::after {
+.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .close-btn::before, .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .close-btn::after {
   content: "";
   display: block;
   width: 40px;
@@ -1938,27 +1911,18 @@ footer .container .credit a, footer .container .credit p {
   top: 50%;
 }
 
-.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .close-btn::before {
+.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .close-btn::before {
   -webkit-transform: rotate(25deg);
           transform: rotate(25deg);
 }
 
-.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .card .close-btn::after {
+.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal .close-btn::after {
   -webkit-transform: rotate(-25deg);
           transform: rotate(-25deg);
 }
 
 .tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal.active {
-  visibility: visible;
-}
-
-.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal.active .close-area {
-  opacity: 0.5;
-  pointer-events: auto;
-}
-
-.tool-page .tool-category .tool-wrapper .tool-list .tool-item .modal.active .card {
-  top: 50%;
+  top: 0;
 }
 
 .works-page section .container .items {
