@@ -46,20 +46,12 @@ const writeTools = (getData) => {
       toolItemCover.appendChild(coverImage);
 
       const toolItemModal = document.createElement("div");
-      toolItemModal.className = "modal";
+      toolItemModal.className = "modal is-flex";
       toolItem.appendChild(toolItemModal);
-
-      const modalCloseArea = document.createElement("div");
-      modalCloseArea.className = "close-area click";
-      toolItemModal.appendChild(modalCloseArea);
-
-      const modalCard = document.createElement("div");
-      modalCard.className = "card is-flex";
-      toolItemModal.appendChild(modalCard);
 
       const cardImage = document.createElement("div");
       cardImage.className = "img";
-      modalCard.appendChild(cardImage);
+      toolItemModal.appendChild(cardImage);
 
       const cardImageInner = document.createElement("img");
       cardImageInner.src = coverImage.src;
@@ -67,7 +59,7 @@ const writeTools = (getData) => {
 
       const cardDesc = document.createElement("div");
       cardDesc.className = "desc";
-      modalCard.appendChild(cardDesc);
+      toolItemModal.appendChild(cardDesc);
 
       const descName = document.createElement("div");
       descName.className = "name";
@@ -87,8 +79,8 @@ const writeTools = (getData) => {
       cardDesc.appendChild(descAbout);
 
       const modalCloseBtn = document.createElement("div");
-      modalCloseBtn.className = "close-btn click";
-      modalCard.appendChild(modalCloseBtn);
+      modalCloseBtn.className = "close-btn center click";
+      toolItemModal.appendChild(modalCloseBtn);
 
       const modalEvent = (elm) => {
         elm.addEventListener("click", () => {
@@ -97,7 +89,6 @@ const writeTools = (getData) => {
         });
       };
       modalEvent(toolItemCover);
-      modalEvent(modalCloseArea);
       modalEvent(modalCloseBtn);
     });
   });
