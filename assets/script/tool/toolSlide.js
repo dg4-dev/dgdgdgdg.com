@@ -9,8 +9,12 @@ const writeTools = (getData) => {
   };
 
   // itemsを統合・シャッフル・奇数個の場合末尾切り捨て
-  planeItems = [];
-  getData.forEach((content) => planeItems.push(...content.items));
+  const planeItems = getData
+    .map(({ items }) => items)
+    .reduce((e, i) => {
+      return e.concat(i);
+    });
+
   const shuffledItems = shuffle(planeItems);
   if (shuffledItems.length % 2 === 1) shuffledItems.pop();
 
