@@ -30,7 +30,7 @@ const writeTools = (getData) => {
     toolList.className = "tool-list center is-flex";
     toolWrapper.appendChild(toolList);
 
-    items.forEach(({ name, maker, about, gen, storeLink }) => {
+    items.forEach(({ name, maker, about, gen, storeId }) => {
       const toolItem = document.createElement("div");
       toolItem.className = "tool-item";
       toolList.appendChild(toolItem);
@@ -50,9 +50,9 @@ const writeTools = (getData) => {
       toolItem.appendChild(toolItemModal);
 
       let cardImage;
-      if (storeLink) {
+      if (storeId) {
         cardImage = document.createElement("a");
-        cardImage.href = storeLink;
+        cardImage.href = `https://amzn.to/${storeId}`;
         cardImage.target = "_blank";
         cardImage.rel = "noopener noreferrer";
       } else {
