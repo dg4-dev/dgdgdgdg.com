@@ -1,16 +1,16 @@
 const writeInsta = (getData) => {
   getData.media.data.forEach(({ permalink, media_url }) => {
-    const instaPost = document.createElement("div");
+    const instaPost = c$("div");
     instaPost.className = "post-photo";
     $("#postList").appendChild(instaPost);
 
-    const instaLink = document.createElement("a");
+    const instaLink = c$("a");
     instaLink.href = permalink;
     instaLink.target = "_blank";
     instaLink.rel = "noopener noreferrer";
     instaPost.appendChild(instaLink);
 
-    const instaImg = document.createElement("img");
+    const instaImg = c$("img");
     instaImg.src = media_url;
     instaLink.appendChild(instaImg);
   });

@@ -30,16 +30,16 @@ const writeTools = (getData) => {
 
   const fakeLoop = () => {
     slicedItems.forEach((twoItems) => {
-      const toolItem = document.createElement("div");
+      const toolItem = c$("div");
       toolItem.className = "tool-item swiper-slide";
       $("#toolList").appendChild(toolItem);
 
       twoItems.forEach((item) => {
-        const toolItemChild = document.createElement("div");
+        const toolItemChild = c$("div");
         toolItemChild.className = "tool-item-child";
         toolItem.appendChild(toolItemChild);
 
-        const itemImage = document.createElement("img");
+        const itemImage = c$("img");
         const fmtMaker = item.maker.toLowerCase().replace(/[."+() -]/g, "");
         const fmtName = item.name.toLowerCase().replace(/[."+() -]/g, "");
         itemImage.src = `/assets/image/tool/${fmtMaker}-${fmtName}.png`;
