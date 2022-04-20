@@ -17,8 +17,8 @@ const skillList = [
   },
 ];
 
-skillList.forEach((value) => {
-  const skillTime = dayjs() - value.start;
+skillList.forEach(({ name, start }) => {
+  const skillTime = dayjs() - start;
   const firstTime = dayjs() - skillList[0].start;
   const round = ~~((skillTime / firstTime) * 100);
 
@@ -28,7 +28,7 @@ skillList.forEach((value) => {
 
   const skillName = document.createElement("p");
   skillName.className = "skill-name";
-  skillName.innerText = `${value.name}`;
+  skillName.innerText = `${name}`;
   li.appendChild(skillName);
 
   const skillBar = document.createElement("div");

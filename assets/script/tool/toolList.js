@@ -1,5 +1,5 @@
 const writeTools = (getData) => {
-  getData.forEach((cate) => {
+  getData.forEach(({ contentName, items }) => {
     const toolCate = document.createElement("section");
     toolCate.className = "tool-category";
     $("#toolPage").appendChild(toolCate);
@@ -14,12 +14,12 @@ const writeTools = (getData) => {
 
     const titleEn = document.createElement("span");
     titleEn.className = "en";
-    titleEn.textContent = cate.contentName.en;
+    titleEn.textContent = contentName.en;
     cateTitle.appendChild(titleEn);
 
     const titleJa = document.createElement("span");
     titleJa.className = "ja";
-    titleJa.textContent = cate.contentName.ja;
+    titleJa.textContent = contentName.ja;
     cateTitle.appendChild(titleJa);
 
     const toolWrapper = document.createElement("div");
@@ -30,7 +30,7 @@ const writeTools = (getData) => {
     toolList.className = "tool-list center is-flex";
     toolWrapper.appendChild(toolList);
 
-    cate.items.forEach((cateItem) => {
+    items.forEach(({ name, maker, about, gen, storeLink }) => {
       const toolItem = document.createElement("div");
       toolItem.className = "tool-item";
       toolList.appendChild(toolItem);
@@ -40,8 +40,8 @@ const writeTools = (getData) => {
       toolItem.appendChild(toolItemCover);
 
       const coverImage = document.createElement("img");
-      const fmtMaker = cateItem.maker.toLowerCase().replace(/[."+() -]/g, "");
-      const fmtName = cateItem.name.toLowerCase().replace(/[."+() -]/g, "");
+      const fmtMaker = maker.toLowerCase().replace(/[."+() -]/g, "");
+      const fmtName = name.toLowerCase().replace(/[."+() -]/g, "");
       coverImage.src = `/assets/image/tool/${fmtMaker}-${fmtName}.png`;
       toolItemCover.appendChild(coverImage);
 
@@ -50,9 +50,9 @@ const writeTools = (getData) => {
       toolItem.appendChild(toolItemModal);
 
       let cardImage;
-      if (cateItem.storeLink) {
+      if (storeLink) {
         cardImage = document.createElement("a");
-        cardImage.href = cateItem.storeLink;
+        cardImage.href = storeLink;
         cardImage.target = "_blank";
         cardImage.rel = "noopener noreferrer";
       } else {
@@ -71,19 +71,18 @@ const writeTools = (getData) => {
 
       const descName = document.createElement("div");
       descName.className = "name";
-      descName.textContent = cateItem.name;
+      descName.textContent = name;
       cardDesc.appendChild(descName);
 
       const descMakerNGen = document.createElement("div");
       descMakerNGen.className = "maker-and-gen";
-      descMakerNGen.textContent = cateItem.maker;
-      cateItem.gen &&
-        (descMakerNGen.textContent = `${cateItem.maker}・${cateItem.gen}`);
+      descMakerNGen.textContent = maker;
+      gen && (descMakerNGen.textContent = `${maker}・${gen}`);
       cardDesc.appendChild(descMakerNGen);
 
       const descAbout = document.createElement("div");
       descAbout.className = "about";
-      descAbout.textContent = cateItem.about;
+      descAbout.textContent = about;
       cardDesc.appendChild(descAbout);
 
       const modalCloseBtn = document.createElement("div");
