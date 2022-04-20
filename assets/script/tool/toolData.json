@@ -42,35 +42,35 @@
         "maker": "Apple",
         "about": "Laptop",
         "gen": "2019",
-        "storeLink": "https://amzn.to/3JPZ9fr"
+        "storeId": "3JPZ9fr"
       },
       {
         "name": "iPad Pro 12.9\"",
         "maker": "Apple",
         "about": "Tablet",
         "gen": "2020",
-        "storeLink": "https://amzn.to/3uAPOn6"
+        "storeId": "3uAPOn6"
       },
       {
         "name": "iPad mini",
         "maker": "Apple",
         "about": "Tablet",
         "gen": "2021",
-        "storeLink": "https://amzn.to/3rnvZOe"
+        "storeId": "3rnvZOe"
       },
       {
         "name": "iPhone 13 Pro",
         "maker": "Apple",
         "about": "Smart phone",
         "gen": "2021",
-        "storeLink": "https://amzn.to/3O9ZoFt"
+        "storeId": "3O9ZoFt"
       },
       {
         "name": "iPhone SE",
         "maker": "Apple",
         "about": "Smart phone",
         "gen": "2020",
-        "storeLink": "https://amzn.to/3vly3aO"
+        "storeId": "3vly3aO"
       }
     ]
   },
@@ -85,119 +85,119 @@
         "maker": "FUJIFILM",
         "about": "Mirrorless single-lens camera",
         "gen": "2020",
-        "storeLink": "https://amzn.to/3KDw0oV"
+        "storeId": "3KDw0oV"
       },
       {
         "name": "XF 35mm F1.4 R",
         "maker": "FUJIFILM",
         "about": "Lens for single-lens camera",
         "gen": "2012",
-        "storeLink": "https://amzn.to/3uzX2I8"
+        "storeId": "3uzX2I8"
       },
       {
         "name": "XF 18-55mm F2.8-4 R OIS",
         "maker": "FUJIFILM",
         "about": "Lens for single-lens camera",
         "gen": "2012",
-        "storeLink": "https://amzn.to/3Kz8E3A"
+        "storeId": "3Kz8E3A"
       },
       {
         "name": "Wtulens L",
         "maker": "GIZMON",
         "about": "Lens for single-lens camera",
         "gen": "2018",
-        "storeLink": "https://amzn.to/37a5h4T"
+        "storeId": "37a5h4T"
       },
       {
         "name": "X-700",
         "maker": "MINOLTA",
         "about": "Film camera",
         "gen": "1981",
-        "storeLink": "https://amzn.to/3uAq2PN"
+        "storeId": "3uAq2PN"
       },
       {
         "name": "X-7",
         "maker": "MINOLTA",
         "about": "Film camera",
         "gen": "1980",
-        "storeLink": "https://amzn.to/3juWrBc"
+        "storeId": "3juWrBc"
       },
       {
         "name": "MD ROKKOR 50mm F1.7",
         "maker": "MINOLTA",
         "about": "Lens for single-lens camera",
         "gen": "1979",
-        "storeLink": "https://amzn.to/3rpa2yl"
+        "storeId": "3rpa2yl"
       },
       {
         "name": "MD ZOOM 35-70mm F3.5",
         "maker": "MINOLTA",
         "about": "Lens for single-lens camera",
         "gen": "1981",
-        "storeLink": "https://amzn.to/3M5tloh"
+        "storeId": "3M5tloh"
       },
       {
         "name": "MD ZOOM 75-150mm F4",
         "maker": "MINOLTA",
         "about": "Lens for single-lens camera",
         "gen": "1981",
-        "storeLink": "https://amzn.to/3xp74xx"
+        "storeId": "3xp74xx"
       },
       {
         "name": "RSC 2",
         "maker": "DJI",
         "about": "Camera stabilizer for single-lens camera",
         "gen": "2020",
-        "storeLink": "https://amzn.to/3xpjmWw"
+        "storeId": "3xpjmWw"
       },
       {
         "name": "OM4",
         "maker": "DJI",
         "about": "Camera stabilizer for smart phone",
         "gen": "2020",
-        "storeLink": "https://amzn.to/3uC7pel"
+        "storeId": "3uC7pel"
       },
       {
         "name": "UT-3AR",
         "maker": "Velbon",
         "about": "Tripod",
         "gen": "2019",
-        "storeLink": "https://amzn.to/3JDLGHt"
+        "storeId": "3JDLGHt"
       },
       {
         "name": "MT-03 + LH-25",
         "maker": "Leofoto",
         "about": "Tripod",
         "gen": "2019",
-        "storeLink": "https://amzn.to/37NB8s1"
+        "storeId": "37NB8s1"
       },
       {
         "name": "MT-16",
         "maker": "Ulanzi",
         "about": "Tripod",
         "gen": "2020",
-        "storeLink": "https://amzn.to/3E7LKxT"
+        "storeId": "3E7LKxT"
       },
       {
         "name": "G1S",
         "maker": "Pixel",
         "about": "Full-color video light",
         "gen": "2020",
-        "storeLink": "https://amzn.to/3M0sCED"
+        "storeId": "3M0sCED"
       },
       {
         "name": "SpyderCHECKR SCK100",
         "maker": "Datacolor",
         "about": "Color reference tool",
         "gen": "2017",
-        "storeLink": "https://amzn.to/38OIETZ"
+        "storeId": "38OIETZ"
       },
       {
         "name": "SR3374",
         "maker": "SmallRig",
         "about": "Teleprompter for tablet",
         "gen": "2021",
-        "storeLink": "https://amzn.to/3Oa8qlw"
+        "storeId": "3Oa8qlw"
       }
     ]
   },
@@ -212,42 +212,42 @@
         "maker": "Adobe",
         "about": "Vector graphics editor and design program",
         "gen": "Latest version",
-        "storeLink": "https://amzn.to/3M2Cq1a"
+        "storeId": "3M2Cq1a"
       },
       {
         "name": "XD",
         "maker": "Adobe",
         "about": "Vector-based user experience design tool for web apps and mobile apps",
         "gen": "Latest version",
-        "storeLink": "https://amzn.to/3LVrvGc"
+        "storeId": "3LVrvGc"
       },
       {
         "name": "Premiere Pro",
         "maker": "Adobe",
         "about": "Timeline-based video editing software application",
         "gen": "Latest version",
-        "storeLink": "https://amzn.to/3O1EIzn"
+        "storeId": "3O1EIzn"
       },
       {
         "name": "After Effects",
         "maker": "Adobe",
         "about": "Digital visual effects, motion graphics, and compositing application",
         "gen": "Latest version",
-        "storeLink": "https://amzn.to/3jQStTL"
+        "storeId": "3jQStTL"
       },
       {
         "name": "Photoshop",
         "maker": "Adobe",
         "about": "Raster graphics editor",
         "gen": "Latest version",
-        "storeLink": "https://amzn.to/3jwshNQ"
+        "storeId": "3jwshNQ"
       },
       {
         "name": "Lightroom",
         "maker": "Adobe",
         "about": "Creative image organization and image manipulation software",
         "gen": "Latest version",
-        "storeLink": "https://amzn.to/3rodOb1"
+        "storeId": "3rodOb1"
       },
       {
         "name": "Visual Studio Code",
@@ -280,28 +280,28 @@
         "maker": "AKG",
         "about": "Drum microphone set",
         "gen": "2016",
-        "storeLink": "https://amzn.to/3juXvFc"
+        "storeId": "3juXvFc"
       },
       {
         "name": "ATR2100x-USB",
         "maker": "audio-technica",
         "about": "USB Microphone",
         "gen": "2020",
-        "storeLink": "https://amzn.to/3Oa0FML"
+        "storeId": "3Oa0FML"
       },
       {
         "name": "QX1002USB",
         "maker": "behringer",
         "about": "Analog mixer with audio interface",
         "gen": "2012",
-        "storeLink": "https://amzn.to/3ObvS1R"
+        "storeId": "3ObvS1R"
       },
       {
         "name": "ATH-M40x",
         "maker": "audio-technica",
         "about": "Headphone",
         "gen": "2014",
-        "storeLink": "https://amzn.to/36e4PlC"
+        "storeId": "36e4PlC"
       },
       {
         "name": "M-1",
@@ -314,28 +314,28 @@
         "maker": "Nothing",
         "about": "True wireless earphone",
         "gen": "2021",
-        "storeLink": "https://amzn.to/38REue9"
+        "storeId": "38REue9"
       },
       {
         "name": "ear (1) black",
         "maker": "Nothing",
         "about": "True wireless earphone",
         "gen": "2021",
-        "storeLink": "https://amzn.to/37GbTHY"
+        "storeId": "37GbTHY"
       },
       {
         "name": "Powerbeats Pro",
         "maker": "Beats",
         "about": "True wireless earphone",
         "gen": "2020",
-        "storeLink": "https://amzn.to/37MvAO8"
+        "storeId": "37MvAO8"
       },
       {
         "name": "Beats Flex",
         "maker": "Beats",
         "about": "Left and right integrated earphones",
         "gen": "2020",
-        "storeLink": "https://amzn.to/3E67Cd3"
+        "storeId": "3E67Cd3"
       }
     ]
   }
