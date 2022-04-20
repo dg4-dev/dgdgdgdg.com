@@ -10,20 +10,20 @@ const linkData = [
 ];
 
 linkData.forEach((value) => {
-  const li = document.createElement("li");
+  const li = c$("li");
   $("#linkList").appendChild(li);
 
-  const linkLink = document.createElement("a");
+  const linkLink = c$("a");
   linkLink.href = `https://${value}.dgdgdgdg.com`;
   linkLink.target = "_blank";
   linkLink.rel = "noopener noreferrer";
   li.appendChild(linkLink);
 
-  const linkIcon = document.createElement("div");
+  const linkIcon = c$("div");
   linkIcon.class = "icon";
   linkLink.appendChild(linkIcon);
 
-  const linkImg = document.createElement("img");
+  const linkImg = c$("img");
   linkImg.src = `/assets/image/icon/${value}.svg`;
   linkIcon.appendChild(linkImg);
 });

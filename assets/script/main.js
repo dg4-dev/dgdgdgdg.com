@@ -11,4 +11,8 @@ const $ = (target, doc = document) => {
   }
 };
 
+const c$ = (elm = "") => {
+  return document.createElement(elm);
+};
+
 window.addEventListener("load", () => $("#loadElm") && $("#loadElm").remove());

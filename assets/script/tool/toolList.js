@@ -1,93 +1,94 @@
 const writeTools = (getData) => {
   getData.forEach(({ contentName, items }) => {
-    const toolCate = document.createElement("section");
+    const toolCate = c$("section");
     toolCate.className = "tool-category";
     $("#toolPage").appendChild(toolCate);
 
-    const toolContain = document.createElement("div");
+    const toolContain = c$("div");
     toolContain.className = "container center";
     toolCate.appendChild(toolContain);
 
-    const cateTitle = document.createElement("h2");
+    const cateTitle = c$("h2");
     cateTitle.className = "center";
     toolContain.appendChild(cateTitle);
 
-    const titleEn = document.createElement("span");
+    const titleEn = c$("span");
     titleEn.className = "en";
     titleEn.textContent = contentName.en;
     cateTitle.appendChild(titleEn);
 
-    const titleJa = document.createElement("span");
+    const titleJa = c$("span");
     titleJa.className = "ja";
     titleJa.textContent = contentName.ja;
     cateTitle.appendChild(titleJa);
 
-    const toolWrapper = document.createElement("div");
+    const toolWrapper = c$("div");
     toolWrapper.className = "tool-wrapper";
     toolCate.appendChild(toolWrapper);
 
-    const toolList = document.createElement("div");
+    const toolList = c$("div");
     toolList.className = "tool-list center is-flex";
     toolWrapper.appendChild(toolList);
 
     items.forEach(({ name, maker, about, gen, storeId }) => {
-      const toolItem = document.createElement("div");
+      const toolItem = c$("div");
       toolItem.className = "tool-item";
       toolList.appendChild(toolItem);
 
-      const toolItemCover = document.createElement("div");
+      const toolItemCover = c$("div");
       toolItemCover.className = "cover click";
       toolItem.appendChild(toolItemCover);
 
-      const coverImage = document.createElement("img");
+      const coverImage = c$("img");
       const fmtMaker = maker.toLowerCase().replace(/[."+() -]/g, "");
       const fmtName = name.toLowerCase().replace(/[."+() -]/g, "");
       coverImage.src = `/assets/image/tool/${fmtMaker}-${fmtName}.png`;
       toolItemCover.appendChild(coverImage);
 
-      const toolItemModal = document.createElement("div");
-      toolItemModal.className = "modal is-flex";
+      const toolItemModal = c$("div");
+      toolItemModal.className = "modal";
       toolItem.appendChild(toolItemModal);
 
-      let cardImage;
-      if (storeId) {
-        cardImage = document.createElement("a");
-        cardImage.href = `https://amzn.to/${storeId}`;
-        cardImage.target = "_blank";
-        cardImage.rel = "noopener noreferrer";
-      } else {
-        cardImage = document.createElement("div");
-      }
-      cardImage.className = "img";
-      toolItemModal.appendChild(cardImage);
+      const modalCloseBtn = c$("div");
+      modalCloseBtn.className = "close-btn center click";
+      toolItemModal.appendChild(modalCloseBtn);
 
-      const cardImageInner = document.createElement("img");
-      cardImageInner.src = coverImage.src;
-      cardImage.appendChild(cardImageInner);
+      const scroll = c$("div");
+      scroll.className = "scroll is-flex";
+      toolItemModal.appendChild(scroll);
 
-      const cardDesc = document.createElement("div");
+      const cardImage = c$("img");
+      cardImage.src = coverImage.src;
+      scroll.appendChild(cardImage);
+
+      const cardDesc = c$("div");
       cardDesc.className = "desc";
-      toolItemModal.appendChild(cardDesc);
+      scroll.appendChild(cardDesc);
 
-      const descName = document.createElement("div");
+      const descName = c$("div");
       descName.className = "name";
       descName.textContent = name;
       cardDesc.appendChild(descName);
 
-      const descMakerNGen = document.createElement("div");
+      const descMakerNGen = c$("div");
       descMakerNGen.className = "maker-and-gen";
-      descMakerNGen.textContent = maker;
-      gen && (descMakerNGen.textContent = `${maker}・${gen}`);
+      descMakerNGen.textContent = gen ? `${maker}・${gen}` : `${maker}`;
       cardDesc.appendChild(descMakerNGen);
 
-      const descAbout = document.createElement("div");
+      const descAbout = c$("div");
       descAbout.className = "about";
       descAbout.textContent = about;
       cardDesc.appendChild(descAbout);
 
-      const modalCloseBtn = document.createElement("div");
-      modalCloseBtn.className = "close-btn center click";
-      toolItemModal.appendChild(modalCloseBtn);
+      if (storeId) {
+        const descLink = c$("a");
+        descLink.href = `https://amzn.to/${storeId}`;
+        descLink.className = "link";
+        descLink.target = "_blank";
+        descLink.rel = "noopener noreferrer";
+        descLink.textContent = "Amazon";
+        cardDesc.appendChild(descLink);
+      }
 
       const modalEvent = (elm) => {
         elm.addEventListener("click", () => {
