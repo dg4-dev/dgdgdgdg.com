@@ -19,7 +19,7 @@ linkData.forEach((value) => {
   linkLink.rel = "noopener noreferrer";
   li.appendChild(linkLink);
 
-  const linkIcon = c$("div");
+  const linkIcon = c$();
   linkIcon.class = "icon";
   linkLink.appendChild(linkIcon);
 

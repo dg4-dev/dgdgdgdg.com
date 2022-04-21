@@ -30,12 +30,12 @@ const writeTools = (getData) => {
 
   const fakeLoop = () => {
     slicedItems.forEach((twoItems) => {
-      const toolItem = c$("div");
+      const toolItem = c$();
       toolItem.className = "tool-item swiper-slide";
       $("#toolList").appendChild(toolItem);
 
       twoItems.forEach((item) => {
-        const toolItemChild = c$("div");
+        const toolItemChild = c$();
         toolItemChild.className = "tool-item-child";
         toolItem.appendChild(toolItemChild);
 

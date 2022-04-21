@@ -10,7 +10,7 @@ const writeTube = (getData) => {
       const sizeNames = ["maxres", "standard", "high", "medium", "default"];
       const sizeName = sizeNames.find((sizeName) => thumbnails[sizeName]);
 
-      const videoItem = c$("div");
+      const videoItem = c$();
       videoItem.className = "item";
       $("#videoList").appendChild(videoItem);
 

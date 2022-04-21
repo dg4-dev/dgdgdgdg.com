@@ -31,11 +31,11 @@ skillList.forEach(({ name, start }) => {
   skillName.innerText = `${name}`;
   li.appendChild(skillName);
 
-  const skillBar = c$("div");
+  const skillBar = c$();
   skillBar.className = "skill-bar";
   li.appendChild(skillBar);
 
-  const skillParam = c$("div");
+  const skillParam = c$();
   skillParam.className = "skill-param";
   skillParam.style = `width: ${round * 0.95}%;`;
   skillBar.appendChild(skillParam);
