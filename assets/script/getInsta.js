@@ -2,7 +2,7 @@ const writeInsta = (getData) => {
   getData.media.data.forEach(({ permalink, media_url }) => {
     const instaPost = c$();
     instaPost.className = "post-photo";
-    $("#postList").appendChild(instaPost);
+    g$("#postList").appendChild(instaPost);
 
     const instaLink = c$("a");
     instaLink.href = permalink;
