@@ -4,7 +4,7 @@ const writeTools = (getData) => {
     toolCate.className = "tool-category";
     $("#toolPage").appendChild(toolCate);
 
-    const toolContain = c$("div");
+    const toolContain = c$();
     toolContain.className = "container center";
     toolCate.appendChild(toolContain);
 
@@ -22,20 +22,20 @@ const writeTools = (getData) => {
     titleJa.textContent = contentName.ja;
     cateTitle.appendChild(titleJa);
 
-    const toolWrapper = c$("div");
+    const toolWrapper = c$();
     toolWrapper.className = "tool-wrapper";
     toolCate.appendChild(toolWrapper);
 
-    const toolList = c$("div");
+    const toolList = c$();
     toolList.className = "tool-list center is-flex";
     toolWrapper.appendChild(toolList);
 
     items.forEach(({ name, maker, about, gen, storeId }) => {
-      const toolItem = c$("div");
+      const toolItem = c$();
       toolItem.className = "tool-item";
       toolList.appendChild(toolItem);
 
-      const toolItemCover = c$("div");
+      const toolItemCover = c$();
       toolItemCover.className = "cover click";
       toolItem.appendChild(toolItemCover);
 
@@ -45,15 +45,15 @@ const writeTools = (getData) => {
       coverImage.src = `/assets/image/tool/${fmtMaker}-${fmtName}.png`;
       toolItemCover.appendChild(coverImage);
 
-      const toolItemModal = c$("div");
+      const toolItemModal = c$();
       toolItemModal.className = "modal";
       toolItem.appendChild(toolItemModal);
 
-      const modalCloseBtn = c$("div");
+      const modalCloseBtn = c$();
       modalCloseBtn.className = "close-btn center click";
       toolItemModal.appendChild(modalCloseBtn);
 
-      const scroll = c$("div");
+      const scroll = c$();
       scroll.className = "scroll is-flex";
       toolItemModal.appendChild(scroll);
 
@@ -61,21 +61,21 @@ const writeTools = (getData) => {
       cardImage.src = coverImage.src;
       scroll.appendChild(cardImage);
 
-      const cardDesc = c$("div");
+      const cardDesc = c$();
       cardDesc.className = "desc";
       scroll.appendChild(cardDesc);
 
-      const descName = c$("div");
+      const descName = c$();
       descName.className = "name";
       descName.textContent = name;
       cardDesc.appendChild(descName);
 
-      const descMakerNGen = c$("div");
+      const descMakerNGen = c$();
       descMakerNGen.className = "maker-and-gen";
       descMakerNGen.textContent = gen ? `${maker}・${gen}` : `${maker}`;
       cardDesc.appendChild(descMakerNGen);
 
-      const descAbout = c$("div");
+      const descAbout = c$();
       descAbout.className = "about";
       descAbout.textContent = about;
       cardDesc.appendChild(descAbout);
