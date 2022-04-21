@@ -1,6 +1,6 @@
 const writeInsta = (getData) => {
   getData.media.data.forEach(({ permalink, media_url }) => {
-    const instaPost = c$("div");
+    const instaPost = c$();
     instaPost.className = "post-photo";
     $("#postList").appendChild(instaPost);
 
