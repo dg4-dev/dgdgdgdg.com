@@ -1,8 +1,8 @@
 const writeHeader = (getData) => {
-  $("header")[0].innerHTML = $("header", getData)[0].innerHTML;
+  g$("header")[0].innerHTML = g$("header", getData)[0].innerHTML;
 
-  $("#menuBtn").onclick = () =>
-    Array.from($(".header-menu")).forEach((value) =>
+  g$("#menuBtn").onclick = () =>
+    Array.from(g$(".header-menu")).forEach((value) =>
       value.classList.toggle("is-open")
     );
 };

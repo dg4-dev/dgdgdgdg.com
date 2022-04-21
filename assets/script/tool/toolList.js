@@ -2,7 +2,7 @@ const writeTools = (getData) => {
   getData.forEach(({ contentName, items }) => {
     const toolCate = c$("section");
     toolCate.className = "tool-category";
-    $("#toolPage").appendChild(toolCate);
+    g$("#toolPage").appendChild(toolCate);
 
     const toolContain = c$();
     toolContain.className = "container center";

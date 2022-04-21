@@ -24,7 +24,7 @@ skillList.forEach(({ name, start }) => {
 
   const li = c$("li");
   li.className = "skill-item";
-  $("#skillOutput").appendChild(li);
+  g$("#skillOutput").appendChild(li);
 
   const skillName = c$("p");
   skillName.className = "skill-name";

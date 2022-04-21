@@ -32,7 +32,7 @@ const writeTools = (getData) => {
     slicedItems.forEach((twoItems) => {
       const toolItem = c$();
       toolItem.className = "tool-item swiper-slide";
-      $("#toolList").appendChild(toolItem);
+      g$("#toolList").appendChild(toolItem);
 
       twoItems.forEach((item) => {
         const toolItemChild = c$();

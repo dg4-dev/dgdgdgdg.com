@@ -12,7 +12,7 @@ const writeTube = (getData) => {
 
       const videoItem = c$();
       videoItem.className = "item";
-      $("#videoList").appendChild(videoItem);
+      g$("#videoList").appendChild(videoItem);
 
       const videoLink = c$("a");
       videoLink.href = `https://youtube.com/watch?v=${videoId}`;
