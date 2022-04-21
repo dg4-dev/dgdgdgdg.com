@@ -11,7 +11,7 @@ const linkData = [
 
 linkData.forEach((value) => {
   const li = c$("li");
-  $("#linkList").appendChild(li);
+  g$("#linkList").appendChild(li);
 
   const linkLink = c$("a");
   linkLink.href = `https://${value}.dgdgdgdg.com`;
