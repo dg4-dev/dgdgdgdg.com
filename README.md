@@ -1,4 +1,4 @@
-# pages: dgdgdgdg's Website
+# dgdgdgdg's Website
 
 dgdgdgdg の Web サイトです。
 
