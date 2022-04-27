@@ -1,5 +1,5 @@
 const writeTools = (getData) => {
-  getData.forEach(({ contentName, items }) => {
+  getData.forEach(({ contentName: { en, ja }, items }) => {
     const toolCate = c$("section");
     toolCate.className = "tool-category";
     g$("#toolPage").appendChild(toolCate);
@@ -14,12 +14,12 @@ const writeTools = (getData) => {
 
     const titleEn = c$("span");
     titleEn.className = "en";
-    titleEn.textContent = contentName.en;
+    titleEn.textContent = en;
     cateTitle.appendChild(titleEn);
 
     const titleJa = c$("span");
     titleJa.className = "ja";
-    titleJa.textContent = contentName.ja;
+    titleJa.textContent = ja;
     cateTitle.appendChild(titleJa);
 
     const toolWrapper = c$();
