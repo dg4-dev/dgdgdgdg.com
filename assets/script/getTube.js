@@ -33,8 +33,9 @@ const writeTube = (getData) => {
   );
 };
 
-const tubeUrl =
-  "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=12&playlistId=UUS8EPayq8U-DY3508IQ8-Ow&key=AIzaSyCSLvqlklNFu_geh4sDoUhYpF1lVw8Yqz8";
+const getTubeCount = 12;
+
+const tubeUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=${getTubeCount}&playlistId=UUS8EPayq8U-DY3508IQ8-Ow&key=AIzaSyCSLvqlklNFu_geh4sDoUhYpF1lVw8Yqz8`;
 
 fetch(tubeUrl)
   .then((response) => response.json())
