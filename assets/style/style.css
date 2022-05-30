@@ -1934,33 +1934,37 @@ footer .container .credit a, footer .container .credit p {
   top: 0;
 }
 
+.works-page section .container {
+  width: 100%;
+}
+
 .works-page section .container .items {
   width: 100%;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
 }
 
-.works-page section .container .items .item {
-  width: calc( (100% / 3) - 16px);
+.works-page section .container .item {
+  width: calc( (100% / 4) - 16px);
   padding-bottom: 24px;
   margin: 8px;
 }
 
-@media (max-width: 640px) {
-  .works-page section .container .items .item {
+@media (max-width: 1024px) {
+  .works-page section .container .item {
     width: calc( 50% - 16px);
   }
 }
 
-.works-page section .container .items .item .image {
+.works-page section .container .item .image {
   display: block;
 }
 
-.works-page section .container .items .item .image object {
+.works-page section .container .item .image object {
   padding: 50px 0;
 }
 
-.works-page section .container .items .item .title {
+.works-page section .container .item .title {
   font-size: 20px;
   font-weight: bold;
   line-height: 24px;
@@ -1969,14 +1973,19 @@ footer .container .credit a, footer .container .credit p {
 }
 
 @media (max-width: 640px) {
-  .works-page section .container .items .item .title {
+  .works-page section .container .item .title {
     font-size: 14px;
     line-height: 20px;
   }
 }
 
-.works-page section .container .items .item .btn {
+.works-page section .container .item .btn {
   margin-top: 15px;
+}
+
+.works-page section.font .container {
+  width: calc(100% - 40px);
+  max-width: 1024px;
 }
 
 .works-page section.font .container .image-desc {
@@ -1994,6 +2003,7 @@ footer .container .credit a, footer .container .credit p {
 .works-page section.font .container .content .item {
   width: 100%;
   padding: 0;
+  margin: 0;
   position: relative;
 }
 
@@ -2027,19 +2037,23 @@ footer .container .credit a, footer .container .credit p {
   text-decoration: underline;
 }
 
+.works-page section.photo .container {
+  width: 100%;
+}
+
 .works-page section.photo .container #postList {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
 }
 
 .works-page section.photo .container #postList .post-photo {
-  width: 20%;
+  width: 14.28571%;
   height: auto;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 1024px) {
   .works-page section.photo .container #postList .post-photo {
-    width: calc( 100% / 3);
+    width: calc(100% / 3);
   }
 }
 
