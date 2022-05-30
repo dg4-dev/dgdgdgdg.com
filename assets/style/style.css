@@ -1196,23 +1196,19 @@ footer .container .credit a, footer .container .credit p {
 .top-page .top-fv {
   width: 100%;
   height: 100vh;
-  padding-top: 0;
+  background-image: url(/assets/image/fv.png);
+  background-size: cover;
+  background-position: center;
+  position: relative;
 }
 
-.top-page .top-fv .scroll-arrow {
-  width: 60px;
-  height: 84px;
+.top-page .top-fv .scroll {
   position: absolute;
-  right: 0;
-  left: 0;
-  bottom: 40px;
-}
-
-@media (max-width: 1024px) {
-  .top-page .top-fv .scroll-arrow {
-    width: 45px;
-    height: 63px;
-  }
+  bottom: 20px;
+  right: 20px;
+  font-family: "Dont", sans-serif;
+  font-size: 24px;
+  color: #00d4d4;
 }
 
 .top-page section .container .content {

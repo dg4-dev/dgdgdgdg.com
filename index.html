@@ -82,14 +82,9 @@
     ></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <header class="is-flex"></header>
-
     <main class="top-page">
       <section class="top-fv is-flex">
-        <div id="scrollArrow" class="scroll-arrow click center">
-          <img src="/assets/image/scroll-arrow.svg" />
-        </div>
-        <canvas id="canvas3d"></canvas>
+        <div class="scroll">Scroll Down</div>
       </section>
 
       <section class="about" id="about">
@@ -194,13 +189,6 @@
     <footer></footer>
 
     <script src="/assets/script/main.js"></script>
-    <script type="module">
-      import { Application } from "/assets/script/three/runtime.js";
-      const app = new Application();
-      app.load("/assets/script/three/scene.json");
-    </script>
-    <script src="/assets/script/header.js"></script>
     <script src="/assets/script/footer.js"></script>
-    <script src="/assets/script/top.js"></script>
   </body>
 </html>
