@@ -2,22 +2,20 @@
   .top-fv
     width: 100%
     height: 100vh
+    background-image: url(/assets/image/fv.png)
+    background-size: cover
+    background-position: center
 
-    padding-top: 0
+    position: relative
 
-    .scroll-arrow
-      width: 60px
-      height: 84px
-
+    .scroll
       position: absolute
-      right: 0
-      left: 0
-      bottom: 40px
+      bottom: 20px
+      right: 20px
 
-      @include tab
-        width: 45px
-        height: 63px
-
+      font-family: "Dont", sans-serif
+      font-size: 24px
+      color: $dg4-cyan
   section
     .container .content
       justify-content: space-around
