@@ -1,13 +1,10 @@
 {
   "recommendations": [
-    "formulahendry.auto-complete-tag",
     "streetsidesoftware.code-spell-checker",
     "mhutchie.git-graph",
     "eamodio.gitlens",
-    "glenn2223.live-sass",
-    "ritwickdey.liveserver",
     "esbenp.prettier-vscode",
-    "syler.sass-indented",
-    "wayou.vscode-todo-highlight"
+    "wayou.vscode-todo-highlight",
+    "syler.sass-indented"
   ]
 }
