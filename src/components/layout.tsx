@@ -16,7 +16,7 @@ const Layout = ({ children, title, description }: Props) => {
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={description || "This is dgdgdgdg's page."} />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/images/favicon.ico" />
       </Head>
 
       <Header></Header>
