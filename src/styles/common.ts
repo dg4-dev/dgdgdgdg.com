@@ -4,32 +4,32 @@ import dg4Color from "@/styles/config/color";
 
 const style = css`
   // font
-  /* @font-face {
+  @font-face {
     font-family: "Dont";
-    src: url(/assets/font/Dont.ttf);
+    src: url("/fonts/Dont.ttf");
   }
 
   @font-face {
     font-family: "Dont Round";
-    src: url(/assets/font/DontRound.ttf);
+    src: url("/fonts/DontRound.ttf");
   }
 
   @font-face {
     font-family: "Dont Circle";
-    src: url(/assets/font/DontCircle.ttf);
+    src: url("/fonts/DontCircle.ttf");
   }
 
   @font-face {
     font-family: "Zen Kaku Gothic New";
     font-weight: normal;
-    src: url(/assets/font/ZenKakuGothicNew-Regular.ttf);
+    src: url("/fonts/ZenKakuGothicNew-Regular.ttf");
   }
 
   @font-face {
     font-family: "Zen Kaku Gothic New";
     font-weight: bold;
-    src: url(/assets/font/ZenKakuGothicNew-Bold.ttf);
-  } */
+    src: url("/fonts/ZenKakuGothicNew-Bold.ttf");
+  }
 
   body {
     font-family: "Zen Kaku Gothic New", sans-serif;
@@ -53,7 +53,7 @@ const style = css`
   * {
     font-weight: normal;
 
-    // cursor: -webkit-image-set(url(/assets/image/cursor-normal.png) 1x, url(/assets/image/cursor-normal@2x.png) 2x), default
+    cursor: -webkit-image-set(url("/images/cursor-normal.png") 1x, url("/images/cursor-normal@2x.png") 2x), default;
     user-select: none;
     scroll-behavior: smooth;
 
