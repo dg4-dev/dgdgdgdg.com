@@ -1,17 +1,18 @@
 import { css } from "@emotion/react";
 
-import size from "@/styles/config/size";
+import bp from "@/styles/config/breakpoint";
+import cWidth from "@/styles/config/containerWidth";
 
 const Container = ({ children }: { children: React.ReactNode }) => {
   const style = css`
-    width: ${size.cWidth.pc};
+    width: ${cWidth.pc};
     margin-left: auto;
     margin-right: auto;
-    @media (${size.bp.tab}) {
-      width: ${size.cWidth.tab};
+    @media (${bp.tab}) {
+      width: ${cWidth.tab};
     }
-    @media (${size.bp.sp}) {
-      width: ${size.cWidth.sp};
+    @media (${bp.sp}) {
+      width: ${cWidth.sp};
     }
   `;
   return <div css={style}>{children}</div>;

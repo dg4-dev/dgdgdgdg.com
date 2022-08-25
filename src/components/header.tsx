@@ -1,34 +1,53 @@
+import { css } from "@emotion/react";
 import Link from "next/link";
 
 import type { NextPage } from "next";
 
+import HeaderLink from "@/components/headerLink";
+import dg4Color from "@/styles/config/color";
+
+const nav = css`
+  background-color: ${dg4Color.cyan};
+`;
+
 const Header: NextPage = () => {
   return (
     <header>
-      <nav>
+      <nav css={nav}>
         <ul>
           <li>
             <Link href={"/"}>Top</Link>
           </li>
           <li>
-            <Link href={"/about"}>About</Link>
+            <HeaderLink href="/about" en="About" ja="dgdgdgdgとは" />
             <ul>
               <li>
-                <Link href={"/about/brand"}>Brand Resource</Link>
+                <HeaderLink href="/about/brand" en="Brand resource" ja="ブランドリソース" />
               </li>
               <li>
-                <Link href={"/about/tool"}>Tool</Link>
+                <HeaderLink href="/about/tool" en="Tool" ja="ツール一覧" />
               </li>
             </ul>
           </li>
           <li>
-            <Link href={"/works"}>Works</Link>
+            <HeaderLink href="/works" en="Works" ja="dgdgdgdgの作品" />
           </li>
           <li>
-            <Link href={"/service"}>Service</Link>
+            <HeaderLink href="/service" en="Service" ja="dgdgdgdgのプラン" />
+          </li>
+          <li>
+            <HeaderLink href="/contact" en="Contact" ja="dgdgdgdgに問い合わせる" />
           </li>
         </ul>
       </nav>
+
+      <HeaderLink
+        href="https://www.radio.dgdgdgdg.com/"
+        en="Enter the radio title"
+        ja="ラジオのタイトルを入力"
+        ext={true}
+      />
+      <HeaderLink href="https://www.apps.dgdgdgdg.com/" en="dg4 app archive" ja="dg4アプリアーカイブ" ext={true} />
     </header>
   );
 };
