@@ -5,13 +5,13 @@ import type { AppProps } from "next/app";
 
 import style from "@/styles/common";
 
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Global styles={style} />
       <Component {...pageProps} />
     </>
   );
-}
+};
 
 export default MyApp;

@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 
+import bp from "@/styles/config/breakpoint";
 import dg4Color from "@/styles/config/color";
 
 const style = css`
@@ -71,6 +72,26 @@ const style = css`
     height: auto;
 
     pointer-events: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: ${dg4Color.black};
+    font-size: 24px;
+  }
+
+  a,
+  a > *,
+  .click,
+  .click > *,
+  .click > * > * {
+    cursor: -webkit-image-set(url("/images/cursor-pointer.png") 1x, url("/images/cursor-pointer@2x.png") 2x), pointer;
+  }
+
+  @media (${bp.sp}) {
+    a {
+      font-size: 16px;
+    }
   }
 `;
 
