@@ -14,7 +14,11 @@ const Container = ({ children }: { children: React.ReactNode }) => {
       width: ${cWidth.sp};
     }
   `;
-  return <div css={[style, common.center]}>{children}</div>;
+  return (
+    <div css={[style, common.center]} className="container">
+      {children}
+    </div>
+  );
 };
 
 export default Container;
