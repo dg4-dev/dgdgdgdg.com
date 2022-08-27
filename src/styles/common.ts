@@ -88,7 +88,7 @@ const style = css`
     cursor: -webkit-image-set(url("/images/cursor-pointer.png") 1x, url("/images/cursor-pointer@2x.png") 2x), pointer;
   }
 
-  @media (${bp.sp}) {
+  ${bp.sp} {
     a {
       font-size: 16px;
     }

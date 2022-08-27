@@ -11,9 +11,11 @@ const headerLinkStyle = css`
   width: 100%;
   height: fit-content;
   padding: 10px 20px;
+  transition: all 0.2s;
 
   :hover {
     opacity: 0.5;
+    transition: all 0.2s;
   }
 `;
 
@@ -33,7 +35,7 @@ const linkJA = css`
   line-height: 35px;
   color: #fff;
 
-  @media (${bp.sp}) {
+  ${bp.sp} {
     font-size: 20px;
   }
 `;
@@ -49,7 +51,7 @@ const externalLinkStyle = css`
 
   position: relative;
 
-  @media (${bp.sp}) {
+  ${bp.sp} {
     width: 290px;
     height: 70px;
 
@@ -66,23 +68,23 @@ const externalLinkStyle = css`
 
     top: 0;
     left: 0;
-  }
-
-  :hover {
-    opacity: 1;
+    transition: all 0.3s;
   }
 
   :hover::before {
     width: 100%;
+    transition: all 0.3s;
   }
 
   :hover .en {
     color: #fff;
     opacity: 0.5;
+    transition: all 0.3s;
   }
 
   :hover .ja {
     color: #fff;
+    transition: all 0.3s;
   }
 
   :hover .ja::after {

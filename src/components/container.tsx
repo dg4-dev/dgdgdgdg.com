@@ -8,10 +8,10 @@ const Container = ({ children }: { children: React.ReactNode }) => {
     width: ${cWidth.pc};
     margin-left: auto;
     margin-right: auto;
-    @media (${bp.tab}) {
+    ${bp.tab} {
       width: ${cWidth.tab};
     }
-    @media (${bp.sp}) {
+    ${bp.sp} {
       width: ${cWidth.sp};
     }
   `;
