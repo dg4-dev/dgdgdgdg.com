@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
-import Link from "next/link";
 
 import type { NextPage } from "next";
 
+import Button from "@/components/button";
 import HeaderLink from "@/components/header/headerLink";
 import dg4Color from "@/styles/config/color";
 
@@ -16,7 +16,7 @@ const Header: NextPage = () => {
       <nav css={nav}>
         <ul>
           <li>
-            <Link href={"/"}>Top</Link>
+            <Button href="/" text="Top" />
           </li>
           <li>
             <HeaderLink href="/about" en="About" ja="dgdgdgdgとは" />
