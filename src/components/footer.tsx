@@ -106,10 +106,12 @@ const iconItem = css`
     width: 40px;
     height: 40px;
     padding: 8px;
+    transition: all 0.3s;
   }
 
   a:hover {
     opacity: 0.5;
+    transition: all 0.3s;
   }
 
   a object {
@@ -122,9 +124,11 @@ const linkPrivacy = css`
   text-decoration: underline;
   display: block;
   margin-bottom: 12px;
+  transition: all 0.3s;
 
   :hover {
     opacity: 0.5;
+    transition: all 0.3s;
   }
 `;
 
