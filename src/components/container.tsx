@@ -1,13 +1,12 @@
 import { css } from "@emotion/react";
 
+import common from "@/styles/common";
 import bp from "@/styles/config/breakpoint";
 import cWidth from "@/styles/config/containerWidth";
 
 const Container = ({ children }: { children: React.ReactNode }) => {
   const style = css`
     width: ${cWidth.pc};
-    margin-left: auto;
-    margin-right: auto;
     ${bp.tab} {
       width: ${cWidth.tab};
     }
@@ -15,7 +14,7 @@ const Container = ({ children }: { children: React.ReactNode }) => {
       width: ${cWidth.sp};
     }
   `;
-  return <div css={style}>{children}</div>;
+  return <div css={[style, common.center]}>{children}</div>;
 };
 
 export default Container;
