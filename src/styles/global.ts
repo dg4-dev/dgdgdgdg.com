@@ -81,10 +81,7 @@ const style = css`
   }
 
   a,
-  a > *,
-  .click,
-  .click > *,
-  .click > * > * {
+  a * {
     cursor: -webkit-image-set(url("/images/cursor-pointer.png") 1x, url("/images/cursor-pointer@2x.png") 2x), pointer;
   }
 
