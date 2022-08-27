@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import type { NextPage } from "next";
 
-import HeaderLink from "@/components/headerLink";
+import HeaderLink from "@/components/header/headerLink";
 import dg4Color from "@/styles/config/color";
 
 const nav = css`
