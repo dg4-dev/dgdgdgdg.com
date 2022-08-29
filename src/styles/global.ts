@@ -101,6 +101,18 @@ const style = css`
       padding-top: 60px;
     }
   }
+
+  section:last-child {
+    margin-bottom: 160px;
+
+    ${bp.tab} {
+      margin-bottom: 120px;
+    }
+
+    ${bp.sp} {
+      margin-bottom: 80px;
+    }
+  }
 `;
 
 export default style;

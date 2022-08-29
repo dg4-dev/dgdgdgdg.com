@@ -93,7 +93,10 @@ const contact = css`
 
   padding-top: 0;
   margin-top: 120px;
-  margin-bottom: 0px;
+
+  :last-child {
+    margin-bottom: 0;
+  }
 
   ${bp.tab} {
     margin-top: 80px;
