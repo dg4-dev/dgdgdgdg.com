@@ -141,7 +141,10 @@ const contactBtn = css`
 
 const Home: NextPage = () => {
   return (
-    <Layout description="">
+    <Layout
+      title='dgdgdgdg | 宮城県でデザイン、映像制作、Web制作をしている"だがし"です。'
+      description="2021年2月1日に19歳で開業。デザイン、映像制作、Web制作をメインに、多方面であることを生かしつつ洗練されたものを目指して制作していきます。"
+    >
       <section css={[topFV, flex]}>
         <div css={scroll}>Scroll Down</div>
       </section>
