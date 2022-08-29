@@ -173,7 +173,7 @@ const Home: NextPage = () => {
                 <Button href="/about/brand" />
               </div>
               <div css={image}>
-                <Image src="/images/fv/brand.jpg" width="616" height="347" alt="" />
+                <Image src="/images/fv/brandresource.jpg" width="616" height="347" alt="" />
               </div>
             </div>
           </div>
