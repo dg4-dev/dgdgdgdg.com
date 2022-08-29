@@ -9,7 +9,7 @@ const Service: NextPage = () => {
       title="Service"
       description="dgdgdgdgがnextの練習用に作成するページ。参考記事はJSだが、TSの練習も兼ねて進める。[参考](https://www.webopixel.net/javascript/1714.html)"
     >
-      <H1 location="service" />
+      <H1 />
     </Layout>
   );
 };

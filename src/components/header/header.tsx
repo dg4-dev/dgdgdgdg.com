@@ -279,11 +279,11 @@ const Header: NextPage = () => {
   const menuFunction = () => setOpenMenu(!openMenu);
   let openState = openMenu ? "is-open" : "";
 
-  const linkContents = Object.entries(pageName).map((value) => {
-    const isIndent = value[1].child ? "indent" : "";
+  const linkContents = pageName.map((value) => {
+    const isIndent = value.child ? "indent" : "";
     const linkContent = (
       <li className={isIndent}>
-        <HeaderLink href={value[1].href} en={value[1].en} ja={value[1].ja} />
+        <HeaderLink href={value.href} en={value.en} ja={value.ja} />
       </li>
     );
     return linkContent;

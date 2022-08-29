@@ -9,7 +9,7 @@ const Works: NextPage = () => {
       title="Works"
       description="dgdgdgdgがnextの練習用に作成するページ。参考記事はJSだが、TSの練習も兼ねて進める。[参考](https://www.webopixel.net/javascript/1714.html)"
     >
-      <H1 location="works" />
+      <H1 />
     </Layout>
   );
 };

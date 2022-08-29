@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 
-// import { center } from "@/styles/common";
 import pageName from "@/api/pageName";
 import { bp } from "@/styles/config";
 
@@ -59,11 +58,13 @@ const heading1 = css`
   }
 `;
 
-const H1 = ({ location }: { location: string }) => {
-  const en = pageName[location].en;
+const H1 = () => {
+  const nowPageName = pageName.find((value) => location.pathname === value.href);
+
+  const en = nowPageName?.en as string;
   const formattedPageName = en.toLowerCase().replace(" ", "");
   const imagePath = `/images/fv/${formattedPageName}.jpg`;
-  const ja = pageName[location].ja;
+  const ja = nowPageName?.ja;
   const bg = css`
     background-image: url(${imagePath});
     width: 100%;
