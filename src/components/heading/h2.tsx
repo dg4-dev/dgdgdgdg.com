@@ -8,6 +8,8 @@ const heading2 = css`
   height: 100px;
   position: relative;
 
+  text-align: center;
+
   padding-top: 8px;
   margin-bottom: 80px;
 
@@ -20,10 +22,7 @@ const heading2 = css`
     padding-top: 0px;
     margin-bottom: 40px;
   }
-  span {
-    display: block;
-    text-align: center;
-  }
+
   .en {
     font-family: "Dont", sans-serif;
     font-size: 60px;
@@ -84,8 +83,8 @@ type Props = {
 const H2 = ({ en, ja }: Props) => {
   return (
     <h2 css={[heading2, center]}>
-      <span className="en">{en}</span>
-      <span className="ja">{ja}</span>
+      <div className="en">{en}</div>
+      <div className="ja">{ja}</div>
     </h2>
   );
 };
