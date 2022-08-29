@@ -6,8 +6,7 @@ import type { NextPage } from "next";
 
 import HeaderLink from "@/components/header/headerLink";
 import common from "@/styles/common";
-import bp from "@/styles/config/breakpoint";
-import dg4Color from "@/styles/config/color";
+import { bp, dg4Color } from "@/styles/config";
 
 const header = css`
   .inside.is-open {
@@ -193,7 +192,7 @@ const white = css`
     display: none;
   }
 
-  ul li:not(:first-child) {
+  ul li:not(:first-of-type) {
     margin-top: 20px;
   }
 `;
@@ -240,7 +239,7 @@ const nav = css`
     width: 284px;
   }
 
-  ul li:not(:first-child) {
+  ul li:not(:first-of-type) {
     margin-top: 26px;
 
     ${bp.sp}
@@ -269,7 +268,7 @@ const linkWrapper = css`
     display: block;
   }
 
-  ul li:not(:first-child) {
+  ul li:not(:first-of-type) {
     margin-top: 20px;
   }
 `;

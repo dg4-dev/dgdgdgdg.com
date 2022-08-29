@@ -3,8 +3,7 @@ import { UrlObject } from "url";
 import { css } from "@emotion/react";
 import Link from "next/link";
 
-import bp from "@/styles/config/breakpoint";
-import dg4Color from "@/styles/config/color";
+import { bp, dg4Color } from "@/styles/config";
 
 const headerLinkStyle = css`
   display: block;
