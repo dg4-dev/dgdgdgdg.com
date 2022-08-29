@@ -10,12 +10,11 @@ type Props = {
 };
 
 const Layout = ({ children, title, description }: Props) => {
-  const pageTitle = title ? `${title} | dgdgdgdg` : "dgdgdgdg";
   return (
     <>
       <Head>
-        <title>{pageTitle}</title>
-        <meta name="description" content={description || "This is dgdgdgdg's page."} />
+        <title>{title}</title>
+        <meta name="description" content={description} />
         <link rel="icon" href="/images/favicon.ico" />
       </Head>
 
