@@ -32,7 +32,7 @@ const scroll = css`
 `;
 
 const content = css`
-  justify-content: space-around;
+  justify-content: space-between;
   gap: 40px;
 
   ${bp.sp} {
@@ -45,7 +45,6 @@ const content = css`
     flex-direction: column;
 
     ${bp.sp} {
-      max-width: none;
       margin-right: 0;
     }
   }
@@ -59,8 +58,30 @@ const image = css`
   width: 100%;
   max-width: 530px;
 
-  ${bp.sp} {
+  ${bp.tab} {
     max-width: none;
+  }
+`;
+
+const aboutContent = css`
+  .item {
+    width: 100%;
+    max-width: none;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 40px;
+
+    ${bp.sp} {
+      flex-direction: column;
+    }
+    .text {
+      max-width: 230px;
+
+      ${bp.sp} {
+        max-width: none;
+        margin-right: 0;
+      }
+    }
   }
 `;
 
@@ -74,19 +95,47 @@ const Home: NextPage = () => {
         <Container>
           <H2 en="About" ja="dgdgdgdgとは" />
           <div className="content" css={[content, flex]}>
-            <div className="item" css={[flex]}>
+            <div className="item" css={flex}>
               <p>dgdgdgdgの概要、スキル、使用ツールについての説明です。</p>
               <Button href="/about" />
             </div>
             <div css={image}>
-              <Image src="/images/about-fv.png" width="530" height="299" alt="" />
+              <Image src="/images/about-fv.png" width="616" height="347" alt="" />
             </div>
           </div>
-          <div className="content">
+          <div className="content" css={[content, aboutContent]}>
             <H3 en="Brand resource" ja="ブランドリソース" />
+            <div className="item" css={flex}>
+              <div className="text">
+                <p>
+                  サイトのカラーやロゴについて詳しく説明します。
+                  <br />
+                  ロゴデータの配布も。
+                </p>
+
+                <Button href="/about/brand" />
+              </div>
+              <div css={image}>
+                <Image src="/images/about-fv.png" width="616" height="347" alt="" />
+              </div>
+            </div>
           </div>
-          <div className="content">
+          <div className="content" css={[content, aboutContent]}>
             <H3 en="Tool" ja="ツール一覧" />
+            <div className="item" css={flex}>
+              <div className="text">
+                <p>
+                  使用しているツールをドット絵として描き上げています。
+                  <br />
+                  ツールそのものの詳しい情報もこちら。
+                </p>
+
+                <Button href="/about/tool" />
+              </div>
+              <div css={image}>
+                <Image src="/images/about-fv.png" width="616" height="347" alt="" />
+              </div>
+            </div>
           </div>
         </Container>
       </section>
