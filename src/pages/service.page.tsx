@@ -86,7 +86,63 @@ const itemBadge = css`
 `;
 
 const btn = css`
-  margin-top: 40px;
+  margin-top: 32px;
+`;
+
+const note = css`
+  text-align: center;
+  margin-bottom: 32px;
+`;
+
+const planItems = css`
+  flex-wrap: wrap;
+  gap: 20px 40px;
+  justify-content: space-between;
+
+  ${bp.tab} {
+    gap: 20px 25px;
+  }
+`;
+
+const planItem = css`
+  width: 380px;
+  font-weight: bold;
+  color: #fff;
+  padding: 16px;
+
+  ${bp.tab} {
+    width: 350px;
+  }
+
+  ${bp.sp} {
+    width: 100%;
+  }
+`;
+
+const planItemTitle = css`
+  font-size: 20px;
+  text-align: center;
+`;
+
+const planItemPrice = css`
+  font-family: "Dont", sans-serif;
+  font-size: 64px;
+  font-weight: normal;
+  text-align: center;
+  margin-top: 12px;
+`;
+
+const planItemText = css`
+  font-size: 16px;
+  line-height: 24px;
+  margin-top: 12px;
+`;
+
+const setItemBG = css`
+  background-color: ${dg4Color.blue};
+`;
+const singleItemBG = css`
+  background-color: ${dg4Color.cyan};
 `;
 
 const Service: NextPage = () => {
@@ -204,6 +260,72 @@ const Service: NextPage = () => {
       );
     });
   };
+
+  const planRaw: {
+    [key in string]: {
+      title: string;
+      price: Number;
+      planText?: string;
+    }[];
+  } = {
+    set: [
+      {
+        title: "PVセット",
+        price: 120000,
+        planText: "ロゴ・アニメーション・映像の撮影と編集をまとめた、PV・MVに最適なプランです。",
+      },
+      {
+        title: "コーポレートセット",
+        price: 240000,
+        planText: "新しく会社を立ち上げた方やデザインのリニューアルにおすすめ！ロゴ・名刺・Webをまとめたプランです。",
+      },
+    ],
+    single: [
+      {
+        title: "Webサイト (1ページ ~)",
+        price: 65000,
+      },
+      {
+        title: "映像制作",
+        price: 50000,
+      },
+      {
+        title: "モーショングラフィックス",
+        price: 10000,
+      },
+      {
+        title: "ロゴデザイン",
+        price: 50000,
+      },
+      {
+        title: "ポスターデザイン",
+        price: 30000,
+      },
+      {
+        title: "名刺デザイン",
+        price: 15000,
+      },
+    ],
+  };
+
+  const planList = (opt: string) => {
+    return planRaw[opt].map(({ title, price, planText }) => {
+      const priceString = price.toLocaleString();
+      return planText ? (
+        <div key={title} css={[planItem, setItemBG]}>
+          <h4 css={planItemTitle}>{title}</h4>
+          <div css={planItemPrice}>{priceString}</div>
+          <div css={planItemText}>{planText}</div>
+        </div>
+      ) : (
+        <div key={title} css={[planItem, singleItemBG]}>
+          <h4 css={planItemTitle}>{title}</h4>
+          <div css={planItemPrice}>{priceString} ~</div>
+        </div>
+      );
+    });
+  };
+
   return (
     <Layout
       title="Service"
@@ -225,6 +347,22 @@ const Service: NextPage = () => {
             </div>
           </div>
           <Button text="See Contact" href="/contact" css={[btn, center]} />
+        </Container>
+      </section>
+
+      <section id="plan">
+        <Container>
+          <H2 en="Plan" ja="プラン" />
+          <p css={note}>表示料金は基本料です。お打ち合わせ後に正式見積りとなります。</p>
+          <div className="content setplan">
+            <H3 en="Set plan" ja="セットプラン" />
+            <div css={[planItems, flex]}>{planList("set")}</div>
+          </div>
+          <div className="content single">
+            <H3 en="Single Plan" ja="単体プラン" />
+            <div css={[planItems, flex]}>{planList("single")}</div>
+            <Button text="See Contact" href="/contact" css={[btn, center]} />
+          </div>
         </Container>
       </section>
     </Layout>
