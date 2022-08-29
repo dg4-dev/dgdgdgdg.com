@@ -1,21 +1,33 @@
 import { css } from "@emotion/react";
 
 import common from "@/styles/common";
-import bp from "@/styles/config/breakpoint";
-import cWidth from "@/styles/config/containerWidth";
+import { bp, cWidth } from "@/styles/config";
 
-const Container = ({ children }: { children: React.ReactNode }) => {
-  const style = css`
-    width: ${cWidth.pc};
+const containerStyle = css`
+  width: ${cWidth.pc};
+  ${bp.tab} {
+    width: ${cWidth.tab};
+  }
+  ${bp.sp} {
+    width: ${cWidth.sp};
+  }
+
+  .content:not(:nth-of-type(1)) {
+    padding-top: 80px;
+
     ${bp.tab} {
-      width: ${cWidth.tab};
+      padding-top: 60px;
     }
+
     ${bp.sp} {
-      width: ${cWidth.sp};
+      padding-top: 40px;
     }
-  `;
+  }
+`;
+
+const Container = ({ children, className }: { children: React.ReactNode; className?: string }) => {
   return (
-    <div css={[style, common.center]} className="container">
+    <div css={[containerStyle, common.center]} className={className}>
       {children}
     </div>
   );
