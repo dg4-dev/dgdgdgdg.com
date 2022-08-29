@@ -61,7 +61,7 @@ const heading1 = css`
 
 const H1 = () => {
   const location = useRouter();
-  const nowPageName = pageName.find((value) => location.pathname === value.href);
+  const nowPageName = pageName.find(({ href }) => location.pathname === href);
 
   const en = nowPageName?.en as string;
   const formattedPageName = en.toLowerCase().replace(" ", "");
