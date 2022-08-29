@@ -12,7 +12,7 @@ const heading3 = css`
   }
 
   .en {
-    font-family: "Dont", sans-serif;
+    font-family: "Dont", "Zen Kaku Gothic New", sans-serif;
     font-size: 36px;
     ${bp.sp} {
       font-size: 22px;
@@ -40,12 +40,13 @@ const heading3 = css`
 
 type Props = {
   en: string;
-  ja: string;
+  ja?: string;
+  className?: string;
 };
 
-const H3 = ({ en, ja }: Props) => {
+const H3 = ({ en, ja, className }: Props) => {
   return (
-    <h3 css={heading3}>
+    <h3 css={heading3} className={className}>
       <div className="en">{en}</div>
       <div className="ja">{ja}</div>
     </h3>
