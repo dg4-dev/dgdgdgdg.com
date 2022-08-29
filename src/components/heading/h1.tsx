@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { useRouter } from "next/router";
 
 import pageName from "@/api/pageName";
 import { bp } from "@/styles/config";
@@ -59,12 +60,14 @@ const heading1 = css`
 `;
 
 const H1 = () => {
+  const location = useRouter();
   const nowPageName = pageName.find((value) => location.pathname === value.href);
 
   const en = nowPageName?.en as string;
   const formattedPageName = en.toLowerCase().replace(" ", "");
   const imagePath = `/images/fv/${formattedPageName}.jpg`;
   const ja = nowPageName?.ja;
+
   const bg = css`
     background-image: url(${imagePath});
     width: 100%;
@@ -74,6 +77,7 @@ const H1 = () => {
     background-position: center center;
     filter: brightness(60%);
   `;
+
   return (
     <section css={pageTitle}>
       <h1 css={heading1}>
