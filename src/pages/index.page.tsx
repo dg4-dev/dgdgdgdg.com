@@ -5,9 +5,10 @@ import type { NextPage } from "next";
 
 import Button from "@/components/button";
 import Container from "@/components/container";
-import H2 from "@/components/h2";
+import H2 from "@/components/heading/h2";
+import H3 from "@/components/heading/h3";
 import Layout from "@/components/layout";
-import common from "@/styles/common";
+import { flex } from "@/styles/common";
 import { bp, dg4Color } from "@/styles/config";
 
 const topFV = css`
@@ -66,23 +67,27 @@ const image = css`
 const Home: NextPage = () => {
   return (
     <Layout description="">
-      <section css={[topFV, common.flex]}>
+      <section css={[topFV, flex]}>
         <div css={scroll}>Scroll Down</div>
       </section>
       <section>
         <Container>
           <H2 en="About" ja="dgdgdgdgとは" />
-          <div className="content" css={[content, common.flex]}>
-            <div className="item" css={[common.flex]}>
+          <div className="content" css={[content, flex]}>
+            <div className="item" css={[flex]}>
               <p>dgdgdgdgの概要、スキル、使用ツールについての説明です。</p>
               <Button href="/about" />
             </div>
-            <div className="image">
-              <Image css={image} src="/images/about-fv.png" width="2880" height="1620" alt="" />
+            <div css={image}>
+              <Image src="/images/about-fv.png" width="530" height="299" alt="" />
             </div>
           </div>
-          <div className="content">Brand</div>
-          <div className="content">Tool</div>
+          <div className="content">
+            <H3 en="Brand resource" ja="ブランドリソース" />
+          </div>
+          <div className="content">
+            <H3 en="Tool" ja="ツール一覧" />
+          </div>
         </Container>
       </section>
       <section>
