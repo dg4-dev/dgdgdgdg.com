@@ -53,7 +53,8 @@ const style = css`
   * {
     font-weight: normal;
 
-    cursor: -webkit-image-set(url("/images/cursor-normal.png") 1x, url("/images/cursor-normal@2x.png") 2x), default;
+    cursor: -webkit-image-set(url("/images/cursor/cursor-normal.png") 1x, url("/images/cursor/cursor-normal@2x.png") 2x),
+      default;
     user-select: none;
     scroll-behavior: smooth;
 
@@ -81,7 +82,11 @@ const style = css`
 
   a,
   a * {
-    cursor: -webkit-image-set(url("/images/cursor-pointer.png") 1x, url("/images/cursor-pointer@2x.png") 2x), pointer;
+    cursor: -webkit-image-set(
+        url("/images/cursor/cursor-pointer.png") 1x,
+        url("/images/cursor/cursor-pointer@2x.png") 2x
+      ),
+      pointer;
   }
 
   ${bp.sp} {
