@@ -5,7 +5,7 @@ import { useState } from "react";
 import type { NextPage } from "next";
 
 import HeaderLink from "@/components/header/headerLink";
-import common from "@/styles/common";
+import { click, flex } from "@/styles/common";
 import { bp, dg4Color } from "@/styles/config";
 
 const header = css`
@@ -281,15 +281,15 @@ const Header: NextPage = () => {
   let openState = openMenu ? "is-open" : "";
 
   return (
-    <header css={[header, common.flex]}>
-      <div css={[outside, common.flex]}>
+    <header css={[header, flex]}>
+      <div css={[outside, flex]}>
         <Link href="/">
           <a css={logo}>
             <object data="/images/logo.svg" type="image/svg+xml" />
           </a>
         </Link>
-        <div css={[burger, common.click, common.flex]} onClick={() => menuFunction()}>
-          <div css={[line, common.flex]}>
+        <div css={[burger, click, flex]} onClick={() => menuFunction()}>
+          <div css={[line, flex]}>
             <div className={`line-item line-item1 ${openState}`} />
             <div className={`line-item line-item2 ${openState}`} />
             <div className={`line-item line-item3 ${openState}`} />
@@ -297,8 +297,8 @@ const Header: NextPage = () => {
         </div>
       </div>
 
-      <div css={[inside, common.flex]} className={`inside ${openState}`}>
-        <div css={[white, common.flex]} className={`white ${openState}`}>
+      <div css={[inside, flex]} className={`inside ${openState}`}>
+        <div css={[white, flex]} className={`white ${openState}`}>
           <ul>
             <li>
               <HeaderLink
@@ -318,7 +318,7 @@ const Header: NextPage = () => {
             </li>
           </ul>
         </div>
-        <div css={[cyan, common.flex]} className={`cyan ${openState}`}>
+        <div css={[cyan, flex]} className={`cyan ${openState}`}>
           <nav css={nav} className={`nav ${openState}`}>
             <ul>
               <li>
