@@ -1,5 +1,3 @@
-import { UrlObject } from "url";
-
 import { css } from "@emotion/react";
 import Link from "next/link";
 
@@ -35,13 +33,18 @@ const btn = css`
 `;
 
 type Props = {
-  href: string | UrlObject;
+  href: string;
   text?: string;
   className?: string;
+  ext?: Boolean;
 };
 
-const Button = ({ href, text = "See more", className }: Props) => {
-  return (
+const Button = ({ href, text = "See more", className, ext = false }: Props) => {
+  return ext ? (
+    <a href={href} css={btn} className={className} target="_blank" rel="noopener noreferrer">
+      {text}
+    </a>
+  ) : (
     <Link href={href}>
       <a css={btn} className={className}>
         {text}

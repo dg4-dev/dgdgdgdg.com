@@ -282,7 +282,7 @@ const Header: NextPage = () => {
   const linkContents = pageName.map((value) => {
     const isIndent = value.child ? "indent" : "";
     const linkContent = (
-      <li className={isIndent}>
+      <li className={isIndent} key={value.en}>
         <HeaderLink href={value.href} en={value.en} ja={value.ja} />
       </li>
     );
