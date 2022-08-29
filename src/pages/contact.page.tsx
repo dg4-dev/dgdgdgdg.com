@@ -31,6 +31,7 @@ const linkItem = css`
 
 const itemContent = css`
   width: calc((100% / 8) - 8px);
+  transition: all 0.3s;
 
   ${bp.sp} {
     width: calc(25% - 16px);
@@ -39,6 +40,7 @@ const itemContent = css`
 
   :hover {
     opacity: 0.5;
+    transition: all 0.3s;
   }
 
   a {
