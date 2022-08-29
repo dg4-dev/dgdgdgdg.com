@@ -4,7 +4,7 @@ import Link from "next/link";
 import type { NextPage } from "next";
 
 import Container from "@/components/container";
-import common from "@/styles/common";
+import { flex } from "@/styles/common";
 import { bp, dg4Color } from "@/styles/config";
 
 const footerStyle = css`
@@ -140,8 +140,8 @@ const Footer: NextPage = () => {
   return (
     <footer css={footerStyle}>
       <Container css={container}>
-        <ul css={[pageList, common.flex]}>
-          <li css={common.flex}>
+        <ul css={[pageList, flex]}>
+          <li css={flex}>
             <Link href="/about/">
               <a className="page-link">About</a>
             </Link>
@@ -167,7 +167,7 @@ const Footer: NextPage = () => {
               </li>
             </ul>
           </li>
-          <li css={common.flex}>
+          <li css={flex}>
             <Link href="/works/">
               <a className="page-link">Works</a>
             </Link>
@@ -189,7 +189,7 @@ const Footer: NextPage = () => {
               </li>
             </ul>
           </li>
-          <li css={common.flex}>
+          <li css={flex}>
             <Link href="/service/">
               <a className="page-link">Service</a>
             </Link>
@@ -202,7 +202,7 @@ const Footer: NextPage = () => {
               </li>
             </ul>
           </li>
-          <li css={common.flex}>
+          <li css={flex}>
             <Link href="/contact/">
               <a className="page-link">Contact</a>
             </Link>
@@ -216,8 +216,8 @@ const Footer: NextPage = () => {
             </ul>
           </li>
         </ul>
-        <div css={[credit, common.flex]}>
-          <ul css={[iconWrapper, common.flex]}>
+        <div css={[credit, flex]}>
+          <ul css={[iconWrapper, flex]}>
             <p css={text}>Share on</p>
             <li css={iconItem}>
               <a
