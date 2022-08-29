@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-import common from "@/styles/common";
+import { center } from "@/styles/common";
 import { bp, cWidth } from "@/styles/config";
 
 const containerStyle = css`
@@ -27,7 +27,7 @@ const containerStyle = css`
 
 const Container = ({ children, className }: { children: React.ReactNode; className?: string }) => {
   return (
-    <div css={[containerStyle, common.center]} className={className}>
+    <div css={[containerStyle, center]} className={className}>
       {children}
     </div>
   );
