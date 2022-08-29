@@ -85,16 +85,6 @@ const itemBadge = css`
   }
 `;
 
-const gray = css`
-  background-color: ${dg4Color.black};
-`;
-const orange = css`
-  background-color: ${dg4Color.orange};
-`;
-const blue = css`
-  background-color: ${dg4Color.blue};
-`;
-
 const btn = css`
   margin-top: 40px;
 `;
@@ -105,7 +95,7 @@ const Service: NextPage = () => {
       text: string;
       badge?: {
         text: string;
-        color: string;
+        color: "blue" | "orange" | "black";
       };
     }[];
   } = {
@@ -141,23 +131,79 @@ const Service: NextPage = () => {
         text: "納品",
         badge: {
           text: "製作費のお支払い",
-          color: "gray",
+          color: "black",
         },
       },
     ],
+    web: [
+      {
+        text: "お問い合わせ・ご相談",
+      },
+      {
+        text: "ヒアリング",
+        badge: {
+          text: "お打ち合わせ (1回目)",
+          color: "blue",
+        },
+      },
+      {
+        text: "構成案・お見積の提出",
+        badge: {
+          text: "お見積の提出まで無料！",
+          color: "orange",
+        },
+      },
+      {
+        text: "ご契約",
+      },
+      {
+        text: "デザイン案のご提出・ご確認",
+        badge: {
+          text: "お打ち合わせ (2回目)",
+          color: "blue",
+        },
+      },
+      {
+        text: "実装",
+      },
+
+      {
+        text: "検証・公開準備・ご確認",
+        badge: {
+          text: "お打ち合わせ (3回目)",
+          color: "blue",
+        },
+      },
+      {
+        text: "公開・納品",
+        badge: {
+          text: "製作費のお支払い",
+          color: "black",
+        },
+      },
+      {
+        text: "保守・更新",
+      },
+    ],
   };
-  const flowDesign = flowRaw.design.map((value) => {
-    return value.badge ? (
-      <div key={value.text} css={flowItem}>
-        <div css={itemText}>{value.text}</div>
-        <div css={[itemBadge, value.badge.color]}>{value.badge.text}</div>
-      </div>
-    ) : (
-      <div key={value.text} css={flowItem}>
-        <div css={itemText}>{value.text}</div>
-      </div>
-    );
-  });
+  const flowList = (opt: string) => {
+    return flowRaw[opt].map(({ text, badge }) => {
+      const nowColor = badge?.color as string;
+      const color = css`
+        background-color: ${dg4Color[nowColor]};
+      `;
+      return badge ? (
+        <div key={text} css={flowItem}>
+          <div css={itemText}>{text}</div>
+          <div css={[itemBadge, color]}>{badge.text}</div>
+        </div>
+      ) : (
+        <div key={text} css={flowItem}>
+          <div css={itemText}>{text}</div>
+        </div>
+      );
+    });
+  };
   return (
     <Layout
       title="Service"
@@ -169,44 +215,13 @@ const Service: NextPage = () => {
         <Container>
           <H2 en="Flow" ja="制作の流れ" />
           <div className="content" css={[flowContent, flex]}>
-            <div css={flowItems} className="items design">
+            <div css={flowItems}>
               <H3 en="Design" ja="デザイン" />
-              {flowDesign}
+              {flowList("design")}
             </div>
-            <div className="items web">
+            <div css={flowItems}>
               <H3 en="Web site" ja="ウェブサイト" />
-              <div css={flowItem}>
-                <div css={itemText}>お問い合わせ・ご相談</div>
-              </div>
-              <div css={flowItem}>
-                <div css={itemText}>ヒアリング</div>
-                <div css={[itemBadge, blue]}>お打ち合わせ (1回目)</div>
-              </div>
-              <div css={flowItem}>
-                <div css={itemText}>構成案・お見積の提出</div>
-                <div css={[itemBadge, orange]}>お見積の提出まで無料！</div>
-              </div>
-              <div className="item">
-                <div className="text">ご契約</div>
-              </div>
-              <div className="item">
-                <div className="text">デザイン案のご提出・ご確認</div>
-                <div className="badge indigo">お打ち合わせ (2回目)</div>
-              </div>
-              <div className="item">
-                <div className="text">実装</div>
-              </div>
-              <div className="item">
-                <div className="text">検証・公開準備・ご確認</div>
-                <div className="badge indigo">お打ち合わせ (3回目)</div>
-              </div>
-              <div className="item">
-                <div className="text">公開・納品</div>
-                <div className="badge gray">製作費のお支払い</div>
-              </div>
-              <div className="item">
-                <div className="text">保守・更新</div>
-              </div>
+              {flowList("web")}
             </div>
           </div>
           <Button text="See Contact" href="/contact" css={[btn, center]} />
