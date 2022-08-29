@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-import common from "@/styles/common";
+import { center } from "@/styles/common";
 import { bp, dg4Color } from "@/styles/config";
 
 const heading2 = css`
@@ -83,7 +83,7 @@ type Props = {
 
 const H2 = ({ en, ja }: Props) => {
   return (
-    <h2 css={[heading2, common.center]}>
+    <h2 css={[heading2, center]}>
       <span className="en">{en}</span>
       <span className="ja">{ja}</span>
     </h2>
