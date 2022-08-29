@@ -9,7 +9,7 @@ const About: NextPage = () => {
       title="About"
       description="dgdgdgdgがnextの練習用に作成するページ。参考記事はJSだが、TSの練習も兼ねて進める。[参考](https://www.webopixel.net/javascript/1714.html)"
     >
-      <H1 en="About" ja="dgdgdgdgとは" />
+      <H1 location="about" />
     </Layout>
   );
 };
