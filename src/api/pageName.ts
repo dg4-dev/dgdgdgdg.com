@@ -1,35 +1,44 @@
+import { UrlObject } from "url";
+
 type name = {
+  href: string | UrlObject;
   en: string;
   ja: string;
-  parent?: string;
+  child?: Boolean;
 };
 
 const pageName: {
   [key in string]: name;
 } = {
   about: {
+    href: "/about",
     en: "About",
     ja: "dgdgdgdgとは",
   },
   brand: {
+    href: "/about/brand",
     en: "Brand resource",
     ja: "ブランドリソース",
-    parent: "about",
+    child: true,
   },
   tool: {
+    href: "/about/tool",
     en: "Tool",
     ja: "ツール一覧",
-    parent: "about",
+    child: true,
   },
   works: {
+    href: "/works",
     en: "Works",
     ja: "dgdgdgdgの作品",
   },
   service: {
+    href: "/service",
     en: "Service",
     ja: "dgdgdgdgのプラン",
   },
   contact: {
+    href: "/contact",
     en: "Contact",
     ja: "dgdgdgdgに問い合わせる",
   },
