@@ -205,7 +205,7 @@ const Home: NextPage = () => {
               <Button href="/works" />
             </div>
             <div css={image}>
-              <Image src="/images/fv/tool.jpg" width="616" height="347" alt="" />
+              <Image src="/images/fv/works.jpg" width="616" height="347" alt="" />
             </div>
           </div>
         </Container>
@@ -219,7 +219,7 @@ const Home: NextPage = () => {
               <Button href="/service" />
             </div>
             <div css={image}>
-              <Image src="/images/fv/tool.jpg" width="616" height="347" alt="" />
+              <Image src="/images/fv/service.jpg" width="616" height="347" alt="" />
             </div>
           </div>
         </Container>
