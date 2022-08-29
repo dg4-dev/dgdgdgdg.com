@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
 
-import bp from "@/styles/config/breakpoint";
-import dg4Color from "@/styles/config/color";
+import { bp, dg4Color } from "@/styles/config";
 
 const style = css`
   // font
@@ -88,6 +87,18 @@ const style = css`
   ${bp.sp} {
     a {
       font-size: 16px;
+    }
+  }
+
+  section {
+    padding-top: 120px;
+
+    ${bp.tab} {
+      padding-top: 80px;
+    }
+
+    ${bp.sp} {
+      padding-top: 60px;
     }
   }
 `;

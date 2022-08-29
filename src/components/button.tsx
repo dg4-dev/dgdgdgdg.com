@@ -3,8 +3,7 @@ import { UrlObject } from "url";
 import { css } from "@emotion/react";
 import Link from "next/link";
 
-import bp from "@/styles/config/breakpoint";
-import dg4Color from "@/styles/config/color";
+import { bp, dg4Color } from "@/styles/config";
 
 const btn = css`
   display: block;
@@ -38,12 +37,15 @@ const btn = css`
 type Props = {
   href: string | UrlObject;
   text?: string;
+  className?: string;
 };
 
-const Button = ({ href, text = "See more" }: Props) => {
+const Button = ({ href, text = "See more", className }: Props) => {
   return (
     <Link href={href}>
-      <a css={btn}>{text}</a>
+      <a css={btn} className={className}>
+        {text}
+      </a>
     </Link>
   );
 };

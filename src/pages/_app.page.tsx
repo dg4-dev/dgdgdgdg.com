@@ -1,4 +1,4 @@
-import "@/styles/config/_reset.scss";
+import "@/styles/_reset.scss";
 import { Global } from "@emotion/react";
 
 import type { AppProps } from "next/app";

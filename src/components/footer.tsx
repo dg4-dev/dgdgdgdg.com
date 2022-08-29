@@ -5,8 +5,7 @@ import type { NextPage } from "next";
 
 import Container from "@/components/container";
 import common from "@/styles/common";
-import bp from "@/styles/config/breakpoint";
-import dg4Color from "@/styles/config/color";
+import { bp, dg4Color } from "@/styles/config";
 
 const footerStyle = css`
   background-color: ${dg4Color.black};
@@ -18,22 +17,22 @@ const footerStyle = css`
     padding-top: 20px;
     padding-bottom: 70px;
   }
+`;
 
-  .container {
-    display: flex;
-    max-width: 1024px;
-    width: 100%;
-    justify-content: space-between;
-    padding: 0 40px;
+const container = css`
+  display: flex;
+  max-width: 1024px;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 40px;
 
-    ${bp.tab} {
-      padding: 0 20px;
-      justify-content: flex-end;
-    }
+  ${bp.tab} {
+    padding: 0 20px;
+    justify-content: flex-end;
+  }
 
-    ${bp.sp} {
-      padding: 0 12px;
-    }
+  ${bp.sp} {
+    padding: 0 12px;
   }
 `;
 
@@ -140,7 +139,7 @@ const whiteText = css`
 const Footer: NextPage = () => {
   return (
     <footer css={footerStyle}>
-      <Container>
+      <Container css={container}>
         <ul css={[pageList, common.flex]}>
           <li css={common.flex}>
             <Link href="/about/">
