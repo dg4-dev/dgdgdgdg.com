@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import type { NextPage } from "next";
 
+import pageName from "@/api/pageName";
 import HeaderLink from "@/components/header/headerLink";
 import { click, flex } from "@/styles/common";
 import { bp, dg4Color } from "@/styles/config";
@@ -275,10 +276,34 @@ const linkWrapper = css`
 
 const Header: NextPage = () => {
   const [openMenu, setOpenMenu] = useState(false);
-  const menuFunction = () => {
-    setOpenMenu(!openMenu);
-  };
+  const menuFunction = () => setOpenMenu(!openMenu);
   let openState = openMenu ? "is-open" : "";
+
+  const linkContents = Object.entries(pageName).map((value) => {
+    const isIndent = value[1].child ? "indent" : "";
+    const linkContent = (
+      <li className={isIndent}>
+        <HeaderLink href={value[1].href} en={value[1].en} ja={value[1].ja} />
+      </li>
+    );
+    return linkContent;
+  });
+
+  const extLinkContents = (
+    <ul>
+      <li>
+        <HeaderLink
+          href="https://www.radio.dgdgdgdg.com/"
+          en="Enter the radio title"
+          ja="ラジオのタイトルを入力"
+          ext={true}
+        />
+      </li>
+      <li>
+        <HeaderLink href="https://www.apps.dgdgdgdg.com/" en="dg4 app archive" ja="dg4アプリアーカイブ" ext={true} />
+      </li>
+    </ul>
+  );
 
   return (
     <header css={[header, flex]}>
@@ -299,69 +324,14 @@ const Header: NextPage = () => {
 
       <div css={[inside, flex]} className={`inside ${openState}`}>
         <div css={[white, flex]} className={`white ${openState}`}>
-          <ul>
-            <li>
-              <HeaderLink
-                href="https://www.radio.dgdgdgdg.com/"
-                en="Enter the radio title"
-                ja="ラジオのタイトルを入力"
-                ext={true}
-              />
-            </li>
-            <li>
-              <HeaderLink
-                href="https://www.apps.dgdgdgdg.com/"
-                en="dg4 app archive"
-                ja="dg4アプリアーカイブ"
-                ext={true}
-              />
-            </li>
-          </ul>
+          {extLinkContents}
         </div>
         <div css={[cyan, flex]} className={`cyan ${openState}`}>
           <nav css={nav} className={`nav ${openState}`}>
-            <ul>
-              <li>
-                <HeaderLink href="/about" en="About" ja="dgdgdgdgとは" />
-                <ul>
-                  <li className="indent">
-                    <HeaderLink href="/about/brand" en="Brand resource" ja="ブランドリソース" />
-                  </li>
-                  <li className="indent">
-                    <HeaderLink href="/about/tool" en="Tool" ja="ツール一覧" />
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <HeaderLink href="/works" en="Works" ja="dgdgdgdgの作品" />
-              </li>
-              <li>
-                <HeaderLink href="/service" en="Service" ja="dgdgdgdgのプラン" />
-              </li>
-              <li>
-                <HeaderLink href="/contact" en="Contact" ja="dgdgdgdgに問い合わせる" />
-              </li>
-            </ul>
+            <ul>{linkContents}</ul>
           </nav>
           <div css={linkWrapper} className={`link-wrapper ${openState}`}>
-            <ul>
-              <li>
-                <HeaderLink
-                  href="https://www.radio.dgdgdgdg.com/"
-                  en="Enter the radio title"
-                  ja="ラジオのタイトルを入力"
-                  ext={true}
-                />
-              </li>
-              <li>
-                <HeaderLink
-                  href="https://www.apps.dgdgdgdg.com/"
-                  en="dg4 app archive"
-                  ja="dg4アプリアーカイブ"
-                  ext={true}
-                />
-              </li>
-            </ul>
+            {extLinkContents}
           </div>
         </div>
       </div>
