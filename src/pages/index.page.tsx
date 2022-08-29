@@ -14,7 +14,7 @@ import { bp, dg4Color } from "@/styles/config";
 const topFV = css`
   width: 100%;
   height: 100vh;
-  background-image: url("/images/fv.png");
+  background-image: url("/images/fv/top.png");
   background-size: cover;
   background-position: center;
 
@@ -100,7 +100,7 @@ const Home: NextPage = () => {
               <Button href="/about" />
             </div>
             <div css={image}>
-              <Image src="/images/about-fv.png" width="616" height="347" alt="" />
+              <Image src="/images/fv/about.jpg" width="616" height="347" alt="" />
             </div>
           </div>
           <div className="content" css={[content, aboutContent]}>
@@ -116,7 +116,7 @@ const Home: NextPage = () => {
                 <Button href="/about/brand" />
               </div>
               <div css={image}>
-                <Image src="/images/about-fv.png" width="616" height="347" alt="" />
+                <Image src="/images/fv/brand.jpg" width="616" height="347" alt="" />
               </div>
             </div>
           </div>
@@ -133,7 +133,7 @@ const Home: NextPage = () => {
                 <Button href="/about/tool" />
               </div>
               <div css={image}>
-                <Image src="/images/about-fv.png" width="616" height="347" alt="" />
+                <Image src="/images/fv/tool.jpg" width="616" height="347" alt="" />
               </div>
             </div>
           </div>
