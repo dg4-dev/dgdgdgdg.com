@@ -327,10 +327,7 @@ const Service: NextPage = () => {
   };
 
   return (
-    <Layout
-      title="Service"
-      description="dgdgdgdgがnextの練習用に作成するページ。参考記事はJSだが、TSの練習も兼ねて進める。[参考](https://www.webopixel.net/javascript/1714.html)"
-    >
+    <Layout title="Service | dgdgdgdg" description="Webサイトやデザインの制作の流れ、承っているプランをご紹介します。">
       <H1 />
 
       <section id="flow">
