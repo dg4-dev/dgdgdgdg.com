@@ -1,4 +1,6 @@
+/* eslint-disable react/jsx-no-undef */
 import { css } from "@emotion/react";
+import Image from "next/image";
 import { useRouter } from "next/router";
 
 import pageName from "@/api/pageName";
@@ -59,6 +61,11 @@ const heading1 = css`
   }
 `;
 
+const bg = css`
+  object-fit: cover;
+  filter: brightness(60%);
+`;
+
 const H1 = () => {
   const location = useRouter();
   const nowPageName = pageName.find(({ href }) => location.pathname === href);
@@ -68,23 +75,13 @@ const H1 = () => {
   const imagePath = `/images/fv/${formattedPageName}.jpg`;
   const ja = nowPageName?.ja;
 
-  const bg = css`
-    background-image: url(${imagePath});
-    width: 100%;
-    height: 100%;
-
-    background-size: cover;
-    background-position: center center;
-    filter: brightness(60%);
-  `;
-
   return (
     <section css={pageTitle}>
       <h1 css={heading1}>
         <div className="en">{en}</div>
         <div className="ja">{ja}</div>
       </h1>
-      <div css={bg}></div>
+      <Image css={bg} src={imagePath} layout="fill" alt="" />
     </section>
   );
 };
