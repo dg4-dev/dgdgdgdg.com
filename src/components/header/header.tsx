@@ -277,12 +277,13 @@ const linkWrapper = css`
 const Header: NextPage = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const menuFunction = () => setOpenMenu(!openMenu);
+  const menuReset = () => setOpenMenu(false);
   let openState = openMenu ? "is-open" : "";
 
   const linkContents = pageName.map(({ child, href, en, ja }) => {
     const isIndent = child ? "indent" : "";
     const linkContent = (
-      <li className={isIndent} key={en}>
+      <li className={isIndent} key={en} onClick={() => menuReset()}>
         <HeaderLink href={href} en={en} ja={ja} />
       </li>
     );
@@ -309,7 +310,7 @@ const Header: NextPage = () => {
     <header css={[header, flex]}>
       <div css={[outside, flex]}>
         <Link href="/">
-          <a css={logo}>
+          <a css={logo} onClick={() => menuReset()}>
             <object data="/images/logo.svg" type="image/svg+xml" />
           </a>
         </Link>
