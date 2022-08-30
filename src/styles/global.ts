@@ -33,6 +33,7 @@ const style = css`
 
   body {
     font-family: "Zen Kaku Gothic New", sans-serif;
+    line-height: 1;
     color: ${dg4Color.black};
   }
 
