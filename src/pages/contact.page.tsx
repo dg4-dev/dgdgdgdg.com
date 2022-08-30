@@ -69,10 +69,7 @@ const Contact: NextPage = () => {
   const linkList = <ul css={[linkItem, center, flex]}>{linkItems}</ul>;
 
   return (
-    <Layout
-      title="Contact"
-      description="dgdgdgdgがnextの練習用に作成するページ。参考記事はJSだが、TSの練習も兼ねて進める。[参考](https://www.webopixel.net/javascript/1714.html)"
-    >
+    <Layout title="Contact | dgdgdgdg" description="dgdgdgdgへのお問い合わせはこちら。">
       <H1 />
 
       <section id="message">

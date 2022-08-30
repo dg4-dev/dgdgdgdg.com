@@ -5,10 +5,7 @@ import Layout from "@/components/layout";
 
 const Brand: NextPage = () => {
   return (
-    <Layout
-      title="Brand"
-      description="dgdgdgdgがnextの練習用に作成するページ。参考記事はJSだが、TSの練習も兼ねて進める。[参考](https://www.webopixel.net/javascript/1714.html)"
-    >
+    <Layout title="Brand | dgdgdgdg" description="サイトのカラーやロゴについて詳しく説明します。ロゴデータの配布も。">
       <H1 />
     </Layout>
   );

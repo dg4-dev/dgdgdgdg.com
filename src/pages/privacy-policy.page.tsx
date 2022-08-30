@@ -40,10 +40,7 @@ const link = css`
 
 const Privacy: NextPage = () => {
   return (
-    <Layout
-      title="Privacy"
-      description="dgdgdgdgがnextの練習用に作成するページ。参考記事はJSだが、TSの練習も兼ねて進める。[参考](https://www.webopixel.net/javascript/1714.html)"
-    >
+    <Layout title="Privacy Policy | dgdgdgdg" noindex={true}>
       <section id="privacy">
         <Container>
           <H2 en="Privacy Policy" ja="プライバシーポリシー" />

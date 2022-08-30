@@ -5,10 +5,7 @@ import Layout from "@/components/layout";
 
 const About: NextPage = () => {
   return (
-    <Layout
-      title="About"
-      description="dgdgdgdgがnextの練習用に作成するページ。参考記事はJSだが、TSの練習も兼ねて進める。[参考](https://www.webopixel.net/javascript/1714.html)"
-    >
+    <Layout title="About | dgdgdgdg" description="dgdgdgdgについての概要、スキル、使用ツールについての説明です。">
       <H1 />
     </Layout>
   );

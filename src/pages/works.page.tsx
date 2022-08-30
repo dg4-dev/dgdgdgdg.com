@@ -6,8 +6,8 @@ import Layout from "@/components/layout";
 const Works: NextPage = () => {
   return (
     <Layout
-      title="Works"
-      description="dgdgdgdgがnextの練習用に作成するページ。参考記事はJSだが、TSの練習も兼ねて進める。[参考](https://www.webopixel.net/javascript/1714.html)"
+      title="Works | dgdgdgdg"
+      description="フォント、ロゴ、写真、動画、Webサイトと、制作実績の中からピックアップしてご紹介します。"
     >
       <H1 />
     </Layout>
