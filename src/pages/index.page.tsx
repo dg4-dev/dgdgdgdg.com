@@ -14,11 +14,6 @@ import { bp, dg4Color } from "@/styles/config";
 const topFV = css`
   width: 100%;
   height: 100vh;
-  background-image: url("/images/fv/top.png");
-  background-size: cover;
-  background-position: center;
-
-  position: relative;
 `;
 
 const scroll = css`
@@ -29,6 +24,11 @@ const scroll = css`
   font-family: "Dont", sans-serif;
   font-size: 24px;
   color: ${dg4Color.cyan};
+`;
+
+const fvImage = css`
+  object-fit: cover;
+  z-index: -1;
 `;
 
 const content = css`
@@ -150,6 +150,7 @@ const Home: NextPage = () => {
     >
       <section css={[topFV, flex]}>
         <div css={scroll}>Scroll Down</div>
+        <Image css={fvImage} src="/images/fv/top.png" layout="fill" alt="" />
       </section>
       <section>
         <Container>
