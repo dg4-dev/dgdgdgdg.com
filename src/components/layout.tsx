@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import Footer from "@/components/footer";
 import Header from "@/components/header/header";
+import Loading from "@/components/loading";
 
 type Props =
   | {
@@ -50,11 +51,13 @@ const Layout = ({ children, title, description, noindex = false }: Props) => {
         )}
       </Head>
 
-      <Header></Header>
+      <Loading />
+
+      <Header />
 
       <main>{children}</main>
 
-      <Footer></Footer>
+      <Footer />
     </>
   );
 };
