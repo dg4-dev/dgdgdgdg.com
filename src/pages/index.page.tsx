@@ -150,7 +150,7 @@ const Home: NextPage = () => {
     >
       <section css={[topFV, flex]}>
         <div css={scroll}>Scroll Down</div>
-        <Image css={fvImage} src="/images/fv/top.png" layout="fill" alt="" />
+        <Image css={fvImage} priority={true} src="/images/fv/top.png" layout="fill" alt="" />
       </section>
       <section>
         <Container>
