@@ -78,11 +78,12 @@ const heading2 = css`
 type Props = {
   en: string;
   ja: string;
+  className?: string;
 };
 
-const H2 = ({ en, ja }: Props) => {
+const H2 = ({ en, ja, className }: Props) => {
   return (
-    <h2 css={[heading2, center]}>
+    <h2 css={[heading2, center]} className={className}>
       <div className="en">{en}</div>
       <div className="ja">{ja}</div>
     </h2>

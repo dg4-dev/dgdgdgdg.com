@@ -14,16 +14,18 @@ const toolList = data.map(({ contentName: { en, ja }, items }) => {
     flex-wrap: wrap;
   `;
 
+  const heading2 = css`
+    .en {
+      ${bp.tab} {
+        font-size: 40px;
+      }
+      ${bp.sp} {
+        font-size: 24px;
+      }
+    }
+  `;
+
   const itemContent = items.map(({ name, maker, about, gen, variety, owning }) => {
-    const fmtMaker = maker.toLowerCase().replace(/[."+() -]/g, "");
-    const fmtName = name.toLowerCase().replace(/[."+() -]/g, "");
-    const fmtVariety = variety ? variety.toLowerCase().replace(/[."+() -]/g, "") : undefined;
-    const imgName = fmtVariety
-      ? `/images/tool/${fmtMaker}-${fmtName}-${fmtVariety}.png`
-      : `/images/tool/${fmtMaker}-${fmtName}.png`;
-
-    const nameNOwn = variety ? `${name} (${variety})` : name;
-
     const toolItem = css`
       width: calc(100% / 6);
       ${bp.tab} {
@@ -33,7 +35,7 @@ const toolList = data.map(({ contentName: { en, ja }, items }) => {
 
     return (
       <div key={`${name}${variety}`} css={toolItem}>
-        <ToolModal imgName={imgName} nameNOwn={nameNOwn} maker={maker} gen={gen} about={about} />
+        <ToolModal name={name} maker={maker} about={about} gen={gen} variety={variety} owning={owning} />
       </div>
     );
   });
@@ -41,7 +43,7 @@ const toolList = data.map(({ contentName: { en, ja }, items }) => {
   return (
     <section key={en} className="tool-category">
       <Container>
-        <H2 en={en} ja={ja} />
+        <H2 css={heading2} en={en} ja={ja} />
       </Container>
 
       <div css={[toolListSt, center, flex]}>{itemContent}</div>
