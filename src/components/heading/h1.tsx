@@ -81,7 +81,7 @@ const H1 = () => {
         <div className="en">{en}</div>
         <div className="ja">{ja}</div>
       </h1>
-      <Image css={bg} src={imagePath} layout="fill" alt="" />
+      <Image css={bg} src={imagePath} priority={true} layout="fill" alt="" />
     </section>
   );
 };
