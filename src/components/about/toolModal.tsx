@@ -103,15 +103,25 @@ const desc = css`
 `;
 
 type Props = {
-  imgName: string;
-  nameNOwn: string;
+  name: string;
   maker: string;
-  gen: Number | string;
   about: string;
+  gen: Number | string;
+  variety?: string;
+  owning?: Number;
 };
 
-const ToolModal = ({ imgName, nameNOwn, maker, gen, about }: Props) => {
+const ToolModal = ({ name, maker, about, gen, variety, owning }: Props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
+
+  const fmtMaker = maker.toLowerCase().replace(/[."+() -]/g, "");
+  const fmtName = name.toLowerCase().replace(/[."+() -]/g, "");
+  const fmtVariety = variety ? variety.toLowerCase().replace(/[."+() -]/g, "") : undefined;
+  const imgName = fmtVariety
+    ? `/images/tool/${fmtMaker}-${fmtName}-${fmtVariety}.png`
+    : `/images/tool/${fmtMaker}-${fmtName}.png`;
+
+  const nameNOwn = variety ? `${name} - ${variety}` : name;
 
   let isOpen = modalIsOpen
     ? css`
