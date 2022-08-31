@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 
 import toolList from "@/components/about/toolList";
-import H1 from "@/components/heading/h1";
+import { H1 } from "@/components/heading/headingPortal";
 import Layout from "@/components/layout";
 
 const Tool: NextPage = () => {

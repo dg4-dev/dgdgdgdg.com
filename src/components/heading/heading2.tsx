@@ -81,7 +81,7 @@ type Props = {
   className?: string;
 };
 
-const H2 = ({ en, ja, className }: Props) => {
+const Heading2 = ({ en, ja, className }: Props) => {
   return (
     <h2 css={[heading2, center]} className={className}>
       <div className="en">{en}</div>
@@ -90,4 +90,4 @@ const H2 = ({ en, ja, className }: Props) => {
   );
 };
 
-export default H2;
+export default Heading2;

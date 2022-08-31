@@ -5,8 +5,7 @@ import type { NextPage } from "next";
 
 import Button from "@/components/button";
 import Container from "@/components/container";
-import H1 from "@/components/heading/h1";
-import H2 from "@/components/heading/h2";
+import { H1, H2 } from "@/components/heading/headingPortal";
 import Layout from "@/components/layout";
 import { center, flex } from "@/styles/common";
 import { bp } from "@/styles/config";

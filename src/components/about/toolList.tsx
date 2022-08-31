@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 
 import Container from "../container";
-import H2 from "../heading/h2";
+import { H2 } from "../heading/headingPortal";
 
 import ToolModal from "./toolModal";
 
