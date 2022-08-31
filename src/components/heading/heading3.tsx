@@ -44,7 +44,7 @@ type Props = {
   className?: string;
 };
 
-const H3 = ({ en, ja, className }: Props) => {
+const Heading3 = ({ en, ja, className }: Props) => {
   return (
     <h3 css={heading3} className={className}>
       <div className="en">{en}</div>
@@ -53,4 +53,4 @@ const H3 = ({ en, ja, className }: Props) => {
   );
 };
 
-export default H3;
+export default Heading3;

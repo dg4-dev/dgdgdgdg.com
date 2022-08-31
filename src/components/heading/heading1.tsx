@@ -66,7 +66,7 @@ const bg = css`
   filter: brightness(60%);
 `;
 
-const H1 = () => {
+const Heading1 = () => {
   const location = useRouter();
   const nowPageName = pageName.find(({ href }) => location.pathname === href);
 
@@ -86,4 +86,4 @@ const H1 = () => {
   );
 };
 
-export default H1;
+export default Heading1;
