@@ -151,9 +151,7 @@ const About: NextPage = () => {
         </Container>
         <Container css={meaningContainer}>
           <div className="content" css={[flex]}>
-            <ul css={[meaningItem, flex]}>{meaningItemElm}</ul>
-            <ul css={[meaningItem, flex]}>{meaningItemElm}</ul>
-            <ul css={[meaningItem, flex]}>{meaningItemElm}</ul>
+            <ul css={[meaningItem, flex]}>{[meaningItemElm, meaningItemElm, meaningItemElm]}</ul>
           </div>
         </Container>
       </section>
