@@ -10,12 +10,6 @@ const headerLinkStyle = css`
   width: 100%;
   height: fit-content;
   padding: 10px 20px;
-  transition: all 0.2s;
-
-  :hover {
-    opacity: 0.5;
-    transition: all 0.2s;
-  }
 `;
 
 const linkEN = css`
@@ -49,12 +43,17 @@ const externalLinkStyle = css`
   border: 3px solid ${dg4Color.cyan};
 
   position: relative;
+  transition: all 0.3s;
 
   ${bp.sp} {
     width: 290px;
     height: 70px;
 
     padding: 10px 20px;
+  }
+
+  :hover {
+    opacity: 1;
   }
 
   ::before {
@@ -72,7 +71,6 @@ const externalLinkStyle = css`
 
   :hover::before {
     width: 100%;
-    transition: all 0.3s;
   }
 
   :hover .en {

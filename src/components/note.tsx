@@ -13,14 +13,10 @@ const para = css`
   margin-bottom: 32px;
 
   a {
+    display: inline;
     word-break: break-all;
-    font-size: 16px;
     color: ${dg4Color.cyan};
     text-decoration: underline;
-    transition: all 0.3s;
-  }
-  a:hover {
-    opacity: 0.5;
   }
 
   span {

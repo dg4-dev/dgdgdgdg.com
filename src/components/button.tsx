@@ -7,6 +7,7 @@ const btn = css`
   display: block;
 
   transition: all 0.2s;
+  font-size: 24px;
   font-weight: bold;
   background-color: #fff;
 
@@ -23,12 +24,13 @@ const btn = css`
   ${bp.sp} {
     height: 40px;
     line-height: 40px;
+    font-size: 16px;
   }
 
   :hover {
     box-shadow: 0px 0px 0px 0px ${dg4Color.black};
     transform: translate(0px, 0px);
-    transition: all 0.2s;
+    opacity: 1;
   }
 `;
 

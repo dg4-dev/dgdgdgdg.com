@@ -30,20 +30,10 @@ const linkItem = css`
 
 const itemContent = css`
   width: calc((100% / 8) - 8px);
-  transition: all 0.3s;
 
   ${bp.sp} {
     width: calc(25% - 16px);
     margin: 8px;
-  }
-
-  :hover {
-    opacity: 0.5;
-    transition: all 0.3s;
-  }
-
-  a {
-    display: block;
   }
 `;
 

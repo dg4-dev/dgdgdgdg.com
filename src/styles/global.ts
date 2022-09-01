@@ -76,8 +76,14 @@ const style = css`
   }
 
   a {
+    display: block;
     text-decoration: none;
     color: ${dg4Color.black};
+    transition: all 0.3s;
+  }
+
+  a:hover {
+    opacity: 0.5;
   }
 
   a,
@@ -87,12 +93,6 @@ const style = css`
         url("/images/cursor/cursor-pointer@2x.png") 2x
       ),
       pointer;
-  }
-
-  ${bp.sp} {
-    a {
-      font-size: 16px;
-    }
   }
 
   section {
