@@ -6,6 +6,7 @@ import type { NextPage } from "next";
 import Age from "@/api/nowAge";
 import meaningItemElm from "@/components/about/meaningItem";
 import skillGraph from "@/components/about/skillGraph";
+import ToolSlide from "@/components/about/toolSlide";
 import Button from "@/components/button";
 import Container from "@/components/container";
 import { H1, H2, H3 } from "@/components/heading/headingPortal";
@@ -77,7 +78,7 @@ const meaningContainer = css`
 `;
 
 const meaningItem = css`
-  animation: loopSlide 15s infinite linear both;
+  animation: loopSlide 25s infinite linear both;
 
   @keyframes loopSlide {
     from {
@@ -91,6 +92,48 @@ const meaningItem = css`
 
 const skillContent = css`
   width: fit-content;
+`;
+
+const toolSlide = css`
+  width: 100%;
+`;
+
+const toolList = css`
+  width: fit-content;
+
+  animation: loopSlide 60s infinite linear both;
+  @keyframes loopSlide {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(${-250 * ToolSlide.length}px);
+    }
+  }
+
+  ${bp.tab} {
+    animation: loopSlide 60s infinite linear both;
+    @keyframes loopSlide {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(${-20 * ToolSlide.length}vw);
+      }
+    }
+  }
+
+  ${bp.sp} {
+    animation: loopSlide 60s infinite linear both;
+    @keyframes loopSlide {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(${(-100 / 3) * ToolSlide.length}vw);
+      }
+    }
+  }
 `;
 
 const About: NextPage = () => {
@@ -170,11 +213,8 @@ const About: NextPage = () => {
         <Container>
           <H2 en="Tool" ja="ツール" />
         </Container>
-        <Container>
-          <div css={flex}>
-            {/* TODO: */}
-            {/* {toolList} */}
-          </div>
+        <Container css={toolSlide}>
+          <div css={[toolList, flex]}>{[ToolSlide, ToolSlide]}</div>
           <Button css={[btn, center]} href="/about/tool" />
         </Container>
       </section>
