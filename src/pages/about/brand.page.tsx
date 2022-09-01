@@ -181,6 +181,7 @@ const DataItem = ({ name }: { name: string }) => {
     right: 10px;
 
     a {
+      display: inline;
       word-break: break-all;
       font-size: 20px;
       font-weight: bold;
