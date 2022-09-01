@@ -26,15 +26,8 @@ const item = css`
 
 const link = css`
   word-break: break-all;
-  font-size: 16px;
   color: ${dg4Color.cyan};
   text-decoration: underline;
-  transition: all 0.3s;
-
-  :hover {
-    opacity: 0.5;
-    transition: all 0.3s;
-  }
 `;
 
 const Privacy: NextPage = () => {

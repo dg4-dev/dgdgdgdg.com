@@ -53,7 +53,6 @@ const burger = css`
 
   :hover .line-item1 {
     top: 6px;
-    transition: all 0.2s;
 
     ${bp.sp} {
       top: 4px;
@@ -62,12 +61,10 @@ const burger = css`
   :hover .line-item2 {
     visibility: hidden;
     opacity: 0;
-    transition: all 0.2s;
   }
 
   :hover .line-item3 {
     top: 18px;
-    transition: all 0.2s;
     ${bp.sp} {
       top: 12px;
     }
@@ -92,16 +89,15 @@ const line = css`
     position: absolute;
 
     background-color: #fff;
+    transition: all 0.2s;
   }
 
   .line-item1 {
     top: 0;
-    transition: all 0.2s;
   }
 
   .line-item1.is-open {
     top: 12px;
-    transition: all 0.2s;
 
     ${bp.sp} {
       top: 8px;
@@ -112,7 +108,6 @@ const line = css`
     visibility: visible;
     opacity: 1;
     top: 12px;
-    transition: all 0.2s;
 
     ${bp.sp} {
       top: 8px;
@@ -122,12 +117,10 @@ const line = css`
   .line-item2.is-open {
     visibility: hidden;
     opacity: 0;
-    transition: all 0.2s;
   }
 
   .line-item3 {
     top: 24px;
-    transition: all 0.2s;
     ${bp.sp} {
       top: 16px;
     }
@@ -135,7 +128,6 @@ const line = css`
 
   .line-item3.is-open {
     top: 12px;
-    transition: all 0.2s;
 
     ${bp.sp} {
       top: 8px;
@@ -152,13 +144,11 @@ const inside = css`
 
   .white.is-open {
     left: 0;
-    transition: all 0.2s;
   }
 
   .cyan.is-open {
     width: 40%;
     height: 100vh;
-    transition: all 0.2s;
 
     ${bp.tab} {
       width: 100%;
@@ -219,7 +209,6 @@ const cyan = css`
   .nav.is-open {
     visibility: visible;
     opacity: 1;
-    transition: all 0.2s;
   }
 
   .link-wrapper.is-open {
@@ -231,7 +220,6 @@ const cyan = css`
 const nav = css`
   visibility: hidden;
   opacity: 0;
-  transition: all 0.2s;
 
   ${bp.tab} {
     width: 354px;

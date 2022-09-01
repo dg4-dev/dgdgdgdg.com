@@ -47,22 +47,14 @@ const pageList = css`
     flex-direction: column;
   }
   li a {
-    display: block;
-    font-size: 16px;
     font-weight: bold;
     color: #fff;
 
     padding: 10px 0;
-    transition: all 0.3s;
   }
 
   li a.child-page::before {
     content: "└ ";
-  }
-
-  li a:hover {
-    opacity: 0.5;
-    transition: all 0.3s;
   }
 
   li a.page-link {
@@ -70,12 +62,10 @@ const pageList = css`
     font-size: 24px;
     font-weight: normal;
     opacity: 0.6;
-    transition: all 0.3s;
   }
 
   li a.page-link:hover {
     opacity: 0.1;
-    transition: all 0.3s;
   }
 `;
 
@@ -101,16 +91,9 @@ const text = css`
 
 const iconItem = css`
   a {
-    display: block;
     width: 40px;
     height: 40px;
     padding: 8px;
-    transition: all 0.3s;
-  }
-
-  a:hover {
-    opacity: 0.5;
-    transition: all 0.3s;
   }
 
   a object {
@@ -123,12 +106,6 @@ const linkPrivacy = css`
   text-decoration: underline;
   display: block;
   margin-bottom: 12px;
-  transition: all 0.3s;
-
-  :hover {
-    opacity: 0.5;
-    transition: all 0.3s;
-  }
 `;
 
 const whiteText = css`
