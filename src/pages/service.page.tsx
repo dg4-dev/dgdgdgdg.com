@@ -6,6 +6,7 @@ import Button from "@/components/button";
 import Container from "@/components/container";
 import { H1, H2, H3 } from "@/components/heading/headingPortal";
 import Layout from "@/components/layout";
+import Note from "@/components/note";
 import { center, flex } from "@/styles/common";
 import { bp, dg4Color } from "@/styles/config";
 
@@ -85,11 +86,6 @@ const itemBadge = css`
 
 const btn = css`
   margin-top: 32px;
-`;
-
-const note = css`
-  text-align: center;
-  margin-bottom: 32px;
 `;
 
 const planItems = css`
@@ -348,7 +344,7 @@ const Service: NextPage = () => {
       <section id="plan">
         <Container>
           <H2 en="Plan" ja="プラン" />
-          <p css={note}>表示料金は基本料です。お打ち合わせ後に正式見積りとなります。</p>
+          <Note>表示料金は基本料です。お打ち合わせ後に正式見積りとなります。</Note>
           <div className="content setplan">
             <H3 en="Set plan" ja="セットプラン" />
             <div css={[planItems, flex]}>{planList("set")}</div>
