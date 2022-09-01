@@ -78,7 +78,6 @@ const style = css`
   a {
     text-decoration: none;
     color: ${dg4Color.black};
-    font-size: 24px;
   }
 
   a,
