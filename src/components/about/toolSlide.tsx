@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { css } from "@emotion/react";
 
-import { data } from "@/api/tool/data";
+import { data } from "@/pages/api/tool/data";
 import { bp } from "@/styles/config";
 
 const shuffle = ([...array]) => {
