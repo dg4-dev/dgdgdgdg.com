@@ -150,7 +150,12 @@ const Works: NextPage = () => {
               link={true}
               href="https://www.apps.dgdgdgdg.com/"
             />
-            <Item title="モノクローム" imgHref="/images/works/aiue.webp" link={true} href="https://aiueokuizumo.com/" />
+            <Item
+              title="あいうえ奥出雲"
+              imgHref="/images/works/aiue.webp"
+              link={true}
+              href="https://aiueokuizumo.com/"
+            />
           </div>
         </Container>
       </section>
