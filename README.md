@@ -1,6 +1,6 @@
 # dgdgdgdg's Website
 
-## dgdgdgdg の Web サイトです
+dgdgdgdg の Web サイトです。
 
 ![ogp](https://dgdgdgdg.com/images/ogp.webp)
 
