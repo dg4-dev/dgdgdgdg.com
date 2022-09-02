@@ -5,7 +5,7 @@ import { H2 } from "../heading/headingPortal";
 
 import ToolModal from "./toolModal";
 
-import { data } from "@/api/tool/data";
+import { data } from "@/pages/api/tool/data";
 import { center, flex } from "@/styles/common";
 import { bp } from "@/styles/config";
 

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import type { NextPage } from "next";
 
-import Age from "@/api/nowAge";
+import Age from "@/pages/api/nowAge";
 import meaningItemElm from "@/components/about/meaningItem";
 import skillGraph from "@/components/about/skillGraph";
 import ToolSlide from "@/components/about/toolSlide";
