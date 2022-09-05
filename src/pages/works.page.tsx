@@ -8,6 +8,7 @@ import Container from "@/components/container";
 import { H1, H2, H3 } from "@/components/heading/headingPortal";
 import Layout from "@/components/layout";
 import Item from "@/components/works/item";
+import YoutubeItemList from "@/components/works/youtubeItemList";
 import { center, flex } from "@/styles/common";
 import { bp, dg4Color } from "@/styles/config";
 
@@ -135,6 +136,7 @@ const Works: NextPage = () => {
       <section id="video">
         <Container css={contain}>
           <H2 en="Video" ja="動画" />
+          <YoutubeItemList />
           <Button ext={true} href="https://youtube.dgdgdgdg.com/" text="YouTube" css={center} />
         </Container>
       </section>
