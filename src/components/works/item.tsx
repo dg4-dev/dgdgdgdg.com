@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 import { css } from "@emotion/react";
-import Image from "next/image";
 
 import { bp } from "@/styles/config";
 
@@ -9,15 +9,24 @@ type itemProps =
       imgHref: string;
       link?: false;
       href?: undefined;
+      className?: string;
     }
   | {
       title: string;
       imgHref: string;
       link: true;
       href: string;
+      className?: string;
+    }
+  | {
+      title: undefined;
+      imgHref: string;
+      link: true;
+      href: undefined;
+      className?: string;
     };
 
-const Item = ({ title, imgHref, link = false, href }: itemProps) => {
+const Item = ({ title, imgHref, link = false, href, className = undefined }: itemProps) => {
   const item = css`
     width: calc((100% / 4) - 16px);
     padding-bottom: 24px;
@@ -49,16 +58,14 @@ const Item = ({ title, imgHref, link = false, href }: itemProps) => {
   `;
 
   const isSvg = imgHref.includes("svg");
-  const img = isSvg ? (
-    <object data={imgHref} type="image/svg+xml" />
-  ) : (
-    <Image src={imgHref} width={496} height={339} alt="" />
-  );
+  const img = isSvg ? <object data={imgHref} type="image/svg+xml" /> : <img src={imgHref} alt="" />;
 
   return link ? (
-    <div css={item}>
+    <div css={item} className={className}>
       <a href={href} target="_blank" rel="noopener noreferrer">
-        <div css={image}>{img}</div>
+        <div className="image" css={image}>
+          {img}
+        </div>
         <h4 css={heading4}>{title}</h4>
       </a>
     </div>
