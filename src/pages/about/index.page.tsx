@@ -3,7 +3,6 @@ import Image from "next/image";
 
 import type { NextPage } from "next";
 
-import Age from "@/pages/api/nowAge";
 import meaningItemElm from "@/components/about/meaningItem";
 import skillGraph from "@/components/about/skillGraph";
 import ToolSlide from "@/components/about/toolSlide";
@@ -11,6 +10,7 @@ import Button from "@/components/button";
 import Container from "@/components/container";
 import { H1, H2, H3 } from "@/components/heading/headingPortal";
 import Layout from "@/components/layout";
+import Age from "@/pages/api/nowAge";
 import { center, flex } from "@/styles/common";
 import { bp } from "@/styles/config";
 

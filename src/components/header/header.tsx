@@ -4,8 +4,8 @@ import { useState } from "react";
 
 import type { NextPage } from "next";
 
-import pageName from "@/pages/api/pageName";
 import HeaderLink from "@/components/header/headerLink";
+import pageName from "@/pages/api/pageName";
 import { click, flex } from "@/styles/common";
 import { bp, dg4Color } from "@/styles/config";
 

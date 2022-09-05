@@ -188,7 +188,7 @@ const DataItem = ({ name }: { name: string }) => {
       color: ${dg4Color.cyan};
       text-decoration: underline;
     }
-    a:not(:first-child) {
+    a:not(:first-of-type) {
       margin-left: 8px;
     }
   `;
