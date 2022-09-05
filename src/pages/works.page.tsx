@@ -7,7 +7,10 @@ import Button from "@/components/button";
 import Container from "@/components/container";
 import { H1, H2, H3 } from "@/components/heading/headingPortal";
 import Layout from "@/components/layout";
+// import InstaItemList from "@/components/works/InstaItemList";
+import InstaItemList from "@/components/works/InstaItemList";
 import Item from "@/components/works/item";
+// import YoutubeItemList from "@/components/works/youtubeItemList";
 import YoutubeItemList from "@/components/works/youtubeItemList";
 import { center, flex } from "@/styles/common";
 import { bp, dg4Color } from "@/styles/config";
@@ -32,6 +35,10 @@ const fontContainer = css`
 const fontDesc = css`
   max-width: 500px;
   margin-bottom: 30px;
+`;
+
+const btn = css`
+  margin-top: 40px;
 `;
 
 const FontContent = ({ name }: { name?: string }) => {
@@ -129,7 +136,8 @@ const Works: NextPage = () => {
       <section id="photo">
         <Container css={contain}>
           <H2 en="Photo" ja="写真" />
-          <Button ext={true} href="https://instagram.dgdgdgdg.com/" text="Instagram" css={center} />
+          <InstaItemList />
+          <Button ext={true} href="https://instagram.dgdgdgdg.com/" text="Instagram" css={[btn, center]} />
         </Container>
       </section>
 
@@ -137,7 +145,7 @@ const Works: NextPage = () => {
         <Container css={contain}>
           <H2 en="Video" ja="動画" />
           <YoutubeItemList />
-          <Button ext={true} href="https://youtube.dgdgdgdg.com/" text="YouTube" css={center} />
+          <Button ext={true} href="https://youtube.dgdgdgdg.com/" text="YouTube" css={[btn, center]} />
         </Container>
       </section>
 
