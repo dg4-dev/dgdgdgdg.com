@@ -93,28 +93,28 @@ const YoutubeItemList = () => {
   const dataRaw = reactData as unknown;
   const data = dataRaw as Props;
 
-  const youtubeItems =
-    data.items &&
-    data.items.map(
-      ({
-        snippet: {
-          resourceId: { videoId },
-          thumbnails,
-          title,
-        },
-      }) => {
-        return (
-          <Item
-            key={videoId}
-            title={title}
-            imgHref={thumbnails.high.url}
-            href={`https://youtu.be/${videoId}`}
-            link={true}
-            css={item}
-          />
-        );
-      }
-    );
+  const youtubeItems = data.items
+    ? data.items.map(
+        ({
+          snippet: {
+            resourceId: { videoId },
+            thumbnails,
+            title,
+          },
+        }) => {
+          return (
+            <Item
+              key={videoId}
+              title={title}
+              imgHref={thumbnails.high.url}
+              href={`https://youtu.be/${videoId}`}
+              link={true}
+              css={item}
+            />
+          );
+        }
+      )
+    : "Loading ...";
 
   return <div css={[itemList, flex]}>{youtubeItems}</div>;
 };
