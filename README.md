@@ -2,13 +2,24 @@
 
 dgdgdgdg の Web サイトです。
 
-![ogp](https://dgdgdgdg.com/assets/image/ogp.webp)
+![ogp](https://dgdgdgdg.com/images/ogp.webp)
 
-![lang](https://img.shields.io/badge/-lang-333.svg?style=for-the-badge)
-![html](https://img.shields.io/badge/-html-000.svg?logo=html5&style=for-the-badge)
+![technology](https://img.shields.io/badge/-technology-333.svg?style=for-the-badge)
+
+![Next](https://img.shields.io/badge/-Next.js-000.svg?logo=Next.js&style=for-the-badge)
+![Next](https://img.shields.io/badge/-React-000.svg?logo=React&style=for-the-badge)
+![Typescript](https://img.shields.io/badge/-Typescript-000.svg?logo=typescript&style=for-the-badge)
+
+![Emotion](https://img.shields.io/badge/-👩‍🎤%20Emotion-000.svg?style=for-the-badge)
 ![Sass](https://img.shields.io/badge/-Sass-000.svg?logo=sass&style=for-the-badge)
-![JS](https://img.shields.io/badge/-Javascript-000.svg?logo=javascript&style=for-the-badge)
+
+![S3](https://img.shields.io/badge/-Amazon%20S3-000.svg?logo=amazon-s3&style=for-the-badge)
+![Analytics](https://img.shields.io/badge/-Google%20Analytics-000.svg?logo=google-analytics&style=for-the-badge)
 
 ![Commit Message](https://img.shields.io/badge/-commit%20message-333.svg?style=for-the-badge)
+
 ![ja-jp](https://img.shields.io/badge/-ja__JP-004444.svg?style=for-the-badge)
 ![en-us](https://img.shields.io/badge/-en__US-004444.svg?style=for-the-badge)
+
+---
+![GitHub repo size](https://img.shields.io/github/repo-size/dg4-dev/dgdgdgdg.com?style=for-the-badge)
