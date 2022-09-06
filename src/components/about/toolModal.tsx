@@ -106,7 +106,7 @@ type Props = {
   name: string;
   maker: string;
   about: string;
-  gen: Number | string;
+  gen?: Number | string;
   variety?: string;
   owning?: Number;
 };
@@ -121,7 +121,10 @@ const ToolModal = ({ name, maker, about, gen, variety, owning }: Props) => {
     ? `/images/tool/${fmtMaker}-${fmtName}-${fmtVariety}.png`
     : `/images/tool/${fmtMaker}-${fmtName}.png`;
 
-  const nameNOwn = variety ? `${name} - ${variety}` : name;
+  const nameNVer = variety ? `${name} - ${variety}` : name;
+  const nameNVerNOwn = owning ? `${nameNVer} * ${owning}` : nameNVer;
+
+  const makerNGen = gen ? `${maker}・${gen}` : maker;
 
   let isOpen = modalIsOpen
     ? css`
@@ -143,8 +146,8 @@ const ToolModal = ({ name, maker, about, gen, variety, owning }: Props) => {
         <div css={[scrolls, flex]}>
           <img src={imgName} alt="" />
           <div css={desc}>
-            <div className="name">{nameNOwn}</div>
-            <div className="maker-and-gen">{`${maker}・${gen}`}</div>
+            <div className="name">{nameNVerNOwn}</div>
+            <div className="maker-and-gen">{makerNGen}</div>
             <div className="about">{about}</div>
           </div>
         </div>
