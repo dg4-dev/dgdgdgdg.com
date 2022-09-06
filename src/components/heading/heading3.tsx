@@ -47,10 +47,10 @@ type Props = {
 const Heading3 = ({ en, ja, className }: Props) => {
   const JA = ja ? <div className="ja">{ja}</div> : <></>;
   return (
-    <h3 css={heading3} className={className}>
-      <div className="en">{en}</div>
+    <div css={heading3} className={className}>
+      <h3 className="en">{en}</h3>
       {JA}
-    </h3>
+    </div>
   );
 };
 

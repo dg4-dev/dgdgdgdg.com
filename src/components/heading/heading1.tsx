@@ -77,10 +77,10 @@ const Heading1 = () => {
 
   return (
     <section css={pageTitle}>
-      <h1 css={heading1}>
-        <div className="en">{en}</div>
+      <div css={heading1}>
+        <h1 className="en">{en}</h1>
         <div className="ja">{ja}</div>
-      </h1>
+      </div>
       <Image css={bg} src={imagePath} priority={true} layout="fill" alt="" />
     </section>
   );
