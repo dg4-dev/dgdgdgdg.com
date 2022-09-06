@@ -7,7 +7,7 @@ export const data: {
     name: string;
     maker: string;
     about: string;
-    gen: Number | "Latest version";
+    gen?: Number | "Latest version";
     variety?: string;
     owning?: Number;
   }[];
@@ -117,6 +117,12 @@ export const data: {
         about: "Lens for single-lens camera",
         gen: 2018,
       },
+      // {
+      //   name: "Action 2",
+      //   maker: "DJI",
+      //   about: "Action camera",
+      //   gen: 2021,
+      // },
       {
         name: "X-700",
         maker: "MINOLTA",
@@ -147,6 +153,12 @@ export const data: {
         about: "Lens for single-lens camera",
         gen: 1981,
       },
+      // {
+      //   name: "LAND 330",
+      //   maker: "Polaroid",
+      //   about: "Instant film camera",
+      //   gen: 1960,
+      // },
       {
         name: "RSC 2",
         maker: "DJI",
@@ -323,6 +335,65 @@ export const data: {
         gen: 2020,
         variety: "black",
       },
+    ],
+  },
+  {
+    contentName: {
+      en: "Music Instrument",
+      ja: "楽器",
+    },
+    items: [
+      {
+        name: "SW108",
+        maker: "ARCO",
+        about: "Cajon",
+      },
+      {
+        name: "5000CJ",
+        maker: "DW",
+        about: "Cajon pedal",
+      },
+      {
+        name: "MUS1455M",
+        maker: "Pearl",
+        about: "Snare drum",
+      },
+      // {
+      //   name: "P-932",
+      //   maker: "Pearl",
+      //   about: "Drum pedal",
+      // },
+      // {
+      //   name: "CC16MC-B",
+      //   maker: "MEINL",
+      //   about: '16" clash cymbal',
+      // },
+      // {
+      //   name: "CC12S-B",
+      //   maker: "MEINL",
+      //   about: '12" splash cymbal',
+      //   owning: 2,
+      // },
+      // {
+      //   name: "PST-7 Crash",
+      //   maker: "Paiste",
+      //   about: '16" clash cymbal',
+      // },
+      // {
+      //   name: "PST-7 Splash",
+      //   maker: "Paiste",
+      //   about: '10" splash cymbal',
+      // },
+      // {
+      //   name: "PTM-10GH",
+      //   maker: "Pearl",
+      //   about: "Tambourine",
+      // },
+      // {
+      //   name: "SH50",
+      //   maker: "MEINL",
+      //   about: "Shaker",
+      // },
     ],
   },
 ];
