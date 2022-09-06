@@ -83,10 +83,10 @@ type Props = {
 
 const Heading2 = ({ en, ja, className }: Props) => {
   return (
-    <h2 css={[heading2, center]} className={className}>
-      <div className="en">{en}</div>
+    <div css={[heading2, center]} className={className}>
+      <h2 className="en">{en}</h2>
       <div className="ja">{ja}</div>
-    </h2>
+    </div>
   );
 };
 
