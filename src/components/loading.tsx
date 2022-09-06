@@ -18,17 +18,17 @@ const loadElm = css`
   color: #fff;
 
   animation-name: vision;
-  animation-duration: 0.7s;
+  animation-duration: 1s;
   animation-timing-function: ease-in-out;
 
   @keyframes vision {
     0% {
       top: -100%;
     }
-    40% {
+    20% {
       top: 0%;
     }
-    60% {
+    80% {
       top: 0%;
     }
     100% {
@@ -38,7 +38,7 @@ const loadElm = css`
 `;
 
 const Loading: React.FC = () => {
-  return <div css={[loadElm]}>{"Loading..."}</div>;
+  return <div css={[loadElm]}>Loading...</div>;
 };
 
 export default Loading;
