@@ -78,6 +78,13 @@ export const data: {
         gen: 2021,
         variety: "Graphite",
       },
+      // {
+      //   name: "Phone (1)",
+      //   maker: "Nothing",
+      //   about: "Smart phone",
+      //   gen: 2022,
+      //   variety: "black",
+      // },
       {
         name: "iPhone SE",
         maker: "Apple",
