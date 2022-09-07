@@ -24,6 +24,10 @@ const loadElm = css`
   @keyframes vision {
     0% {
       top: -100%;
+      display: none;
+    }
+    1% {
+      display: block;
     }
     20% {
       top: 0%;
@@ -31,8 +35,12 @@ const loadElm = css`
     80% {
       top: 0%;
     }
+    99% {
+      display: block;
+    }
     100% {
       top: 100%;
+      display: none;
     }
   }
 `;
