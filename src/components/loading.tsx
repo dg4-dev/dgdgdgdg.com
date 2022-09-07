@@ -5,7 +5,7 @@ import { dg4Color } from "@/styles/config";
 const loadElm = css`
   position: fixed;
 
-  top: -100%;
+  top: -200%;
 
   z-index: 65535;
   width: 100%;
@@ -24,10 +24,6 @@ const loadElm = css`
   @keyframes vision {
     0% {
       top: -100%;
-      display: none;
-    }
-    1% {
-      display: block;
     }
     20% {
       top: 0%;
@@ -35,12 +31,8 @@ const loadElm = css`
     80% {
       top: 0%;
     }
-    99% {
-      display: block;
-    }
     100% {
       top: 100%;
-      display: none;
     }
   }
 `;
