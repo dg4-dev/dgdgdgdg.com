@@ -37,7 +37,7 @@ const loadElm = css`
   }
 `;
 
-const Loading: React.FC = () => {
+const Loading = () => {
   return <div css={[loadElm]}>Loading...</div>;
 };
 
