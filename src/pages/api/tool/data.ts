@@ -124,12 +124,13 @@ export const data: {
         about: "Lens for single-lens camera",
         gen: 2018,
       },
-      // {
-      //   name: "Action 2",
-      //   maker: "DJI",
-      //   about: "Action camera",
-      //   gen: 2021,
-      // },
+      {
+        name: "Action 2",
+        maker: "DJI",
+        about: "Action camera",
+        gen: 2021,
+        variety: "Dual-Screen Combo",
+      },
       {
         name: "X-700",
         maker: "MINOLTA",
