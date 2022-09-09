@@ -160,12 +160,12 @@ export const data: {
         about: "Lens for single-lens camera",
         gen: 1981,
       },
-      // {
-      //   name: "LAND 330",
-      //   maker: "Polaroid",
-      //   about: "Instant film camera",
-      //   gen: 1960,
-      // },
+      {
+        name: "LAND 330",
+        maker: "Polaroid",
+        about: "Instant film camera",
+        gen: 1960,
+      },
       {
         name: "RSC 2",
         maker: "DJI",
