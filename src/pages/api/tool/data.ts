@@ -367,6 +367,12 @@ export const data: {
         about: "Snare drum",
       },
       // {
+      //   name: "SD1410",
+      //   maker: "Foldrum",
+      //   about: "Floor snare drum",
+      //   variety: "Custom",
+      // },
+      // {
       //   name: "P-932",
       //   maker: "Pearl",
       //   about: "Drum pedal",
