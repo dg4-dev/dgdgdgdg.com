@@ -72,11 +72,11 @@ export const data: {
         variety: "Space Gray",
       },
       {
-        name: "iPhone 13 Pro",
+        name: "iPhone 14 Pro",
         maker: "Apple",
         about: "Smart phone",
-        gen: 2021,
-        variety: "Graphite",
+        gen: 2022,
+        variety: "Space Black",
       },
       {
         name: "Phone (1)",
