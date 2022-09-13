@@ -264,14 +264,14 @@ const Service: NextPage = () => {
   } = {
     set: [
       {
-        title: "PVセット",
-        price: 120000,
-        planText: "ロゴ・アニメーション・映像の撮影と編集をまとめた、PV・MVに最適なプランです。",
-      },
-      {
         title: "コーポレートセット",
         price: 240000,
         planText: "新しく会社を立ち上げた方やデザインのリニューアルにおすすめ！ロゴ・名刺・Webをまとめたプランです。",
+      },
+      {
+        title: "PVセット",
+        price: 120000,
+        planText: "ロゴ・アニメーション・映像の撮影と編集をまとめた、PV・MVに最適なプランです。",
       },
     ],
     single: [
@@ -298,6 +298,14 @@ const Service: NextPage = () => {
       {
         title: "名刺デザイン",
         price: 15000,
+      },
+      {
+        title: "ドット絵",
+        price: 3000,
+      },
+      {
+        title: "写真撮影",
+        price: 5000,
       },
     ],
   };
