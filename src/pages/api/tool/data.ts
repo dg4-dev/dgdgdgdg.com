@@ -375,7 +375,7 @@ export const data: {
       // {
       //   name: "P-932",
       //   maker: "Pearl",
-      //   about: "Drum pedal",
+      //   about: "Longboard double bass drum pedal",
       // },
       // // TODO: start
       // {
@@ -403,7 +403,7 @@ export const data: {
       // {
       //   name: "PTM-10GH",
       //   maker: "Pearl",
-      //   about: "Tambourine",
+      //   about: "Quickmount tambourine with brass jingles",
       // },
       // {
       //   name: "SH50",
@@ -413,7 +413,7 @@ export const data: {
       // {
       //   name: "taktile 25",
       //   maker: "KORG",
-      //   about: "USB/MIDI controller that will meet all demands, from controlling a mixer to editing your software synthesizers.",
+      //   about: "USB/MIDI controller for everything from mixer control to editing software synthesizers.",
       //   gen: 2014,
       // },
       // {
