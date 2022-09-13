@@ -377,6 +377,7 @@ export const data: {
       //   maker: "Pearl",
       //   about: "Drum pedal",
       // },
+      // // TODO: start
       // {
       //   name: "CC16MC-B",
       //   maker: "MEINL",
@@ -393,6 +394,7 @@ export const data: {
       //   maker: "Paiste",
       //   about: '16" clash cymbal',
       // },
+      // // TODO: end
       // {
       //   name: "PST-7 Splash",
       //   maker: "Paiste",
@@ -406,7 +408,25 @@ export const data: {
       // {
       //   name: "SH50",
       //   maker: "MEINL",
-      //   about: "Shaker",
+      //   about: "Shaker in the shape of a cajon",
+      // },
+      // {
+      //   name: "taktile 25",
+      //   maker: "KORG",
+      //   about: "USB/MIDI controller that will meet all demands, from controlling a mixer to editing your software synthesizers.",
+      //   gen: 2014,
+      // },
+      // {
+      //   name: "VL-1",
+      //   maker: "Casio",
+      //   about: "Calculator, monophonic synthesizer, and sequencer all in one",
+      //   gen: 1981,
+      // },
+      // {
+      //   name: "Stylophone S1",
+      //   maker: "Dubreq",
+      //   about: "Miniature analog stylus-operated keyboard",
+      //   gen: 2007,
       // },
     ],
   },
