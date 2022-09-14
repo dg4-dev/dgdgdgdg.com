@@ -141,6 +141,11 @@ const contactBtn = css`
   }
 `;
 
+// TODO: Lottieのためのリンク
+// https://blue-de.com/butterfly-scissor-difference/
+// https://codepen.io/michaelzero00/pen/KKXJjOg
+// https://zenn.dev/hndr/scraps/b5b33f1157db5d#comment-292449cb553aae
+
 const Home: NextPage = () => {
   return (
     <Layout
