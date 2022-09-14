@@ -112,7 +112,7 @@ const Works: NextPage = () => {
         <Container css={fontContainer}>
           <H2 en="Font" ja="フォント" />
           <div css={[fontDesc, center]}>
-            <Image src="/images/dont-desc.webp" width={500} height={175} alt="" />
+            <Image src="/images/works/dont-desc.webp" width={500} height={175} alt="" />
           </div>
           <FontContent />
           <FontContent name="Round" />
