@@ -5,7 +5,6 @@
     "eamodio.gitlens",
     "esbenp.prettier-vscode",
     "wayou.vscode-todo-highlight",
-    "syler.sass-indented",
     "styled-components.vscode-styled-components"
   ]
 }
