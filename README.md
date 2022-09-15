@@ -11,7 +11,6 @@ dgdgdgdg の Web サイトです。
 ![Typescript](https://img.shields.io/badge/-Typescript-000.svg?logo=typescript&style=for-the-badge)
 
 ![Emotion](https://img.shields.io/badge/-👩‍🎤%20Emotion-000.svg?style=for-the-badge)
-![Sass](https://img.shields.io/badge/-Sass-000.svg?logo=sass&style=for-the-badge)
 
 ![S3](https://img.shields.io/badge/-Amazon%20S3-000.svg?logo=amazon-s3&style=for-the-badge)
 ![Analytics](https://img.shields.io/badge/-Google%20Analytics-000.svg?logo=google-analytics&style=for-the-badge)
