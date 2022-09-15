@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 
 import { bp, dg4Color } from "@/styles/config";
 
-const style = css`
+const global = css`
   // font
   @font-face {
     font-family: "Dont";
@@ -120,4 +120,4 @@ const style = css`
   }
 `;
 
-export default style;
+export default global;
