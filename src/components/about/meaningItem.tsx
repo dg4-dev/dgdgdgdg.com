@@ -8,7 +8,7 @@ const meaningRaw: {
 }[] = [
   {
     phrase: "4",
-    mean: ["四季", "四つ葉のクローバー", "四次元", ".mp4"],
+    mean: ["四季", ".mp4", "四次元", "四則演算"],
   },
   {
     phrase: "dgdg",
@@ -24,7 +24,7 @@ const meaningRaw: {
   },
   {
     phrase: "dig",
-    mean: ["調べる", "いいものを発掘する"],
+    mean: ["調べる", "発掘する"],
   },
   {
     phrase: "digital",
