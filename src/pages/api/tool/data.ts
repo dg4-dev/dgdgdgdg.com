@@ -50,6 +50,12 @@ export const data: {
       ja: "端末機器",
     },
     items: [
+      // {
+      //   name: 'iMac 20"',
+      //   maker: "Apple",
+      //   about: "Desktop Mac (Chrome OS Flex installed)",
+      //   gen: 2007,
+      // },
       {
         name: 'MacBook Pro 16"',
         maker: "Apple",
@@ -285,6 +291,12 @@ export const data: {
       ja: "音響機器",
     },
     items: [
+      // {
+      //   name: "PO-80",
+      //   maker: "teenage engineering",
+      //   about: "Compact and portable record cutter.",
+      //   gen: 2022,
+      // },
       {
         name: "DRUMSET SESSION I",
         maker: "AKG",
