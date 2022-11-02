@@ -38,7 +38,7 @@ const itemContent = css`
 `;
 
 const Contact: NextPage = () => {
-  const linkData = ["note", "twitter", "facebook", "youtube", "instagram", "gitlab", "github", "suzuri"];
+  const linkData = ["note", "zenn", "twitter", "facebook", "youtube", "instagram", "github", "suzuri"];
 
   const linkItems = linkData.map((value) => {
     const href = `https://${value}.dgdgdgdg.com`;
