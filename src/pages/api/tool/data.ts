@@ -50,18 +50,18 @@ export const data: {
       ja: "端末機器",
     },
     items: [
-      // {
-      //   name: 'iMac 20"',
-      //   maker: "Apple",
-      //   about: "Desktop Mac (Chrome OS Flex installed)",
-      //   gen: 2007,
-      // },
       {
         name: 'MacBook Pro 16"',
         maker: "Apple",
         about: "Laptop",
         gen: 2019,
         variety: "Space Gray",
+      },
+      {
+        name: 'iMac 20"',
+        maker: "Apple",
+        about: "Desktop PC (Chrome OS Flex installed)",
+        gen: 2007,
       },
       {
         name: 'iPad Pro 12.9"',
@@ -389,7 +389,6 @@ export const data: {
       //   maker: "Pearl",
       //   about: "Longboard double bass drum pedal",
       // },
-      // // TODO: start
       // {
       //   name: "CC16MC-B",
       //   maker: "MEINL",
@@ -406,7 +405,6 @@ export const data: {
       //   maker: "Paiste",
       //   about: '16" clash cymbal',
       // },
-      // // TODO: end
       // {
       //   name: "PST-7 Splash",
       //   maker: "Paiste",
