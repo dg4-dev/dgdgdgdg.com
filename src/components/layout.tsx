@@ -38,7 +38,7 @@ const Layout = ({ children, title, description, noindex = false }: Props) => {
             <meta name="og:description" content={description} />
 
             {/* ogp image */}
-            <meta name="og:image" content="https://dgdgdgdg.com/assets/image/ogp.webp" />
+            <meta name="og:image" content="https://dgdgdgdg.com/images/ogp.webp" />
 
             {/* Facebook OGP Settings */}
             <meta property="fb:admins" content="2006199369534363" />
