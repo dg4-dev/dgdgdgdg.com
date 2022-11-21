@@ -415,11 +415,12 @@ export const data: {
       //   maker: "Pearl",
       //   about: "Quickmount tambourine with brass jingles",
       // },
-      // {
-      //   name: "SH50",
-      //   maker: "MEINL",
-      //   about: "Shaker in the shape of a cajon",
-      // },
+      {
+        name: "SH50",
+        maker: "MEINL",
+        about: "Shaker in the shape of a cajon",
+        variety: "Baltic Birch",
+      },
       // {
       //   name: "taktile 25",
       //   maker: "KORG",
