@@ -427,12 +427,12 @@ export const data: {
       //   about: "USB/MIDI controller for everything from mixer control to editing software synthesizers.",
       //   gen: 2014,
       // },
-      // {
-      //   name: "VL-1",
-      //   maker: "Casio",
-      //   about: "Calculator, monophonic synthesizer, and sequencer all in one",
-      //   gen: 1981,
-      // },
+      {
+        name: "VL-1",
+        maker: "Casio",
+        about: "Calculator, monophonic synthesizer, and sequencer all in one",
+        gen: 1981,
+      },
       // {
       //   name: "Stylophone S1",
       //   maker: "Dubreq",
