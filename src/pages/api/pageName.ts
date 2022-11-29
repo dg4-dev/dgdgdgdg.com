@@ -35,11 +35,6 @@ const pageName: name[] = [
     en: "Service",
     ja: "dgdgdgdgのプラン",
   },
-  {
-    href: "/contact",
-    en: "Contact",
-    ja: "dgdgdgdgに問い合わせる",
-  },
 ];
 
 export default pageName;
