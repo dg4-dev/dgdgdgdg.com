@@ -59,8 +59,16 @@ const credit = css`
 `;
 
 const creditLogo = css`
-  ${bp.sp} {
-    margin: 0 8px;
+  width: 100%;
+
+  object {
+    min-width: 300px;
+    width: calc(100% - 16px);
+
+    ${bp.sp} {
+      min-width: unset;
+      margin: 0 8px;
+    }
   }
 `;
 
@@ -126,7 +134,11 @@ const Footer: NextPage = () => {
         </div>
 
         <div css={[credit, flex]}>
-          <object css={creditLogo} data="/images/dist/logo-white.svg" type="image/svg+xml"></object>
+          <Link href="/">
+            <a css={creditLogo}>
+              <object data="/images/dist/logo-white.svg" type="image/svg+xml"></object>
+            </a>
+          </Link>
           <Link href="/privacy-policy/">
             <a css={[linkPrivacy, whiteText]}>プライバシーポリシー</a>
           </Link>
