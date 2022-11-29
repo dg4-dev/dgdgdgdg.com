@@ -7,7 +7,7 @@ import Button from "@/components/button";
 import Container from "@/components/container";
 import { H2, H3 } from "@/components/heading/headingPortal";
 import Layout from "@/components/layout";
-import { flex, center } from "@/styles/common";
+import { flex } from "@/styles/common";
 import { bp, dg4Color } from "@/styles/config";
 
 const topFV = css`
@@ -81,63 +81,6 @@ const aboutContent = css`
         margin-right: 0;
       }
     }
-  }
-`;
-
-const contact = css`
-  background-color: ${dg4Color.blue};
-
-  height: 280px;
-  align-items: center;
-
-  padding-top: 0;
-  margin-top: 120px;
-
-  :last-child {
-    margin-bottom: 0;
-  }
-
-  ${bp.tab} {
-    margin-top: 80px;
-  }
-  ${bp.sp} {
-    padding-left: 12px;
-    padding-right: 12px;
-    margin-top: 60px;
-  }
-`;
-
-const wrapper = css`
-  width: 100%;
-  max-width: 600px;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  ${bp.sp} {
-    flex-direction: column;
-    justify-content: start;
-  }
-  .content {
-    flex-direction: column;
-    color: #fff;
-
-    ${bp.sp} {
-      margin-bottom: 20px;
-      margin-right: auto;
-    }
-    h2 {
-      font-family: "Dont", sans-serif;
-      font-size: 60px;
-      margin-bottom: 20px;
-    }
-  }
-`;
-
-const contactBtn = css`
-  ${bp.sp} {
-    margin-right: auto;
   }
 `;
 
@@ -231,15 +174,6 @@ const Home: NextPage = () => {
             </div>
           </div>
         </Container>
-      </section>
-      <section css={[contact, flex]}>
-        <div css={[wrapper, center, flex]}>
-          <div className="content" css={flex}>
-            <h2>Contact</h2>
-            <p>お気軽にお問い合わせください</p>
-          </div>
-          <Button css={contactBtn} href="/contact" />
-        </div>
       </section>
     </Layout>
   );
