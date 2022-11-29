@@ -345,7 +345,7 @@ const Service: NextPage = () => {
               {flowList("web")}
             </div>
           </div>
-          <Button text="See Contact" href="/contact" css={[btn, center]} />
+          <Button text="Contact" href="#footer" css={[btn, center]} />
         </Container>
       </section>
 
@@ -360,7 +360,7 @@ const Service: NextPage = () => {
           <div className="content single">
             <H3 en="Single Plan" ja="単体プラン" />
             <div css={[planItems, flex]}>{planList("single")}</div>
-            <Button text="See Contact" href="/contact" css={[btn, center]} />
+            <Button text="Contact" href="#footer" css={[btn, center]} />
           </div>
         </Container>
       </section>
