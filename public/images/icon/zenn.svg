@@ -1,1 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?><svg id="_レイヤー_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#3ea8ff;}</style></defs><rect class="cls-2" x="-3.2" y="-3.2" width="70.4" height="70.4"/><g><path class="cls-1" d="M16.35212,47.69504h6.64547c.35182,0,.66455-.19546,.86-.46909l18.2946-30.06099c.23455-.39091-.03909-.86-.50818-.86h-6.29365c-.31273,0-.58637,.15636-.74273,.43l-18.56823,30.41281c-.11727,.23455,.03909,.54727,.31273,.54727Z"/><path class="cls-1" d="M39.25946,47.22595l8.63911-13.87731c.27364-.43-.03909-.97728-.54727-.97728h-6.25456c-.23455,0-.46909,.11727-.58637,.31273l-8.87366,14.19004c-.23455,.35182,.03909,.82091,.46909,.82091h6.37184c.31273,0,.62546-.15636,.78182-.46909Z"/></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="_レイヤー_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#3EA8FF;}
+</style>
+<rect x="119.1" y="-3.2" class="st0" width="70.4" height="70.4"/>
+<g>
+	<path class="st0" d="M16.4,47.7H23c0.4,0,0.7-0.2,0.9-0.5l18.3-30.1c0.2-0.4,0-0.9-0.5-0.9h-6.3c-0.3,0-0.6,0.2-0.7,0.4L16,47.1
+		C15.9,47.4,16.1,47.7,16.4,47.7L16.4,47.7z"/>
+	<path class="st0" d="M39.3,47.2l8.6-13.9c0.3-0.4,0-1-0.5-1h-6.3c-0.2,0-0.5,0.1-0.6,0.3l-8.9,14.2c-0.2,0.4,0,0.8,0.5,0.8h6.4
+		C38.8,47.7,39.1,47.5,39.3,47.2z"/>
+</g>
+</svg>

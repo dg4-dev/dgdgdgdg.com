@@ -43,7 +43,6 @@ const messageContent = css`
 `;
 
 const credit = css`
-  width: 300px;
   flex-direction: column;
   align-items: flex-end;
 
@@ -62,12 +61,12 @@ const creditLogo = css`
   width: 100%;
 
   object {
-    min-width: 300px;
-    width: calc(100% - 16px);
+    min-width: 384px;
+    width: 100%;
 
     ${bp.sp} {
       min-width: unset;
-      margin: 0 8px;
+      margin: 0 4px;
     }
   }
 `;
@@ -87,7 +86,6 @@ const whiteText = css`
 const LinkItems = () => {
   const linkItem = css`
     max-width: 600px;
-    justify-content: space-between;
     margin-top: 32px;
 
     ${bp.sp} {
@@ -96,11 +94,9 @@ const LinkItems = () => {
   `;
 
   const itemContent = css`
-    width: calc((100% / 8) - 8px);
-
+    width: 12.5%;
     ${bp.sp} {
-      width: calc(25% - 16px);
-      margin: 8px;
+      width: 25%;
     }
   `;
 
