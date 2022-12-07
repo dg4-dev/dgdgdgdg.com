@@ -31,14 +31,42 @@ const footerContainer = css`
   }
 `;
 
-const contact = css``;
-
 const messageContent = css`
   gap: 24px;
   transform: translate(4px, 4px);
 
   ${bp.sp} {
     margin-left: 8px;
+  }
+`;
+
+const footerBtn = css`
+  position: relative;
+  padding-left: 44px;
+  ::before {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 40px;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 4px;
+
+    margin: auto 0;
+  }
+`;
+
+const tdmBtn = css`
+  ::before {
+    background-image: url("/images/icon/twitter.svg");
+  }
+`;
+
+const mesBtn = css`
+  ::before {
+    background-image: url("/images/icon/messenger.svg");
   }
 `;
 
@@ -121,10 +149,10 @@ const Footer: NextPage = () => {
   return (
     <footer id="footer" css={footerStyle}>
       <Container css={footerContainer}>
-        <div css={contact}>
+        <div>
           <div className="content" css={[messageContent, flex]}>
-            <Button href="https://twitterdm.dgdgdgdg.com" text="Twitter DM" ext={true} />
-            <Button href="https://messenger.dgdgdgdg.com" text="Messenger" ext={true} />
+            <Button css={[footerBtn, tdmBtn]} href="https://twitterdm.dgdgdgdg.com" text="Twitter DM" ext={true} />
+            <Button css={[footerBtn, mesBtn]} href="https://messenger.dgdgdgdg.com" text="Messenger" ext={true} />
           </div>
           <LinkItems />
         </div>
