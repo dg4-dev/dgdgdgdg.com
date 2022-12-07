@@ -12,7 +12,7 @@ const containerStyle = css`
     width: ${cWidth.sp};
   }
 
-  .content:not(:nth-of-type(1)) {
+  .content:not(:first-child) {
     padding-top: 80px;
 
     ${bp.tab} {
