@@ -24,8 +24,9 @@ const btn = css`
 
   ${bp.sp} {
     height: 40px;
-    line-height: 40px;
+    line-height: 38px;
     font-size: 16px;
+    padding-bottom: 2px;
   }
 
   :hover {

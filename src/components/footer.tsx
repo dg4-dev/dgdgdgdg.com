@@ -12,11 +12,11 @@ import { bp, dg4Color } from "@/styles/config";
 const footerStyle = css`
   background-color: ${dg4Color.black};
 
-  padding-top: 56px;
+  padding-top: 64px;
   padding-bottom: 90px;
 
   ${bp.tab} {
-    padding-top: 20px;
+    padding-top: 40px;
     padding-bottom: 70px;
   }
 `;
@@ -36,13 +36,18 @@ const messageContent = css`
   transform: translate(4px, 4px);
 
   ${bp.sp} {
-    margin-left: 8px;
+    justify-content: center;
   }
 `;
 
 const footerBtn = css`
   position: relative;
   padding-left: 44px;
+
+  ${bp.sp} {
+    padding-left: 36px;
+  }
+
   ::before {
     content: "";
     display: block;
@@ -55,6 +60,11 @@ const footerBtn = css`
     left: 4px;
 
     margin: auto 0;
+
+    ${bp.sp} {
+      width: 32px;
+      height: 32px;
+    }
   }
 `;
 
@@ -81,6 +91,7 @@ const credit = css`
 
   ${bp.sp} {
     width: auto;
+    margin-top: 24px;
     margin-left: unset;
   }
 `;
@@ -90,7 +101,6 @@ const creditLogo = css`
 
   object {
     min-width: 384px;
-    width: 100%;
 
     ${bp.sp} {
       min-width: unset;
@@ -115,9 +125,12 @@ const LinkItems = () => {
   const linkItem = css`
     max-width: 600px;
     margin-top: 32px;
+    transform: translate(-22px, 0);
 
     ${bp.sp} {
       flex-wrap: wrap;
+      transform: unset;
+      max-width: unset;
     }
   `;
 
@@ -137,7 +150,7 @@ const LinkItems = () => {
     return (
       <li key={value} css={itemContent}>
         <a href={href} target="_blank" rel="noopener noreferrer">
-          <Image src={src} width="135" height="135" alt="" />
+          <Image className="img" src={src} width="154" height="154" alt="" />
         </a>
       </li>
     );
