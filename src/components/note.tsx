@@ -5,12 +5,12 @@ import { dg4Color } from "@/styles/config";
 type Props = {
   className?: string;
   children: React.ReactNode;
+  margin?: Boolean;
 };
 
 const para = css`
   line-height: 1.5;
   text-align: center;
-  margin-bottom: 32px;
 
   a {
     display: inline;
@@ -24,9 +24,15 @@ const para = css`
   }
 `;
 
-const Note = ({ className, children }: Props) => {
+const Note = ({ className, children, margin = false }: Props) => {
+  const paraMargin = margin
+    ? css`
+        margin-bottom: 40px;
+      `
+    : css``;
+
   return (
-    <p css={para} className={className}>
+    <p css={[para, paraMargin]} className={className}>
       {children}
     </p>
   );

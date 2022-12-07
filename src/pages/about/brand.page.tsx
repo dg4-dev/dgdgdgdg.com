@@ -254,7 +254,7 @@ const Brand: NextPage = () => {
           </div>
           <div className="content" css={[containerContent, flex]}>
             <H3 en="Mean" ja="意味" />
-            <Note>
+            <Note margin={true}>
               メインで使用しているロゴは、<Link href="/about/#skill">4つのスキル</Link>
               の経験月数比を色に変換したものになっています。
               <br />
@@ -271,7 +271,9 @@ const Brand: NextPage = () => {
 
           <div className="content" css={[containerContent, flex]}>
             <H3 en="Data" ja="データ" />
-            <Note>ロゴ自体の編集、変更、変形、色の塗り直し、その他手を加えることはしないでください。</Note>
+            <Note margin={true}>
+              ロゴ自体の編集、変更、変形、色の塗り直し、その他手を加えることはしないでください。
+            </Note>
             <div css={[logoList, flex]}>
               <DataItem name="logo-white" />
               <DataItem name="logo-black" />
@@ -289,7 +291,7 @@ const Brand: NextPage = () => {
         <Container>
           <div className="content" css={[containerContent, flex]}>
             <H3 en="Dont" />
-            <Note>
+            <Note margin={true}>
               Dontは、このサイトのタイトル部分等に使用されているフォントです。
               <br />
               dgdgdgdgによるオリジナルのフォントで、<a href="/works/#font">こちら</a>で配布しています。
@@ -300,7 +302,7 @@ const Brand: NextPage = () => {
           </div>
           <div className="content" css={[containerContent, flex]}>
             <H3 en="Zen Kaku Gothic New" ja="ZEN角ゴシックNew" />
-            <Note>
+            <Note margin={true}>
               Zen Kaku Gothic Newは、このサイトの文章部分に使用されているフォントです。
               <br />
               フォントのふところが狭く、引き締まった印象を与えます。
