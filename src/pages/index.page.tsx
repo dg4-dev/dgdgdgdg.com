@@ -13,6 +13,12 @@ import Loading from "@/components/loading";
 // https://codepen.io/michaelzero00/pen/KKXJjOg
 // https://zenn.dev/hndr/scraps/b5b33f1157db5d#comment-292449cb553aae
 
+const fv = css`
+  position: static;
+  width: 100vw;
+  height: 100vh;
+`;
+
 const Home: NextPage = () => {
   return (
     <>
@@ -51,15 +57,17 @@ const Home: NextPage = () => {
 
       <Header />
 
-      <Image
-        css={css`
-          object-fit: cover;
-        `}
-        priority={true}
-        src="/images/fv/top.png"
-        layout="fill"
-        alt=""
-      />
+      <section css={fv}>
+        <Image
+          css={css`
+            object-fit: cover;
+          `}
+          priority={true}
+          src="/images/fv/top.png"
+          layout="fill"
+          alt=""
+        />
+      </section>
 
       <Footer />
     </>
