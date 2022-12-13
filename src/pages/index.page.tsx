@@ -17,6 +17,11 @@ const fv = css`
   position: static;
   width: 100vw;
   height: 100vh;
+
+  span {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const Home: NextPage = () => {
