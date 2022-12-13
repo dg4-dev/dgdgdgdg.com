@@ -14,13 +14,12 @@ import Loading from "@/components/loading";
 // https://zenn.dev/hndr/scraps/b5b33f1157db5d#comment-292449cb553aae
 
 const fv = css`
-  position: static;
+  position: relative;
   width: 100vw;
   height: 100vh;
 
-  span {
-    width: 100%;
-    height: 100%;
+  span img {
+    object-fit: cover;
   }
 `;
 
@@ -63,15 +62,7 @@ const Home: NextPage = () => {
       <Header />
 
       <section css={fv}>
-        <Image
-          css={css`
-            object-fit: cover;
-          `}
-          priority={true}
-          src="/images/fv/top.png"
-          layout="fill"
-          alt=""
-        />
+        <Image priority={true} src="/images/fv/top.png" layout="fill" alt="" />
       </section>
 
       <Footer />
