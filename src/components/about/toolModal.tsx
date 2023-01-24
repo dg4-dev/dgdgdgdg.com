@@ -9,6 +9,9 @@ import { bp, dg4Color } from "@/styles/config";
 const cover = css`
   img {
     display: block;
+
+    /* ぼやけさせないぞ */
+    image-rendering: pixelated;
   }
 `;
 
@@ -74,6 +77,9 @@ const scrolls = css`
     display: block;
     width: 60%;
     max-width: 760px;
+
+    /* ぼやけさせないぞ */
+    image-rendering: pixelated;
 
     ${bp.sp} {
       width: 100%;
