@@ -49,6 +49,9 @@ const ToolSlide = sliceByNumber(shuffledItems, 2).map((twoItems, index) => {
 
     const toolImage = css`
       display: block;
+
+      /* ぼやけさせないぞ */
+      image-rendering: pixelated;
     `;
 
     return <img key={imgName} css={toolImage} src={imgName} alt="" />;
