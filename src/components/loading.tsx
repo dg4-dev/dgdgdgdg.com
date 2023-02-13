@@ -1,10 +1,10 @@
 import { css } from "@emotion/react";
+import { useEffect, useState } from "react";
 
 import { dg4Color } from "@/styles/config";
 
 const loadElm = css`
   position: fixed;
-
   top: -200%;
 
   z-index: 65535;
@@ -18,7 +18,7 @@ const loadElm = css`
   color: #fff;
 
   animation-name: vision;
-  animation-duration: 1s;
+  animation-duration: 0.75s;
   animation-timing-function: ease-in-out;
 
   @keyframes vision {
@@ -38,7 +38,21 @@ const loadElm = css`
 `;
 
 const Loading = () => {
-  return <div css={[loadElm]}>Loading...</div>;
+  const [loading, setLoading] = useState(true);
+
+  const initialLoad = () => {
+    setLoading(true);
+    const timer1 = setTimeout(() => {
+      setLoading(false);
+    }, 750);
+    return () => {
+      clearTimeout(timer1);
+    };
+  };
+
+  useEffect(initialLoad, []);
+
+  return loading ? <div css={loadElm}>Loading...</div> : null;
 };
 
 export default Loading;
