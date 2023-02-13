@@ -3,9 +3,9 @@ import Image from "next/image";
 
 import type { NextPage } from "next";
 
+import EquipmentsSlide from "@/components/about/equipmentsSlide";
 import meaningItemElm from "@/components/about/meaningItem";
 import skillGraph from "@/components/about/skillGraph";
-import ToolSlide from "@/components/about/toolSlide";
 import Button from "@/components/button";
 import Container from "@/components/container";
 import { H1, H2, H3 } from "@/components/heading/headingPortal";
@@ -94,11 +94,11 @@ const skillContent = css`
   width: fit-content;
 `;
 
-const toolSlide = css`
+const equipmentsSlide = css`
   width: 100%;
 `;
 
-const toolList = css`
+const equipmentsList = css`
   width: fit-content;
 
   animation: loopSlide 60s infinite linear both;
@@ -107,7 +107,7 @@ const toolList = css`
       transform: translateX(0);
     }
     to {
-      transform: translateX(${-250 * ToolSlide.length}px);
+      transform: translateX(${-250 * EquipmentsSlide.length}px);
     }
   }
 
@@ -118,7 +118,7 @@ const toolList = css`
         transform: translateX(0);
       }
       to {
-        transform: translateX(${-20 * ToolSlide.length}vw);
+        transform: translateX(${-20 * EquipmentsSlide.length}vw);
       }
     }
   }
@@ -130,7 +130,7 @@ const toolList = css`
         transform: translateX(0);
       }
       to {
-        transform: translateX(${(-100 / 3) * ToolSlide.length}vw);
+        transform: translateX(${(-100 / 3) * EquipmentsSlide.length}vw);
       }
     }
   }
@@ -144,8 +144,8 @@ const About: NextPage = () => {
       <section id="overview">
         <Container>
           <H2 en="Overview" ja="概要" />
-          <div className="content information" css={[containerContent, flex]}>
-            <H3 en="Information" ja="情報" />
+          <div className="content" css={[containerContent, flex]}>
+            <H3 en="My Profile" ja="プロフィール" />
             <div css={[infoItem, flex]}>
               <div css={infoImage}>
                 <Image src="/images/profile.png" width={600} height={600} alt="" />
@@ -178,14 +178,14 @@ const About: NextPage = () => {
           </div>
 
           <div className="content logo" css={[containerContent, flex]}>
-            <H3 en="Logo" ja="ロゴマーク" />
+            <H3 en="Logo" ja="ロゴ" />
             <div className="item">
               <p css={logoPara}>dgdgdgdgで「だがし」と読みます</p>
               <div className="logo" css={[logoImage, center]}>
                 <object data="/images/logo.svg" type="image/svg+xml"></object>
               </div>
             </div>
-            <Button css={[btn, center]} href="/about/brand" />
+            <Button css={[btn, center]} href="/about/design-resource" />
           </div>
 
           <div className="content meaning" css={[containerContent, flex]}>
@@ -209,13 +209,13 @@ const About: NextPage = () => {
         </Container>
       </section>
 
-      <section id="tool">
+      <section id="equipments">
         <Container>
-          <H2 en="Tool" ja="ツール" />
+          <H2 en="Equipments" ja="ツール" />
         </Container>
-        <Container css={toolSlide}>
-          <div css={[toolList, flex]}>{[ToolSlide, ToolSlide]}</div>
-          <Button css={[btn, center]} href="/about/tool" />
+        <Container css={equipmentsSlide}>
+          <div css={[equipmentsList, flex]}>{[EquipmentsSlide, EquipmentsSlide]}</div>
+          <Button css={[btn, center]} href="/about/equipments" />
         </Container>
       </section>
     </Layout>

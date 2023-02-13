@@ -46,7 +46,7 @@ export const data: {
   },
   {
     contentName: {
-      en: "Terminal device",
+      en: "Viewing Content",
       ja: "端末機器",
     },
     items: [
@@ -102,8 +102,8 @@ export const data: {
   },
   {
     contentName: {
-      en: "Shooting equipment",
-      ja: "撮影機材",
+      en: "Taking Shots",
+      ja: "撮影する",
     },
     items: [
       {
@@ -225,8 +225,8 @@ export const data: {
   },
   {
     contentName: {
-      en: "Software",
-      ja: "ソフトウェア",
+      en: "Develop and Design",
+      ja: "開発とデザイン",
     },
     items: [
       {
@@ -254,7 +254,7 @@ export const data: {
         gen: "Latest version",
       },
       {
-        name: "Photoshop",
+        name: "Photographyshop",
         maker: "Adobe",
         about: "Raster graphics editor",
         gen: "Latest version",
@@ -287,8 +287,8 @@ export const data: {
   },
   {
     contentName: {
-      en: "Audio device",
-      ja: "音響機器",
+      en: "Audio",
+      ja: "音響処理",
     },
     items: [
       {
@@ -359,8 +359,8 @@ export const data: {
   },
   {
     contentName: {
-      en: "Music Instrument",
-      ja: "楽器",
+      en: "Music Performance",
+      ja: "演奏する",
     },
     items: [
       {
