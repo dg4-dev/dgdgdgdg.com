@@ -117,15 +117,15 @@ type Props = {
   owning?: Number;
 };
 
-const ToolModal = ({ name, maker, about, gen, variety, owning }: Props) => {
+const EquipmentsModal = ({ name, maker, about, gen, variety, owning }: Props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   const fmtMaker = maker.toLowerCase().replace(/[."+() -]/g, "");
   const fmtName = name.toLowerCase().replace(/[."+() -]/g, "");
   const fmtVariety = variety ? variety.toLowerCase().replace(/[."+() -]/g, "") : undefined;
   const imgName = fmtVariety
-    ? `/images/tool/${fmtMaker}-${fmtName}-${fmtVariety}.png`
-    : `/images/tool/${fmtMaker}-${fmtName}.png`;
+    ? `/images/equipments/${fmtMaker}-${fmtName}-${fmtVariety}.png`
+    : `/images/equipments/${fmtMaker}-${fmtName}.png`;
 
   const nameNVer = variety ? `${name} - ${variety}` : name;
   const nameNVerNOwn = owning ? `${nameNVer} * ${owning}` : nameNVer;
@@ -162,4 +162,4 @@ const ToolModal = ({ name, maker, about, gen, variety, owning }: Props) => {
   );
 };
 
-export default ToolModal;
+export default EquipmentsModal;
