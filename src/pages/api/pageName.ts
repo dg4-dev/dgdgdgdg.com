@@ -14,26 +14,26 @@ const pageName: name[] = [
     ja: "dgdgdgdgとは",
   },
   {
-    href: "/about/brand",
-    en: "Brand resource",
-    ja: "ブランドリソース",
+    href: "/about/design-resource",
+    en: "Design Resource",
+    ja: "デザインリソース",
     child: true,
   },
   {
-    href: "/about/tool",
-    en: "Tool",
-    ja: "ツール一覧",
+    href: "/about/equipments",
+    en: "Equipments",
+    ja: "使用機材",
     child: true,
   },
   {
     href: "/works",
     en: "Works",
-    ja: "dgdgdgdgの作品",
+    ja: "作品紹介",
   },
   {
-    href: "/service",
-    en: "Service",
-    ja: "dgdgdgdgのプラン",
+    href: "/workflow-and-pricing",
+    en: "Workflow and Pricing",
+    ja: "制作手順と料金",
   },
 ];
 

@@ -2,21 +2,20 @@ import { css } from "@emotion/react";
 
 import type { NextPage } from "next";
 
-import Button from "@/components/button";
 import Container from "@/components/container";
 import { H1, H2, H3 } from "@/components/heading/headingPortal";
 import Layout from "@/components/layout";
 import Note from "@/components/note";
-import { center, flex } from "@/styles/common";
+import { flex } from "@/styles/common";
 import { bp, dg4Color } from "@/styles/config";
 
-const flowContent = css`
+const workflowContent = css`
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 60px 20px;
 `;
 
-const flowItems = css`
+const workflowItems = css`
   height: fit-content;
   position: relative;
   z-index: 0;
@@ -26,7 +25,7 @@ const flowItems = css`
   }
 `;
 
-const flowItem = css`
+const workflowItem = css`
   width: 300px;
   padding-left: 32px;
 
@@ -84,11 +83,7 @@ const itemBadge = css`
   }
 `;
 
-const btn = css`
-  margin-top: 32px;
-`;
-
-const planItems = css`
+const pricingPlanItems = css`
   flex-wrap: wrap;
   gap: 20px 40px;
   justify-content: space-between;
@@ -98,7 +93,7 @@ const planItems = css`
   }
 `;
 
-const planItem = css`
+const pricingPlanItem = css`
   width: 380px;
   font-weight: bold;
   color: #fff;
@@ -113,12 +108,12 @@ const planItem = css`
   }
 `;
 
-const planItemTitle = css`
+const pricingPlanItemTitle = css`
   font-size: 20px;
   text-align: center;
 `;
 
-const planItemPrice = css`
+const pricingPlanItemPrice = css`
   font-family: "Dont", sans-serif;
   font-size: 64px;
   font-weight: normal;
@@ -126,7 +121,7 @@ const planItemPrice = css`
   margin-top: 12px;
 `;
 
-const planItemText = css`
+const pricingPlanItemText = css`
   font-size: 16px;
   line-height: 24px;
   margin-top: 12px;
@@ -140,7 +135,7 @@ const singleItemBG = css`
 `;
 
 const Service: NextPage = () => {
-  const flowRaw: {
+  const workflowRaw: {
     [key in string]: {
       text: string;
       badge?: {
@@ -236,42 +231,43 @@ const Service: NextPage = () => {
       },
     ],
   };
-  const flowList = (opt: string) => {
-    return flowRaw[opt].map(({ text, badge }) => {
+  const workflowList = (opt: string) => {
+    return workflowRaw[opt].map(({ text, badge }) => {
       const nowColor = badge?.color as string;
       const color = css`
         background-color: ${dg4Color[nowColor]};
       `;
       return badge ? (
-        <div key={text} css={flowItem}>
+        <div key={text} css={workflowItem}>
           <div css={itemText}>{text}</div>
           <div css={[itemBadge, color]}>{badge.text}</div>
         </div>
       ) : (
-        <div key={text} css={flowItem}>
+        <div key={text} css={workflowItem}>
           <div css={itemText}>{text}</div>
         </div>
       );
     });
   };
 
-  const planRaw: {
+  const pricingPlanRaw: {
     [key in string]: {
       title: string;
       price: Number;
-      planText?: string;
+      pricingPlanText?: string;
     }[];
   } = {
     set: [
       {
         title: "コーポレートセット",
         price: 240000,
-        planText: "新しく会社を立ち上げた方やデザインのリニューアルにおすすめ！ロゴ・名刺・Webをまとめたプランです。",
+        pricingPlanText:
+          "新しく会社を立ち上げた方やデザインのリニューアルにおすすめ！ロゴ・名刺・Webをまとめたプランです。",
       },
       {
         title: "PVセット",
         price: 120000,
-        planText: "ロゴ・アニメーション・映像の撮影と編集をまとめた、PV・MVに最適なプランです。",
+        pricingPlanText: "ロゴ・アニメーション・映像の撮影と編集をまとめた、PV・MVに最適なプランです。",
       },
     ],
     single: [
@@ -310,19 +306,19 @@ const Service: NextPage = () => {
     ],
   };
 
-  const planList = (opt: string) => {
-    return planRaw[opt].map(({ title, price, planText }) => {
+  const pricingPlanList = (opt: string) => {
+    return pricingPlanRaw[opt].map(({ title, price, pricingPlanText }) => {
       const priceString = price.toLocaleString();
-      return planText ? (
-        <div key={title} css={[planItem, setItemBG]}>
-          <h4 css={planItemTitle}>{title}</h4>
-          <div css={planItemPrice}>{priceString}</div>
-          <div css={planItemText}>{planText}</div>
+      return pricingPlanText ? (
+        <div key={title} css={[pricingPlanItem, setItemBG]}>
+          <h4 css={pricingPlanItemTitle}>{title}</h4>
+          <div css={pricingPlanItemPrice}>{priceString}</div>
+          <div css={pricingPlanItemText}>{pricingPlanText}</div>
         </div>
       ) : (
-        <div key={title} css={[planItem, singleItemBG]}>
-          <h4 css={planItemTitle}>{title}</h4>
-          <div css={planItemPrice}>{priceString} ~</div>
+        <div key={title} css={[pricingPlanItem, singleItemBG]}>
+          <h4 css={pricingPlanItemTitle}>{title}</h4>
+          <div css={pricingPlanItemPrice}>{priceString} ~</div>
         </div>
       );
     });
@@ -332,35 +328,33 @@ const Service: NextPage = () => {
     <Layout title="Service | dgdgdgdg" description="Webサイトやデザインの制作の流れ、承っているプランをご紹介します。">
       <H1 />
 
-      <section id="flow">
+      <section id="workflow">
         <Container>
-          <H2 en="Flow" ja="制作の流れ" />
-          <div className="content" css={[flowContent, flex]}>
-            <div css={flowItems}>
+          <H2 en="Workflow" ja="制作の流れ" />
+          <div className="content" css={[workflowContent, flex]}>
+            <div css={workflowItems}>
               <H3 en="Design" ja="デザイン" />
-              {flowList("design")}
+              {workflowList("design")}
             </div>
-            <div css={flowItems}>
-              <H3 en="Web site" ja="ウェブサイト" />
-              {flowList("web")}
+            <div css={workflowItems}>
+              <H3 en="Website" ja="ウェブサイト" />
+              {workflowList("web")}
             </div>
           </div>
-          <Button text="Contact" href="#footer" css={[btn, center]} />
         </Container>
       </section>
 
-      <section id="plan">
+      <section id="pricingPlan">
         <Container>
-          <H2 en="Plan" ja="プラン" />
+          <H2 en="Pricing Plan" ja="料金プラン" />
           <Note>表示料金は基本料です。お打ち合わせ後に正式見積りとなります。</Note>
           <div className="content setplan">
             <H3 en="Set plan" ja="セットプラン" />
-            <div css={[planItems, flex]}>{planList("set")}</div>
+            <div css={[pricingPlanItems, flex]}>{pricingPlanList("set")}</div>
           </div>
           <div className="content single">
             <H3 en="Single Plan" ja="単体プラン" />
-            <div css={[planItems, flex]}>{planList("single")}</div>
-            <Button text="Contact" href="#footer" css={[btn, center]} />
+            <div css={[pricingPlanItems, flex]}>{pricingPlanList("single")}</div>
           </div>
         </Container>
       </section>
