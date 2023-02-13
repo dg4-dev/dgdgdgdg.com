@@ -71,7 +71,7 @@ const Heading1 = () => {
   const nowPageName = pageName.find(({ href }) => location.pathname === href);
 
   const en = nowPageName?.en as string;
-  const formattedPageName = en.toLowerCase().replace(" ", "");
+  const formattedPageName = en.toLowerCase().replace(/[ ]/g, "");
   const imagePath = `/images/fv/${formattedPageName}.jpg`;
   const ja = nowPageName?.ja;
 
