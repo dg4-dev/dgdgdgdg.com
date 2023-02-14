@@ -1,19 +1,19 @@
 import type { NextPage } from "next";
 
-import toolList from "@/components/about/toolList";
+import equipmentsList from "@/components/about/equipmentsList";
 import { H1 } from "@/components/heading/headingPortal";
 import Layout from "@/components/layout";
 
-const Tool: NextPage = () => {
+const Equipments: NextPage = () => {
   return (
     <Layout
-      title="Tool | dgdgdgdg"
+      title="Equipments | dgdgdgdg"
       description="使用しているツールをドット絵として描き上げています。ツールそのものの詳しい情報もこちら。"
     >
       <H1 />
-      {toolList}
+      {equipmentsList}
     </Layout>
   );
 };
 
-export default Tool;
+export default Equipments;
