@@ -122,7 +122,7 @@ const Works: NextPage = () => {
 
       <section id="logo">
         <Container css={contain}>
-          <H2 en="Logo" ja="ロゴ" />
+          <H2 en="Logo Design" ja="ロゴデザイン" />
           <div css={[itemList, flex]}>
             <Item title="dgdgdgdg" imgHref="/images/logo.svg" />
             <Item title="自然食食堂 さん" imgHref="/images/works/sunlogo.webp" />
@@ -131,9 +131,9 @@ const Works: NextPage = () => {
         </Container>
       </section>
 
-      <section id="photo">
+      <section id="photography">
         <Container css={contain}>
-          <H2 en="Photo" ja="写真" />
+          <H2 en="Photography" ja="写真" />
           <InstaItemList />
           <Button ext={true} href="https://instagram.dgdgdgdg.com/" text="Instagram" css={[btn, center]} />
         </Container>
@@ -141,7 +141,7 @@ const Works: NextPage = () => {
 
       <section id="video">
         <Container css={contain}>
-          <H2 en="Video" ja="動画" />
+          <H2 en="Video" ja="映像" />
           <YoutubeItemList />
           <Button ext={true} href="https://youtube.dgdgdgdg.com/" text="YouTube" css={[btn, center]} />
         </Container>
@@ -149,7 +149,7 @@ const Works: NextPage = () => {
 
       <section id="web">
         <Container css={contain}>
-          <H2 en="Web Site" ja="Webサイト" />
+          <H2 en="Website" ja="Webサイト" />
           <div css={[itemList, flex]}>
             <Item title="dgdgdgdg" imgHref="/images/works/dg4web.webp" />
             <Item

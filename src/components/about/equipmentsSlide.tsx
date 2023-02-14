@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { css } from "@emotion/react";
 
-import { data } from "@/pages/api/tool/data";
+import { data } from "@/pages/api/equipments/data";
 import { bp } from "@/styles/config";
 
 const shuffle = ([...array]) => {
@@ -38,26 +38,26 @@ const sliceByNumber = (array: item[], number: number) => {
   return new Array(length).fill(1).map((_, i) => array.slice(i * number, (i + 1) * number));
 };
 
-const ToolSlide = sliceByNumber(shuffledItems, 2).map((twoItems, index) => {
+const EquipmentsSlide = sliceByNumber(shuffledItems, 2).map((twoItems, index) => {
   const twoImages = twoItems.map(({ maker, name, variety }) => {
     const fmtMaker = maker.toLowerCase().replace(/[."+() -]/g, "");
     const fmtName = name.toLowerCase().replace(/[."+() -]/g, "");
     const fmtVariety = variety ? variety.toLowerCase().replace(/[."+() -]/g, "") : undefined;
     const imgName = fmtVariety
-      ? `/images/tool/${fmtMaker}-${fmtName}-${fmtVariety}.png`
-      : `/images/tool/${fmtMaker}-${fmtName}.png`;
+      ? `/images/equipments/${fmtMaker}-${fmtName}-${fmtVariety}.png`
+      : `/images/equipments/${fmtMaker}-${fmtName}.png`;
 
-    const toolImage = css`
+    const equipmentsImage = css`
       display: block;
 
       /* ぼやけさせないぞ */
       image-rendering: pixelated;
     `;
 
-    return <img key={imgName} css={toolImage} src={imgName} alt="" />;
+    return <img key={imgName} css={equipmentsImage} src={imgName} alt="" />;
   });
 
-  const toolItem = css`
+  const equipmentsItem = css`
     width: 250px;
     ${bp.tab} {
       width: 20vw;
@@ -68,10 +68,10 @@ const ToolSlide = sliceByNumber(shuffledItems, 2).map((twoItems, index) => {
   `;
 
   return (
-    <div key={index} css={toolItem}>
+    <div key={index} css={equipmentsItem}>
       {twoImages}
     </div>
   );
 });
 
-export default ToolSlide;
+export default EquipmentsSlide;
