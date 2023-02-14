@@ -221,14 +221,17 @@ const DataItem = ({ name }: { name: string }) => {
   );
 };
 
-const Brand: NextPage = () => {
+const DesignResource: NextPage = () => {
   return (
-    <Layout title="Brand | dgdgdgdg" description="サイトのカラーやロゴについて詳しく説明します。ロゴデータの配布も。">
+    <Layout
+      title="Design Resource | dgdgdgdg"
+      description="サイトのカラーやロゴについて詳しく説明します。ロゴデータの配布も。"
+    >
       <H1 />
 
       <section id="color">
         <Container>
-          <H2 en="Color" ja="カラー" />
+          <H2 en="Color Palette" ja="カラーパレット" />
           <Note>
             このサイトに使用しているカラーです。これらのカラーは
             <span> dgdgdgdg </span>に由来して、
@@ -253,8 +256,8 @@ const Brand: NextPage = () => {
             <object data="/images/logo.svg" type="image/svg+xml"></object>
           </div>
           <div className="content" css={[containerContent, flex]}>
-            <H3 en="Mean" ja="意味" />
-            <Note margin={true}>
+            <H3 en="Monthly Color" ja="月ごとの色" />
+            <Note>
               メインで使用しているロゴは、<Link href="/about/#skill">4つのスキル</Link>
               の経験月数比を色に変換したものになっています。
               <br />
@@ -270,10 +273,8 @@ const Brand: NextPage = () => {
           </div>
 
           <div className="content" css={[containerContent, flex]}>
-            <H3 en="Data" ja="データ" />
-            <Note margin={true}>
-              ロゴ自体の編集、変更、変形、色の塗り直し、その他手を加えることはしないでください。
-            </Note>
+            <H3 en="Material Download" ja="素材ダウンロード" />
+            <Note>ロゴ自体の編集、変更、変形、色の塗り直し、その他手を加えることはしないでください。</Note>
             <div css={[logoList, flex]}>
               <DataItem name="logo-white" />
               <DataItem name="logo-black" />
@@ -291,7 +292,7 @@ const Brand: NextPage = () => {
         <Container>
           <div className="content" css={[containerContent, flex]}>
             <H3 en="Dont" />
-            <Note margin={true}>
+            <Note>
               Dontは、このサイトのタイトル部分等に使用されているフォントです。
               <br />
               dgdgdgdgによるオリジナルのフォントで、<a href="/works/#font">こちら</a>で配布しています。
@@ -302,7 +303,7 @@ const Brand: NextPage = () => {
           </div>
           <div className="content" css={[containerContent, flex]}>
             <H3 en="Zen Kaku Gothic New" ja="ZEN角ゴシックNew" />
-            <Note margin={true}>
+            <Note>
               Zen Kaku Gothic Newは、このサイトの文章部分に使用されているフォントです。
               <br />
               フォントのふところが狭く、引き締まった印象を与えます。
@@ -316,4 +317,4 @@ const Brand: NextPage = () => {
   );
 };
 
-export default Brand;
+export default DesignResource;
