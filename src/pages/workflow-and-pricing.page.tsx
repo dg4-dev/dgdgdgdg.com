@@ -3,7 +3,9 @@ import { css } from "@emotion/react";
 import type { NextPage } from "next";
 
 import Container from "@/components/container";
-import { H1, H2, H3 } from "@/components/heading/headingPortal";
+import H1 from "@/components/heading/heading1";
+import H2 from "@/components/heading/heading2";
+import H3 from "@/components/heading/heading3";
 import Layout from "@/components/layout";
 import Note from "@/components/note";
 import { flex } from "@/styles/common";

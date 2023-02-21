@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 
 import equipmentsList from "@/components/about/equipmentsList";
-import { H1 } from "@/components/heading/headingPortal";
+import H1 from "@/components/heading/heading1";
 import Layout from "@/components/layout";
 
 const Equipments: NextPage = () => {
