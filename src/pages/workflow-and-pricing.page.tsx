@@ -8,10 +8,10 @@ import H2 from "@/components/heading/heading2";
 import H3 from "@/components/heading/heading3";
 import Layout from "@/components/layout";
 import Note from "@/components/note";
-import { flex } from "@/styles/common";
 import { bp, dg4Color } from "@/styles/config";
 
 const workflowContent = css`
+  display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 60px 20px;
@@ -86,6 +86,7 @@ const itemBadge = css`
 `;
 
 const pricingPlanItems = css`
+  display: flex;
   flex-wrap: wrap;
   gap: 20px 40px;
   justify-content: space-between;
@@ -333,7 +334,7 @@ const Service: NextPage = () => {
       <section id="workflow">
         <Container>
           <H2 en="Workflow" ja="制作の流れ" />
-          <div className="content" css={[workflowContent, flex]}>
+          <div className="content" css={workflowContent}>
             <div css={workflowItems}>
               <H3 en="Design" ja="デザイン" />
               {workflowList("design")}
@@ -352,11 +353,11 @@ const Service: NextPage = () => {
           <Note>表示料金は基本料です。お打ち合わせ後に正式見積りとなります。</Note>
           <div className="content setplan">
             <H3 en="Set plan" ja="セットプラン" />
-            <div css={[pricingPlanItems, flex]}>{pricingPlanList("set")}</div>
+            <div css={pricingPlanItems}>{pricingPlanList("set")}</div>
           </div>
           <div className="content single">
             <H3 en="Single Plan" ja="単体プラン" />
-            <div css={[pricingPlanItems, flex]}>{pricingPlanList("single")}</div>
+            <div css={pricingPlanItems}>{pricingPlanList("single")}</div>
           </div>
         </Container>
       </section>

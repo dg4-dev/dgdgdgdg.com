@@ -6,12 +6,15 @@ import EquipmentsModal from "./equipmentsModal";
 
 import H2 from "@/components/heading/heading2";
 import { data } from "@/pages/api/equipments/data";
-import { center, flex } from "@/styles/common";
 import { bp } from "@/styles/config";
 
 const equipmentsList = data.map(({ contentName: { en, ja }, items }) => {
   const equipmentsListSt = css`
+    display: flex;
     flex-wrap: wrap;
+
+    margin-left: auto;
+    margin-right: auto;
   `;
 
   const heading2 = css`
@@ -46,7 +49,7 @@ const equipmentsList = data.map(({ contentName: { en, ja }, items }) => {
         <H2 css={heading2} en={en} ja={ja} />
       </Container>
 
-      <div css={[equipmentsListSt, center, flex]}>{itemContent}</div>
+      <div css={equipmentsListSt}>{itemContent}</div>
     </section>
   );
 });

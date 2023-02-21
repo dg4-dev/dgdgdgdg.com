@@ -4,7 +4,6 @@ import type { NextPage } from "next";
 
 import Button from "@/components/button";
 import Layout from "@/components/layout";
-import { center, flex } from "@/styles/common";
 import { dg4Color } from "@/styles/config";
 
 const notFoundSection = css`
@@ -15,6 +14,8 @@ const notFoundSection = css`
   align-items: center;
   padding-top: 0;
   margin-bottom: 0;
+
+  display: flex;
 
   :last-child {
     margin-bottom: 0;
@@ -37,6 +38,11 @@ const notFoundSection = css`
 
     z-index: -1;
   }
+
+  div {
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 
 const dont = css`
@@ -57,11 +63,17 @@ const para = css`
 const Works: NextPage = () => {
   return (
     <Layout title="Page not found | dgdgdgdg" noindex={true}>
-      <section css={[notFoundSection, flex]}>
-        <div css={center}>
+      <section css={notFoundSection}>
+        <div>
           <h1 css={[heading1, dont]}>404</h1>
           <p css={[para, dont]}>Page not found :(</p>
-          <Button href="/" text="Back to top" css={center} />
+          <Button
+            href="/"
+            text="Back to top"
+            css={css`
+              margin: 0 auto;
+            `}
+          />
         </div>
       </section>
     </Layout>
