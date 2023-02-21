@@ -234,23 +234,32 @@ const Service: NextPage = () => {
       },
     ],
   };
-  const workflowList = (opt: string) => {
-    return workflowRaw[opt].map(({ text, badge }) => {
-      const nowColor = badge?.color as string;
-      const color = css`
-        background-color: ${dg4Color[nowColor]};
-      `;
-      return badge ? (
-        <div key={text} css={workflowItem}>
-          <div css={itemText}>{text}</div>
-          <div css={[itemBadge, color]}>{badge.text}</div>
-        </div>
-      ) : (
-        <div key={text} css={workflowItem}>
-          <div css={itemText}>{text}</div>
-        </div>
-      );
-    });
+
+  type ListProps = {
+    option: string;
+  };
+
+  const WorkflowList = ({ option }: ListProps) => {
+    return (
+      <>
+        {workflowRaw[option].map(({ text, badge }) => {
+          const nowColor = badge?.color as string;
+          const color = css`
+            background-color: ${dg4Color[nowColor]};
+          `;
+          return badge ? (
+            <div key={text} css={workflowItem}>
+              <div css={itemText}>{text}</div>
+              <div css={[itemBadge, color]}>{badge.text}</div>
+            </div>
+          ) : (
+            <div key={text} css={workflowItem}>
+              <div css={itemText}>{text}</div>
+            </div>
+          );
+        })}
+      </>
+    );
   };
 
   const pricingPlanRaw: {
@@ -309,22 +318,26 @@ const Service: NextPage = () => {
     ],
   };
 
-  const pricingPlanList = (opt: string) => {
-    return pricingPlanRaw[opt].map(({ title, price, pricingPlanText }) => {
-      const priceString = price.toLocaleString();
-      return pricingPlanText ? (
-        <div key={title} css={[pricingPlanItem, setItemBG]}>
-          <h4 css={pricingPlanItemTitle}>{title}</h4>
-          <div css={pricingPlanItemPrice}>{priceString}</div>
-          <div css={pricingPlanItemText}>{pricingPlanText}</div>
-        </div>
-      ) : (
-        <div key={title} css={[pricingPlanItem, singleItemBG]}>
-          <h4 css={pricingPlanItemTitle}>{title}</h4>
-          <div css={pricingPlanItemPrice}>{priceString} ~</div>
-        </div>
-      );
-    });
+  const PricingPlanList = ({ option }: ListProps) => {
+    return (
+      <>
+        {pricingPlanRaw[option].map(({ title, price, pricingPlanText }) => {
+          const priceString = price.toLocaleString();
+          return pricingPlanText ? (
+            <div key={title} css={[pricingPlanItem, setItemBG]}>
+              <h4 css={pricingPlanItemTitle}>{title}</h4>
+              <div css={pricingPlanItemPrice}>{priceString}</div>
+              <div css={pricingPlanItemText}>{pricingPlanText}</div>
+            </div>
+          ) : (
+            <div key={title} css={[pricingPlanItem, singleItemBG]}>
+              <h4 css={pricingPlanItemTitle}>{title}</h4>
+              <div css={pricingPlanItemPrice}>{priceString} ~</div>
+            </div>
+          );
+        })}
+      </>
+    );
   };
 
   return (
@@ -337,11 +350,11 @@ const Service: NextPage = () => {
           <div className="content" css={workflowContent}>
             <div css={workflowItems}>
               <H3 en="Design" ja="デザイン" />
-              {workflowList("design")}
+              <WorkflowList option="design" />
             </div>
             <div css={workflowItems}>
               <H3 en="Website" ja="ウェブサイト" />
-              {workflowList("web")}
+              <WorkflowList option="web" />
             </div>
           </div>
         </Container>
@@ -353,11 +366,15 @@ const Service: NextPage = () => {
           <Note>表示料金は基本料です。お打ち合わせ後に正式見積りとなります。</Note>
           <div className="content setplan">
             <H3 en="Set plan" ja="セットプラン" />
-            <div css={pricingPlanItems}>{pricingPlanList("set")}</div>
+            <div css={pricingPlanItems}>
+              <PricingPlanList option="set" />
+            </div>
           </div>
           <div className="content single">
             <H3 en="Single Plan" ja="単体プラン" />
-            <div css={pricingPlanItems}>{pricingPlanList("single")}</div>
+            <div css={pricingPlanItems}>
+              <PricingPlanList option="single" />
+            </div>
           </div>
         </Container>
       </section>
