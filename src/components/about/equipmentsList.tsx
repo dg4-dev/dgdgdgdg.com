@@ -1,10 +1,10 @@
 import { css } from "@emotion/react";
 
 import Container from "../container";
-import { H2 } from "../heading/headingPortal";
 
 import EquipmentsModal from "./equipmentsModal";
 
+import H2 from "@/components/heading/heading2";
 import { data } from "@/pages/api/equipments/data";
 import { center, flex } from "@/styles/common";
 import { bp } from "@/styles/config";

@@ -3,7 +3,8 @@ import { css } from "@emotion/react";
 import type { NextPage } from "next";
 
 import Container from "@/components/container";
-import { H2, H3 } from "@/components/heading/headingPortal";
+import H2 from "@/components/heading/heading2";
+import H3 from "@/components/heading/heading3";
 import Layout from "@/components/layout";
 import { dg4Color } from "@/styles/config";
 
