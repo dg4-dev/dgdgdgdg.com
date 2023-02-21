@@ -3,7 +3,7 @@
 import { css } from "@emotion/react";
 import { useState } from "react";
 
-import { center, click, flex } from "@/styles/common";
+import { click } from "@/styles/common";
 import { bp, dg4Color } from "@/styles/config";
 
 const cover = css`
@@ -37,6 +37,9 @@ const closeBtn = css`
   width: 40px;
   height: 40px;
 
+  margin-left: auto;
+  margin-right: auto;
+
   ${bp.sp} {
     top: 20px;
   }
@@ -61,6 +64,8 @@ const closeBtn = css`
 const scrolls = css`
   width: 100%;
   height: 100%;
+
+  display: flex;
   align-items: center;
   justify-content: center;
 
@@ -148,8 +153,8 @@ const EquipmentsModal = ({ name, maker, about, gen, variety, owning }: Props) =>
         <img src={imgName} alt="" />
       </div>
       <div css={[modal, isOpen]}>
-        <div css={[closeBtn, center, click]} onClick={() => setIsOpen(false)}></div>
-        <div css={[scrolls, flex]}>
+        <div css={[closeBtn, click]} onClick={() => setIsOpen(false)}></div>
+        <div css={scrolls}>
           <img src={imgName} alt="" />
           <div css={desc}>
             <div className="name">{nameNVerNOwn}</div>
