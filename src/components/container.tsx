@@ -1,28 +1,28 @@
 import { css } from "@emotion/react";
 
-import { bp, cWidth } from "@/styles/config";
+import { breakPoint, containerWidth } from "@/styles/config";
 
 const containerStyle = css`
-  width: ${cWidth.pc};
+  width: ${containerWidth.pc};
 
   margin-left: auto;
   margin-right: auto;
 
-  ${bp.tab} {
-    width: ${cWidth.tab};
+  ${breakPoint.tab} {
+    width: ${containerWidth.tab};
   }
-  ${bp.sp} {
-    width: ${cWidth.sp};
+  ${breakPoint.sp} {
+    width: ${containerWidth.sp};
   }
 
   .content:not(:first-child) {
     padding-top: 80px;
 
-    ${bp.tab} {
+    ${breakPoint.tab} {
       padding-top: 60px;
     }
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       padding-top: 40px;
     }
   }

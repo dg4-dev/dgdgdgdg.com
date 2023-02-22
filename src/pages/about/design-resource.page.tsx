@@ -10,7 +10,7 @@ import H2 from "@/components/heading/heading2";
 import H3 from "@/components/heading/heading3";
 import Layout from "@/components/layout";
 import Note from "@/components/note";
-import { bp, dg4Color } from "@/styles/config";
+import { breakPoint, dg4Color } from "@/styles/config";
 
 const containerContent = css`
   display: flex;
@@ -23,11 +23,11 @@ const colorContent = css`
   grid-template-rows: 50% 50%;
   grid-template-columns: 40% 28% 30%;
 
-  ${bp.tab} {
+  ${breakPoint.tab} {
     height: 60vw;
   }
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     display: flex;
     height: auto;
   }
@@ -58,7 +58,7 @@ const simuList = css`
 const logoList = css`
   display: flex;
   flex-wrap: wrap;
-  ${bp.sp} {
+  ${breakPoint.sp} {
     flex-direction: column;
   }
 `;
@@ -72,7 +72,7 @@ const fontSample = css`
 
   font-family: "Dont", "Zen Kaku Gothic New", sans-serif;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     font-size: 24px;
     line-height: 36px;
     padding: 12px;
@@ -99,7 +99,7 @@ const ColorItem = ({ color }: { color: string }) => {
 
     background-color: ${dg4Color[color]};
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       height: 120px;
     }
   `;
@@ -175,7 +175,7 @@ const DataItem = ({ name }: { name: string }) => {
     background-size: 40px 40px;
     background-position: 0 0, 20px 20px;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       width: calc(100% - 16px);
     }
   `;

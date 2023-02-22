@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-import { bp, dg4Color } from "@/styles/config";
+import { breakPoint, dg4Color } from "@/styles/config";
 
 const heading2 = css`
   width: fit-content;
@@ -14,10 +14,10 @@ const heading2 = css`
   margin-left: auto;
   margin-right: auto;
 
-  ${bp.tab} {
+  ${breakPoint.tab} {
     margin-bottom: 60px;
   }
-  ${bp.sp} {
+  ${breakPoint.sp} {
     height: 50px;
 
     padding-top: 0px;
@@ -28,7 +28,7 @@ const heading2 = css`
     font-family: "Dont", sans-serif;
     font-size: 60px;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       font-size: 40px;
     }
   }
@@ -57,7 +57,7 @@ const heading2 = css`
     background-image: url("/images/h2-l.svg");
     left: -130px;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       width: 50px;
       height: 50px;
       left: -75px;
@@ -68,7 +68,7 @@ const heading2 = css`
     background-image: url("/images/h2-r.svg");
     right: -130px;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       width: 50px;
       height: 50px;
       right: -75px;

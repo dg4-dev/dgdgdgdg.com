@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
 
 import { instaDummy } from "@/pages/api/instaDummy";
-import { bp } from "@/styles/config";
+import { breakPoint } from "@/styles/config";
 
 type Cursors = {
   before: string;
@@ -44,7 +44,7 @@ const InstaItemList = () => {
     width: calc(100% / 7);
     height: auto;
 
-    ${bp.tab} {
+    ${breakPoint.tab} {
       width: calc(100% / 3);
     }
 
