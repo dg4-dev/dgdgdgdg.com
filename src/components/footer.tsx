@@ -11,11 +11,11 @@ import { dg4Color, breakPoint } from "@/styles/config";
 const footerStyle = css`
   background-color: ${dg4Color.black};
 
-  padding-top: 56px;
+  padding-top: 64px;
   padding-bottom: 90px;
 
   ${breakPoint.tab} {
-    padding-top: 20px;
+    padding-top: 40px;
     padding-bottom: 70px;
   }
 `;
@@ -30,15 +30,53 @@ const footerContainer = css`
   }
 `;
 
-const contact = css``;
-
 const messageContent = css`
   display: flex;
   gap: 24px;
   transform: translate(4px, 4px);
 
   ${breakPoint.sp} {
-    margin-left: 8px;
+    justify-content: center;
+  }
+`;
+
+const footerButton = css`
+  position: relative;
+  padding-left: 44px;
+
+  ${breakPoint.sp} {
+    padding-left: 36px;
+  }
+
+  ::before {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 40px;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 4px;
+
+    margin: auto 0;
+
+    ${breakPoint.sp} {
+      width: 32px;
+      height: 32px;
+    }
+  }
+`;
+
+const twitterDmButton = css`
+  ::before {
+    background-image: url("/images/icon/twitter.svg");
+  }
+`;
+
+const messengerButton = css`
+  ::before {
+    background-image: url("/images/icon/messenger.svg");
   }
 `;
 
@@ -54,6 +92,7 @@ const credit = css`
 
   ${breakPoint.sp} {
     width: auto;
+    margin-top: 24px;
     margin-left: unset;
   }
 `;
@@ -63,7 +102,6 @@ const creditLogo = css`
 
   object {
     min-width: 384px;
-    width: 100%;
 
     ${breakPoint.sp} {
       min-width: unset;
@@ -88,11 +126,14 @@ const LinkItems = () => {
   const linkItem = css`
     max-width: 600px;
     margin-top: 32px;
+    transform: translate(-22px, 0);
 
     display: flex;
 
     ${breakPoint.sp} {
       flex-wrap: wrap;
+      transform: unset;
+      max-width: unset;
     }
   `;
 
@@ -103,7 +144,7 @@ const LinkItems = () => {
     }
   `;
 
-  const linkData = ["note", "zenn", "twitter", "facebook", "youtube", "instagram", "github", "suzuri"];
+  const linkData = ["zenn", "twitter", "facebook", "youtube", "instagram", "github", "suzuri", "note"];
 
   const linkElm = linkData.map((value) => {
     const href = `https://${value}.dgdgdgdg.com`;
@@ -112,7 +153,7 @@ const LinkItems = () => {
     return (
       <li key={value} css={itemContent}>
         <a href={href} target="_blank" rel="noopener noreferrer">
-          <Image src={src} width="135" height="135" alt="" />
+          <Image className="img" src={src} width="154" height="154" alt="" />
         </a>
       </li>
     );
@@ -124,10 +165,20 @@ const Footer: NextPage = () => {
   return (
     <footer id="footer" css={footerStyle}>
       <Container css={footerContainer}>
-        <div css={contact}>
+        <div>
           <div className="content" css={messageContent}>
-            <Button href="https://twitterdm.dgdgdgdg.com" text="Twitter DM" external={true} />
-            <Button href="https://messenger.dgdgdgdg.com" text="Messenger" external={true} />
+            <Button
+              css={[footerButton, twitterDmButton]}
+              href="https://twitterdm.dgdgdgdg.com"
+              text="Twitter DM"
+              external={true}
+            />
+            <Button
+              css={[footerButton, messengerButton]}
+              href="https://messenger.dgdgdgdg.com"
+              text="Messenger"
+              external={true}
+            />
           </div>
           <LinkItems />
         </div>
