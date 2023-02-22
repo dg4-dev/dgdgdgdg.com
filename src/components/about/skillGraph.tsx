@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import dayjs from "dayjs";
 
-import { bp, dg4Color } from "@/styles/config";
+import { breakPoint, dg4Color } from "@/styles/config";
 
 const skillRaw = [
   {
@@ -46,7 +46,7 @@ const skillGraph = skillRaw.map(({ name, start }) => {
 
     position: relative;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       width: 100%;
     }
 

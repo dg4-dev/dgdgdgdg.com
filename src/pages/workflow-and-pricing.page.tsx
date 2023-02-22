@@ -8,7 +8,7 @@ import H2 from "@/components/heading/heading2";
 import H3 from "@/components/heading/heading3";
 import Layout from "@/components/layout";
 import Note from "@/components/note";
-import { bp, dg4Color } from "@/styles/config";
+import { dg4Color, breakPoint } from "@/styles/config";
 
 const workflowContent = css`
   display: flex;
@@ -22,7 +22,7 @@ const workflowItems = css`
   position: relative;
   z-index: 0;
   padding: 20px 0;
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: 100%;
   }
 `;
@@ -33,10 +33,10 @@ const workflowItem = css`
 
   position: relative;
 
-  ${bp.tab} {
+  ${breakPoint.tab} {
     width: 270px;
   }
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: 100%;
   }
 
@@ -65,7 +65,7 @@ const itemText = css`
   font-size: 20px;
   font-weight: bold;
 
-  ${bp.tab} {
+  ${breakPoint.tab} {
     font-size: 16px;
   }
 `;
@@ -80,7 +80,7 @@ const itemBadge = css`
 
   margin-top: 16px;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     font-size: 12px;
   }
 `;
@@ -91,7 +91,7 @@ const pricingPlanItems = css`
   gap: 20px 40px;
   justify-content: space-between;
 
-  ${bp.tab} {
+  ${breakPoint.tab} {
     gap: 20px 25px;
   }
 `;
@@ -102,11 +102,11 @@ const pricingPlanItem = css`
   color: #fff;
   padding: 16px;
 
-  ${bp.tab} {
+  ${breakPoint.tab} {
     width: 350px;
   }
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: 100%;
   }
 `;

@@ -12,7 +12,7 @@ import Layout from "@/components/layout";
 import InstaItemList from "@/components/works/InstaItemList";
 import Item from "@/components/works/item";
 import YoutubeItemList from "@/components/works/youtubeItemList";
-import { bp, dg4Color } from "@/styles/config";
+import { breakPoint, dg4Color } from "@/styles/config";
 
 const contain = css`
   width: 100%;
@@ -28,7 +28,7 @@ const itemList = css`
 const fontContainer = css`
   width: calc(100% - 40px);
   max-width: 1024px;
-  ${bp.tab} {
+  ${breakPoint.tab} {
     max-width: 1024px;
   }
 `;

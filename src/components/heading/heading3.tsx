@@ -1,20 +1,20 @@
 import { css } from "@emotion/react";
 
-import { bp, dg4Color } from "@/styles/config";
+import { breakPoint, dg4Color } from "@/styles/config";
 
 const heading3 = css`
   margin-bottom: 32px;
   position: relative;
   padding-left: 24px;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     margin-bottom: 20px;
   }
 
   .en {
     font-family: "Dont", "Zen Kaku Gothic New", sans-serif;
     font-size: 36px;
-    ${bp.sp} {
+    ${breakPoint.sp} {
       font-size: 22px;
     }
   }

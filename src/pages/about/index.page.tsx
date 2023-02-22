@@ -13,7 +13,7 @@ import H2 from "@/components/heading/heading2";
 import H3 from "@/components/heading/heading3";
 import Layout from "@/components/layout";
 import Age from "@/pages/api/nowAge";
-import { bp } from "@/styles/config";
+import { breakPoint } from "@/styles/config";
 
 const containerContent = css`
   display: flex;
@@ -24,7 +24,7 @@ const infoItem = css`
   display: flex;
   gap: 50px;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     flex-direction: column;
     gap: 20px;
   }
@@ -34,7 +34,7 @@ const infoImage = css`
   width: calc(100% - 370px);
   height: auto;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: 100%;
     padding: 32px;
     margin: 0 auto;
@@ -66,7 +66,7 @@ const logoImage = css`
 
   margin-left: auto;
   margin-right: auto;
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: 100%;
   }
 `;
@@ -126,7 +126,7 @@ const equipmentsList = css`
     }
   }
 
-  ${bp.tab} {
+  ${breakPoint.tab} {
     animation: loopSlide 60s infinite linear both;
     @keyframes loopSlide {
       from {
@@ -138,7 +138,7 @@ const equipmentsList = css`
     }
   }
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     animation: loopSlide 60s infinite linear both;
     @keyframes loopSlide {
       from {

@@ -6,7 +6,7 @@ import type { NextPage } from "next";
 
 import HeaderLink from "@/components/header/headerLink";
 import pageName from "@/pages/api/pageName";
-import { bp, dg4Color } from "@/styles/config";
+import { dg4Color, breakPoint } from "@/styles/config";
 
 const header = css`
   display: flex;
@@ -26,7 +26,7 @@ const outside = css`
   padding-left: 26px;
   z-index: 1000;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     padding-left: 12px;
   }
 `;
@@ -35,7 +35,7 @@ const logo = css`
   width: 150px;
   height: auto;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: 120px;
   }
 `;
@@ -49,7 +49,7 @@ const burger = css`
   justify-content: center;
   align-items: center;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: 65px;
     height: 65px;
   }
@@ -57,7 +57,7 @@ const burger = css`
   :hover .line-item1 {
     top: 6px;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       top: 4px;
     }
   }
@@ -68,7 +68,7 @@ const burger = css`
 
   :hover .line-item3 {
     top: 18px;
-    ${bp.sp} {
+    ${breakPoint.sp} {
       top: 12px;
     }
   }
@@ -82,7 +82,7 @@ const line = css`
 
   position: relative;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: 30px;
     height: 19px;
   }
@@ -104,7 +104,7 @@ const line = css`
   .line-item1.is-open {
     top: 12px;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       top: 8px;
     }
   }
@@ -114,7 +114,7 @@ const line = css`
     opacity: 1;
     top: 12px;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       top: 8px;
     }
   }
@@ -126,7 +126,7 @@ const line = css`
 
   .line-item3 {
     top: 24px;
-    ${bp.sp} {
+    ${breakPoint.sp} {
       top: 16px;
     }
   }
@@ -134,7 +134,7 @@ const line = css`
   .line-item3.is-open {
     top: 12px;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       top: 8px;
     }
   }
@@ -156,7 +156,7 @@ const inside = css`
     width: 40%;
     height: 100vh;
 
-    ${bp.tab} {
+    ${breakPoint.tab} {
       width: 100%;
       justify-content: normal;
       padding-top: 100px;
@@ -165,7 +165,7 @@ const inside = css`
       overflow-y: auto;
     }
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       visibility: visible;
       padding-top: 70px;
       padding-bottom: 170px;
@@ -186,7 +186,7 @@ const white = css`
   align-items: center;
   transition: all 0.2s;
 
-  ${bp.tab} {
+  ${breakPoint.tab} {
     display: none;
   }
 
@@ -208,7 +208,7 @@ const cyan = css`
   margin-left: auto;
   transition: all 0.2s;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: 65px;
     height: 65px;
     visibility: hidden;
@@ -229,17 +229,17 @@ const nav = css`
   visibility: hidden;
   opacity: 0;
 
-  ${bp.tab} {
+  ${breakPoint.tab} {
     width: 354px;
   }
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: 284px;
   }
 
   ul li:not(:first-of-type) {
     margin-top: 26px;
 
-    ${bp.sp}
+    ${breakPoint.sp}
     margin-top: 16px;
   }
 
@@ -250,7 +250,7 @@ const nav = css`
 
   ul li.indent a .ja {
     font-size: 20px;
-    ${bp.sp} {
+    ${breakPoint.sp} {
       font-size: 16px;
     }
   }
@@ -261,7 +261,7 @@ const linkWrapper = css`
   visibility: hidden;
   opacity: 0;
   margin-top: 24px;
-  ${bp.tab} {
+  ${breakPoint.tab} {
     display: block;
   }
 

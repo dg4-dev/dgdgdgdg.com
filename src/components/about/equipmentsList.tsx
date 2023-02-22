@@ -6,7 +6,7 @@ import EquipmentsModal from "./equipmentsModal";
 
 import H2 from "@/components/heading/heading2";
 import { data } from "@/pages/api/equipments/data";
-import { bp } from "@/styles/config";
+import { breakPoint } from "@/styles/config";
 
 const equipmentsList = data.map(({ contentName: { en, ja }, items }) => {
   const equipmentsListSt = css`
@@ -19,10 +19,10 @@ const equipmentsList = data.map(({ contentName: { en, ja }, items }) => {
 
   const heading2 = css`
     .en {
-      ${bp.tab} {
+      ${breakPoint.tab} {
         font-size: 40px;
       }
-      ${bp.sp} {
+      ${breakPoint.sp} {
         font-size: 24px;
       }
     }
@@ -31,7 +31,7 @@ const equipmentsList = data.map(({ contentName: { en, ja }, items }) => {
   const itemContent = items.map(({ name, maker, about, gen, variety, owning }) => {
     const equipmentsItem = css`
       width: calc(100% / 6);
-      ${bp.tab} {
+      ${breakPoint.tab} {
         width: calc(100% / 3);
       }
     `;

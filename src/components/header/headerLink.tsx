@@ -3,7 +3,7 @@ import { UrlObject } from "url";
 import { css } from "@emotion/react";
 import Link from "next/link";
 
-import { bp, dg4Color } from "@/styles/config";
+import { breakPoint, dg4Color } from "@/styles/config";
 
 const headerLinkStyle = css`
   display: block;
@@ -28,7 +28,7 @@ const linkJA = css`
   line-height: 35px;
   color: #fff;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     font-size: 20px;
   }
 `;
@@ -45,7 +45,7 @@ const externalLinkStyle = css`
   position: relative;
   transition: all 0.3s;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: 290px;
     height: 70px;
 

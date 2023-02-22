@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { css } from "@emotion/react";
 
-import { bp } from "@/styles/config";
+import { breakPoint } from "@/styles/config";
 
 type itemProps =
   | {
@@ -32,7 +32,7 @@ const Item = ({ title, imgHref, link = false, href, className = undefined }: ite
     padding-bottom: 24px;
     margin: 8px;
 
-    ${bp.tab} {
+    ${breakPoint.tab} {
       width: calc(50% - 16px);
     }
   `;
@@ -51,7 +51,7 @@ const Item = ({ title, imgHref, link = false, href, className = undefined }: ite
     text-align: center;
     margin-top: 20px;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       font-size: 14px;
       line-height: 20px;
     }

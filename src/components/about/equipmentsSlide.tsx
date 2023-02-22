@@ -2,7 +2,7 @@
 import { css } from "@emotion/react";
 
 import { data } from "@/pages/api/equipments/data";
-import { bp } from "@/styles/config";
+import { breakPoint } from "@/styles/config";
 
 const shuffle = ([...array]) => {
   array.forEach((e, i) => {
@@ -59,10 +59,10 @@ const EquipmentsSlide = sliceByNumber(shuffledItems, 2).map((twoItems, index) =>
 
   const equipmentsItem = css`
     width: 250px;
-    ${bp.tab} {
+    ${breakPoint.tab} {
       width: 20vw;
     }
-    ${bp.sp} {
+    ${breakPoint.sp} {
       width: calc(100vw / 3);
     }
   `;
