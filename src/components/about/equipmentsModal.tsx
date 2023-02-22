@@ -3,7 +3,6 @@
 import { css } from "@emotion/react";
 import { useState } from "react";
 
-import { click } from "@/styles/common";
 import { bp, dg4Color } from "@/styles/config";
 
 const cover = css`
@@ -149,11 +148,11 @@ const EquipmentsModal = ({ name, maker, about, gen, variety, owning }: Props) =>
 
   return (
     <>
-      <div css={[cover, click]} onClick={() => setIsOpen(true)}>
+      <div css={cover} className="clickable" onClick={() => setIsOpen(true)}>
         <img src={imgName} alt="" />
       </div>
       <div css={[modal, isOpen]}>
-        <div css={[closeBtn, click]} onClick={() => setIsOpen(false)}></div>
+        <div css={closeBtn} className="clickable" onClick={() => setIsOpen(false)}></div>
         <div css={scrolls}>
           <img src={imgName} alt="" />
           <div css={desc}>
