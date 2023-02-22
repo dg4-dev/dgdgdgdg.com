@@ -6,7 +6,6 @@ import type { NextPage } from "next";
 
 import HeaderLink from "@/components/header/headerLink";
 import pageName from "@/pages/api/pageName";
-import { click } from "@/styles/common";
 import { bp, dg4Color } from "@/styles/config";
 
 const header = css`
@@ -311,7 +310,7 @@ const Header: NextPage = () => {
             <object data="/images/logo.svg" type="image/svg+xml" />
           </a>
         </Link>
-        <div css={[burger, click]} onClick={() => menuFunction()}>
+        <div css={burger} className="clickable" onClick={() => menuFunction()}>
           <div css={line}>
             <div className={`line-item line-item1 ${openState}`} />
             <div className={`line-item line-item2 ${openState}`} />
