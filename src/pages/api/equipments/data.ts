@@ -254,7 +254,7 @@ export const data: {
         gen: "Latest version",
       },
       {
-        name: "Photographyshop",
+        name: "Photoshop",
         maker: "Adobe",
         about: "Raster graphics editor",
         gen: "Latest version",
