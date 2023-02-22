@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import type { NextPage } from "next";
 
+import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Loading from "@/components/loading";
 
@@ -11,6 +12,16 @@ import Loading from "@/components/loading";
 // https://blue-de.com/butterfly-scissor-difference/
 // https://codepen.io/michaelzero00/pen/KKXJjOg
 // https://zenn.dev/hndr/scraps/b5b33f1157db5d#comment-292449cb553aae
+
+const fv = css`
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+
+  span img {
+    object-fit: cover;
+  }
+`;
 
 const Home: NextPage = () => {
   return (
@@ -50,15 +61,11 @@ const Home: NextPage = () => {
 
       <Header />
 
-      <Image
-        css={css`
-          object-fit: cover;
-        `}
-        priority={true}
-        src="/images/fv/top.png"
-        layout="fill"
-        alt=""
-      />
+      <section css={fv}>
+        <Image priority={true} src="/images/fv/top.png" layout="fill" alt="" />
+      </section>
+
+      <Footer />
     </>
   );
 };

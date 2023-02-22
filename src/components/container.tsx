@@ -15,7 +15,7 @@ const containerStyle = css`
     width: ${containerWidth.sp};
   }
 
-  .content:not(:nth-of-type(1)) {
+  .content:not(:first-child) {
     padding-top: 80px;
 
     ${breakPoint.tab} {
