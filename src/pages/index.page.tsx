@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import type { NextPage } from "next";
 
-import Header from "@/components/header/header";
+import Header from "@/components/header";
 import Loading from "@/components/loading";
 
 // TODO: Lottieのためのリンク

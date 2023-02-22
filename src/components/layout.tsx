@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 import Footer from "@/components/footer";
-import Header from "@/components/header/header";
+import Header from "@/components/header";
 import Loading from "@/components/loading";
 
 type Props =
