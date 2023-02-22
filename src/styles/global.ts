@@ -87,7 +87,9 @@ const global = css`
   }
 
   a,
-  a * {
+  a *,
+  .clickable,
+  .clickable * {
     cursor: -webkit-image-set(
         url("/images/cursor/cursor-pointer.png") 1x,
         url("/images/cursor/cursor-pointer@2x.png") 2x
