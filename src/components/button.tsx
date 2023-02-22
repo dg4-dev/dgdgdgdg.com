@@ -13,18 +13,20 @@ const button = css`
 
   width: fit-content;
   height: 50px;
-  line-height: 50px;
+  line-height: 46px;
   text-align: center;
 
   padding: 0 16px;
+  padding-bottom: 4px;
   box-shadow: 4px 4px 0px 0px ${dg4Color.black};
 
   transform: translate(-4px, -4px);
 
   ${breakPoint.sp} {
     height: 40px;
-    line-height: 40px;
+    line-height: 38px;
     font-size: 16px;
+    padding-bottom: 2px;
   }
 
   :hover {
