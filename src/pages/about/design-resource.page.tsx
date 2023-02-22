@@ -5,13 +5,15 @@ import Link from "next/link";
 import type { NextPage } from "next";
 
 import Container from "@/components/container";
-import { H1, H2, H3 } from "@/components/heading/headingPortal";
+import H1 from "@/components/heading/heading1";
+import H2 from "@/components/heading/heading2";
+import H3 from "@/components/heading/heading3";
 import Layout from "@/components/layout";
 import Note from "@/components/note";
-import { flex } from "@/styles/common";
 import { bp, dg4Color } from "@/styles/config";
 
 const containerContent = css`
+  display: flex;
   flex-direction: column;
 `;
 
@@ -49,10 +51,12 @@ const colorContent = css`
 `;
 
 const simuList = css`
+  display: flex;
   gap: 32px;
 `;
 
 const logoList = css`
+  display: flex;
   flex-wrap: wrap;
   ${bp.sp} {
     flex-direction: column;
@@ -85,6 +89,7 @@ const zen = css`
 
 const ColorItem = ({ color }: { color: string }) => {
   const colorItem = css`
+    display: flex;
     justify-content: flex-end;
     align-items: flex-end;
     color: #fff;
@@ -102,6 +107,8 @@ const ColorItem = ({ color }: { color: string }) => {
   const colorItemText = css`
     width: fit-content;
     height: fit-content;
+
+    display: flex;
     flex-direction: column;
     align-items: flex-end;
     text-align: center;
@@ -117,8 +124,8 @@ const ColorItem = ({ color }: { color: string }) => {
   `;
 
   return (
-    <div className={`color-item-${color}`} css={[colorItem, flex]}>
-      <div css={[colorItemText, flex]}>
+    <div className={`color-item-${color}`} css={colorItem}>
+      <div css={[colorItemText]}>
         <p className="hex">{dg4Color[color]}</p>
         <p className="name">dg4Color.{color}</p>
       </div>
@@ -158,6 +165,8 @@ const DataItem = ({ name }: { name: string }) => {
     position: relative;
     padding: 24px;
     margin: 8px;
+
+    display: flex;
 
     border-radius: 16px;
 
@@ -207,7 +216,7 @@ const DataItem = ({ name }: { name: string }) => {
   const imgHref = `/images/dist/${name}.png`;
 
   return (
-    <div css={[logoItem, flex, white]}>
+    <div css={[logoItem, white]}>
       <Image css={img} src={imgHref} width={552} height={264} alt="" />
       <div css={linkWrap}>
         <a href={imgHref} download>
@@ -255,7 +264,7 @@ const DesignResource: NextPage = () => {
           <div className="content">
             <object data="/images/logo.svg" type="image/svg+xml"></object>
           </div>
-          <div className="content" css={[containerContent, flex]}>
+          <div className="content" css={containerContent}>
             <H3 en="Monthly Color" ja="月ごとの色" />
             <Note>
               メインで使用しているロゴは、<Link href="/about/#skill">4つのスキル</Link>
@@ -265,17 +274,17 @@ const DesignResource: NextPage = () => {
               <span>&nbsp;#00d4d4&nbsp;</span>
               に限りなく近づくように変化します。
             </Note>{" "}
-            <div css={[simuList, flex]}>
+            <div css={simuList}>
               <SimuItem year={2021} />
               <SimuItem year={2023} />
               <SimuItem year={2028} />
             </div>
           </div>
 
-          <div className="content" css={[containerContent, flex]}>
+          <div className="content" css={containerContent}>
             <H3 en="Material Download" ja="素材ダウンロード" />
             <Note>ロゴ自体の編集、変更、変形、色の塗り直し、その他手を加えることはしないでください。</Note>
-            <div css={[logoList, flex]}>
+            <div css={logoList}>
               <DataItem name="logo-white" />
               <DataItem name="logo-black" />
               <DataItem name="logo-cyan" />
@@ -290,7 +299,7 @@ const DesignResource: NextPage = () => {
       <section id="font">
         <H2 en="Font" ja="フォント" />
         <Container>
-          <div className="content" css={[containerContent, flex]}>
+          <div className="content" css={containerContent}>
             <H3 en="Dont" />
             <Note>
               Dontは、このサイトのタイトル部分等に使用されているフォントです。
@@ -301,7 +310,7 @@ const DesignResource: NextPage = () => {
             </Note>
             <div css={[fontSample, dont]}>Almost before we knew it, we had left the ground.</div>
           </div>
-          <div className="content" css={[containerContent, flex]}>
+          <div className="content" css={containerContent}>
             <H3 en="Zen Kaku Gothic New" ja="ZEN角ゴシックNew" />
             <Note>
               Zen Kaku Gothic Newは、このサイトの文章部分に使用されているフォントです。

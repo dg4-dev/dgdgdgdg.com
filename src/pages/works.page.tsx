@@ -5,12 +5,13 @@ import type { NextPage } from "next";
 
 import Button from "@/components/button";
 import Container from "@/components/container";
-import { H1, H2, H3 } from "@/components/heading/headingPortal";
+import H1 from "@/components/heading/heading1";
+import H2 from "@/components/heading/heading2";
+import H3 from "@/components/heading/heading3";
 import Layout from "@/components/layout";
 import InstaItemList from "@/components/works/InstaItemList";
 import Item from "@/components/works/item";
 import YoutubeItemList from "@/components/works/youtubeItemList";
-import { center, flex } from "@/styles/common";
 import { bp, dg4Color } from "@/styles/config";
 
 const contain = css`
@@ -19,6 +20,8 @@ const contain = css`
 
 const itemList = css`
   width: 100%;
+
+  display: flex;
   flex-wrap: wrap;
 `;
 
@@ -33,14 +36,19 @@ const fontContainer = css`
 const fontDesc = css`
   max-width: 500px;
   margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const btn = css`
   margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const FontContent = ({ name }: { name?: string }) => {
   const fontContent = css`
+    display: flex;
     flex-direction: column;
   `;
 
@@ -88,7 +96,7 @@ const FontContent = ({ name }: { name?: string }) => {
   };
 
   return (
-    <div className="content" css={[fontContent, flex]}>
+    <div className="content" css={fontContent}>
       <H3 en={fontName} />
       <div css={fontItem}>
         <div css={[itemLetter, ff]}>Almost before we knew it, we had left the ground.</div>
@@ -111,7 +119,7 @@ const Works: NextPage = () => {
       <section id="font">
         <Container css={fontContainer}>
           <H2 en="Font" ja="フォント" />
-          <div css={[fontDesc, center]}>
+          <div css={fontDesc}>
             <Image src="/images/works/dont-desc.webp" width={500} height={175} alt="" />
           </div>
           <FontContent />
@@ -123,7 +131,7 @@ const Works: NextPage = () => {
       <section id="logo">
         <Container css={contain}>
           <H2 en="Logo Design" ja="ロゴデザイン" />
-          <div css={[itemList, flex]}>
+          <div css={itemList}>
             <Item title="dgdgdgdg" imgHref="/images/logo.svg" />
             <Item title="自然食食堂 さん" imgHref="/images/works/sunlogo.webp" />
             <Item title="モノクローム" imgHref="/images/works/monologo.webp" />
@@ -135,7 +143,7 @@ const Works: NextPage = () => {
         <Container css={contain}>
           <H2 en="Photography" ja="写真" />
           <InstaItemList />
-          <Button ext={true} href="https://instagram.dgdgdgdg.com/" text="Instagram" css={[btn, center]} />
+          <Button ext={true} href="https://instagram.dgdgdgdg.com/" text="Instagram" css={btn} />
         </Container>
       </section>
 
@@ -143,14 +151,14 @@ const Works: NextPage = () => {
         <Container css={contain}>
           <H2 en="Video" ja="映像" />
           <YoutubeItemList />
-          <Button ext={true} href="https://youtube.dgdgdgdg.com/" text="YouTube" css={[btn, center]} />
+          <Button ext={true} href="https://youtube.dgdgdgdg.com/" text="YouTube" css={btn} />
         </Container>
       </section>
 
       <section id="web">
         <Container css={contain}>
           <H2 en="Website" ja="Webサイト" />
-          <div css={[itemList, flex]}>
+          <div css={itemList}>
             <Item title="dgdgdgdg" imgHref="/images/works/dg4web.webp" />
             <Item
               title="dg4 app archive"

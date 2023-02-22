@@ -8,17 +8,20 @@ import meaningItemElm from "@/components/about/meaningItem";
 import skillGraph from "@/components/about/skillGraph";
 import Button from "@/components/button";
 import Container from "@/components/container";
-import { H1, H2, H3 } from "@/components/heading/headingPortal";
+import H1 from "@/components/heading/heading1";
+import H2 from "@/components/heading/heading2";
+import H3 from "@/components/heading/heading3";
 import Layout from "@/components/layout";
 import Age from "@/pages/api/nowAge";
-import { center, flex } from "@/styles/common";
 import { bp } from "@/styles/config";
 
 const containerContent = css`
+  display: flex;
   flex-direction: column;
 `;
 
 const infoItem = css`
+  display: flex;
   gap: 50px;
 
   ${bp.sp} {
@@ -60,6 +63,9 @@ const logoPara = css`
 
 const logoImage = css`
   width: 600px;
+
+  margin-left: auto;
+  margin-right: auto;
   ${bp.sp} {
     width: 100%;
   }
@@ -67,6 +73,9 @@ const logoImage = css`
 
 const btn = css`
   margin-top: 40px;
+
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const meaningHeading = css`
@@ -78,6 +87,8 @@ const meaningContainer = css`
 `;
 
 const meaningItem = css`
+  display: flex;
+
   animation: loopSlide 25s infinite linear both;
 
   @keyframes loopSlide {
@@ -92,6 +103,9 @@ const meaningItem = css`
 
 const skillContent = css`
   width: fit-content;
+
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const equipmentsSlide = css`
@@ -101,6 +115,7 @@ const equipmentsSlide = css`
 const equipmentsList = css`
   width: fit-content;
 
+  display: flex;
   animation: loopSlide 60s infinite linear both;
   @keyframes loopSlide {
     from {
@@ -144,9 +159,9 @@ const About: NextPage = () => {
       <section id="overview">
         <Container>
           <H2 en="Overview" ja="概要" />
-          <div className="content" css={[containerContent, flex]}>
+          <div className="content" css={containerContent}>
             <H3 en="My Profile" ja="プロフィール" />
-            <div css={[infoItem, flex]}>
+            <div css={infoItem}>
               <div css={infoImage}>
                 <Image src="/images/profile.png" width={600} height={600} alt="" />
               </div>
@@ -177,24 +192,24 @@ const About: NextPage = () => {
             </div>
           </div>
 
-          <div className="content logo" css={[containerContent, flex]}>
+          <div className="content logo" css={containerContent}>
             <H3 en="Logo" ja="ロゴ" />
             <div className="item">
               <p css={logoPara}>dgdgdgdgで「だがし」と読みます</p>
-              <div className="logo" css={[logoImage, center]}>
+              <div className="logo" css={logoImage}>
                 <object data="/images/logo.svg" type="image/svg+xml"></object>
               </div>
             </div>
-            <Button css={[btn, center]} href="/about/design-resource" />
+            <Button css={btn} href="/about/design-resource" />
           </div>
 
-          <div className="content meaning" css={[containerContent, flex]}>
+          <div className="content meaning" css={containerContent}>
             <H3 css={meaningHeading} en={`Meaning of "dgdgdgdg"`} ja={`"だがし"に含まれる意味`} />
           </div>
         </Container>
         <Container css={meaningContainer}>
-          <div className="content" css={[flex]}>
-            <ul css={[meaningItem, flex]}>{[meaningItemElm, meaningItemElm, meaningItemElm]}</ul>
+          <div className="content" css={containerContent}>
+            <ul css={meaningItem}>{[meaningItemElm, meaningItemElm, meaningItemElm]}</ul>
           </div>
         </Container>
       </section>
@@ -202,9 +217,9 @@ const About: NextPage = () => {
       <section id="skill">
         <Container>
           <H2 en="Skill" ja="スキル" />
-          <div className="content" css={[containerContent, skillContent, center, flex]}>
+          <div className="content" css={[containerContent, skillContent]}>
             <ul>{skillGraph}</ul>
-            <Button css={[btn, center]} href="/works" />
+            <Button css={btn} href="/works" />
           </div>
         </Container>
       </section>
@@ -214,8 +229,8 @@ const About: NextPage = () => {
           <H2 en="Equipments" ja="ツール" />
         </Container>
         <Container css={equipmentsSlide}>
-          <div css={[equipmentsList, flex]}>{[EquipmentsSlide, EquipmentsSlide]}</div>
-          <Button css={[btn, center]} href="/about/equipments" />
+          <div css={equipmentsList}>{[EquipmentsSlide, EquipmentsSlide]}</div>
+          <Button css={btn} href="/about/equipments" />
         </Container>
       </section>
     </Layout>

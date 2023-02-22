@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 
-import { center } from "@/styles/common";
 import { bp, dg4Color } from "@/styles/config";
 
 const heading2 = css`
@@ -12,6 +11,8 @@ const heading2 = css`
 
   padding-top: 8px;
   margin-bottom: 80px;
+  margin-left: auto;
+  margin-right: auto;
 
   ${bp.tab} {
     margin-bottom: 60px;
@@ -81,13 +82,13 @@ type Props = {
   className?: string;
 };
 
-const Heading2 = ({ en, ja, className }: Props) => {
+const H2 = ({ en, ja, className }: Props) => {
   return (
-    <div css={[heading2, center]} className={className}>
+    <div css={heading2} className={className}>
       <h2 className="en">{en}</h2>
       <div className="ja">{ja}</div>
     </div>
   );
 };
 
-export default Heading2;
+export default H2;
