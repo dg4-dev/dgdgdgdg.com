@@ -27,7 +27,7 @@ const modal = css`
   background-color: #fff;
 `;
 
-const closeBtn = css`
+const closeButton = css`
   position: absolute;
   top: 32px;
   left: 0;
@@ -152,7 +152,7 @@ const EquipmentsModal = ({ name, maker, about, gen, variety, owning }: Props) =>
         <img src={imgName} alt="" />
       </div>
       <div css={[modal, isOpen]}>
-        <div css={closeBtn} className="clickable" onClick={() => setIsOpen(false)}></div>
+        <div css={closeButton} className="clickable" onClick={() => setIsOpen(false)}></div>
         <div css={scrolls}>
           <img src={imgName} alt="" />
           <div css={desc}>

@@ -40,7 +40,7 @@ const fontDesc = css`
   margin-right: auto;
 `;
 
-const btn = css`
+const button = css`
   margin-top: 40px;
   margin-left: auto;
   margin-right: auto;
@@ -143,7 +143,7 @@ const Works: NextPage = () => {
         <Container css={contain}>
           <H2 en="Photography" ja="写真" />
           <InstaItemList />
-          <Button ext={true} href="https://instagram.dgdgdgdg.com/" text="Instagram" css={btn} />
+          <Button external={true} href="https://instagram.dgdgdgdg.com/" text="Instagram" css={button} />
         </Container>
       </section>
 
@@ -151,7 +151,7 @@ const Works: NextPage = () => {
         <Container css={contain}>
           <H2 en="Video" ja="映像" />
           <YoutubeItemList />
-          <Button ext={true} href="https://youtube.dgdgdgdg.com/" text="YouTube" css={btn} />
+          <Button external={true} href="https://youtube.dgdgdgdg.com/" text="YouTube" css={button} />
         </Container>
       </section>
 
