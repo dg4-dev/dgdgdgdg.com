@@ -6,7 +6,7 @@ import type { NextPage } from "next";
 
 import Button from "@/components/button";
 import Container from "@/components/container";
-import { bp, dg4Color } from "@/styles/config";
+import { dg4Color, breakPoint } from "@/styles/config";
 
 const footerStyle = css`
   background-color: ${dg4Color.black};
@@ -14,7 +14,7 @@ const footerStyle = css`
   padding-top: 56px;
   padding-bottom: 90px;
 
-  ${bp.tab} {
+  ${breakPoint.tab} {
     padding-top: 20px;
     padding-bottom: 70px;
   }
@@ -25,7 +25,7 @@ const footerContainer = css`
   display: flex;
   justify-content: space-between;
 
-  ${bp.tab} {
+  ${breakPoint.tab} {
     flex-direction: column;
   }
 `;
@@ -37,7 +37,7 @@ const messageContent = css`
   gap: 24px;
   transform: translate(4px, 4px);
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     margin-left: 8px;
   }
 `;
@@ -47,12 +47,12 @@ const credit = css`
   flex-direction: column;
   align-items: flex-end;
 
-  ${bp.tab} {
+  ${breakPoint.tab} {
     margin-top: 40px;
     margin-left: auto;
   }
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: auto;
     margin-left: unset;
   }
@@ -65,7 +65,7 @@ const creditLogo = css`
     min-width: 384px;
     width: 100%;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       min-width: unset;
       margin: 0 4px;
     }
@@ -91,14 +91,14 @@ const LinkItems = () => {
 
     display: flex;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       flex-wrap: wrap;
     }
   `;
 
   const itemContent = css`
     width: 12.5%;
-    ${bp.sp} {
+    ${breakPoint.sp} {
       width: 25%;
     }
   `;

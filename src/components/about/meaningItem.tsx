@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-import { bp, dg4Color } from "@/styles/config";
+import { breakPoint, dg4Color } from "@/styles/config";
 
 const meaningRaw: {
   phrase: string;
@@ -53,7 +53,7 @@ const meaningItemElm = meaningRaw.map((value) => {
     font-size: 64px;
     margin-bottom: 16px;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       font-size: 56px;
     }
   `;

@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-import { bp, dg4Color } from "@/styles/config";
+import { breakPoint, dg4Color } from "@/styles/config";
 
 const global = css`
   // font
@@ -100,11 +100,11 @@ const global = css`
   section {
     padding-top: 120px;
 
-    ${bp.tab} {
+    ${breakPoint.tab} {
       padding-top: 80px;
     }
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       padding-top: 60px;
     }
   }
@@ -112,11 +112,11 @@ const global = css`
   section:last-child {
     margin-bottom: 160px;
 
-    ${bp.tab} {
+    ${breakPoint.tab} {
       margin-bottom: 120px;
     }
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       margin-bottom: 80px;
     }
   }

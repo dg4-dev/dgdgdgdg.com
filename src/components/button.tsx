@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import Link from "next/link";
 
-import { bp, dg4Color } from "@/styles/config";
+import { breakPoint, dg4Color } from "@/styles/config";
 
 const btn = css`
   display: block;
@@ -21,7 +21,7 @@ const btn = css`
 
   transform: translate(-4px, -4px);
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     height: 40px;
     line-height: 40px;
     font-size: 16px;
