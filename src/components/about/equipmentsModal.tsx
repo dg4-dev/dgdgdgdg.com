@@ -3,7 +3,7 @@
 import { css } from "@emotion/react";
 import { useState } from "react";
 
-import { bp, dg4Color } from "@/styles/config";
+import { dg4Color, breakPoint } from "@/styles/config";
 
 const cover = css`
   img {
@@ -39,7 +39,7 @@ const closeBtn = css`
   margin-left: auto;
   margin-right: auto;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     top: 20px;
   }
 
@@ -70,7 +70,7 @@ const scrolls = css`
 
   padding: 64px;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     flex-direction: column;
     justify-content: normal;
     overflow-y: auto;
@@ -85,7 +85,7 @@ const scrolls = css`
     /* ぼやけさせないぞ */
     image-rendering: pixelated;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       width: 100%;
       max-width: 380px;
     }
@@ -97,7 +97,7 @@ const desc = css`
   line-height: 1.5;
   margin-left: 40px;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: 100%;
     margin-left: 0;
     margin-top: 24px;
