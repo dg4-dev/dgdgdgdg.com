@@ -6,7 +6,6 @@ import type { NextPage } from "next";
 
 import Button from "@/components/button";
 import Container from "@/components/container";
-import { flex } from "@/styles/common";
 import { bp, dg4Color } from "@/styles/config";
 
 const footerStyle = css`
@@ -32,6 +31,7 @@ const footerContainer = css`
 `;
 
 const messageContent = css`
+  display: flex;
   gap: 24px;
   transform: translate(4px, 4px);
 
@@ -81,6 +81,7 @@ const mesBtn = css`
 `;
 
 const credit = css`
+  display: flex;
   flex-direction: column;
   align-items: flex-end;
 
@@ -127,6 +128,8 @@ const LinkItems = () => {
     margin-top: 32px;
     transform: translate(-22px, 0);
 
+    display: flex;
+
     ${bp.sp} {
       flex-wrap: wrap;
       transform: unset;
@@ -155,7 +158,7 @@ const LinkItems = () => {
       </li>
     );
   });
-  return <ul css={[linkItem, flex]}>{linkElm}</ul>;
+  return <ul css={linkItem}>{linkElm}</ul>;
 };
 
 const Footer: NextPage = () => {
@@ -163,14 +166,14 @@ const Footer: NextPage = () => {
     <footer id="footer" css={footerStyle}>
       <Container css={footerContainer}>
         <div>
-          <div className="content" css={[messageContent, flex]}>
+          <div className="content" css={messageContent}>
             <Button css={[footerBtn, tdmBtn]} href="https://twitterdm.dgdgdgdg.com" text="Twitter DM" ext={true} />
             <Button css={[footerBtn, mesBtn]} href="https://messenger.dgdgdgdg.com" text="Messenger" ext={true} />
           </div>
           <LinkItems />
         </div>
 
-        <div css={[credit, flex]}>
+        <div css={credit}>
           <Link href="/">
             <a css={creditLogo}>
               <object data="/images/dist/logo-white.svg" type="image/svg+xml"></object>

@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 
 import Item from "./item";
 
-import { flex } from "@/styles/common";
-
 type Default = {
   url: string;
   width: number;
@@ -51,6 +49,8 @@ type Props = {
 const YoutubeItemList = () => {
   const itemList = css`
     width: 100%;
+
+    display: flex;
     flex-wrap: wrap;
   `;
 
@@ -116,7 +116,7 @@ const YoutubeItemList = () => {
       )
     : "Loading ...";
 
-  return <div css={[itemList, flex]}>{youtubeItems}</div>;
+  return <div css={itemList}>{youtubeItems}</div>;
 };
 
 export default YoutubeItemList;

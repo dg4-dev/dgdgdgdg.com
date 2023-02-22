@@ -1,6 +1,15 @@
 import { css } from "@emotion/react";
 
 const reset = css`
+  /***
+    The new CSS reset - version 1.8.4 (last updated 14.2.2023)
+    GitHub page: https://github.com/elad2412/the-new-css-reset
+  ***/
+
+  /*
+    Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
+    - The "symbol *" part is to solve Firefox SVG sprite bug
+  */
   *:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
     all: unset;
     display: revert;
@@ -28,7 +37,8 @@ const reset = css`
 
   /* For images to not be able to exceed their container */
   img {
-    max-width: 100%;
+    max-inline-size: 100%;
+    max-block-size: 100%;
   }
 
   /* removes spacing between cells in tables */
@@ -53,20 +63,30 @@ const reset = css`
     appearance: revert;
   }
 
+  /* preformatted text - use only for this feature */
+  :where(pre) {
+    all: revert;
+  }
+
   /* reset default text opacity of input placeholder */
   ::placeholder {
     color: unset;
   }
 
+  /* remove default dot (•) sign */
+  ::marker {
+    content: initial;
+  }
+
   /* fix the feature of 'hidden' attribute.
- display:revert; revert to element instead of attribute */
+   display:revert; revert to element instead of attribute */
   :where([hidden]) {
     display: none;
   }
 
   /* revert for bug in Chromium browsers
- - fix for the content editable attribute will work properly.
- - webkit-user-select: auto; added for Safari in case of using user-select:none on wrapper element*/
+   - fix for the content editable attribute will work properly.
+   - webkit-user-select: auto; added for Safari in case of using user-select:none on wrapper element*/
   :where([contenteditable]:not([contenteditable="false"])) {
     -moz-user-modify: read-write;
     -webkit-user-modify: read-write;
@@ -78,6 +98,11 @@ const reset = css`
   /* apply back the draggable feature - exist only in Chromium and Safari */
   :where([draggable="true"]) {
     -webkit-user-drag: element;
+  }
+
+  /* Revert Modal native behavior */
+  :where(dialog:modal) {
+    all: revert;
   }
 `;
 

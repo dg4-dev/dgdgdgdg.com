@@ -6,10 +6,11 @@ import type { NextPage } from "next";
 
 import HeaderLink from "@/components/header/headerLink";
 import pageName from "@/pages/api/pageName";
-import { click, flex } from "@/styles/common";
+import { click } from "@/styles/common";
 import { bp, dg4Color } from "@/styles/config";
 
 const header = css`
+  display: flex;
   .inside.is-open {
     height: 100vh;
   }
@@ -18,6 +19,8 @@ const header = css`
 const outside = css`
   position: fixed;
   width: 100%;
+
+  display: flex;
   align-items: center;
   justify-content: space-between;
 
@@ -43,6 +46,7 @@ const burger = css`
   height: 90px;
   background-color: ${dg4Color.cyan};
 
+  display: flex;
   justify-content: center;
   align-items: center;
 
@@ -74,6 +78,8 @@ const burger = css`
 const line = css`
   width: 35px;
   height: 27px;
+
+  display: flex;
 
   position: relative;
 
@@ -140,6 +146,7 @@ const inside = css`
   width: 100%;
   z-index: 999;
 
+  display: flex;
   justify-content: space-between;
 
   .white.is-open {
@@ -175,6 +182,7 @@ const white = css`
   height: 100vh;
   background-color: #fff;
 
+  display: flex;
   justify-content: center;
   align-items: center;
   transition: all 0.2s;
@@ -193,10 +201,11 @@ const cyan = css`
   height: 90px;
   background-color: ${dg4Color.cyan};
 
+  display: flex;
   flex-direction: column;
-
   justify-content: center;
   align-items: center;
+
   margin-left: auto;
   transition: all 0.2s;
 
@@ -295,15 +304,15 @@ const Header: NextPage = () => {
   );
 
   return (
-    <header css={[header, flex]}>
-      <div css={[outside, flex]}>
+    <header css={header}>
+      <div css={outside}>
         <Link href="/">
           <a css={logo} onClick={() => menuReset()}>
             <object data="/images/logo.svg" type="image/svg+xml" />
           </a>
         </Link>
-        <div css={[burger, click, flex]} onClick={() => menuFunction()}>
-          <div css={[line, flex]}>
+        <div css={[burger, click]} onClick={() => menuFunction()}>
+          <div css={line}>
             <div className={`line-item line-item1 ${openState}`} />
             <div className={`line-item line-item2 ${openState}`} />
             <div className={`line-item line-item3 ${openState}`} />
@@ -311,11 +320,11 @@ const Header: NextPage = () => {
         </div>
       </div>
 
-      <div css={[inside, flex]} className={`inside ${openState}`}>
-        <div css={[white, flex]} className={`white ${openState}`}>
+      <div css={inside} className={`inside ${openState}`}>
+        <div css={white} className={`white ${openState}`}>
           {extLinkContents}
         </div>
-        <div css={[cyan, flex]} className={`cyan ${openState}`}>
+        <div css={cyan} className={`cyan ${openState}`}>
           <nav css={nav} className={`nav ${openState}`}>
             <ul>{linkContents}</ul>
           </nav>

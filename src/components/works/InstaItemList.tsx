@@ -3,7 +3,6 @@ import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
 
 import { instaDummy } from "@/pages/api/instaDummy";
-import { flex } from "@/styles/common";
 import { bp } from "@/styles/config";
 
 type Cursors = {
@@ -36,6 +35,8 @@ type Props = {
 const InstaItemList = () => {
   const itemList = css`
     width: 100%;
+
+    display: flex;
     flex-wrap: wrap;
   `;
 
@@ -88,7 +89,7 @@ const InstaItemList = () => {
     );
   });
 
-  return <div css={[itemList, flex]}>{instaItems}</div>;
+  return <div css={itemList}>{instaItems}</div>;
 };
 
 export default InstaItemList;
