@@ -71,7 +71,7 @@ const logoImage = css`
   }
 `;
 
-const btn = css`
+const button = css`
   margin-top: 40px;
 
   margin-left: auto;
@@ -200,7 +200,7 @@ const About: NextPage = () => {
                 <object data="/images/logo.svg" type="image/svg+xml"></object>
               </div>
             </div>
-            <Button css={btn} href="/about/design-resource" />
+            <Button css={button} href="/about/design-resource" />
           </div>
 
           <div className="content meaning" css={containerContent}>
@@ -219,7 +219,7 @@ const About: NextPage = () => {
           <H2 en="Skill" ja="スキル" />
           <div className="content" css={[containerContent, skillContent]}>
             <ul>{skillGraph}</ul>
-            <Button css={btn} href="/works" />
+            <Button css={button} href="/works" />
           </div>
         </Container>
       </section>
@@ -230,7 +230,7 @@ const About: NextPage = () => {
         </Container>
         <Container css={equipmentsSlide}>
           <div css={equipmentsList}>{[EquipmentsSlide, EquipmentsSlide]}</div>
-          <Button css={btn} href="/about/equipments" />
+          <Button css={button} href="/about/equipments" />
         </Container>
       </section>
     </Layout>

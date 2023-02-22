@@ -126,8 +126,8 @@ const Footer: NextPage = () => {
       <Container css={footerContainer}>
         <div css={contact}>
           <div className="content" css={messageContent}>
-            <Button href="https://twitterdm.dgdgdgdg.com" text="Twitter DM" ext={true} />
-            <Button href="https://messenger.dgdgdgdg.com" text="Messenger" ext={true} />
+            <Button href="https://twitterdm.dgdgdgdg.com" text="Twitter DM" external={true} />
+            <Button href="https://messenger.dgdgdgdg.com" text="Messenger" external={true} />
           </div>
           <LinkItems />
         </div>
