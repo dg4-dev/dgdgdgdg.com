@@ -153,7 +153,7 @@ const equipmentsList = css`
 
 const About: NextPage = () => {
   return (
-    <Layout title="About | dgdgdgdg" description="dgdgdgdgについての概要、スキル、使用ツールについての説明です。">
+    <Layout title="About | dgdgdgdg" description="dgdgdgdgについての概要、スキル、使用機材についての説明です。">
       <H1 />
 
       <section id="overview">
@@ -226,7 +226,7 @@ const About: NextPage = () => {
 
       <section id="equipments">
         <Container>
-          <H2 en="Equipments" ja="ツール" />
+          <H2 en="Equipments" ja="使用機材" />
         </Container>
         <Container css={equipmentsSlide}>
           <div css={equipmentsList}>{[EquipmentsSlide, EquipmentsSlide]}</div>
