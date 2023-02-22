@@ -3,8 +3,7 @@
 import { css } from "@emotion/react";
 import { useState } from "react";
 
-import { click } from "@/styles/common";
-import { bp, dg4Color } from "@/styles/config";
+import { dg4Color, breakPoint } from "@/styles/config";
 
 const cover = css`
   img {
@@ -28,7 +27,7 @@ const modal = css`
   background-color: #fff;
 `;
 
-const closeBtn = css`
+const closeButton = css`
   position: absolute;
   top: 32px;
   left: 0;
@@ -40,7 +39,7 @@ const closeBtn = css`
   margin-left: auto;
   margin-right: auto;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     top: 20px;
   }
 
@@ -71,7 +70,7 @@ const scrolls = css`
 
   padding: 64px;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     flex-direction: column;
     justify-content: normal;
     overflow-y: auto;
@@ -86,7 +85,7 @@ const scrolls = css`
     /* ぼやけさせないぞ */
     image-rendering: pixelated;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       width: 100%;
       max-width: 380px;
     }
@@ -98,7 +97,7 @@ const desc = css`
   line-height: 1.5;
   margin-left: 40px;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: 100%;
     margin-left: 0;
     margin-top: 24px;
@@ -149,11 +148,11 @@ const EquipmentsModal = ({ name, maker, about, gen, variety, owning }: Props) =>
 
   return (
     <>
-      <div css={[cover, click]} onClick={() => setIsOpen(true)}>
+      <div css={cover} className="clickable" onClick={() => setIsOpen(true)}>
         <img src={imgName} alt="" />
       </div>
       <div css={[modal, isOpen]}>
-        <div css={[closeBtn, click]} onClick={() => setIsOpen(false)}></div>
+        <div css={closeButton} className="clickable" onClick={() => setIsOpen(false)}></div>
         <div css={scrolls}>
           <img src={imgName} alt="" />
           <div css={desc}>

@@ -4,17 +4,17 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 import pageName from "@/pages/api/pageName";
-import { bp } from "@/styles/config";
+import { breakPoint } from "@/styles/config";
 
 const pageTitle = css`
   padding-top: 0px;
   height: 370px;
   position: relative;
 
-  ${bp.tab} {
+  ${breakPoint.tab} {
     height: 270px;
   }
-  ${bp.sp} {
+  ${breakPoint.sp} {
     height: 200px;
   }
 `;
@@ -32,12 +32,12 @@ const heading1 = css`
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
 
-  ${bp.tab} {
+  ${breakPoint.tab} {
     max-width: none;
     width: calc(100% - 40px);
   }
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: calc(100% - 24px);
   }
 
@@ -45,11 +45,11 @@ const heading1 = css`
     font-family: "Dont", sans-serif;
     font-size: 100px;
 
-    ${bp.tab} {
+    ${breakPoint.tab} {
       font-size: 64px;
     }
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       font-size: 48px;
     }
   }
