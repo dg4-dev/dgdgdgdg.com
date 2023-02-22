@@ -85,17 +85,17 @@ const externalLinkStyle = css`
   }
 
   :hover .ja::after {
-    background-image: url("/images/icon-ext-white.svg");
+    background-image: url("/images/icon-external-white.svg");
   }
 `;
 
-const extLinkEN = css`
+const externalLinkEN = css`
   position: relative;
   color: ${dg4Color.cyan};
   opacity: 0.5;
 `;
 
-const extLinkJA = css`
+const externalLinkJA = css`
   color: ${dg4Color.cyan};
   position: relative;
   width: fit-content;
@@ -111,7 +111,7 @@ const extLinkJA = css`
 
     margin: auto 0;
 
-    background-image: url("/images/icon-ext.svg");
+    background-image: url("/images/icon-external.svg");
     background-size: contain;
     background-repeat: no-repeat;
   }
@@ -121,16 +121,16 @@ type Props = {
   href: string | UrlObject;
   en: string;
   ja: string;
-  ext?: Boolean;
+  external?: Boolean;
 };
 
-const HeaderLink = ({ href, en, ja, ext = false }: Props) => {
-  return ext ? (
+const HeaderLink = ({ href, en, ja, external = false }: Props) => {
+  return external ? (
     <a css={externalLinkStyle} href={`${href}`} target="_blank" rel="noopener noreferrer">
-      <div className="en" css={[linkEN, extLinkEN]}>
+      <div className="en" css={[linkEN, externalLinkEN]}>
         {en}
       </div>
-      <div className="ja" css={[linkJA, extLinkJA]}>
+      <div className="ja" css={[linkJA, externalLinkJA]}>
         {ja}
       </div>
     </a>

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { breakPoint, dg4Color } from "@/styles/config";
 
-const btn = css`
+const button = css`
   display: block;
 
   transition: all 0.2s;
@@ -38,17 +38,17 @@ type Props = {
   href: string;
   text?: string;
   className?: string;
-  ext?: Boolean;
+  external?: Boolean;
 };
 
-const Button = ({ href, text = "See more", className, ext = false }: Props) => {
-  return ext ? (
-    <a href={href} css={btn} className={className} target="_blank" rel="noopener noreferrer">
+const Button = ({ href, text = "See more", className, external = false }: Props) => {
+  return external ? (
+    <a href={href} css={button} className={className} target="_blank" rel="noopener noreferrer">
       {text}
     </a>
   ) : (
     <Link href={href}>
-      <a css={btn} className={className}>
+      <a css={button} className={className}>
         {text}
       </a>
     </Link>
