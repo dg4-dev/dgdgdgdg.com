@@ -1,10 +1,13 @@
 import { css } from "@emotion/react";
 
-import { center } from "@/styles/common";
 import { bp, cWidth } from "@/styles/config";
 
 const containerStyle = css`
   width: ${cWidth.pc};
+
+  margin-left: auto;
+  margin-right: auto;
+
   ${bp.tab} {
     width: ${cWidth.tab};
   }
@@ -27,7 +30,7 @@ const containerStyle = css`
 
 const Container = ({ children, className }: { children: React.ReactNode; className?: string }) => {
   return (
-    <div css={[containerStyle, center]} className={className}>
+    <div css={containerStyle} className={className}>
       {children}
     </div>
   );
