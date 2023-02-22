@@ -1,5 +1,5 @@
 export const dg4Color: {
-  [key in string]: string;
+  [key: string]: string;
 } = {
   cyan: "#00d4d4",
   black: "#444444",
@@ -13,19 +13,19 @@ type containerDevice = {
   sp: string;
 };
 
-type breakDevice = {
+type breakPointDevice = {
   tab: string;
   sp: string;
   // mini: string;
 };
 
-export const cWidth: containerDevice = {
+export const containerWidth: containerDevice = {
   pc: "800px",
   tab: "calc(100% - (20px * 2))",
   sp: "calc(100% - (12px * 2))",
 };
 
-export const bp: breakDevice = {
+export const breakPoint: breakPointDevice = {
   tab: "@media (max-width: 1024px)",
   sp: "@media (max-width: 640px)",
   // mini: "@media (max-width: 320px)",

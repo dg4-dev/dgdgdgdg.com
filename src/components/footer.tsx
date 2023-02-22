@@ -6,7 +6,7 @@ import type { NextPage } from "next";
 
 import Button from "@/components/button";
 import Container from "@/components/container";
-import { bp, dg4Color } from "@/styles/config";
+import { dg4Color, breakPoint } from "@/styles/config";
 
 const footerStyle = css`
   background-color: ${dg4Color.black};
@@ -14,7 +14,7 @@ const footerStyle = css`
   padding-top: 64px;
   padding-bottom: 90px;
 
-  ${bp.tab} {
+  ${breakPoint.tab} {
     padding-top: 40px;
     padding-bottom: 70px;
   }
@@ -25,7 +25,7 @@ const footerContainer = css`
   display: flex;
   justify-content: space-between;
 
-  ${bp.tab} {
+  ${breakPoint.tab} {
     flex-direction: column;
   }
 `;
@@ -35,16 +35,16 @@ const messageContent = css`
   gap: 24px;
   transform: translate(4px, 4px);
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     justify-content: center;
   }
 `;
 
-const footerBtn = css`
+const footerButton = css`
   position: relative;
   padding-left: 44px;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     padding-left: 36px;
   }
 
@@ -61,20 +61,20 @@ const footerBtn = css`
 
     margin: auto 0;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       width: 32px;
       height: 32px;
     }
   }
 `;
 
-const tdmBtn = css`
+const twitterDmButton = css`
   ::before {
     background-image: url("/images/icon/twitter.svg");
   }
 `;
 
-const mesBtn = css`
+const messengerButton = css`
   ::before {
     background-image: url("/images/icon/messenger.svg");
   }
@@ -85,12 +85,12 @@ const credit = css`
   flex-direction: column;
   align-items: flex-end;
 
-  ${bp.tab} {
+  ${breakPoint.tab} {
     margin-top: 40px;
     margin-left: auto;
   }
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: auto;
     margin-top: 24px;
     margin-left: unset;
@@ -103,7 +103,7 @@ const creditLogo = css`
   object {
     min-width: 384px;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       min-width: unset;
       margin: 0 4px;
     }
@@ -130,7 +130,7 @@ const LinkItems = () => {
 
     display: flex;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       flex-wrap: wrap;
       transform: unset;
       max-width: unset;
@@ -139,7 +139,7 @@ const LinkItems = () => {
 
   const itemContent = css`
     width: 12.5%;
-    ${bp.sp} {
+    ${breakPoint.sp} {
       width: 25%;
     }
   `;
@@ -167,8 +167,18 @@ const Footer: NextPage = () => {
       <Container css={footerContainer}>
         <div>
           <div className="content" css={messageContent}>
-            <Button css={[footerBtn, tdmBtn]} href="https://twitterdm.dgdgdgdg.com" text="Twitter DM" ext={true} />
-            <Button css={[footerBtn, mesBtn]} href="https://messenger.dgdgdgdg.com" text="Messenger" ext={true} />
+            <Button
+              css={[footerButton, twitterDmButton]}
+              href="https://twitterdm.dgdgdgdg.com"
+              text="Twitter DM"
+              external={true}
+            />
+            <Button
+              css={[footerButton, messengerButton]}
+              href="https://messenger.dgdgdgdg.com"
+              text="Messenger"
+              external={true}
+            />
           </div>
           <LinkItems />
         </div>

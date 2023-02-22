@@ -1,13 +1,13 @@
+import { UrlObject } from "url";
+
 import { css } from "@emotion/react";
 import Link from "next/link";
 import { useState } from "react";
 
 import type { NextPage } from "next";
 
-import HeaderLink from "@/components/header/headerLink";
 import pageName from "@/pages/api/pageName";
-import { click } from "@/styles/common";
-import { bp, dg4Color } from "@/styles/config";
+import { dg4Color, breakPoint } from "@/styles/config";
 
 const header = css`
   display: flex;
@@ -27,7 +27,7 @@ const outside = css`
   padding-left: 26px;
   z-index: 1000;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     padding-left: 12px;
   }
 `;
@@ -36,7 +36,7 @@ const logo = css`
   width: 150px;
   height: auto;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: 120px;
   }
 `;
@@ -50,7 +50,7 @@ const burger = css`
   justify-content: center;
   align-items: center;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: 65px;
     height: 65px;
   }
@@ -58,7 +58,7 @@ const burger = css`
   :hover .line-item1 {
     top: 6px;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       top: 4px;
     }
   }
@@ -69,7 +69,7 @@ const burger = css`
 
   :hover .line-item3 {
     top: 18px;
-    ${bp.sp} {
+    ${breakPoint.sp} {
       top: 12px;
     }
   }
@@ -83,7 +83,7 @@ const line = css`
 
   position: relative;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: 30px;
     height: 19px;
   }
@@ -105,7 +105,7 @@ const line = css`
   .line-item1.is-open {
     top: 12px;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       top: 8px;
     }
   }
@@ -115,7 +115,7 @@ const line = css`
     opacity: 1;
     top: 12px;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       top: 8px;
     }
   }
@@ -127,7 +127,7 @@ const line = css`
 
   .line-item3 {
     top: 24px;
-    ${bp.sp} {
+    ${breakPoint.sp} {
       top: 16px;
     }
   }
@@ -135,7 +135,7 @@ const line = css`
   .line-item3.is-open {
     top: 12px;
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       top: 8px;
     }
   }
@@ -157,7 +157,7 @@ const inside = css`
     width: 40%;
     height: 100vh;
 
-    ${bp.tab} {
+    ${breakPoint.tab} {
       width: 100%;
       justify-content: normal;
       padding-top: 100px;
@@ -166,7 +166,7 @@ const inside = css`
       overflow-y: auto;
     }
 
-    ${bp.sp} {
+    ${breakPoint.sp} {
       visibility: visible;
       padding-top: 70px;
       padding-bottom: 170px;
@@ -187,7 +187,7 @@ const white = css`
   align-items: center;
   transition: all 0.2s;
 
-  ${bp.tab} {
+  ${breakPoint.tab} {
     display: none;
   }
 
@@ -209,7 +209,7 @@ const cyan = css`
   margin-left: auto;
   transition: all 0.2s;
 
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: 65px;
     height: 65px;
     visibility: hidden;
@@ -230,17 +230,17 @@ const nav = css`
   visibility: hidden;
   opacity: 0;
 
-  ${bp.tab} {
+  ${breakPoint.tab} {
     width: 354px;
   }
-  ${bp.sp} {
+  ${breakPoint.sp} {
     width: 284px;
   }
 
   ul li:not(:first-of-type) {
     margin-top: 26px;
 
-    ${bp.sp}
+    ${breakPoint.sp}
     margin-top: 16px;
   }
 
@@ -251,7 +251,7 @@ const nav = css`
 
   ul li.indent a .ja {
     font-size: 20px;
-    ${bp.sp} {
+    ${breakPoint.sp} {
       font-size: 16px;
     }
   }
@@ -262,7 +262,7 @@ const linkWrapper = css`
   visibility: hidden;
   opacity: 0;
   margin-top: 24px;
-  ${bp.tab} {
+  ${breakPoint.tab} {
     display: block;
   }
 
@@ -270,6 +270,149 @@ const linkWrapper = css`
     margin-top: 20px;
   }
 `;
+
+const headerLinkStyle = css`
+  display: block;
+  width: 100%;
+  height: fit-content;
+  padding: 10px 20px;
+`;
+
+const linkEN = css`
+  font-family: "Dont", sans-serif;
+  font-size: 14px;
+  line-height: 14px;
+  color: #fff;
+  opacity: 0.5;
+
+  margin-left: 2px;
+`;
+
+const linkJA = css`
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 35px;
+  color: #fff;
+
+  ${breakPoint.sp} {
+    font-size: 20px;
+  }
+`;
+
+const externalLinkStyle = css`
+  display: block;
+  width: 360px;
+  height: 80px;
+
+  padding: 15px 20px;
+  background-color: #fff;
+  border: 3px solid ${dg4Color.cyan};
+
+  position: relative;
+  transition: all 0.3s;
+
+  ${breakPoint.sp} {
+    width: 290px;
+    height: 70px;
+
+    padding: 10px 20px;
+  }
+
+  :hover {
+    opacity: 1;
+  }
+
+  ::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 100%;
+    background-color: ${dg4Color.cyan};
+
+    top: 0;
+    left: 0;
+    transition: all 0.3s;
+  }
+
+  :hover::before {
+    width: 100%;
+  }
+
+  :hover .en {
+    color: #fff;
+    opacity: 0.5;
+    transition: all 0.3s;
+  }
+
+  :hover .ja {
+    color: #fff;
+    transition: all 0.3s;
+  }
+
+  :hover .ja::after {
+    background-image: url("/images/icon-external-white.svg");
+  }
+`;
+
+const externalLinkEN = css`
+  position: relative;
+  color: ${dg4Color.cyan};
+  opacity: 0.5;
+`;
+
+const externalLinkJA = css`
+  color: ${dg4Color.cyan};
+  position: relative;
+  width: fit-content;
+  ::after {
+    content: "";
+    position: absolute;
+    width: 13px;
+    height: 13px;
+
+    right: -18px;
+    top: 0;
+    bottom: 0;
+
+    margin: auto 0;
+
+    background-image: url("/images/icon-external.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+`;
+
+type Props = {
+  href: string | UrlObject;
+  en: string;
+  ja: string;
+  external?: Boolean;
+};
+
+const HeaderLink = ({ href, en, ja, external = false }: Props) => {
+  return external ? (
+    <a css={externalLinkStyle} href={`${href}`} target="_blank" rel="noopener noreferrer">
+      <div className="en" css={[linkEN, externalLinkEN]}>
+        {en}
+      </div>
+      <div className="ja" css={[linkJA, externalLinkJA]}>
+        {ja}
+      </div>
+    </a>
+  ) : (
+    <Link href={href} passHref>
+      <a css={headerLinkStyle}>
+        <div className="en" css={linkEN}>
+          {en}
+        </div>
+        <div className="ja" css={linkJA}>
+          {ja}
+        </div>
+      </a>
+    </Link>
+  );
+};
 
 const Header: NextPage = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -294,11 +437,16 @@ const Header: NextPage = () => {
           href="https://www.radio.dgdgdgdg.com/"
           en="Enter the radio title"
           ja="ラジオのタイトルを入力"
-          ext={true}
+          external={true}
         />
       </li>
       <li>
-        <HeaderLink href="https://www.apps.dgdgdgdg.com/" en="dg4 app archive" ja="dg4アプリアーカイブ" ext={true} />
+        <HeaderLink
+          href="https://www.apps.dgdgdgdg.com/"
+          en="dg4 app archive"
+          ja="dg4アプリアーカイブ"
+          external={true}
+        />
       </li>
     </ul>
   );
@@ -311,7 +459,7 @@ const Header: NextPage = () => {
             <object data="/images/logo.svg" type="image/svg+xml" />
           </a>
         </Link>
-        <div css={[burger, click]} onClick={() => menuFunction()}>
+        <div css={burger} className="clickable" onClick={() => menuFunction()}>
           <div css={line}>
             <div className={`line-item line-item1 ${openState}`} />
             <div className={`line-item line-item2 ${openState}`} />
