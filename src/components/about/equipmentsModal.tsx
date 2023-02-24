@@ -82,6 +82,8 @@ const scrolls = css`
     width: 60%;
     max-width: 760px;
 
+    object-fit: contain;
+
     /* ぼやけさせないぞ */
     image-rendering: pixelated;
 
