@@ -72,21 +72,23 @@ const meaningItemElm = meaningRaw.map((value) => {
     line-height: 24px;
   `;
 
-  const meaningPhraseElms = value.phrase.split("").map((letter, index) => {
+  const meaningPhraseElms = value.phrase.split("").map((letter) => {
+    const random = Math.floor(Math.random() * 1000);
+
     if (letter.match(/[dg4]/g)) {
       return (
-        <span key={`${letter}${index}`} css={cyan}>
+        <span key={`${letter}${random}`} css={cyan}>
           {letter}
         </span>
       );
     } else if (letter.match(/[駄菓子]/g)) {
       return (
-        <span key={`${letter}${index}`} css={[cyan, noto]}>
+        <span key={`${letter}${random}`} css={[cyan, noto]}>
           {letter}
         </span>
       );
     } else {
-      return <span key={`${letter}${index}`}>{letter}</span>;
+      return <span key={`${letter}${random}`}>{letter}</span>;
     }
   });
 
