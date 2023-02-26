@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { css } from "@emotion/react";
 
-import { data } from "@/pages/api/equipments/data";
+import { itemData, itemDataProps } from "@/pages/api/equipments/itemData";
 import { breakPoint } from "@/styles/config";
 
 const shuffle = ([...array]) => {
@@ -12,28 +12,14 @@ const shuffle = ([...array]) => {
   return array;
 };
 
-// itemsを統合・シャッフル・奇数個の場合末尾切り捨て
-const planeItems = data
-  .map(({ items }) => items)
-  .reduce((e, i) => {
-    return e.concat(i);
-  });
+// 配列をシャッフルする
+const shuffledItems = shuffle(itemData);
 
-type item = {
-  name: string;
-  maker: string;
-  about: string;
-  gen: Number | "Latest version";
-  variety?: string;
-  owning?: Number;
-};
-
-const shuffledItems: item[] = shuffle(planeItems);
-
+// 配列の要素数が奇数の場合、最後の要素を削除する
 if (shuffledItems.length % 2 === 1) shuffledItems.pop();
 
 // 配列を分割する関数
-const sliceByNumber = (array: item[], number: number) => {
+const sliceByNumber = (array: itemDataProps[], number: number) => {
   const length = Math.ceil(array.length / number);
   return new Array(length).fill(1).map((_, i) => array.slice(i * number, (i + 1) * number));
 };

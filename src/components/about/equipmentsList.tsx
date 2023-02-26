@@ -5,10 +5,11 @@ import Container from "../container";
 import EquipmentsModal from "./equipmentsModal";
 
 import H2 from "@/components/heading/heading2";
-import { data } from "@/pages/api/equipments/data";
+import { categoryNames } from "@/pages/api/equipments/categoryNames";
+import { itemData } from "@/pages/api/equipments/itemData";
 import { breakPoint } from "@/styles/config";
 
-const equipmentsList = data.map(({ contentName: { en, ja }, items }) => {
+const equipmentsList = categoryNames.map(({ en, ja }) => {
   const equipmentsListSt = css`
     display: flex;
     flex-wrap: wrap;
@@ -27,6 +28,8 @@ const equipmentsList = data.map(({ contentName: { en, ja }, items }) => {
       }
     }
   `;
+
+  const items = itemData.filter((item) => item.category === en);
 
   const itemContent = items.map(({ name, maker, about, gen, variety, owning }) => {
     const equipmentsItem = css`
