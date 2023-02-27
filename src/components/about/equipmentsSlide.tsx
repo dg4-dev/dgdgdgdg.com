@@ -25,14 +25,7 @@ const sliceByNumber = (array: itemDataProps[], number: number) => {
 };
 
 const EquipmentsSlide = sliceByNumber(shuffledItems, 2).map((twoItems, index) => {
-  const twoImages = twoItems.map(({ maker, name, variety }) => {
-    const fmtMaker = maker.toLowerCase().replace(/[."+() -]/g, "");
-    const fmtName = name.toLowerCase().replace(/[."+() -]/g, "");
-    const fmtVariety = variety ? variety.toLowerCase().replace(/[."+() -]/g, "") : undefined;
-    const imgName = fmtVariety
-      ? `/images/equipments/${fmtMaker}-${fmtName}-${fmtVariety}.png`
-      : `/images/equipments/${fmtMaker}-${fmtName}.png`;
-
+  const twoImages = twoItems.map(({ imgName }) => {
     const equipmentsImage = css`
       display: block;
 
@@ -40,7 +33,7 @@ const EquipmentsSlide = sliceByNumber(shuffledItems, 2).map((twoItems, index) =>
       image-rendering: pixelated;
     `;
 
-    return <img key={imgName} css={equipmentsImage} src={imgName} alt="" />;
+    return <img key={imgName} css={equipmentsImage} src={`/images/equipments/${imgName}`} alt="" />;
   });
 
   const equipmentsItem = css`
