@@ -108,6 +108,15 @@ export const itemData: itemDataProps[] = [
   },
   {
     category: "Taking Shots",
+    name: "X-T4",
+    maker: "FUJIFILM",
+    about: "Mirrorless single-lens camera",
+    imgName: "fujifilm-xt4-black.png",
+    gen: 2020,
+    variety: "black",
+  },
+  {
+    category: "Taking Shots",
     name: "X-S10",
     maker: "FUJIFILM",
     about: "Mirrorless single-lens camera",
@@ -211,6 +220,14 @@ export const itemData: itemDataProps[] = [
     imgName: "dji-om4.png",
     gen: 2020,
   },
+  // {
+  //   category: "Taking Shots",
+  //   name: "AD-01 3751",
+  //   maker: "SmallRig",
+  //   about: "Tripod",
+  //   imgName: "smallrig-ad013751.png",
+  //   gen: 2022,
+  // },
   {
     category: "Taking Shots",
     name: "UT-3AR",
@@ -397,6 +414,15 @@ export const itemData: itemDataProps[] = [
     gen: 2021,
     variety: "black",
   },
+  // {
+  //   category: "Audio",
+  //   name: "Beats Studio Buds",
+  //   maker: "Beats",
+  //   about: "True wireless earphone",
+  //   imgName: "beats-beatsstudiobuds-black.png",
+  //   gen: 2021,
+  //   variety: "black",
+  // },
   {
     category: "Audio",
     name: "Powerbeats Pro",
