@@ -21,7 +21,7 @@ const Equipments: NextPage = () => {
       {categoryNames.map(({ en, ja }) => {
         const items = itemData.filter((item) => item.category === en);
 
-        const itemContent = items.map(({ name, maker, about, gen, variety, owning }) => {
+        const itemContent = items.map(({ name, maker, about, imgName, gen, variety, owning }) => {
           const equipmentsItem = css`
             width: calc(100% / 6);
             ${breakPoint.tab} {
@@ -31,7 +31,15 @@ const Equipments: NextPage = () => {
 
           return (
             <div key={`${name}${variety}`} css={equipmentsItem}>
-              <EquipmentsModal name={name} maker={maker} about={about} gen={gen} variety={variety} owning={owning} />
+              <EquipmentsModal
+                name={name}
+                maker={maker}
+                about={about}
+                imgName={imgName}
+                gen={gen}
+                variety={variety}
+                owning={owning}
+              />
             </div>
           );
         });
