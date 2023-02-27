@@ -118,20 +118,14 @@ type Props = {
   name: string;
   maker: string;
   about: string;
+  imgName: string;
   gen?: Number | string;
   variety?: string;
   owning?: Number;
 };
 
-const EquipmentsModal = ({ name, maker, about, gen, variety, owning }: Props) => {
+const EquipmentsModal = ({ name, maker, about, imgName, gen, variety, owning }: Props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
-
-  const fmtMaker = maker.toLowerCase().replace(/[."+() -]/g, "");
-  const fmtName = name.toLowerCase().replace(/[."+() -]/g, "");
-  const fmtVariety = variety ? variety.toLowerCase().replace(/[."+() -]/g, "") : undefined;
-  const imgName = fmtVariety
-    ? `/images/equipments/${fmtMaker}-${fmtName}-${fmtVariety}.png`
-    : `/images/equipments/${fmtMaker}-${fmtName}.png`;
 
   const nameNVer = variety ? `${name} - ${variety}` : name;
   const nameNVerNOwn = owning ? `${nameNVer} * ${owning}` : nameNVer;
@@ -151,12 +145,12 @@ const EquipmentsModal = ({ name, maker, about, gen, variety, owning }: Props) =>
   return (
     <>
       <div css={cover} className="clickable" onClick={() => setIsOpen(true)}>
-        <img src={imgName} alt="" />
+        <img src={`/images/equipments/${imgName}`} alt="" />
       </div>
       <div css={[modal, isOpen]}>
         <div css={closeButton} className="clickable" onClick={() => setIsOpen(false)}></div>
         <div css={scrolls}>
-          <img src={imgName} alt="" />
+          <img src={`/images/equipments/${imgName}`} alt="" />
           <div css={desc}>
             <div className="name">{nameNVerNOwn}</div>
             <div className="maker-and-gen">{makerNGen}</div>
