@@ -265,7 +265,7 @@ const Service: NextPage = () => {
   const pricingPlanRaw: {
     [key in string]: {
       title: string;
-      price: Number;
+      price: number;
       pricingPlanText?: string;
     }[];
   } = {
