@@ -119,9 +119,9 @@ type Props = {
   maker: string;
   about: string;
   imgName: string;
-  gen?: Number | string;
+  gen?: number | string;
   variety?: string;
-  owning?: Number;
+  owning?: number;
 };
 
 const EquipmentsModal = ({ name, maker, about, imgName, gen, variety, owning }: Props) => {
