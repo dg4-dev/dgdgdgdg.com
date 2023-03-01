@@ -12,7 +12,7 @@ import { itemData } from "@/pages/api/equipments/itemData";
 import { breakPoint } from "@/styles/config";
 
 const Equipments: NextPage = () => {
-  const sortedCategoryNames = categoryNames.sort((a, b) => a.order - b.order);
+  const sortedCategoryNames = [...categoryNames].sort((a, b) => a.order - b.order);
 
   const itemElements = sortedCategoryNames.map(({ en, ja }) => {
     const items = itemData.filter((item) => item.address.section === en);
