@@ -22,10 +22,11 @@ const skillRaw = [
   },
 ];
 
+const maxMonths = skillRaw.reduce((max, skill) => Math.max(max, dayjs().diff(skill.start, "month")), 0);
+
 const skillGraph = skillRaw.map(({ name, start }) => {
-  const skillTime = Number(dayjs()) - Number(start);
-  const firstTime = Number(dayjs()) - Number(skillRaw[0].start);
-  const round = ~~((skillTime / firstTime) * 100);
+  const months = dayjs().diff(start, "month");
+  const ratio = Math.round((months / maxMonths) * 100);
 
   const skillItem = css`
     :not(:first-of-type) {
@@ -57,14 +58,14 @@ const skillGraph = skillRaw.map(({ name, start }) => {
       height: 100%;
       background-color: ${dg4Color.cyan};
       position: absolute;
-      width: ${round * 0.95}%;
+      width: ${ratio * 0.95}%;
     }
   `;
 
   return (
     <li key={name} css={skillItem}>
       <p css={skillName}>{name}</p>
-      <div css={skillBar}></div>
+      <path css={skillBar}></path>
     </li>
   );
 });
