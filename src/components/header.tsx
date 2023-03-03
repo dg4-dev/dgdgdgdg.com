@@ -11,20 +11,22 @@ import { dg4Color, breakPoint } from "@/styles/config";
 
 const header = css`
   display: flex;
+
+  justify-content: flex-end;
   .inside.is-open {
     height: 100vh;
+    z-index: 999;
   }
 `;
 
 const outside = css`
   position: fixed;
-  width: 100%;
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
 
-  padding-left: 26px;
+  gap: 20px;
+
   z-index: 1000;
 
   ${breakPoint.sp} {
@@ -46,9 +48,8 @@ const burger = css`
   height: 90px;
   background-color: ${dg4Color.cyan};
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  place-items: center;
 
   ${breakPoint.sp} {
     width: 65px;
@@ -144,7 +145,7 @@ const line = css`
 const inside = css`
   position: fixed;
   width: 100%;
-  z-index: 999;
+  z-index: -999;
 
   display: flex;
   justify-content: space-between;
@@ -182,9 +183,8 @@ const white = css`
   height: 100vh;
   background-color: #fff;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  place-items: center;
   transition: all 0.2s;
 
   ${breakPoint.tab} {
@@ -201,10 +201,8 @@ const cyan = css`
   height: 90px;
   background-color: ${dg4Color.cyan};
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  place-items: center;
 
   margin-left: auto;
   transition: all 0.2s;
