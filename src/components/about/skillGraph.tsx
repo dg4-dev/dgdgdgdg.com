@@ -65,7 +65,7 @@ const skillGraph = skillRaw.map(({ name, start }) => {
   return (
     <li key={name} css={skillItem}>
       <p css={skillName}>{name}</p>
-      <path css={skillBar}></path>
+      <div css={skillBar}></div>
     </li>
   );
 });
