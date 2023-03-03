@@ -21,10 +21,11 @@ const colorContent = css`
   height: 500px;
   display: grid;
   grid-template-rows: 50% 50%;
-  grid-template-columns: 40% 28% 30%;
+  grid-template-columns: 50% 25% 25%;
 
   ${breakPoint.tab} {
     height: 60vw;
+    grid-template-columns: 40% 30% 30%;
   }
 
   ${breakPoint.sp} {

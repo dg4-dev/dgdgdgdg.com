@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-const secondsOld = Number(dayjs()) - Number(dayjs("2001-11-10"));
-const Age = `${~~(secondsOld / 315576e5)}`;
+const birthDate = dayjs("2001-11-10");
+const age = dayjs().diff(birthDate, "year");
 
-export default Age;
+export default age;
