@@ -298,17 +298,17 @@ export const itemData: itemDataProps[] = [
     imgName: "dji-om4.png",
     gen: 2020,
   },
-  // {
-  //   address: {
-  //     section: "Taking Shots",
-  //     order: 150,
-  //   },
-  //   name: "AD-01 3751",
-  //   maker: "SmallRig",
-  //   about: "Tripod",
-  //   imgName: "smallrig-ad013751.png",
-  //   gen: 2022,
-  // },
+  {
+    address: {
+      section: "Taking Shots",
+      order: 150,
+    },
+    name: "AD-01 3751",
+    maker: "SmallRig",
+    about: "Tripod",
+    imgName: "smallrig-ad013751.png",
+    gen: 2022,
+  },
   {
     address: {
       section: "Taking Shots",
