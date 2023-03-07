@@ -13,7 +13,7 @@ import Layout from "@/components/layout";
 // import InstaItemList from "@/components/works/InstaItemList";
 import Item from "@/components/works/item";
 import YoutubeItemList from "@/components/works/youtubeItemList";
-import { breakPoint, dg4Color } from "@/styles/config";
+import { breakPoint } from "@/styles/config";
 
 const contain = css`
   width: 100%;
@@ -74,15 +74,6 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
     cursor: text;
   `;
 
-  const dlLink = css`
-    font-size: 20px;
-    font-weight: bold;
-    color: ${dg4Color.cyan};
-    text-decoration: underline;
-
-    width: fit-content;
-  `;
-
   const ff = css`
     font-family: ${name}, sans-serif;
   `;
@@ -106,9 +97,6 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
         className="clickable"
         onChange={changeLineHeight}
       />
-      <a css={dlLink} download href={`/fonts/${name.replace(" ", "")}.ttf`}>
-        .ttf
-      </a>
       <div contentEditable spellCheck="false" css={[itemLetter, ff]}>
         Almost before we knew it, we had left the ground.
       </div>
@@ -133,6 +121,13 @@ const Works: NextPage = () => {
           <FontContent name="Dont" />
           <FontContent name="Dont Round" />
           <FontContent name="Dont Circle" />
+
+          <Button
+            href="https://github.com/dg4-design/dont/blob/main/fonts.zip?raw=true"
+            text="Download"
+            css={button}
+            external={true}
+          />
         </Container>
       </section>
 
