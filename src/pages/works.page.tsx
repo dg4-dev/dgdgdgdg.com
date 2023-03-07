@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import Image from "next/image";
+import { useState } from "react";
 
 import type { NextPage } from "next";
 
@@ -9,7 +10,7 @@ import H1 from "@/components/heading/heading1";
 import H2 from "@/components/heading/heading2";
 import H3 from "@/components/heading/heading3";
 import Layout from "@/components/layout";
-import InstaItemList from "@/components/works/InstaItemList";
+// import InstaItemList from "@/components/works/InstaItemList";
 import Item from "@/components/works/item";
 import YoutubeItemList from "@/components/works/youtubeItemList";
 import { breakPoint, dg4Color } from "@/styles/config";
@@ -47,36 +48,39 @@ const button = css`
 `;
 
 const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) => {
+  // font size
+  const defaultFontSize = 32;
+  const [fontSize, setFontSizeValue] = useState<number>(defaultFontSize);
+  const changeFontSize = (event: React.ChangeEvent<HTMLInputElement>) => setFontSizeValue(parseInt(event.target.value));
+
+  // line height
+  const defaultLineHeight = 100;
+  const [lineHeight, setLineHeightValue] = useState<number>(defaultLineHeight);
+  const changeLineHeight = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setLineHeightValue(parseInt(event.target.value));
+
   const fontContent = css`
     display: flex;
     flex-direction: column;
   `;
 
-  const fontItem = css`
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    position: relative;
-  `;
-
   const itemLetter = css`
     text-align: center;
-    font-size: 32px;
-    line-height: 48px;
-    padding: 16px 16px 32px;
+    font-size: ${fontSize}px;
+    line-height: ${lineHeight}%;
+    padding: 16px;
     background-color: #eee;
 
     cursor: text;
   `;
 
   const dlLink = css`
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
     font-size: 20px;
     font-weight: bold;
     color: ${dg4Color.cyan};
     text-decoration: underline;
+
+    width: fit-content;
   `;
 
   const ff = css`
@@ -86,13 +90,27 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
   return (
     <div className="content" css={fontContent}>
       <H3 en={name} />
-      <div css={fontItem}>
-        <div contentEditable="true" spellCheck="false" css={[itemLetter, ff]}>
-          Almost before we knew it, we had left the ground.
-        </div>
-        <a css={dlLink} download href={`/fonts/${name.replace(" ", "")}.ttf`}>
-          .ttf
-        </a>
+      <input
+        type="range"
+        min="10"
+        max="180"
+        defaultValue={defaultFontSize}
+        className="clickable"
+        onChange={changeFontSize}
+      />
+      <input
+        type="range"
+        min="100"
+        max="200"
+        defaultValue={defaultLineHeight}
+        className="clickable"
+        onChange={changeLineHeight}
+      />
+      <a css={dlLink} download href={`/fonts/${name.replace(" ", "")}.ttf`}>
+        .ttf
+      </a>
+      <div contentEditable spellCheck="false" css={[itemLetter, ff]}>
+        Almost before we knew it, we had left the ground.
       </div>
     </div>
   );
@@ -132,7 +150,7 @@ const Works: NextPage = () => {
       <section id="photography">
         <Container css={contain}>
           <H2 en="Photography" ja="写真" />
-          <InstaItemList />
+          {/* <InstaItemList /> */}
           <Button external={true} href="https://instagram.dgdgdgdg.com/" text="Instagram" css={button} />
         </Container>
       </section>
