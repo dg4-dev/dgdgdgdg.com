@@ -46,7 +46,7 @@ const button = css`
   margin-right: auto;
 `;
 
-const FontContent = ({ name }: { name?: string }) => {
+const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) => {
   const fontContent = css`
     display: flex;
     flex-direction: column;
@@ -65,6 +65,8 @@ const FontContent = ({ name }: { name?: string }) => {
     line-height: 48px;
     padding: 16px 16px 32px;
     background-color: #eee;
+
+    cursor: text;
   `;
 
   const dlLink = css`
@@ -77,30 +79,18 @@ const FontContent = ({ name }: { name?: string }) => {
     text-decoration: underline;
   `;
 
-  const fontName = name ? `Dont ${name}` : "Dont";
-
-  const ff = () => {
-    if (name === "Round") {
-      return css`
-        font-family: "Dont Round", sans-serif;
-      `;
-    } else if (name === "Circle") {
-      return css`
-        font-family: "Dont Circle", sans-serif;
-      `;
-    } else {
-      return css`
-        font-family: "Dont", sans-serif;
-      `;
-    }
-  };
+  const ff = css`
+    font-family: ${name}, sans-serif;
+  `;
 
   return (
     <div className="content" css={fontContent}>
-      <H3 en={fontName} />
+      <H3 en={name} />
       <div css={fontItem}>
-        <div css={[itemLetter, ff]}>Almost before we knew it, we had left the ground.</div>
-        <a css={dlLink} download href={`/fonts/${fontName.replace(" ", "")}.ttf`}>
+        <div contentEditable="true" spellCheck="false" css={[itemLetter, ff]}>
+          Almost before we knew it, we had left the ground.
+        </div>
+        <a css={dlLink} download href={`/fonts/${name.replace(" ", "")}.ttf`}>
           .ttf
         </a>
       </div>
@@ -122,9 +112,9 @@ const Works: NextPage = () => {
           <div css={fontDesc}>
             <Image src="/images/works/dont-desc.webp" width={500} height={175} alt="" />
           </div>
-          <FontContent />
-          <FontContent name="Round" />
-          <FontContent name="Circle" />
+          <FontContent name="Dont" />
+          <FontContent name="Dont Round" />
+          <FontContent name="Dont Circle" />
         </Container>
       </section>
 
