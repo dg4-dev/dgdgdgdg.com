@@ -65,14 +65,20 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
   const changeTextAlign = (event: React.ChangeEvent<HTMLInputElement>) => setTextAlign(event.target.value);
 
   // background color
-  // const defaultBackgroundColor = "#eeeeee";
-  // const [backgroundColor, setBackgroundColor] = useState<string>(defaultBackgroundColor);
-  // const changeBackgroundColor = (event: React.ChangeEvent<HTMLInputElement>) => setBackgroundColor(event.target.value);
+  const defaultBackgroundColor = "#eeeeee";
+  const [backgroundColor, setBackgroundColor] = useState<string>(defaultBackgroundColor);
+  const changeBackgroundColor = (event: React.ChangeEvent<HTMLInputElement>) => setBackgroundColor(event.target.value);
 
   // text color
-  // const defaultTextColor = ${dg4Color.black};
-  // const [textColor, setTextColor] = useState<string>(defaultTextColor);
-  // const changeTextColor = (event: React.ChangeEvent<HTMLInputElement>) => setTextColor(event.target.value);
+  const defaultTextColor = dg4Color.black;
+  const [textColor, setTextColor] = useState<string>(defaultTextColor);
+  const changeTextColor = (event: React.ChangeEvent<HTMLInputElement>) => setTextColor(event.target.value);
+
+  // reverse color
+  const reverseColor = () => {
+    setBackgroundColor(textColor);
+    setTextColor(backgroundColor);
+  };
 
   // contentEditableは意図的なものだが、console.errorが出るので一時的に無効化
   console.error = function () {};
@@ -90,7 +96,7 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
     margin-bottom: 24px;
 
     ${breakPoint.sp} {
-      gap: 24px;
+      gap: 24px 40px;
       flex-wrap: wrap;
     }
   `;
@@ -208,26 +214,56 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
     }
   `;
 
-  // const colorInput = css`
-  //   ::before {
-  //     content: "";
-  //     display: block;
+  const colorWrapper = css`
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  `;
 
-  //     width: 32px;
-  //     height: 32px;
-  //   }
-  // `;
+  const colorInput = css`
+    display: block;
+
+    ::-webkit-color-swatch {
+      border: 2px solid #ddd;
+
+      width: 24px;
+      height: 24px;
+
+      ${breakPoint.sp} {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  `;
+
+  const reverseButton = css`
+    ::before {
+      content: "";
+      display: block;
+
+      background-image: url("/images/ui/arrow-left-arrow-right.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+
+      width: 24px;
+      height: 24px;
+
+      ${breakPoint.sp} {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  `;
 
   const itemLetter = css`
     text-align: ${textAlign};
     font-size: ${fontSize}px;
     line-height: ${lineHeight}%;
     padding: 16px;
-    background-color: #eee;
-    /* background-color: {backgroundColor}; */
-    /* color: {textColor}; */
+    background-color: ${backgroundColor};
+    color: ${textColor};
 
-    /* cursor: text; */
+    cursor: text;
   `;
 
   const ff = css`
@@ -289,33 +325,17 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
             />
           </label>
         </div>
-        {/* TODO: あとでやるわ */}
-        {/* <input
-          type="color"
-          value={backgroundColor}
-          onChange={changeBackgroundColor}
-          css={[
-            colorInput,
-            css`
-              ::before {
-                background-color: ${backgroundColor};
-              }
-            `,
-          ]}
-        />
-        <input
-          type="color"
-          value={textColor}
-          onChange={changeTextColor}
-          css={[
-            colorInput,
-            css`
-              ::before {
-                background-color: ${textColor};
-              }
-            `,
-          ]}
-        /> */}
+        <div css={colorWrapper}>
+          <input
+            className="clickable"
+            type="color"
+            value={backgroundColor}
+            onChange={changeBackgroundColor}
+            css={colorInput}
+          />
+          <button onClick={reverseColor} className="clickable" css={reverseButton} />
+          <input className="clickable" type="color" value={textColor} onChange={changeTextColor} css={colorInput} />
+        </div>
       </div>
       {/* <div contentEditable spellCheck="false" css={[itemLetter, ff]}> */}
       <div css={[itemLetter, ff]}>Almost before we knew it, we had left the ground.</div>
