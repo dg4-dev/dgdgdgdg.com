@@ -111,6 +111,11 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
 
       background-repeat: no-repeat;
       background-position: center;
+
+      ${breakPoint.sp} {
+        width: 36px;
+        height: 36px;
+      }
     }
   `;
 
@@ -139,14 +144,19 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
       -webkit-appearance: none;
       appearance: none;
 
-      width: 20px;
-      height: 20px;
+      width: 16px;
+      height: 16px;
 
       display: block;
       background-color: ${dg4Color.cyan};
       border-radius: 50%;
 
       box-shadow: none;
+
+      ${breakPoint.sp} {
+        width: 20px;
+        height: 20px;
+      }
     }
   `;
 
@@ -165,12 +175,17 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
 
       background-repeat: no-repeat;
       background-position: center;
-      filter: grayscale(100%) contrast(0);
+      filter: grayscale(100%) brightness(30%);
+
+      ${breakPoint.sp} {
+        width: 36px;
+        height: 36px;
+      }
     }
 
     :checked {
       ::before {
-        filter: grayscale(0) contrast(100%);
+        filter: grayscale(0) brightness(100%);
       }
     }
   `;
