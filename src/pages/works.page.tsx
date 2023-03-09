@@ -130,8 +130,8 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
     -webkit-appearance: none;
     appearance: none;
 
-    background-color: ${dg4Color.black};
-    height: 1px;
+    background-color: #ddd;
+    height: 2px;
 
     width: 100%;
 
@@ -139,11 +139,14 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
       -webkit-appearance: none;
       appearance: none;
 
-      width: 10px;
-      height: 10px;
+      width: 20px;
+      height: 20px;
+
       display: block;
-      background-color: ${dg4Color.black};
+      background-color: ${dg4Color.cyan};
       border-radius: 50%;
+
+      box-shadow: none;
     }
   `;
 
