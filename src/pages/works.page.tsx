@@ -13,7 +13,7 @@ import Layout from "@/components/layout";
 // import InstaItemList from "@/components/works/InstaItemList";
 import Item from "@/components/works/item";
 import YoutubeItemList from "@/components/works/youtubeItemList";
-import { breakPoint } from "@/styles/config";
+import { breakPoint, dg4Color } from "@/styles/config";
 
 const contain = css`
   width: 100%;
@@ -65,14 +65,14 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
   const changeTextAlign = (event: React.ChangeEvent<HTMLInputElement>) => setTextAlign(event.target.value);
 
   // background color
-  const defaultBackgroundColor = "#eeeeee";
-  const [backgroundColor, setBackgroundColor] = useState<string>(defaultBackgroundColor);
-  const changeBackgroundColor = (event: React.ChangeEvent<HTMLInputElement>) => setBackgroundColor(event.target.value);
+  // const defaultBackgroundColor = "#eeeeee";
+  // const [backgroundColor, setBackgroundColor] = useState<string>(defaultBackgroundColor);
+  // const changeBackgroundColor = (event: React.ChangeEvent<HTMLInputElement>) => setBackgroundColor(event.target.value);
 
   // text color
-  const defaultTextColor = "#444444";
-  const [textColor, setTextColor] = useState<string>(defaultTextColor);
-  const changeTextColor = (event: React.ChangeEvent<HTMLInputElement>) => setTextColor(event.target.value);
+  // const defaultTextColor = ${dg4Color.black};
+  // const [textColor, setTextColor] = useState<string>(defaultTextColor);
+  // const changeTextColor = (event: React.ChangeEvent<HTMLInputElement>) => setTextColor(event.target.value);
 
   // contentEditableは意図的なものだが、console.errorが出るので一時的に無効化
   console.error = function () {};
@@ -82,15 +82,134 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
     flex-direction: column;
   `;
 
+  const editWrapper = css`
+    display: flex;
+    align-items: center;
+    gap: 40px;
+
+    margin-bottom: 24px;
+
+    ${breakPoint.sp} {
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+  `;
+
+  const rangeWrapper = css`
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    width: 100%;
+
+    ::before {
+      content: "";
+      display: block;
+
+      width: 24px;
+      height: 24px;
+
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  `;
+
+  const rangeFontSize = css`
+    ::before {
+      background-image: url("/images/ui/textformat-size.svg");
+    }
+  `;
+
+  const rangeLineHeight = css`
+    ::before {
+      background-image: url("/images/ui/arrow-up-and-down-text-horizontal.svg");
+    }
+  `;
+
+  const rangeInput = css`
+    -webkit-appearance: none;
+    appearance: none;
+
+    background-color: ${dg4Color.black};
+    height: 1px;
+
+    width: 100%;
+
+    ::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+
+      width: 10px;
+      height: 10px;
+      display: block;
+      background-color: ${dg4Color.black};
+      border-radius: 50%;
+    }
+  `;
+
+  const radioWrapper = css`
+    display: flex;
+    gap: 16px;
+  `;
+
+  const buttonAlign = css`
+    ::before {
+      content: "";
+      display: block;
+
+      width: 24px;
+      height: 24px;
+
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: grayscale(100%) contrast(0);
+    }
+
+    :checked {
+      ::before {
+        filter: grayscale(0) contrast(100%);
+      }
+    }
+  `;
+
+  const buttonAlignLeft = css`
+    ::before {
+      background-image: url("/images/ui/text-alignleft.svg");
+    }
+  `;
+
+  const buttonAlignCenter = css`
+    ::before {
+      background-image: url("/images/ui/text-aligncenter.svg");
+    }
+  `;
+
+  const buttonAlignRight = css`
+    ::before {
+      background-image: url("/images/ui/text-alignright.svg");
+    }
+  `;
+
+  // const colorInput = css`
+  //   ::before {
+  //     content: "";
+  //     display: block;
+
+  //     width: 32px;
+  //     height: 32px;
+  //   }
+  // `;
+
   const itemLetter = css`
     text-align: ${textAlign};
     font-size: ${fontSize}px;
     line-height: ${lineHeight}%;
     padding: 16px;
-    background-color: ${backgroundColor};
-    color: ${textColor};
+    background-color: #eee;
+    /* background-color: {backgroundColor}; */
+    /* color: {textColor}; */
 
-    cursor: text;
+    /* cursor: text; */
   `;
 
   const ff = css`
@@ -100,41 +219,88 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
   return (
     <div className="content" css={fontContent}>
       <H3 en={name} />
-      <input
-        type="range"
-        min="10"
-        max="180"
-        defaultValue={defaultFontSize}
-        className="clickable"
-        onChange={changeFontSize}
-      />
-      <input
-        type="range"
-        min="100"
-        max="200"
-        defaultValue={defaultLineHeight}
-        className="clickable"
-        onChange={changeLineHeight}
-      />
-      <div>
-        <label className="clickable">
-          <input type="radio" value="left" checked={textAlign === "left"} onChange={changeTextAlign} />
-          left
-        </label>
-        <label className="clickable">
-          <input type="radio" value="center" checked={textAlign === "center"} onChange={changeTextAlign} />
-          center
-        </label>
-        <label className="clickable">
-          <input type="radio" value="right" checked={textAlign === "right"} onChange={changeTextAlign} />
-          right
-        </label>
+      <div css={editWrapper}>
+        <div css={[rangeWrapper, rangeFontSize]}>
+          <input
+            type="range"
+            min="10"
+            max="180"
+            defaultValue={defaultFontSize}
+            className="clickable"
+            onChange={changeFontSize}
+            css={rangeInput}
+          />
+        </div>
+        <div css={[rangeWrapper, rangeLineHeight]}>
+          <input
+            type="range"
+            min="100"
+            max="200"
+            defaultValue={defaultLineHeight}
+            className="clickable"
+            onChange={changeLineHeight}
+            css={rangeInput}
+          />
+        </div>
+        <div css={radioWrapper}>
+          <label className="clickable">
+            <input
+              type="radio"
+              value="left"
+              checked={textAlign === "left"}
+              onChange={changeTextAlign}
+              css={[buttonAlign, buttonAlignLeft]}
+            />
+          </label>
+          <label className="clickable">
+            <input
+              type="radio"
+              value="center"
+              checked={textAlign === "center"}
+              onChange={changeTextAlign}
+              css={[buttonAlign, buttonAlignCenter]}
+            />
+          </label>
+          <label className="clickable">
+            <input
+              type="radio"
+              value="right"
+              checked={textAlign === "right"}
+              onChange={changeTextAlign}
+              css={[buttonAlign, buttonAlignRight]}
+            />
+          </label>
+        </div>
+        {/* TODO: あとでやるわ */}
+        {/* <input
+          type="color"
+          value={backgroundColor}
+          onChange={changeBackgroundColor}
+          css={[
+            colorInput,
+            css`
+              ::before {
+                background-color: ${backgroundColor};
+              }
+            `,
+          ]}
+        />
+        <input
+          type="color"
+          value={textColor}
+          onChange={changeTextColor}
+          css={[
+            colorInput,
+            css`
+              ::before {
+                background-color: ${textColor};
+              }
+            `,
+          ]}
+        /> */}
       </div>
-      <input type="color" value={defaultBackgroundColor} onChange={changeBackgroundColor} />
-      <input type="color" value={defaultTextColor} onChange={changeTextColor} />
-      <div contentEditable spellCheck="false" css={[itemLetter, ff]}>
-        Almost before we knew it, we had left the ground.
-      </div>
+      {/* <div contentEditable spellCheck="false" css={[itemLetter, ff]}> */}
+      <div css={[itemLetter, ff]}>Almost before we knew it, we had left the ground.</div>
     </div>
   );
 };
