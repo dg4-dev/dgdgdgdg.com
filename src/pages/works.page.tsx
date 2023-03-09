@@ -66,6 +66,9 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
     setTextAlign(event.target.value);
   };
 
+  // contentEditableは意図的なものだが、console.errorが出るので一時的に無効化
+  console.error = function () {};
+
   const fontContent = css`
     display: flex;
     flex-direction: column;
