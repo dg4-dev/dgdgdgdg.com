@@ -62,9 +62,17 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
   // text align
   const defaultTextAlign = "center";
   const [textAlign, setTextAlign] = useState<string>(defaultTextAlign);
-  const changeTextAlign = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTextAlign(event.target.value);
-  };
+  const changeTextAlign = (event: React.ChangeEvent<HTMLInputElement>) => setTextAlign(event.target.value);
+
+  // background color
+  const defaultBackgroundColor = "#eeeeee";
+  const [backgroundColor, setBackgroundColor] = useState<string>(defaultBackgroundColor);
+  const changeBackgroundColor = (event: React.ChangeEvent<HTMLInputElement>) => setBackgroundColor(event.target.value);
+
+  // text color
+  const defaultTextColor = "#444444";
+  const [textColor, setTextColor] = useState<string>(defaultTextColor);
+  const changeTextColor = (event: React.ChangeEvent<HTMLInputElement>) => setTextColor(event.target.value);
 
   // contentEditableは意図的なものだが、console.errorが出るので一時的に無効化
   console.error = function () {};
@@ -79,7 +87,8 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
     font-size: ${fontSize}px;
     line-height: ${lineHeight}%;
     padding: 16px;
-    background-color: #eee;
+    background-color: ${backgroundColor};
+    color: ${textColor};
 
     cursor: text;
   `;
@@ -121,6 +130,8 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
           right
         </label>
       </div>
+      <input type="color" value={defaultBackgroundColor} onChange={changeBackgroundColor} />
+      <input type="color" value={defaultTextColor} onChange={changeTextColor} />
       <div contentEditable spellCheck="false" css={[itemLetter, ff]}>
         Almost before we knew it, we had left the ground.
       </div>
