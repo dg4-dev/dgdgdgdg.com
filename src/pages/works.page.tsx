@@ -59,13 +59,20 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
   const changeLineHeight = (event: React.ChangeEvent<HTMLInputElement>) =>
     setLineHeightValue(parseInt(event.target.value));
 
+  // text align
+  const defaultTextAlign = "center";
+  const [textAlign, setTextAlign] = useState<string>(defaultTextAlign);
+  const changeTextAlign = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTextAlign(event.target.value);
+  };
+
   const fontContent = css`
     display: flex;
     flex-direction: column;
   `;
 
   const itemLetter = css`
-    text-align: center;
+    text-align: ${textAlign};
     font-size: ${fontSize}px;
     line-height: ${lineHeight}%;
     padding: 16px;
@@ -97,6 +104,20 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
         className="clickable"
         onChange={changeLineHeight}
       />
+      <div>
+        <label className="clickable">
+          <input type="radio" value="left" checked={textAlign === "left"} onChange={changeTextAlign} />
+          left
+        </label>
+        <label className="clickable">
+          <input type="radio" value="center" checked={textAlign === "center"} onChange={changeTextAlign} />
+          center
+        </label>
+        <label className="clickable">
+          <input type="radio" value="right" checked={textAlign === "right"} onChange={changeTextAlign} />
+          right
+        </label>
+      </div>
       <div contentEditable spellCheck="false" css={[itemLetter, ff]}>
         Almost before we knew it, we had left the ground.
       </div>
