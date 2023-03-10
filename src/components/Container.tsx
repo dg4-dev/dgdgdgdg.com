@@ -16,14 +16,14 @@ const containerStyle = css`
   }
 
   .content:not(:first-child) {
-    padding-top: 80px;
+    margin-top: 80px;
 
     ${breakPoint.tab} {
-      padding-top: 60px;
+      margin-top: 60px;
     }
 
     ${breakPoint.sp} {
-      padding-top: 40px;
+      margin-top: 40px;
     }
   }
 `;

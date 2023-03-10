@@ -216,10 +216,14 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
   const itemLetter = css`
     text-align: ${textAlign};
     font-size: ${fontSize}px;
-    line-height: ${lineHeight}%;
+    line-height: ${lineHeight / 100}em;
     padding: 16px;
     background-color: ${backgroundColor};
     color: ${textColor};
+
+    overflow-wrap: break-word;
+
+    min-height: calc(${lineHeight / 100}em + 32px);
   `;
 
   const ff = css`
