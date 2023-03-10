@@ -2,8 +2,8 @@ import { css } from "@emotion/react";
 
 import type { NextPage } from "next";
 
-import Button from "@/components/button";
-import Layout from "@/components/layout";
+import Button from "@/components/Button";
+import Layout from "@/components/Layout";
 import { dg4Color } from "@/styles/config";
 
 const notFoundSection = css`

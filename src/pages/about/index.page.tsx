@@ -4,15 +4,15 @@ import Image from "next/image";
 import type { NextPage } from "next";
 
 import Age from "@/api/nowAge";
-import EquipmentsSlide from "@/components/about/equipmentsSlide";
-import meaningItemElm from "@/components/about/meaningItem";
-import skillGraph from "@/components/about/skillGraph";
-import Button from "@/components/button";
-import Container from "@/components/container";
-import H1 from "@/components/heading/heading1";
-import H2 from "@/components/heading/heading2";
-import H3 from "@/components/heading/heading3";
-import Layout from "@/components/layout";
+import Button from "@/components/Button";
+import Container from "@/components/Container";
+import Layout from "@/components/Layout";
+import EquipmentsSlide from "@/components/about/EquipmentsSlide";
+import meaningItemElm from "@/components/about/MeaningItem";
+import skillGraph from "@/components/about/SkillGraph";
+import H1 from "@/components/heading/Heading1";
+import H2 from "@/components/heading/Heading2";
+import H3 from "@/components/heading/Heading3";
 import { breakPoint } from "@/styles/config";
 
 const containerContent = css`

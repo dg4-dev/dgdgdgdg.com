@@ -2,12 +2,12 @@ import { css } from "@emotion/react";
 
 import type { NextPage } from "next";
 
-import Container from "@/components/container";
-import H1 from "@/components/heading/heading1";
-import H2 from "@/components/heading/heading2";
-import H3 from "@/components/heading/heading3";
-import Layout from "@/components/layout";
-import Note from "@/components/note";
+import Container from "@/components/Container";
+import Layout from "@/components/Layout";
+import Note from "@/components/Note";
+import H1 from "@/components/heading/Heading1";
+import H2 from "@/components/heading/Heading2";
+import H3 from "@/components/heading/Heading3";
 import PricingPlanList from "@/components/workflow-and-pricing/PricingPlanList";
 import WorkflowList from "@/components/workflow-and-pricing/WorkFlowList";
 import { breakPoint } from "@/styles/config";

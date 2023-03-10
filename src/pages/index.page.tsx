@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import type { NextPage } from "next";
 
-import Layout from "@/components/layout";
+import Layout from "@/components/Layout";
 
 // TODO: Lottieのためのリンク
 // https://blue-de.com/butterfly-scissor-difference/

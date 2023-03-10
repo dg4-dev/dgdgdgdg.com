@@ -3,15 +3,15 @@ import Image from "next/image";
 
 import type { NextPage } from "next";
 
-import Button from "@/components/button";
-import Container from "@/components/container";
-import H1 from "@/components/heading/heading1";
-import H2 from "@/components/heading/heading2";
-import Layout from "@/components/layout";
+import Button from "@/components/Button";
+import Container from "@/components/Container";
+import Layout from "@/components/Layout";
+import H1 from "@/components/heading/Heading1";
+import H2 from "@/components/heading/Heading2";
 import FontContent from "@/components/works/FontContent";
 import InstaItemList from "@/components/works/InstaItemList";
-import Item from "@/components/works/item";
-import YoutubeItemList from "@/components/works/youtubeItemList";
+import Item from "@/components/works/Item";
+import YoutubeItemList from "@/components/works/YoutubeItemList";
 import { breakPoint } from "@/styles/config";
 
 const contain = css`

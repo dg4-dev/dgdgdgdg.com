@@ -4,8 +4,8 @@ import Link from "next/link";
 
 import type { NextPage } from "next";
 
-import Button from "@/components/button";
-import Container from "@/components/container";
+import Button from "@/components/Button";
+import Container from "@/components/Container";
 import { dg4Color, breakPoint } from "@/styles/config";
 
 const footerStyle = css`

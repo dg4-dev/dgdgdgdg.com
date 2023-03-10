@@ -2,9 +2,9 @@ import { Global } from "@emotion/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import Footer from "@/components/footer";
-import Header from "@/components/header";
-import Loading from "@/components/loading";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import Loading from "@/components/Loading";
 import global from "@/styles/global";
 import reset from "@/styles/reset";
 
