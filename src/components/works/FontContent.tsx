@@ -1,11 +1,11 @@
 import { css } from "@emotion/react";
 import { useState } from "react";
 
-import H3 from "../heading/heading3";
+import H3 from "../heading/Heading3";
 
 import { breakPoint, dg4Color } from "@/styles/config";
 
-const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) => {
+const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circle"; text: string }) => {
   // font size
   const defaultFontSize = 32;
   const [fontSize, setFontSizeValue] = useState<number>(defaultFontSize);
@@ -293,7 +293,7 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
           <input className="clickable" type="color" value={textColor} onChange={changeTextColor} css={colorInput} />
         </div>
       </div>
-      <div css={[itemLetter, ff]}>Almost before we knew it, we had left the ground.</div>
+      <div css={[itemLetter, ff]}>{text}</div>
     </div>
   );
 };
