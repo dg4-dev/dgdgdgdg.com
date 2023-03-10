@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import type { NextPage } from "next";
 
+import Age from "@/api/nowAge";
 import EquipmentsSlide from "@/components/about/equipmentsSlide";
 import meaningItemElm from "@/components/about/meaningItem";
 import skillGraph from "@/components/about/skillGraph";
@@ -12,7 +13,6 @@ import H1 from "@/components/heading/heading1";
 import H2 from "@/components/heading/heading2";
 import H3 from "@/components/heading/heading3";
 import Layout from "@/components/layout";
-import Age from "@/pages/api/nowAge";
 import { breakPoint } from "@/styles/config";
 
 const containerContent = css`
