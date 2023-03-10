@@ -6,7 +6,7 @@ import { useState } from "react";
 
 import type { NextPage } from "next";
 
-import pageName from "@/pages/api/pageName";
+import pageName from "@/api/pageName";
 import { dg4Color, breakPoint } from "@/styles/config";
 
 const header = css`
