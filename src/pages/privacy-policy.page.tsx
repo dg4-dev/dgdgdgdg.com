@@ -2,10 +2,10 @@ import { css } from "@emotion/react";
 
 import type { NextPage } from "next";
 
-import Container from "@/components/container";
-import H2 from "@/components/heading/heading2";
-import H3 from "@/components/heading/heading3";
-import Layout from "@/components/layout";
+import Container from "@/components/Container";
+import Layout from "@/components/Layout";
+import H2 from "@/components/heading/Heading2";
+import H3 from "@/components/heading/Heading3";
 import { dg4Color } from "@/styles/config";
 
 const heading3 = css`
