@@ -54,7 +54,8 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
     margin-bottom: 24px;
 
     ${breakPoint.sp} {
-      gap: 24px 40px;
+      gap: 24px 0;
+      justify-content: space-between;
       flex-wrap: wrap;
     }
   `;
