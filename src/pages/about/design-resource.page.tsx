@@ -3,15 +3,15 @@ import Link from "next/link";
 
 import type { NextPage } from "next";
 
-import Container from "@/components/container";
+import Container from "@/components/Container";
+import Layout from "@/components/Layout";
+import Note from "@/components/Note";
 import ColorItem from "@/components/design-resource/ColorItem";
 import DataItem from "@/components/design-resource/DataItem";
 import SimulationItem from "@/components/design-resource/SimulationItem";
-import H1 from "@/components/heading/heading1";
-import H2 from "@/components/heading/heading2";
-import H3 from "@/components/heading/heading3";
-import Layout from "@/components/layout";
-import Note from "@/components/note";
+import H1 from "@/components/heading/Heading1";
+import H2 from "@/components/heading/Heading2";
+import H3 from "@/components/heading/Heading3";
 import { breakPoint } from "@/styles/config";
 
 const containerContent = css`
