@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import Image from "next/image";
+import { useState } from "react";
 
 import type { NextPage } from "next";
 
@@ -35,9 +36,34 @@ const fontContainer = css`
 
 const fontDesc = css`
   max-width: 500px;
-  margin-bottom: 30px;
   margin-left: auto;
   margin-right: auto;
+`;
+
+const sampleWrapper = css`
+  margin-top: 64px;
+  margin-bottom: ${-80 + 40}px;
+
+  ${breakPoint.tab} {
+    margin-bottom: ${-60 + 30}px;
+  }
+
+  ${breakPoint.sp} {
+    margin-bottom: ${-40 + 20}px;
+  }
+
+  input {
+    width: 100%;
+    background-color: #fafafa;
+
+    padding: 8px 16px;
+    border: 1px solid #bebebe;
+    border-radius: 4px;
+
+    margin-top: 16px;
+
+    cursor: text;
+  }
 `;
 
 const button = css`
@@ -47,6 +73,11 @@ const button = css`
 `;
 
 const Works: NextPage = () => {
+  // sample text
+  const defaultSampleText = "Almost before we knew it, we had left the ground.";
+  const [sampleText, setSampleText] = useState<string>(defaultSampleText);
+  const changeSampleText = (event: React.ChangeEvent<HTMLInputElement>) => setSampleText(event.target.value);
+
   return (
     <Layout
       title="Works | dgdgdgdg"
@@ -60,10 +91,13 @@ const Works: NextPage = () => {
           <div css={fontDesc}>
             <Image src="/images/works/dont-desc.webp" width={500} height={175} alt="" />
           </div>
-          <FontContent name="Dont" />
-          <FontContent name="Dont Round" />
-          <FontContent name="Dont Circle" />
-
+          <div css={sampleWrapper}>
+            <span>サンプルテキスト</span>
+            <input type="text" value={sampleText} onChange={changeSampleText} />
+          </div>
+          <FontContent text={sampleText} name="Dont" />
+          <FontContent text={sampleText} name="Dont Round" />
+          <FontContent text={sampleText} name="Dont Circle" />
           <Button
             href="https://github.com/dg4-design/dont/blob/main/fonts.zip?raw=true"
             text="Download"
