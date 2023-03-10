@@ -4,16 +4,16 @@ import { useState } from "react";
 
 import type { NextPage } from "next";
 
-import Button from "@/components/button";
-import Container from "@/components/container";
-import H1 from "@/components/heading/heading1";
-import H2 from "@/components/heading/heading2";
-import H3 from "@/components/heading/heading3";
-import Layout from "@/components/layout";
-// import InstaItemList from "@/components/works/InstaItemList";
-import Item from "@/components/works/item";
-import YoutubeItemList from "@/components/works/youtubeItemList";
-import { breakPoint, dg4Color } from "@/styles/config";
+import Button from "@/components/Button";
+import Container from "@/components/Container";
+import Layout from "@/components/Layout";
+import H1 from "@/components/heading/Heading1";
+import H2 from "@/components/heading/Heading2";
+import FontContent from "@/components/works/FontContent";
+import InstaItemList from "@/components/works/InstaItemList";
+import Item from "@/components/works/Item";
+import YoutubeItemList from "@/components/works/YoutubeItemList";
+import { breakPoint } from "@/styles/config";
 
 const contain = css`
   width: 100%;
@@ -36,9 +36,34 @@ const fontContainer = css`
 
 const fontDesc = css`
   max-width: 500px;
-  margin-bottom: 30px;
   margin-left: auto;
   margin-right: auto;
+`;
+
+const sampleWrapper = css`
+  margin-top: 64px;
+  margin-bottom: ${-80 + 40}px;
+
+  ${breakPoint.tab} {
+    margin-bottom: ${-60 + 30}px;
+  }
+
+  ${breakPoint.sp} {
+    margin-bottom: ${-40 + 20}px;
+  }
+
+  input {
+    width: 100%;
+    background-color: #fafafa;
+
+    padding: 8px 16px;
+    border: 1px solid #bebebe;
+    border-radius: 4px;
+
+    margin-top: 16px;
+
+    cursor: text;
+  }
 `;
 
 const button = css`
@@ -47,303 +72,12 @@ const button = css`
   margin-right: auto;
 `;
 
-const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) => {
-  // font size
-  const defaultFontSize = 32;
-  const [fontSize, setFontSizeValue] = useState<number>(defaultFontSize);
-  const changeFontSize = (event: React.ChangeEvent<HTMLInputElement>) => setFontSizeValue(parseInt(event.target.value));
-
-  // line height
-  const defaultLineHeight = 100;
-  const [lineHeight, setLineHeightValue] = useState<number>(defaultLineHeight);
-  const changeLineHeight = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setLineHeightValue(parseInt(event.target.value));
-
-  // text align
-  const defaultTextAlign = "center";
-  const [textAlign, setTextAlign] = useState<string>(defaultTextAlign);
-  const changeTextAlign = (event: React.ChangeEvent<HTMLInputElement>) => setTextAlign(event.target.value);
-
-  // background color
-  const defaultBackgroundColor = "#eeeeee";
-  const [backgroundColor, setBackgroundColor] = useState<string>(defaultBackgroundColor);
-  const changeBackgroundColor = (event: React.ChangeEvent<HTMLInputElement>) => setBackgroundColor(event.target.value);
-
-  // text color
-  const defaultTextColor = dg4Color.black;
-  const [textColor, setTextColor] = useState<string>(defaultTextColor);
-  const changeTextColor = (event: React.ChangeEvent<HTMLInputElement>) => setTextColor(event.target.value);
-
-  // reverse color
-  const reverseColor = () => {
-    setBackgroundColor(textColor);
-    setTextColor(backgroundColor);
-  };
-
-  // contentEditableは意図的なものだが、console.errorが出るので一時的に無効化
-  console.error = function () {};
-
-  const fontContent = css`
-    display: flex;
-    flex-direction: column;
-  `;
-
-  const editWrapper = css`
-    display: flex;
-    align-items: center;
-    gap: 40px;
-
-    margin-bottom: 24px;
-
-    ${breakPoint.sp} {
-      gap: 24px 40px;
-      flex-wrap: wrap;
-    }
-  `;
-
-  const rangeWrapper = css`
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    width: 100%;
-
-    ::before {
-      content: "";
-      display: block;
-
-      width: 24px;
-      height: 24px;
-
-      background-repeat: no-repeat;
-      background-position: center;
-
-      ${breakPoint.sp} {
-        width: 36px;
-        height: 36px;
-      }
-    }
-  `;
-
-  const rangeFontSize = css`
-    ::before {
-      background-image: url("/images/ui/textformat-size.svg");
-    }
-  `;
-
-  const rangeLineHeight = css`
-    ::before {
-      background-image: url("/images/ui/arrow-up-and-down-text-horizontal.svg");
-    }
-  `;
-
-  const rangeInput = css`
-    -webkit-appearance: none;
-    appearance: none;
-
-    background-color: #ddd;
-    height: 2px;
-
-    width: 100%;
-
-    ::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-
-      width: 16px;
-      height: 16px;
-
-      display: block;
-      background-color: ${dg4Color.cyan};
-      border-radius: 50%;
-
-      box-shadow: none;
-
-      ${breakPoint.sp} {
-        width: 20px;
-        height: 20px;
-      }
-    }
-  `;
-
-  const radioWrapper = css`
-    display: flex;
-    gap: 16px;
-  `;
-
-  const buttonAlign = css`
-    ::before {
-      content: "";
-      display: block;
-
-      width: 24px;
-      height: 24px;
-
-      background-repeat: no-repeat;
-      background-position: center;
-      filter: grayscale(100%) brightness(30%);
-
-      ${breakPoint.sp} {
-        width: 36px;
-        height: 36px;
-      }
-    }
-
-    :checked {
-      ::before {
-        filter: grayscale(0) brightness(100%);
-      }
-    }
-  `;
-
-  const buttonAlignLeft = css`
-    ::before {
-      background-image: url("/images/ui/text-alignleft.svg");
-    }
-  `;
-
-  const buttonAlignCenter = css`
-    ::before {
-      background-image: url("/images/ui/text-aligncenter.svg");
-    }
-  `;
-
-  const buttonAlignRight = css`
-    ::before {
-      background-image: url("/images/ui/text-alignright.svg");
-    }
-  `;
-
-  const colorWrapper = css`
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  `;
-
-  const colorInput = css`
-    display: block;
-
-    ::-webkit-color-swatch {
-      border: 2px solid #ddd;
-
-      width: 24px;
-      height: 24px;
-
-      ${breakPoint.sp} {
-        width: 32px;
-        height: 32px;
-      }
-    }
-  `;
-
-  const reverseButton = css`
-    ::before {
-      content: "";
-      display: block;
-
-      background-image: url("/images/ui/arrow-left-arrow-right.svg");
-      background-repeat: no-repeat;
-      background-position: center;
-
-      width: 24px;
-      height: 24px;
-
-      ${breakPoint.sp} {
-        width: 32px;
-        height: 32px;
-      }
-    }
-  `;
-
-  const itemLetter = css`
-    text-align: ${textAlign};
-    font-size: ${fontSize}px;
-    line-height: ${lineHeight}%;
-    padding: 16px;
-    background-color: ${backgroundColor};
-    color: ${textColor};
-
-    cursor: text;
-  `;
-
-  const ff = css`
-    font-family: ${name}, sans-serif;
-  `;
-
-  return (
-    <div className="content" css={fontContent}>
-      <H3 en={name} />
-      <div css={editWrapper}>
-        <div css={[rangeWrapper, rangeFontSize]}>
-          <input
-            type="range"
-            min="10"
-            max="180"
-            defaultValue={defaultFontSize}
-            className="clickable"
-            onChange={changeFontSize}
-            css={rangeInput}
-          />
-        </div>
-        <div css={[rangeWrapper, rangeLineHeight]}>
-          <input
-            type="range"
-            min="100"
-            max="200"
-            defaultValue={defaultLineHeight}
-            className="clickable"
-            onChange={changeLineHeight}
-            css={rangeInput}
-          />
-        </div>
-        <div css={radioWrapper}>
-          <label className="clickable">
-            <input
-              type="radio"
-              value="left"
-              checked={textAlign === "left"}
-              onChange={changeTextAlign}
-              css={[buttonAlign, buttonAlignLeft]}
-            />
-          </label>
-          <label className="clickable">
-            <input
-              type="radio"
-              value="center"
-              checked={textAlign === "center"}
-              onChange={changeTextAlign}
-              css={[buttonAlign, buttonAlignCenter]}
-            />
-          </label>
-          <label className="clickable">
-            <input
-              type="radio"
-              value="right"
-              checked={textAlign === "right"}
-              onChange={changeTextAlign}
-              css={[buttonAlign, buttonAlignRight]}
-            />
-          </label>
-        </div>
-        <div css={colorWrapper}>
-          <input
-            className="clickable"
-            type="color"
-            value={backgroundColor}
-            onChange={changeBackgroundColor}
-            css={colorInput}
-          />
-          <button onClick={reverseColor} className="clickable" css={reverseButton} />
-          <input className="clickable" type="color" value={textColor} onChange={changeTextColor} css={colorInput} />
-        </div>
-      </div>
-      {/* <div contentEditable spellCheck="false" css={[itemLetter, ff]}> */}
-      <div css={[itemLetter, ff]}>Almost before we knew it, we had left the ground.</div>
-    </div>
-  );
-};
-
 const Works: NextPage = () => {
+  // sample text
+  const defaultSampleText = "Almost before we knew it, we had left the ground.";
+  const [sampleText, setSampleText] = useState<string>(defaultSampleText);
+  const changeSampleText = (event: React.ChangeEvent<HTMLInputElement>) => setSampleText(event.target.value);
+
   return (
     <Layout
       title="Works | dgdgdgdg"
@@ -357,10 +91,13 @@ const Works: NextPage = () => {
           <div css={fontDesc}>
             <Image src="/images/works/dont-desc.webp" width={500} height={175} alt="" />
           </div>
-          <FontContent name="Dont" />
-          <FontContent name="Dont Round" />
-          <FontContent name="Dont Circle" />
-
+          <div css={sampleWrapper}>
+            <span>サンプルテキスト</span>
+            <input type="text" value={sampleText} onChange={changeSampleText} />
+          </div>
+          <FontContent text={sampleText} name="Dont" />
+          <FontContent text={sampleText} name="Dont Round" />
+          <FontContent text={sampleText} name="Dont Circle" />
           <Button
             href="https://github.com/dg4-design/dont/blob/main/fonts.zip?raw=true"
             text="Download"
@@ -384,7 +121,7 @@ const Works: NextPage = () => {
       <section id="photography">
         <Container css={contain}>
           <H2 en="Photography" ja="写真" />
-          {/* <InstaItemList /> */}
+          <InstaItemList />
           <Button external={true} href="https://instagram.dgdgdgdg.com/" text="Instagram" css={button} />
         </Container>
       </section>

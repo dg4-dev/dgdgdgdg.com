@@ -2,7 +2,7 @@
 import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
 
-import { instaDummy } from "@/pages/api/instaDummy";
+import { instaDummy } from "@/api/instaDummy";
 import { breakPoint } from "@/styles/config";
 
 type Cursors = {
