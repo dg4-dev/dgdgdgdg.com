@@ -1,9 +1,12 @@
+import { Global } from "@emotion/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Loading from "@/components/loading";
+import global from "@/styles/global";
+import reset from "@/styles/reset";
 
 type Props =
   | {
@@ -24,6 +27,8 @@ const Layout = ({ children, title, description, noindex = false }: Props) => {
   const nowUrl = `https://dgdgdgdg.com${location.pathname}`;
   return (
     <>
+      <Global styles={[reset, global]} />
+
       <Head>
         <link rel="icon" href="/images/favicon.ico" />
         <title>{title}</title>
