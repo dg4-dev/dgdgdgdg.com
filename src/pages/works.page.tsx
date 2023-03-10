@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import Image from "next/image";
+import { useState } from "react";
 
 import type { NextPage } from "next";
 
@@ -47,6 +48,11 @@ const button = css`
 `;
 
 const Works: NextPage = () => {
+  // example text
+  const defaultExampleText = "Almost before we knew it, we had left the ground.";
+  const [exampleText, setExampleText] = useState<string>(defaultExampleText);
+  const changeExampleText = (event: React.ChangeEvent<HTMLInputElement>) => setExampleText(event.target.value);
+
   return (
     <Layout
       title="Works | dgdgdgdg"
@@ -60,9 +66,15 @@ const Works: NextPage = () => {
           <div css={fontDesc}>
             <Image src="/images/works/dont-desc.webp" width={500} height={175} alt="" />
           </div>
-          <FontContent name="Dont" />
-          <FontContent name="Dont Round" />
-          <FontContent name="Dont Circle" />
+          <input
+            type="text"
+            pattern="[a-zA-Z0-9!&quot;#$%&'()*+,-./:;&lt;=&gt;?@[\\\]^_`{|}~‘’“”]*"
+            value={exampleText}
+            onChange={changeExampleText}
+          />
+          <FontContent text={exampleText} name="Dont" />
+          <FontContent text={exampleText} name="Dont Round" />
+          <FontContent text={exampleText} name="Dont Circle" />
 
           <Button
             href="https://github.com/dg4-design/dont/blob/main/fonts.zip?raw=true"
