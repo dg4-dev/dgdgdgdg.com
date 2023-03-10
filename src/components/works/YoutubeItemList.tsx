@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
 
-import Item from "./item";
+import Item from "./Item";
 
 type Default = {
   url: string;
