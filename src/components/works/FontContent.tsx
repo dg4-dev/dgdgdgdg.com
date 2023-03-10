@@ -1,11 +1,11 @@
 import { css } from "@emotion/react";
 import { useState } from "react";
 
-import H3 from "../heading/heading3";
+import H3 from "../heading/Heading3";
 
 import { breakPoint, dg4Color } from "@/styles/config";
 
-const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) => {
+const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circle"; text: string }) => {
   // font size
   const defaultFontSize = 32;
   const [fontSize, setFontSizeValue] = useState<number>(defaultFontSize);
@@ -54,7 +54,8 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
     margin-bottom: 24px;
 
     ${breakPoint.sp} {
-      gap: 24px 40px;
+      gap: 24px 0;
+      justify-content: space-between;
       flex-wrap: wrap;
     }
   `;
@@ -181,16 +182,23 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
   const colorInput = css`
     display: block;
 
+    width: 24px;
+    height: 24px;
+
+    ${breakPoint.sp} {
+      width: 32px;
+      height: 32px;
+    }
+
     ::-webkit-color-swatch {
       border: 2px solid #ddd;
+      width: 100%;
+    }
 
-      width: 24px;
-      height: 24px;
+    ::-webkit-color-swatch-wrapper {
+      padding: 0;
 
-      ${breakPoint.sp} {
-        width: 32px;
-        height: 32px;
-      }
+      width: 100%;
     }
   `;
 
@@ -216,10 +224,14 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
   const itemLetter = css`
     text-align: ${textAlign};
     font-size: ${fontSize}px;
-    line-height: ${lineHeight}%;
+    line-height: ${lineHeight / 100}em;
     padding: 16px;
     background-color: ${backgroundColor};
     color: ${textColor};
+
+    overflow-wrap: break-word;
+
+    min-height: calc(${lineHeight / 100}em + 32px);
   `;
 
   const ff = css`
@@ -293,7 +305,7 @@ const FontContent = ({ name }: { name: "Dont" | "Dont Round" | "Dont Circle" }) 
           <input className="clickable" type="color" value={textColor} onChange={changeTextColor} css={colorInput} />
         </div>
       </div>
-      <div css={[itemLetter, ff]}>Almost before we knew it, we had left the ground.</div>
+      <div css={[itemLetter, ff]}>{text}</div>
     </div>
   );
 };
