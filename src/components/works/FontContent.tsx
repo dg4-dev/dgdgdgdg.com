@@ -181,16 +181,23 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
   const colorInput = css`
     display: block;
 
+    width: 24px;
+    height: 24px;
+
+    ${breakPoint.sp} {
+      width: 32px;
+      height: 32px;
+    }
+
     ::-webkit-color-swatch {
       border: 2px solid #ddd;
+      width: 100%;
+    }
 
-      width: 24px;
-      height: 24px;
+    ::-webkit-color-swatch-wrapper {
+      padding: 0;
 
-      ${breakPoint.sp} {
-        width: 32px;
-        height: 32px;
-      }
+      width: 100%;
     }
   `;
 
