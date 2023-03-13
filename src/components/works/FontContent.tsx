@@ -69,10 +69,20 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
 
     margin-bottom: 24px;
 
+    ${breakPoint.tab} {
+      flex-direction: column;
+    }
+  `;
+
+  const rangeContainer = css`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+
     ${breakPoint.sp} {
-      gap: 24px 0;
-      justify-content: space-between;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 8px;
     }
   `;
 
@@ -147,9 +157,29 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
     }
   `;
 
+  const buttonContainer = css`
+    display: flex;
+    align-items: center;
+    gap: 40px;
+
+    ${breakPoint.tab} {
+      width: 100%;
+      justify-content: flex-end;
+    }
+
+    ${breakPoint.sp} {
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+  `;
+
   const radioWrapper = css`
     display: flex;
     gap: 16px;
+
+    ${breakPoint.sp} {
+      gap: 8px;
+    }
   `;
 
   const buttonAlign = css`
@@ -280,81 +310,85 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
     <div className="content" css={fontContent}>
       <H3 en={name} />
       <div css={editWrapper}>
-        <div css={[rangeWrapper, rangeFontSize]}>
-          <input
-            type="range"
-            min="10"
-            max="180"
-            defaultValue={defaultFontSize}
-            className="clickable"
-            onChange={changeFontSize}
-            css={rangeInput}
-          />
-        </div>
-        <div css={[rangeWrapper, rangeLineHeight]}>
-          <input
-            type="range"
-            min="100"
-            max="200"
-            defaultValue={defaultLineHeight}
-            className="clickable"
-            onChange={changeLineHeight}
-            css={rangeInput}
-          />
-        </div>
-        <div css={[rangeWrapper, rangeLetterSpacing]}>
-          <input
-            type="range"
-            min="0"
-            max="50"
-            defaultValue={defaultLetterSpacing}
-            className="clickable"
-            onChange={changeLetterSpacing}
-            css={rangeInput}
-          />
-        </div>
-        <div css={radioWrapper}>
-          <label className="clickable">
+        <div css={rangeContainer}>
+          <div css={[rangeWrapper, rangeFontSize]}>
             <input
-              type="radio"
-              value="left"
-              checked={textAlign === "left"}
-              onChange={changeTextAlign}
-              css={[buttonAlign, buttonAlignLeft]}
+              type="range"
+              min="10"
+              max="180"
+              defaultValue={defaultFontSize}
+              className="clickable"
+              onChange={changeFontSize}
+              css={rangeInput}
             />
-          </label>
-          <label className="clickable">
+          </div>
+          <div css={[rangeWrapper, rangeLineHeight]}>
             <input
-              type="radio"
-              value="center"
-              checked={textAlign === "center"}
-              onChange={changeTextAlign}
-              css={[buttonAlign, buttonAlignCenter]}
+              type="range"
+              min="100"
+              max="200"
+              defaultValue={defaultLineHeight}
+              className="clickable"
+              onChange={changeLineHeight}
+              css={rangeInput}
             />
-          </label>
-          <label className="clickable">
+          </div>
+          <div css={[rangeWrapper, rangeLetterSpacing]}>
             <input
-              type="radio"
-              value="right"
-              checked={textAlign === "right"}
-              onChange={changeTextAlign}
-              css={[buttonAlign, buttonAlignRight]}
+              type="range"
+              min="0"
+              max="50"
+              defaultValue={defaultLetterSpacing}
+              className="clickable"
+              onChange={changeLetterSpacing}
+              css={rangeInput}
             />
-          </label>
+          </div>
         </div>
-        <div css={colorWrapper}>
-          <input
-            className="clickable"
-            type="color"
-            value={backgroundColor}
-            onChange={changeBackgroundColor}
-            css={colorInput}
-          />
-          <button onClick={reverseColor} className="clickable" css={reverseButton} />
-          <input className="clickable" type="color" value={textColor} onChange={changeTextColor} css={colorInput} />
-        </div>
-        <div css={resetWrapper}>
-          <button onClick={resetValue} className="clickable" css={resetButton} />
+        <div css={buttonContainer}>
+          <div css={radioWrapper}>
+            <label className="clickable">
+              <input
+                type="radio"
+                value="left"
+                checked={textAlign === "left"}
+                onChange={changeTextAlign}
+                css={[buttonAlign, buttonAlignLeft]}
+              />
+            </label>
+            <label className="clickable">
+              <input
+                type="radio"
+                value="center"
+                checked={textAlign === "center"}
+                onChange={changeTextAlign}
+                css={[buttonAlign, buttonAlignCenter]}
+              />
+            </label>
+            <label className="clickable">
+              <input
+                type="radio"
+                value="right"
+                checked={textAlign === "right"}
+                onChange={changeTextAlign}
+                css={[buttonAlign, buttonAlignRight]}
+              />
+            </label>
+          </div>
+          <div css={colorWrapper}>
+            <input
+              className="clickable"
+              type="color"
+              value={backgroundColor}
+              onChange={changeBackgroundColor}
+              css={colorInput}
+            />
+            <button onClick={reverseColor} className="clickable" css={reverseButton} />
+            <input className="clickable" type="color" value={textColor} onChange={changeTextColor} css={colorInput} />
+          </div>
+          <div css={resetWrapper}>
+            <button onClick={resetValue} className="clickable" css={resetButton} />
+          </div>
         </div>
       </div>
       <div css={[itemLetter, ff]}>{text}</div>
