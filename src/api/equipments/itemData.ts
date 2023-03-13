@@ -476,17 +476,6 @@ export const itemData: itemDataProps[] = [
   },
   {
     address: {
-      section: "Develop and Design",
-      order: 100,
-    },
-    name: "PO-80",
-    maker: "teenage engineering",
-    about: "Compact and portable record cutter",
-    imgName: "teenageengineering-po80.png",
-    gen: 2022,
-  },
-  {
-    address: {
       section: "Audio",
       order: 10,
     },
@@ -610,6 +599,17 @@ export const itemData: itemDataProps[] = [
     imgName: "beats-beatsflex-black.png",
     gen: 2020,
     variety: "black",
+  },
+  {
+    address: {
+      section: "Audio",
+      order: 120,
+    },
+    name: "PO-80",
+    maker: "teenage engineering",
+    about: "Compact and portable record cutter",
+    imgName: "teenageengineering-po80.png",
+    gen: 2022,
   },
   {
     address: {
