@@ -7,6 +7,7 @@ import Age from "@/api/nowAge";
 import Button from "@/components/Button";
 import Container from "@/components/Container";
 import Layout from "@/components/Layout";
+import Logo from "@/components/Logo";
 import EquipmentsSlide from "@/components/about/EquipmentsSlide";
 import meaningItemElm from "@/components/about/MeaningItem";
 import skillGraph from "@/components/about/SkillGraph";
@@ -197,7 +198,7 @@ const About: NextPage = () => {
             <div className="item">
               <p css={logoPara}>dgdgdgdgで「だがし」と読みます</p>
               <div className="logo" css={logoImage}>
-                <object data="/images/logo.svg" type="image/svg+xml"></object>
+                <Logo />
               </div>
             </div>
             <Button css={button} href="/about/design-resource" />

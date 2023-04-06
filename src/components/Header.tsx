@@ -4,6 +4,8 @@ import { css } from "@emotion/react";
 import Link from "next/link";
 import { useState } from "react";
 
+import Logo from "./Logo";
+
 import type { NextPage } from "next";
 
 import pageName from "@/api/pageName";
@@ -449,7 +451,7 @@ const Header: NextPage = () => {
       <div css={outside}>
         <Link href="/">
           <a css={logo} onClick={() => menuReset()}>
-            <object data="/images/logo.svg" type="image/svg+xml" />
+            <Logo />
           </a>
         </Link>
         <div css={burger} className="clickable" onClick={() => menuFunction()}>
