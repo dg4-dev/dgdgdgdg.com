@@ -431,18 +431,13 @@ const Header: NextPage = () => {
   const extLinkContents = (
     <ul>
       <li>
+        <HeaderLink href="https://www.apps.dgdgdgdg.com/" en="dg4-apps" ja="dg4-apps" external={true} />
+      </li>
+      <li>
         <HeaderLink
           href="https://www.radio.dgdgdgdg.com/"
           en="Enter the radio title"
           ja="ラジオのタイトルを入力"
-          external={true}
-        />
-      </li>
-      <li>
-        <HeaderLink
-          href="https://www.apps.dgdgdgdg.com/"
-          en="dg4 app archive"
-          ja="dg4アプリアーカイブ"
           external={true}
         />
       </li>
