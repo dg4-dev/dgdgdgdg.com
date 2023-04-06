@@ -44,6 +44,34 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
     setTextColor(backgroundColor);
   };
 
+  // shuffle value
+  const shuffleValue = () => {
+    const randomNumber = (n: number) => {
+      return Math.floor(Math.random() * n);
+    };
+
+    const threeAlternate = () => {
+      if (randomNumber(3) === 0) {
+        return "left";
+      } else if (randomNumber(3) === 2) {
+        return "right";
+      } else {
+        return "center";
+      }
+    };
+
+    const randomColor = () => {
+      return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+    };
+
+    setFontSizeValue(randomNumber(170) + 10);
+    setLineHeightValue(randomNumber(100) + 100);
+    setLetterSpacingValue(randomNumber(50));
+    setTextAlign(threeAlternate);
+    setBackgroundColor(randomColor);
+    setTextColor(randomColor);
+  };
+
   // reset value
   const resetValue = () => {
     setFontSizeValue(defaultFontSize);
@@ -270,12 +298,9 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
     }
   `;
 
-  const resetWrapper = css``;
-
-  const resetButton = css`
+  const oneButton = css`
     display: block;
 
-    background-image: url("/images/ui/arrow-counterclockwise.svg");
     background-repeat: no-repeat;
     background-position: center;
 
@@ -286,6 +311,14 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
       width: 32px;
       height: 32px;
     }
+  `;
+
+  const shuffleButton = css`
+    background-image: url("/images/ui/shuffle.svg");
+  `;
+
+  const resetButton = css`
+    background-image: url("/images/ui/arrow-counterclockwise.svg");
   `;
 
   const itemLetter = css`
@@ -386,8 +419,11 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
             <button onClick={reverseColor} className="clickable" css={reverseButton} />
             <input className="clickable" type="color" value={textColor} onChange={changeTextColor} css={colorInput} />
           </div>
-          <div css={resetWrapper}>
-            <button onClick={resetValue} className="clickable" css={resetButton} />
+          <div>
+            <button onClick={shuffleValue} className="clickable" css={[oneButton, shuffleButton]} />
+          </div>
+          <div>
+            <button onClick={resetValue} className="clickable" css={[oneButton, resetButton]} />
           </div>
         </div>
       </div>
