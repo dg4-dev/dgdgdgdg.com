@@ -86,8 +86,15 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
     setTextColor(defaultTextColor);
   };
 
-  // contentEditableは意図的なものだが、console.errorが出るので一時的に無効化
-  console.error = function () {};
+  // copy value
+  const copyValue = () => {
+    const copyElement = document.createElement("textarea");
+    copyElement.value = `font-family: "${name}";\nfont-size: ${fontSize}px;\nline-height: ${lineHeight}%;\nletter-spacing: ${letterSpacing}px;\ntext-align: ${textAlign};\nbackground-color: ${backgroundColor};\ncolor: ${textColor};`;
+    document.body.appendChild(copyElement);
+
+    navigator.clipboard.writeText(copyElement.value);
+    document.body.removeChild(copyElement);
+  };
 
   const fontContent = css`
     display: flex;
@@ -325,6 +332,10 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
     background-image: url("/images/ui/arrow-counterclockwise.svg");
   `;
 
+  const copyButton = css`
+    background-image: url("/images/ui/doc-on-doc.svg");
+  `;
+
   const itemLetter = css`
     text-align: ${textAlign};
     font-size: ${fontSize}px;
@@ -428,6 +439,9 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
           </div>
           <div>
             <button onClick={resetValue} className="clickable" css={[oneButton, resetButton]} />
+          </div>
+          <div>
+            <button onClick={copyValue} className="clickable" css={[oneButton, copyButton]} />
           </div>
         </div>
       </div>
