@@ -61,7 +61,9 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
     };
 
     const randomColor = () => {
-      return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+      return `#${Math.floor(Math.random() * 16777216)
+        .toString(16)
+        .padStart(6, "0")}`;
     };
 
     setFontSizeValue(randomNumber(170) + 10);
@@ -82,8 +84,45 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
     setTextColor(defaultTextColor);
   };
 
-  // contentEditableは意図的なものだが、console.errorが出るので一時的に無効化
-  console.error = function () {};
+  // copy value
+  const copyValue = () => {
+    // create textarea
+    const copyElement = document.createElement("textarea");
+    copyElement.value = `font-family: "${name}";\nfont-size: ${fontSize}px;\nline-height: ${
+      lineHeight / 100
+    }em;\nletter-spacing: ${
+      letterSpacing / 100
+    }em;\ntext-align: ${textAlign};\nbackground-color: ${backgroundColor};\ncolor: ${textColor};`;
+    document.body.appendChild(copyElement);
+
+    // copy
+    navigator.clipboard.writeText(copyElement.value);
+    document.body.removeChild(copyElement);
+
+    // copy alert
+    document.body.insertAdjacentHTML(
+      "beforeend",
+      `<div style="
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: ${dg4Color.blue};
+        color: #fff;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-family: 'Dont', sans-serif;
+        font-size: 20px;
+        z-index: 100;
+      " id="copyAlert">Copied!</div>`
+    );
+
+    setTimeout(() => {
+      const copyAlert = document.getElementById("copyAlert");
+      if (copyAlert) {
+        copyAlert.remove();
+      }
+    }, 1000);
+  };
 
   const fontContent = css`
     display: flex;
@@ -199,9 +238,16 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
       flex-wrap: wrap;
       gap: 24px;
     }
+
+    @media screen and (max-width: 444px) {
+      justify-content: space-between;
+      div:last-of-type {
+        margin-left: auto;
+      }
+    }
   `;
 
-  const radioWrapper = css`
+  const buttonWrapper = css`
     display: flex;
     gap: 16px;
 
@@ -266,8 +312,8 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
     height: 24px;
 
     ${breakPoint.sp} {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
     }
 
     ::-webkit-color-swatch {
@@ -293,8 +339,8 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
     height: 24px;
 
     ${breakPoint.sp} {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
     }
   `;
 
@@ -308,8 +354,8 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
     height: 24px;
 
     ${breakPoint.sp} {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
     }
   `;
 
@@ -319,6 +365,10 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
 
   const resetButton = css`
     background-image: url("/images/ui/arrow-counterclockwise.svg");
+  `;
+
+  const copyButton = css`
+    background-image: url("/images/ui/doc-on-doc.svg");
   `;
 
   const itemLetter = css`
@@ -379,7 +429,7 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
           </div>
         </div>
         <div css={buttonContainer}>
-          <div css={radioWrapper}>
+          <div css={buttonWrapper}>
             <label className="clickable">
               <input
                 type="radio"
@@ -419,11 +469,10 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
             <button onClick={reverseColor} className="clickable" css={reverseButton} />
             <input className="clickable" type="color" value={textColor} onChange={changeTextColor} css={colorInput} />
           </div>
-          <div>
+          <div css={buttonWrapper}>
             <button onClick={shuffleValue} className="clickable" css={[oneButton, shuffleButton]} />
-          </div>
-          <div>
             <button onClick={resetValue} className="clickable" css={[oneButton, resetButton]} />
+            <button onClick={copyValue} className="clickable" css={[oneButton, copyButton]} />
           </div>
         </div>
       </div>
