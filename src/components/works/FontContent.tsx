@@ -106,12 +106,12 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
         position: fixed;
         bottom: 20px;
         right: 20px;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: ${dg4Color.blue};
         color: #fff;
         padding: 8px 16px;
         border-radius: 4px;
-        font-size: 16px;
-        font-weight: bold;
+        font-family: 'Dont', sans-serif;
+        font-size: 20px;
         z-index: 100;
       " id="copyAlert">Copied!</div>`
     );
