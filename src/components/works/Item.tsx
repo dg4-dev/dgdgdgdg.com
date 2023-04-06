@@ -57,21 +57,20 @@ const Item = ({ title, imgHref, link = false, href, className = undefined }: ite
     }
   `;
 
-  const isSvg = imgHref.includes("svg");
-  const img = isSvg ? <object data={imgHref} type="image/svg+xml" /> : <img src={imgHref} alt="" />;
-
   return link ? (
     <div css={item} className={className}>
       <a href={href} target="_blank" rel="noopener noreferrer">
         <div className="image" css={image}>
-          {img}
+          <img src={imgHref} alt="" />
         </div>
         <h4 css={heading4}>{title}</h4>
       </a>
     </div>
   ) : (
     <div css={item}>
-      <div css={image}>{img}</div>
+      <div css={image}>
+        <img src={imgHref} alt="" />
+      </div>
       <h4 css={heading4}>{title}</h4>
     </div>
   );
