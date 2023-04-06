@@ -28,6 +28,7 @@
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@emotion/babel-plugin": "^11.10.2",
+    "@svgr/webpack": "^7.0.0",
     "@types/node": "16.11.6",
     "@types/react": "18.0.17",
     "@types/react-dom": "18.0.6",

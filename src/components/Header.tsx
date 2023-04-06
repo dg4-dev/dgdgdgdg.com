@@ -4,6 +4,8 @@ import { css } from "@emotion/react";
 import Link from "next/link";
 import { useState } from "react";
 
+import Logo from "./Logo";
+
 import type { NextPage } from "next";
 
 import pageName from "@/api/pageName";
@@ -431,18 +433,13 @@ const Header: NextPage = () => {
   const extLinkContents = (
     <ul>
       <li>
+        <HeaderLink href="https://www.apps.dgdgdgdg.com/" en="dg4-apps" ja="dg4-apps" external={true} />
+      </li>
+      <li>
         <HeaderLink
           href="https://www.radio.dgdgdgdg.com/"
           en="Enter the radio title"
           ja="ラジオのタイトルを入力"
-          external={true}
-        />
-      </li>
-      <li>
-        <HeaderLink
-          href="https://www.apps.dgdgdgdg.com/"
-          en="dg4 app archive"
-          ja="dg4アプリアーカイブ"
           external={true}
         />
       </li>
@@ -454,7 +451,7 @@ const Header: NextPage = () => {
       <div css={outside}>
         <Link href="/">
           <a css={logo} onClick={() => menuReset()}>
-            <object data="/images/logo.svg" type="image/svg+xml" />
+            <Logo />
           </a>
         </Link>
         <div css={burger} className="clickable" onClick={() => menuFunction()}>
