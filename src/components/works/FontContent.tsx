@@ -61,11 +61,9 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
     };
 
     const randomColor = () => {
-      // 0パディング
       return `#${Math.floor(Math.random() * 16777216)
         .toString(16)
         .padStart(6, "0")}`;
-      // return `#${Math.floor(Math.random() * 16777216).toString(16)}`;
     };
 
     setFontSizeValue(randomNumber(170) + 10);
@@ -88,12 +86,42 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
 
   // copy value
   const copyValue = () => {
+    // create textarea
     const copyElement = document.createElement("textarea");
-    copyElement.value = `font-family: "${name}";\nfont-size: ${fontSize}px;\nline-height: ${lineHeight}%;\nletter-spacing: ${letterSpacing}px;\ntext-align: ${textAlign};\nbackground-color: ${backgroundColor};\ncolor: ${textColor};`;
+    copyElement.value = `font-family: "${name}";\nfont-size: ${fontSize}px;\nline-height: ${
+      lineHeight / 100
+    }em;\nletter-spacing: ${
+      letterSpacing / 100
+    }em;\ntext-align: ${textAlign};\nbackground-color: ${backgroundColor};\ncolor: ${textColor};`;
     document.body.appendChild(copyElement);
 
+    // copy
     navigator.clipboard.writeText(copyElement.value);
     document.body.removeChild(copyElement);
+
+    // copy alert
+    document.body.insertAdjacentHTML(
+      "beforeend",
+      `<div style="
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: bold;
+        z-index: 100;
+      " id="copyAlert">Copied!</div>`
+    );
+
+    setTimeout(() => {
+      const copyAlert = document.getElementById("copyAlert");
+      if (copyAlert) {
+        copyAlert.remove();
+      }
+    }, 1000);
   };
 
   const fontContent = css`
@@ -210,9 +238,16 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
       flex-wrap: wrap;
       gap: 24px;
     }
+
+    @media screen and (max-width: 444px) {
+      justify-content: space-between;
+      div:last-of-type {
+        margin-left: auto;
+      }
+    }
   `;
 
-  const radioWrapper = css`
+  const buttonWrapper = css`
     display: flex;
     gap: 16px;
 
@@ -277,8 +312,8 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
     height: 24px;
 
     ${breakPoint.sp} {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
     }
 
     ::-webkit-color-swatch {
@@ -304,8 +339,8 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
     height: 24px;
 
     ${breakPoint.sp} {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
     }
   `;
 
@@ -319,8 +354,8 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
     height: 24px;
 
     ${breakPoint.sp} {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
     }
   `;
 
@@ -394,7 +429,7 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
           </div>
         </div>
         <div css={buttonContainer}>
-          <div css={radioWrapper}>
+          <div css={buttonWrapper}>
             <label className="clickable">
               <input
                 type="radio"
@@ -434,13 +469,9 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
             <button onClick={reverseColor} className="clickable" css={reverseButton} />
             <input className="clickable" type="color" value={textColor} onChange={changeTextColor} css={colorInput} />
           </div>
-          <div>
+          <div css={buttonWrapper}>
             <button onClick={shuffleValue} className="clickable" css={[oneButton, shuffleButton]} />
-          </div>
-          <div>
             <button onClick={resetValue} className="clickable" css={[oneButton, resetButton]} />
-          </div>
-          <div>
             <button onClick={copyValue} className="clickable" css={[oneButton, copyButton]} />
           </div>
         </div>
