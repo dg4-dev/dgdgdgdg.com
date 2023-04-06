@@ -111,7 +111,6 @@ const Works: NextPage = () => {
         <Container css={contain}>
           <H2 en="Logo Design" ja="ロゴデザイン" />
           <div css={itemList}>
-            <Item title="dgdgdgdg" imgHref="/images/logo.svg" />
             <Item title="自然食食堂 さん" imgHref="/images/works/sunlogo.webp" />
             <Item title="モノクローム" imgHref="/images/works/monologo.webp" />
           </div>

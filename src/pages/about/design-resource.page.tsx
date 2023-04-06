@@ -5,6 +5,7 @@ import type { NextPage } from "next";
 
 import Container from "@/components/Container";
 import Layout from "@/components/Layout";
+import Logo from "@/components/Logo";
 import Note from "@/components/Note";
 import ColorItem from "@/components/design-resource/ColorItem";
 import DataItem from "@/components/design-resource/DataItem";
@@ -122,7 +123,7 @@ const DesignResource: NextPage = () => {
         <Container>
           <H2 en="Logo" ja="ロゴ" />
           <div className="content">
-            <object data="/images/logo.svg" type="image/svg+xml"></object>
+            <Logo />
           </div>
           <div className="content" css={containerContent}>
             <H3 en="Monthly Color" ja="月ごとの色" />
