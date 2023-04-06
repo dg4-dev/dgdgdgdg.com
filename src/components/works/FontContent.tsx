@@ -470,9 +470,9 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
             <input className="clickable" type="color" value={textColor} onChange={changeTextColor} css={colorInput} />
           </div>
           <div css={buttonWrapper}>
-            <button onClick={shuffleValue} className="clickable" css={[oneButton, shuffleButton]} />
-            <button onClick={resetValue} className="clickable" css={[oneButton, resetButton]} />
-            <button onClick={copyValue} className="clickable" css={[oneButton, copyButton]} />
+            <button onClick={shuffleValue} className="clickable" css={[oneButton, shuffleButton]} title="Shuffle" />
+            <button onClick={resetValue} className="clickable" css={[oneButton, resetButton]} title="Reset" />
+            <button onClick={copyValue} className="clickable" css={[oneButton, copyButton]} title="Copy CSS" />
           </div>
         </div>
       </div>
