@@ -236,13 +236,20 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
 
     ${breakPoint.sp} {
       flex-wrap: wrap;
+      justify-content: space-between;
       gap: 24px;
     }
 
     @media screen and (max-width: 444px) {
-      justify-content: space-between;
       div:last-of-type {
         margin-left: auto;
+      }
+    }
+
+    @media screen and (max-width: 295px) {
+      justify-content: center;
+      div:last-of-type {
+        margin-left: 0;
       }
     }
   `;
