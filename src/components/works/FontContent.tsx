@@ -236,13 +236,20 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
 
     ${breakPoint.sp} {
       flex-wrap: wrap;
+      justify-content: space-between;
       gap: 24px;
     }
 
     @media screen and (max-width: 444px) {
-      justify-content: space-between;
       div:last-of-type {
         margin-left: auto;
+      }
+    }
+
+    @media screen and (max-width: 295px) {
+      justify-content: center;
+      div:last-of-type {
+        margin-left: 0;
       }
     }
   `;
@@ -305,7 +312,7 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
     gap: 8px;
   `;
 
-  const colorInput = css`
+  const buttonSquare = css`
     display: block;
 
     width: 24px;
@@ -315,7 +322,9 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
       width: 36px;
       height: 36px;
     }
+  `;
 
+  const colorInput = css`
     ::-webkit-color-swatch {
       border: 2px solid #ddd;
       width: 100%;
@@ -328,47 +337,65 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
     }
   `;
 
-  const reverseButton = css`
-    display: block;
-
-    background-image: url("/images/ui/arrow-left-arrow-right.svg");
+  const buttonWithToolTip = css`
     background-repeat: no-repeat;
     background-position: center;
+    position: relative;
 
-    width: 24px;
-    height: 24px;
+    ::before {
+      opacity: 0;
+      content: "";
 
-    ${breakPoint.sp} {
-      width: 36px;
-      height: 36px;
+      position: absolute;
+      top: -32px;
+      right: 0;
+
+      padding: 0.4em 0.7em;
+      font-size: 12px;
+      font-weight: 400;
+      color: #fff;
+      white-space: nowrap;
+      background: ${dg4Color.black};
+      border-radius: 4px;
+
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    :hover::before {
+      opacity: 1;
     }
   `;
 
-  const oneButton = css`
-    display: block;
+  const reverseButton = css`
+    background-image: url("/images/ui/arrow-left-arrow-right.svg");
 
-    background-repeat: no-repeat;
-    background-position: center;
-
-    width: 24px;
-    height: 24px;
-
-    ${breakPoint.sp} {
-      width: 36px;
-      height: 36px;
+    ::before {
+      content: "Swap Color";
     }
   `;
 
   const shuffleButton = css`
     background-image: url("/images/ui/shuffle.svg");
+
+    ::before {
+      content: "Shuffle";
+    }
   `;
 
   const resetButton = css`
     background-image: url("/images/ui/arrow-counterclockwise.svg");
+
+    ::before {
+      content: "Reset";
+    }
   `;
 
   const copyButton = css`
     background-image: url("/images/ui/doc-on-doc.svg");
+
+    ::before {
+      content: "Copy CSS";
+    }
   `;
 
   const itemLetter = css`
@@ -464,15 +491,29 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
               type="color"
               value={backgroundColor}
               onChange={changeBackgroundColor}
-              css={colorInput}
+              css={[buttonSquare, colorInput]}
             />
-            <button onClick={reverseColor} className="clickable" css={reverseButton} />
-            <input className="clickable" type="color" value={textColor} onChange={changeTextColor} css={colorInput} />
+            <button
+              onClick={reverseColor}
+              className="clickable"
+              css={[buttonWithToolTip, buttonSquare, reverseButton]}
+            />
+            <input
+              className="clickable"
+              type="color"
+              value={textColor}
+              onChange={changeTextColor}
+              css={[buttonSquare, colorInput]}
+            />
           </div>
           <div css={buttonWrapper}>
-            <button onClick={shuffleValue} className="clickable" css={[oneButton, shuffleButton]} title="Shuffle" />
-            <button onClick={resetValue} className="clickable" css={[oneButton, resetButton]} title="Reset" />
-            <button onClick={copyValue} className="clickable" css={[oneButton, copyButton]} title="Copy CSS" />
+            <button
+              onClick={shuffleValue}
+              className="clickable"
+              css={[buttonWithToolTip, buttonSquare, shuffleButton]}
+            />
+            <button onClick={resetValue} className="clickable" css={[buttonWithToolTip, buttonSquare, resetButton]} />
+            <button onClick={copyValue} className="clickable" css={[buttonWithToolTip, buttonSquare, copyButton]} />
           </div>
         </div>
       </div>
