@@ -17,7 +17,7 @@ type Props =
     }
   | {
       children: React.ReactNode;
-      title: string;
+      title?: string;
       description: string;
       noindex?: false;
     };
@@ -25,13 +25,21 @@ type Props =
 const Layout = ({ children, title, description, noindex = false }: Props) => {
   const location = useRouter();
   const nowUrl = `https://dgdgdgdg.com${location.pathname}`;
+
+  // トップページならtitleLongを「dgdgdgdg | 宮城県でデザイン、映像制作、Web制作をしている"だがし"です。」にする
+  // それ以外はtitleLongを「${title} | dgdgdgdg」にする
+  const titleLong =
+    location.pathname === "/"
+      ? `dgdgdgdg | 宮城県でデザイン、映像制作、Web制作をしている"だがし"です。`
+      : `${title} | dgdgdgdg`;
+
   return (
     <>
       <Global styles={[reset, global]} />
 
       <Head>
         <link rel="icon" href="/images/favicon.ico" />
-        <title>{title}</title>
+        <title>{titleLong}</title>
 
         {noindex ? (
           <meta name="robots" content="noindex" />
@@ -39,7 +47,7 @@ const Layout = ({ children, title, description, noindex = false }: Props) => {
           <>
             <meta name="description" content={description} />
             <meta name="og:url" content={nowUrl} />
-            <meta name="og:title" content={title} />
+            <meta name="og:title" content={titleLong} />
             <meta name="og:description" content={description} />
 
             {/* ogp image */}

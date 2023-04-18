@@ -62,7 +62,7 @@ const para = css`
 
 const Works: NextPage = () => {
   return (
-    <Layout title="Page not found | dgdgdgdg" noindex={true}>
+    <Layout title="Page not found" noindex={true}>
       <section css={notFoundSection}>
         <div>
           <h1 css={[heading1, dont]}>404</h1>
