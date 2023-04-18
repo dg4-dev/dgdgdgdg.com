@@ -42,7 +42,10 @@ const pricingPlanItems = css`
 
 const Service: NextPage = () => {
   return (
-    <Layout title="Service | dgdgdgdg" description="Webサイトやデザインの制作の流れ、承っているプランをご紹介します。">
+    <Layout
+      title="Workflow and Pricing"
+      description="Webサイトやデザインの制作の流れ、承っているプランをご紹介します。"
+    >
       <H1 />
 
       <section id="workflow">

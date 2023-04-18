@@ -33,7 +33,7 @@ const link = css`
 
 const Privacy: NextPage = () => {
   return (
-    <Layout title="Privacy Policy | dgdgdgdg" noindex={true}>
+    <Layout title="Privacy Policy" noindex={true}>
       <section id="privacy">
         <Container>
           <H2 en="Privacy Policy" ja="プライバシーポリシー" />
