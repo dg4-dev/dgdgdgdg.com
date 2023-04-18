@@ -1,4 +1,4 @@
-import { categoryNamesProps } from "@/api/equipments/categoryNames";
+import { categoryNamesProps } from "@/data/equipments/categoryNames";
 
 export type itemDataProps = {
   address: {
