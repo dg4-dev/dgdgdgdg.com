@@ -2,8 +2,8 @@ import { css } from "@emotion/react";
 
 import type { NextPage } from "next";
 
-import { categoryNames } from "@/api/equipments/categoryNames";
-import { itemData } from "@/api/equipments/itemData";
+import { categoryNames } from "@/data/equipments/categoryNames";
+import { itemData } from "@/data/equipments/itemData";
 import Container from "@/components/Container";
 import Layout from "@/components/Layout";
 import EquipmentsModal from "@/components/about/EquipmentsModal";
@@ -73,7 +73,7 @@ const Equipments: NextPage = () => {
 
   return (
     <Layout
-      title="Equipments | dgdgdgdg"
+      title="Equipments | About"
       description="使用している機材をドット絵として描き上げています。使用機材そのものの詳しい情報もこちら。"
     >
       <H1 />

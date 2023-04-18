@@ -80,7 +80,7 @@ const Works: NextPage = () => {
 
   return (
     <Layout
-      title="Works | dgdgdgdg"
+      title="Works"
       description="フォント、ロゴ、写真、動画、Webサイトと、制作実績の中からピックアップしてご紹介します。"
     >
       <H1 />
