@@ -154,7 +154,7 @@ const equipmentsList = css`
 
 const About: NextPage = () => {
   return (
-    <Layout title="About | dgdgdgdg" description="dgdgdgdgについての概要、スキル、使用機材についての説明です。">
+    <Layout title="About" description="dgdgdgdgについての概要、スキル、使用機材についての説明です。">
       <H1 />
 
       <section id="overview">

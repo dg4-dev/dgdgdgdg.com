@@ -73,7 +73,7 @@ const Equipments: NextPage = () => {
 
   return (
     <Layout
-      title="Equipments | dgdgdgdg"
+      title="Equipments | About"
       description="使用している機材をドット絵として描き上げています。使用機材そのものの詳しい情報もこちら。"
     >
       <H1 />
