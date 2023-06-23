@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { css } from "@emotion/react";
 
-import { itemData, itemDataProps } from "@/api/equipments/itemData";
+import { itemData, itemDataProps } from "@/data/equipments/itemData";
 import { breakPoint } from "@/styles/config";
 
 const shuffle = ([...array]) => {
