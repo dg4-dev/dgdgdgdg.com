@@ -61,6 +61,9 @@ const footerButton = css`
 
     margin: auto 0;
 
+    background-size: contain;
+    background-repeat: no-repeat;
+
     ${breakPoint.sp} {
       width: 32px;
       height: 32px;
@@ -68,15 +71,17 @@ const footerButton = css`
   }
 `;
 
-const twitterDmButton = css`
-  ::before {
-    background-image: url("/images/icon/twitter.svg");
-  }
-`;
-
 const messengerButton = css`
   ::before {
     background-image: url("/images/icon/messenger.svg");
+  }
+`;
+
+const emailButton = css`
+  ::before {
+    background-size: 22px;
+    background-position: center;
+    background-image: url("/images/ui/envelope-fill.svg");
   }
 `;
 
@@ -168,17 +173,12 @@ const Footer: NextPage = () => {
         <div>
           <div className="content" css={messageContent}>
             <Button
-              css={[footerButton, twitterDmButton]}
-              href="https://twitterdm.dgdgdgdg.com"
-              text="Twitter DM"
-              external={true}
-            />
-            <Button
               css={[footerButton, messengerButton]}
               href="https://messenger.dgdgdgdg.com"
               text="Messenger"
               external={true}
             />
+            <Button css={[footerButton, emailButton]} href="mailto:info@dgdgdgdg.com" text="E-mail" external={true} />
           </div>
           <LinkItems />
         </div>
