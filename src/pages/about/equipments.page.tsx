@@ -2,13 +2,13 @@ import { css } from "@emotion/react";
 
 import type { NextPage } from "next";
 
-import { categoryNames } from "@/data/equipments/categoryNames";
-import { itemData } from "@/data/equipments/itemData";
 import Container from "@/components/Container";
 import Layout from "@/components/Layout";
 import EquipmentsModal from "@/components/about/EquipmentsModal";
 import H1 from "@/components/heading/Heading1";
 import H2 from "@/components/heading/Heading2";
+import { categoryNames } from "@/data/equipments/categoryNames";
+import { itemData } from "@/data/equipments/itemData";
 import { breakPoint } from "@/styles/config";
 
 const Equipments: NextPage = () => {
