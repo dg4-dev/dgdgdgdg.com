@@ -8,7 +8,7 @@ import Logo from "./Logo";
 
 import type { NextPage } from "next";
 
-import pageName from "@/api/pageName";
+import pageName from "@/data/pageName";
 import { dg4Color, breakPoint } from "@/styles/config";
 
 const header = css`
