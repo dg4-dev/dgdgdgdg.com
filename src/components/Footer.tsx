@@ -149,7 +149,7 @@ const LinkItems = () => {
     }
   `;
 
-  const linkData = ["zenn", "twitter", "youtube", "instagram", "github", "suzuri", "note"];
+  const linkData = ["zenn", "twitter", "instagram", "youtube", "github", "threads", "note", "suzuri"];
 
   const linkElm = linkData.map((value) => {
     const href = `https://${value}.dgdgdgdg.com`;
