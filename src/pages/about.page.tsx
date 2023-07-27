@@ -46,6 +46,7 @@ const infoTable = css`
   display: block;
   tbody tr {
     th {
+      min-width: 5em;
       width: 120px;
       font-weight: bold;
       text-align: left;
@@ -53,6 +54,19 @@ const infoTable = css`
     }
     td {
       width: 230px;
+    }
+
+    ul {
+      line-height: 1.6em;
+    }
+
+    /* add marker */
+    li {
+      list-style: disc inside;
+    }
+
+    li > ul {
+      padding-left: 2em;
     }
   }
 `;
@@ -186,7 +200,36 @@ const About: NextPage = () => {
                   </tr>
                   <tr>
                     <th>事業内容</th>
-                    <td>デザイン, 映像制作, Web制作</td>
+                    <td>
+                      <ul>
+                        <li>
+                          Webサイト制作
+                          <ul>
+                            <li>ワイヤーフレーム</li>
+                            <li>デザイン</li>
+                            <li>コーディング</li>
+                            <li>STUDIO実装</li>
+                          </ul>
+                        </li>
+                        <li>
+                          デザイン
+                          <ul>
+                            <li>ロゴ</li>
+                            <li>名刺</li>
+                            <li>ドット絵</li>
+                            <li>チラシ・ポスター</li>
+                          </ul>
+                        </li>
+                        <li>
+                          映像制作
+                          <ul>
+                            <li>写真 撮影・編集</li>
+                            <li>動画 撮影・編集</li>
+                            <li>アニメーション</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </td>
                   </tr>
                 </tbody>
               </table>
