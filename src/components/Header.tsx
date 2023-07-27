@@ -58,22 +58,22 @@ const burger = css`
     height: 65px;
   }
 
-  :hover .line-item1 {
-    top: 6px;
+  :hover rect:nth-of-type(1) {
+    y: 6px;
 
     ${breakPoint.sp} {
-      top: 4px;
+      y: 4px;
     }
   }
-  :hover .line-item2 {
+  :hover rect:nth-of-type(2) {
     visibility: hidden;
     opacity: 0;
   }
 
-  :hover .line-item3 {
-    top: 18px;
+  :hover rect:nth-of-type(3) {
+    y: 18px;
     ${breakPoint.sp} {
-      top: 12px;
+      y: 12px;
     }
   }
 `;
@@ -91,55 +91,55 @@ const line = css`
     height: 19px;
   }
 
-  .line-item {
+  rect {
     width: 100%;
     height: 3px;
 
     position: absolute;
 
-    background-color: #fff;
+    fill: #fff;
     transition: all 0.2s;
   }
 
-  .line-item1 {
-    top: 0;
+  rect:nth-of-type(1) {
+    y: 0;
   }
 
-  .line-item1.is-open {
-    top: 12px;
+  rect:nth-of-type(1).is-open {
+    y: 12px;
 
     ${breakPoint.sp} {
-      top: 8px;
+      y: 8px;
     }
   }
 
-  .line-item2 {
+  rect:nth-of-type(2) {
     visibility: visible;
     opacity: 1;
-    top: 12px;
+    y: 12px;
 
     ${breakPoint.sp} {
-      top: 8px;
+      y: 8px;
     }
   }
 
-  .line-item2.is-open {
+  rect:nth-of-type(2).is-open {
     visibility: hidden;
     opacity: 0;
   }
 
-  .line-item3 {
-    top: 24px;
+  rect:nth-of-type(3) {
+    y: 24px;
     ${breakPoint.sp} {
-      top: 16px;
+      y: 16px;
     }
   }
 
-  .line-item3.is-open {
-    top: 12px;
+  rect:nth-of-type(3).is-open {
+    y: 12px;
 
     ${breakPoint.sp} {
-      top: 8px;
+      y: 8px;
     }
   }
 `;
@@ -455,11 +455,11 @@ const Header: NextPage = () => {
           </a>
         </Link>
         <div css={burger} className="clickable" onClick={() => menuFunction()}>
-          <div css={line}>
-            <div className={`line-item line-item1 ${openState}`} />
-            <div className={`line-item line-item2 ${openState}`} />
-            <div className={`line-item line-item3 ${openState}`} />
-          </div>
+          <svg css={line}>
+            <rect className={openState} />
+            <rect className={openState} />
+            <rect className={openState} />
+          </svg>
         </div>
       </div>
 
