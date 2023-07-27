@@ -31,9 +31,9 @@ const pageName: name[] = [
     ja: "作品紹介",
   },
   {
-    href: "/workflow-and-pricing",
-    en: "Workflow and Pricing",
-    ja: "制作手順と料金",
+    href: "/workflow",
+    en: "Workflow",
+    ja: "制作手順",
   },
 ];
 
