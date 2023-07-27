@@ -7,7 +7,6 @@ import Button from "@/components/Button";
 import Container from "@/components/Container";
 import Layout from "@/components/Layout";
 import Logo from "@/components/Logo";
-import EquipmentsSlide from "@/components/about/EquipmentsSlide";
 import meaningItemElm from "@/components/about/MeaningItem";
 import skillGraph from "@/components/about/SkillGraph";
 import H1 from "@/components/heading/Heading1";
@@ -46,6 +45,7 @@ const infoTable = css`
   display: block;
   tbody tr {
     th {
+      min-width: 5em;
       width: 120px;
       font-weight: bold;
       text-align: left;
@@ -53,6 +53,19 @@ const infoTable = css`
     }
     td {
       width: 230px;
+    }
+
+    ul {
+      line-height: 1.6em;
+    }
+
+    /* add marker */
+    li {
+      list-style: disc inside;
+    }
+
+    li > ul {
+      padding-left: 2em;
     }
   }
 `;
@@ -109,49 +122,6 @@ const skillContent = css`
   margin-right: auto;
 `;
 
-const equipmentsSlide = css`
-  width: 100%;
-`;
-
-const equipmentsList = css`
-  width: fit-content;
-
-  display: flex;
-  animation: loopSlide 60s infinite linear both;
-  @keyframes loopSlide {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(${-250 * EquipmentsSlide.length}px);
-    }
-  }
-
-  ${breakPoint.tab} {
-    animation: loopSlide 60s infinite linear both;
-    @keyframes loopSlide {
-      from {
-        transform: translateX(0);
-      }
-      to {
-        transform: translateX(${-20 * EquipmentsSlide.length}vw);
-      }
-    }
-  }
-
-  ${breakPoint.sp} {
-    animation: loopSlide 60s infinite linear both;
-    @keyframes loopSlide {
-      from {
-        transform: translateX(0);
-      }
-      to {
-        transform: translateX(${(-100 / 3) * EquipmentsSlide.length}vw);
-      }
-    }
-  }
-`;
-
 const About: NextPage = () => {
   return (
     <Layout title="About" description="dgdgdgdgについての概要、スキル、使用機材についての説明です。">
@@ -186,7 +156,36 @@ const About: NextPage = () => {
                   </tr>
                   <tr>
                     <th>事業内容</th>
-                    <td>デザイン, 映像制作, Web制作</td>
+                    <td>
+                      <ul>
+                        <li>
+                          Webサイト制作
+                          <ul>
+                            <li>ワイヤーフレーム</li>
+                            <li>デザイン</li>
+                            <li>コーディング</li>
+                            <li>STUDIO実装</li>
+                          </ul>
+                        </li>
+                        <li>
+                          デザイン
+                          <ul>
+                            <li>ロゴ</li>
+                            <li>名刺</li>
+                            <li>ドット絵</li>
+                            <li>チラシ・ポスター</li>
+                          </ul>
+                        </li>
+                        <li>
+                          映像制作
+                          <ul>
+                            <li>写真 撮影・編集</li>
+                            <li>動画 撮影・編集</li>
+                            <li>アニメーション</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -222,16 +221,6 @@ const About: NextPage = () => {
             <ul>{skillGraph}</ul>
             <Button css={button} href="/works" />
           </div>
-        </Container>
-      </section>
-
-      <section id="equipments">
-        <Container>
-          <H2 en="Equipments" ja="使用機材" />
-        </Container>
-        <Container css={equipmentsSlide}>
-          <div css={equipmentsList}>{[EquipmentsSlide, EquipmentsSlide]}</div>
-          <Button css={button} href="/about/equipments" />
         </Container>
       </section>
     </Layout>
