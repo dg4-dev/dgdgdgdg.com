@@ -1,6 +1,29 @@
 import { css } from "@emotion/react";
 
+import type { NextPage } from "next";
+
+import Container from "@/components/Container";
+import Layout from "@/components/Layout";
+import H1 from "@/components/heading/Heading1";
+import H3 from "@/components/heading/Heading3";
 import { breakPoint, dg4Color } from "@/styles/config";
+
+const workflowContent = css`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 60px 20px;
+`;
+
+const workflowItems = css`
+  height: fit-content;
+  position: relative;
+  z-index: 0;
+  padding: 20px 0;
+  ${breakPoint.sp} {
+    width: 100%;
+  }
+`;
 
 const workflowItem = css`
   width: 300px;
@@ -184,4 +207,27 @@ const WorkflowList = ({ option }: ListProps) => {
   );
 };
 
-export default WorkflowList;
+const Service: NextPage = () => {
+  return (
+    <Layout title="Workflow" description="Webサイトやデザインの制作の流れをご紹介します。">
+      <H1 />
+
+      <section>
+        <Container>
+          <div className="content" css={workflowContent}>
+            <div css={workflowItems}>
+              <H3 en="Design" ja="デザイン" />
+              <WorkflowList option="design" />
+            </div>
+            <div css={workflowItems}>
+              <H3 en="Website" ja="ウェブサイト" />
+              <WorkflowList option="web" />
+            </div>
+          </div>
+        </Container>
+      </section>
+    </Layout>
+  );
+};
+
+export default Service;
