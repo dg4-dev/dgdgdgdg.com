@@ -20,10 +20,9 @@ const pageName: name[] = [
     child: true,
   },
   {
-    href: "/about/equipments",
+    href: "/equipments",
     en: "Equipments",
     ja: "使用機材",
-    child: true,
   },
   {
     href: "/works",
