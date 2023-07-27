@@ -7,7 +7,6 @@ import Button from "@/components/Button";
 import Container from "@/components/Container";
 import Layout from "@/components/Layout";
 import Logo from "@/components/Logo";
-import EquipmentsSlide from "@/components/about/EquipmentsSlide";
 import meaningItemElm from "@/components/about/MeaningItem";
 import skillGraph from "@/components/about/SkillGraph";
 import H1 from "@/components/heading/Heading1";
@@ -123,49 +122,6 @@ const skillContent = css`
   margin-right: auto;
 `;
 
-const equipmentsSlide = css`
-  width: 100%;
-`;
-
-const equipmentsList = css`
-  width: fit-content;
-
-  display: flex;
-  animation: loopSlide 60s infinite linear both;
-  @keyframes loopSlide {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(${-250 * EquipmentsSlide.length}px);
-    }
-  }
-
-  ${breakPoint.tab} {
-    animation: loopSlide 60s infinite linear both;
-    @keyframes loopSlide {
-      from {
-        transform: translateX(0);
-      }
-      to {
-        transform: translateX(${-20 * EquipmentsSlide.length}vw);
-      }
-    }
-  }
-
-  ${breakPoint.sp} {
-    animation: loopSlide 60s infinite linear both;
-    @keyframes loopSlide {
-      from {
-        transform: translateX(0);
-      }
-      to {
-        transform: translateX(${(-100 / 3) * EquipmentsSlide.length}vw);
-      }
-    }
-  }
-`;
-
 const About: NextPage = () => {
   return (
     <Layout title="About" description="dgdgdgdgについての概要、スキル、使用機材についての説明です。">
@@ -265,16 +221,6 @@ const About: NextPage = () => {
             <ul>{skillGraph}</ul>
             <Button css={button} href="/works" />
           </div>
-        </Container>
-      </section>
-
-      <section id="equipments">
-        <Container>
-          <H2 en="Equipments" ja="使用機材" />
-        </Container>
-        <Container css={equipmentsSlide}>
-          <div css={equipmentsList}>{[EquipmentsSlide, EquipmentsSlide]}</div>
-          <Button css={button} href="/about/equipments" />
         </Container>
       </section>
     </Layout>
