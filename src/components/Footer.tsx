@@ -115,16 +115,11 @@ const creditLogo = css`
   }
 `;
 
-const linkPrivacy = css`
-  text-decoration: underline;
-  display: block;
-  margin-top: 20px;
-  margin-bottom: 12px;
-`;
-
-const whiteText = css`
+const copyRightText = css`
   font-size: 12px;
   color: #fff;
+
+  margin-top: 20px;
 `;
 
 const LinkItems = () => {
@@ -189,10 +184,7 @@ const Footer: NextPage = () => {
               <object data="/images/dist/logo-white.svg" type="image/svg+xml"></object>
             </a>
           </Link>
-          <Link href="/privacy-policy/">
-            <a css={[linkPrivacy, whiteText]}>プライバシーポリシー</a>
-          </Link>
-          <p css={whiteText}>©︎ 2021 dgdgdgdg</p>
+          <p css={copyRightText}>©︎ 2021 dgdgdgdg</p>
         </div>
       </Container>
     </footer>
