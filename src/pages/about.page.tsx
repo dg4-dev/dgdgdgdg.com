@@ -200,7 +200,7 @@ const About: NextPage = () => {
                 <Logo />
               </div>
             </div>
-            <Button css={button} href="/about/design-resource" />
+            <Button css={button} href="/design-resource" />
           </div>
 
           <div className="content meaning" css={containerContent}>
