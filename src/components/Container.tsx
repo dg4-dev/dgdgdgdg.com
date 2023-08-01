@@ -15,7 +15,7 @@ const containerStyle = css`
     width: ${containerWidth.sp};
   }
 
-  .content:not(:first-child) {
+  .content:not(:first-of-type) {
     margin-top: 80px;
 
     ${breakPoint.tab} {
