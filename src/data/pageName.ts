@@ -4,7 +4,6 @@ type name = {
   href: string | UrlObject;
   en: string;
   ja: string;
-  child?: Boolean;
 };
 
 const pageName: name[] = [
@@ -14,10 +13,9 @@ const pageName: name[] = [
     ja: "dgdgdgdgとは",
   },
   {
-    href: "/about/design-resource",
-    en: "Design Resource",
-    ja: "デザインリソース",
-    child: true,
+    href: "/works",
+    en: "Works",
+    ja: "作品紹介",
   },
   {
     href: "/equipments",
@@ -25,14 +23,9 @@ const pageName: name[] = [
     ja: "使用機材",
   },
   {
-    href: "/works",
-    en: "Works",
-    ja: "作品紹介",
-  },
-  {
-    href: "/workflow",
-    en: "Workflow",
-    ja: "制作手順",
+    href: "/design-resource",
+    en: "Design Resource",
+    ja: "デザインリソース",
   },
 ];
 
