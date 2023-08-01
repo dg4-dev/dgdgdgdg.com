@@ -30,7 +30,7 @@ const notFoundSection = css`
     left: 0;
 
     content: "";
-    background-image: url(/images/fv/top.png);
+    background-image: url("/images/fv/top.png");
     background-position: center center;
     background-size: cover;
     filter: blur(16px);
