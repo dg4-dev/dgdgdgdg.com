@@ -243,18 +243,6 @@ const nav = css`
     ${breakPoint.sp}
     margin-top: 16px;
   }
-
-  ul li.indent {
-    padding-left: 32px;
-    margin-top: 0px;
-  }
-
-  ul li.indent a .ja {
-    font-size: 20px;
-    ${breakPoint.sp} {
-      font-size: 16px;
-    }
-  }
 `;
 
 const linkWrapper = css`
@@ -420,10 +408,9 @@ const Header: NextPage = () => {
   const menuReset = () => setOpenMenu(false);
   let openState = openMenu ? "is-open" : "";
 
-  const linkContents = pageName.map(({ child, href, en, ja }) => {
-    const isIndent = child ? "indent" : "";
+  const linkContents = pageName.map(({ href, en, ja }) => {
     const linkContent = (
-      <li className={isIndent} key={en} onClick={() => menuReset()}>
+      <li key={en} onClick={() => menuReset()}>
         <HeaderLink href={href} en={en} ja={ja} />
       </li>
     );
