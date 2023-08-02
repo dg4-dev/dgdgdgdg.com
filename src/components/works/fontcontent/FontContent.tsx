@@ -17,13 +17,6 @@ const FontContentGR = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Cir
 
   const [styles, setStyles] = useState(defaultStyles);
 
-  // set alignment
-  const setAlign = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setStyles({
-      ...styles,
-      textAlign: event.target.value,
-    });
-
   // reverse color
   const reverseColor = () => {
     setStyles((prevStyles) => ({
