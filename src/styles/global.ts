@@ -20,6 +20,11 @@ const global = css`
   }
 
   @font-face {
+    font-family: "Dont-GR";
+    src: url("/fonts/Dont-GR-SquareVF.ttf");
+  }
+
+  @font-face {
     font-family: "Zen Kaku Gothic New";
     font-weight: normal;
     src: url("/fonts/ZenKakuGothicNew-Regular.ttf");

@@ -1,47 +1,29 @@
 import { css } from "@emotion/react";
 import { useState } from "react";
 
-import H3 from "../heading/Heading3";
+import H3 from "../../heading/Heading3";
 
 import { breakPoint, dg4Color } from "@/styles/config";
 
-const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circle"; text: string }) => {
-  // font size
-  const defaultFontSize = 32;
-  const [fontSize, setFontSizeValue] = useState<number>(defaultFontSize);
-  const changeFontSize = (event: React.ChangeEvent<HTMLInputElement>) => setFontSizeValue(parseInt(event.target.value));
+const FontContentGR = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circle"; text: string }) => {
+  const defaultStyles = {
+    fontSize: 32,
+    lineHeight: 100,
+    letterSpacing: 0,
+    textAlign: "center",
+    backgroundColor: "#eeeeee",
+    textColor: dg4Color.black,
+  };
 
-  // line height
-  const defaultLineHeight = 100;
-  const [lineHeight, setLineHeightValue] = useState<number>(defaultLineHeight);
-  const changeLineHeight = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setLineHeightValue(parseInt(event.target.value));
-
-  // letter spacing
-  const defaultLetterSpacing = 0;
-  const [letterSpacing, setLetterSpacingValue] = useState<number>(defaultLetterSpacing);
-  const changeLetterSpacing = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setLetterSpacingValue(parseInt(event.target.value));
-
-  // text align
-  const defaultTextAlign = "center";
-  const [textAlign, setTextAlign] = useState<string>(defaultTextAlign);
-  const changeTextAlign = (event: React.ChangeEvent<HTMLInputElement>) => setTextAlign(event.target.value);
-
-  // background color
-  const defaultBackgroundColor = "#eeeeee";
-  const [backgroundColor, setBackgroundColor] = useState<string>(defaultBackgroundColor);
-  const changeBackgroundColor = (event: React.ChangeEvent<HTMLInputElement>) => setBackgroundColor(event.target.value);
-
-  // text color
-  const defaultTextColor = dg4Color.black;
-  const [textColor, setTextColor] = useState<string>(defaultTextColor);
-  const changeTextColor = (event: React.ChangeEvent<HTMLInputElement>) => setTextColor(event.target.value);
+  const [styles, setStyles] = useState(defaultStyles);
 
   // reverse color
   const reverseColor = () => {
-    setBackgroundColor(textColor);
-    setTextColor(backgroundColor);
+    setStyles((prevStyles) => ({
+      ...prevStyles,
+      backgroundColor: prevStyles.textColor,
+      textColor: prevStyles.backgroundColor,
+    }));
   };
 
   // shuffle value
@@ -65,34 +47,27 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
         .toString(16)
         .padStart(6, "0")}`;
     };
-
-    setFontSizeValue(randomNumber(170) + 10);
-    setLineHeightValue(randomNumber(100) + 100);
-    setLetterSpacingValue(randomNumber(50));
-    setTextAlign(threeAlternate);
-    setBackgroundColor(randomColor);
-    setTextColor(randomColor);
-  };
-
-  // reset value
-  const resetValue = () => {
-    setFontSizeValue(defaultFontSize);
-    setLineHeightValue(defaultLineHeight);
-    setLetterSpacingValue(defaultLetterSpacing);
-    setTextAlign(defaultTextAlign);
-    setBackgroundColor(defaultBackgroundColor);
-    setTextColor(defaultTextColor);
+    setStyles((prevStyles) => ({
+      ...prevStyles,
+      fontSize: randomNumber(170) + 10,
+      lineHeight: randomNumber(100) + 100,
+      letterSpacing: randomNumber(50),
+      textAlign: threeAlternate(),
+      backgroundColor: randomColor(),
+      textColor: randomColor(),
+    }));
   };
 
   // copy value
   const copyValue = () => {
     // create textarea
     const copyElement = document.createElement("textarea");
-    copyElement.value = `font-family: "${name}";\nfont-size: ${fontSize}px;\nline-height: ${
-      lineHeight / 100
-    }em;\nletter-spacing: ${
-      letterSpacing / 100
-    }em;\ntext-align: ${textAlign};\nbackground-color: ${backgroundColor};\ncolor: ${textColor};`;
+
+    copyElement.value = `font-family: "${name}";\nfont-size: ${styles.fontSize}px;\nline-height: ${
+      styles.lineHeight / 100
+    }em;\nletter-spacing: ${styles.letterSpacing / 100}em;\ntext-align: ${styles.textAlign};\nbackground-color: ${
+      styles.backgroundColor
+    };\ncolor: ${styles.textColor};`;
     document.body.appendChild(copyElement);
 
     // copy
@@ -225,8 +200,9 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
   `;
 
   const buttonContainer = css`
+    height: fit-content;
+
     display: flex;
-    align-items: center;
     gap: 40px;
 
     ${breakPoint.tab} {
@@ -399,17 +375,19 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
   `;
 
   const itemLetter = css`
-    text-align: ${textAlign};
-    font-size: ${fontSize}px;
-    letter-spacing: ${letterSpacing / 100}em;
-    line-height: ${lineHeight / 100}em;
+    text-align: ${styles.textAlign};
+    font-size: ${styles.fontSize}px;
+    letter-spacing: ${styles.letterSpacing / 100}em;
+    line-height: ${styles.lineHeight / 100}em;
     padding: 16px;
-    background-color: ${backgroundColor};
-    color: ${textColor};
+    background-color: ${styles.backgroundColor};
+    color: ${styles.textColor};
 
     overflow-wrap: break-word;
 
-    min-height: calc(${lineHeight / 100}em + 32px);
+    min-height: calc(${styles.lineHeight / 100}em + 32px);
+
+    transition: all 0.2s ease-in-out;
   `;
 
   const ff = css`
@@ -426,9 +404,11 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
               type="range"
               min="10"
               max="180"
-              value={fontSize}
+              value={styles.fontSize}
               className="clickable"
-              onChange={changeFontSize}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setStyles({ ...styles, fontSize: Number(event.target.value) })
+              }
               css={rangeInput}
             />
           </div>
@@ -437,9 +417,11 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
               type="range"
               min="100"
               max="200"
-              value={lineHeight}
+              value={styles.lineHeight}
               className="clickable"
-              onChange={changeLineHeight}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setStyles({ ...styles, lineHeight: Number(event.target.value) })
+              }
               css={rangeInput}
             />
           </div>
@@ -448,9 +430,14 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
               type="range"
               min="0"
               max="50"
-              value={letterSpacing}
+              value={styles.letterSpacing}
               className="clickable"
-              onChange={changeLetterSpacing}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setStyles({
+                  ...styles,
+                  letterSpacing: Number(event.target.value),
+                })
+              }
               css={rangeInput}
             />
           </div>
@@ -461,8 +448,13 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
               <input
                 type="radio"
                 value="left"
-                checked={textAlign === "left"}
-                onChange={changeTextAlign}
+                checked={styles.textAlign === "left"}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  setStyles({
+                    ...styles,
+                    textAlign: event.target.value,
+                  })
+                }
                 css={[buttonAlign, buttonAlignLeft]}
               />
             </label>
@@ -470,8 +462,13 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
               <input
                 type="radio"
                 value="center"
-                checked={textAlign === "center"}
-                onChange={changeTextAlign}
+                checked={styles.textAlign === "center"}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  setStyles({
+                    ...styles,
+                    textAlign: event.target.value,
+                  })
+                }
                 css={[buttonAlign, buttonAlignCenter]}
               />
             </label>
@@ -479,8 +476,13 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
               <input
                 type="radio"
                 value="right"
-                checked={textAlign === "right"}
-                onChange={changeTextAlign}
+                checked={styles.textAlign === "right"}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  setStyles({
+                    ...styles,
+                    textAlign: event.target.value,
+                  })
+                }
                 css={[buttonAlign, buttonAlignRight]}
               />
             </label>
@@ -489,8 +491,13 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
             <input
               className="clickable"
               type="color"
-              value={backgroundColor}
-              onChange={changeBackgroundColor}
+              value={styles.backgroundColor}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setStyles({
+                  ...styles,
+                  backgroundColor: event.target.value,
+                })
+              }
               css={[buttonSquare, colorInput]}
             />
             <button
@@ -501,8 +508,13 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
             <input
               className="clickable"
               type="color"
-              value={textColor}
-              onChange={changeTextColor}
+              value={styles.textColor}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setStyles({
+                  ...styles,
+                  textColor: event.target.value,
+                })
+              }
               css={[buttonSquare, colorInput]}
             />
           </div>
@@ -512,7 +524,13 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
               className="clickable"
               css={[buttonWithToolTip, buttonSquare, shuffleButton]}
             />
-            <button onClick={resetValue} className="clickable" css={[buttonWithToolTip, buttonSquare, resetButton]} />
+            <button
+              onClick={() => {
+                setStyles(defaultStyles);
+              }}
+              className="clickable"
+              css={[buttonWithToolTip, buttonSquare, resetButton]}
+            />
             <button onClick={copyValue} className="clickable" css={[buttonWithToolTip, buttonSquare, copyButton]} />
           </div>
         </div>
@@ -522,4 +540,4 @@ const FontContent = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Circl
   );
 };
 
-export default FontContent;
+export default FontContentGR;
