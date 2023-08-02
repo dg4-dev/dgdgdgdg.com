@@ -9,10 +9,11 @@ import Container from "@/components/Container";
 import Layout from "@/components/Layout";
 import H1 from "@/components/heading/Heading1";
 import H2 from "@/components/heading/Heading2";
-import FontContent from "@/components/works/FontContent";
 import InstaItemList from "@/components/works/InstaItemList";
 import Item from "@/components/works/Item";
 import YoutubeItemList from "@/components/works/YoutubeItemList";
+import FontContent from "@/components/works/fontcontent/FontContent";
+import FontContentGR from "@/components/works/fontcontent/FontContentGR";
 import { breakPoint } from "@/styles/config";
 
 const contain = css`
@@ -99,7 +100,14 @@ const Works: NextPage = () => {
           <FontContent text={sampleText} name="Dont Round" />
           <FontContent text={sampleText} name="Dont Circle" />
           <Button
-            href="https://github.com/dg4-design/dont/blob/main/fonts.zip?raw=true"
+            href="https://github.com/dg4-dev/dont/raw/main/fonts.zip"
+            text="Download"
+            css={button}
+            external={true}
+          />
+          <FontContentGR text={sampleText} />
+          <Button
+            href="https://github.com/dg4-dev/dont/raw/main/var-fonts.zip"
             text="Download"
             css={button}
             external={true}
