@@ -1,7 +1,7 @@
 import { SerializedStyles, css } from "@emotion/react";
 import dayjs from "dayjs";
 
-const Logo = () => {
+const Logo = ({ optDay }: { optDay?: string }) => {
   const skillList = [
     { date: dayjs("2015-05-01"), months: 0 },
     { date: dayjs("2017-04-01"), months: 0 },
@@ -10,11 +10,12 @@ const Logo = () => {
   ];
 
   skillList.forEach((skill) => {
-    const nowDate = dayjs();
+    const optDate = dayjs(optDay);
+
     const startYear = skill.date.year();
     const startMonth = skill.date.month();
-    const nowYear = nowDate.year();
-    const nowMonth = nowDate.month();
+    const nowYear = optDate.year();
+    const nowMonth = optDate.month();
 
     const elapsedMonths = (nowYear - startYear) * 12 + nowMonth - startMonth;
 
