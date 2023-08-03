@@ -12,7 +12,6 @@ import skillGraph from "@/components/about/SkillGraph";
 import H1 from "@/components/heading/Heading1";
 import H2 from "@/components/heading/Heading2";
 import H3 from "@/components/heading/Heading3";
-import Age from "@/data/nowAge";
 import { breakPoint } from "@/styles/config";
 
 const containerContent = css`
@@ -141,10 +140,6 @@ const About: NextPage = () => {
                   <tr>
                     <th>名称</th>
                     <td>dgdgdgdg (だがし)</td>
-                  </tr>
-                  <tr>
-                    <th>年齢</th>
-                    <td>{Age}</td>
                   </tr>
                   <tr>
                     <th>所在地</th>
