@@ -30,7 +30,7 @@ const Home: NextPage = () => {
   return (
     <Layout description="2021年2月1日に開業。デザイン、映像制作、Web制作をメインに、多方面であることを生かしつつ洗練されたものを目指して制作していきます。">
       <section css={fv}>
-        <Image priority={true} src="/images/fv/top.png" layout="fill" alt="" />
+        <Image priority={true} src="/images/fv/top.png" layout="fill" alt="dg4 first view" />
       </section>
     </Layout>
   );
