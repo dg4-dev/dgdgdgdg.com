@@ -3,9 +3,9 @@ import { css } from "@emotion/react";
 import { breakPoint, dg4Color } from "@/styles/config";
 
 const heading3 = css`
-  margin-bottom: 32px;
   position: relative;
   padding-left: 24px;
+  margin-bottom: 32px;
 
   ${breakPoint.sp} {
     margin-bottom: 20px;
