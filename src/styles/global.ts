@@ -125,6 +125,10 @@ const global = css`
       margin-bottom: 80px;
     }
   }
+
+  ruby rt {
+    font-size: 0.4em;
+  }
 `;
 
 export default global;
