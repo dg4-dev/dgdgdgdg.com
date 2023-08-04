@@ -15,11 +15,6 @@ import H2 from "@/components/heading/Heading2";
 import H3 from "@/components/heading/Heading3";
 import { breakPoint } from "@/styles/config";
 
-const containerContent = css`
-  display: flex;
-  flex-direction: column;
-`;
-
 const infoItem = css`
   display: flex;
   gap: 50px;
@@ -125,7 +120,7 @@ const About: NextPage = () => {
       <section id="overview">
         <Container>
           <H2 en="Overview" ja="概要" />
-          <div className="content" css={containerContent}>
+          <div className="content">
             <H3 en="My Profile" ja="プロフィール" />
             <div css={infoItem}>
               <div css={infoImage}>
@@ -183,7 +178,7 @@ const About: NextPage = () => {
             </div>
           </div>
 
-          <div className="content logo" css={containerContent}>
+          <div className="content logo">
             <H3 en="Logo" ja="ロゴ" />
             <div className="item">
               <Note>dgdgdgdgで「だがし」と読みます</Note>
@@ -194,12 +189,12 @@ const About: NextPage = () => {
             <Button css={button} href="/design-resource" />
           </div>
 
-          <div className="content meaning" css={containerContent}>
+          <div className="content meaning">
             <H3 css={meaningHeading} en={`Meaning of "dgdgdgdg"`} ja={`"だがし"に含まれる意味`} />
           </div>
         </Container>
         <Container css={meaningContainer}>
-          <div className="content" css={containerContent}>
+          <div className="content">
             <ul css={meaningItem}>{[meaningItemElm, meaningItemElm, meaningItemElm]}</ul>
           </div>
         </Container>
@@ -208,7 +203,7 @@ const About: NextPage = () => {
       <section id="skill">
         <Container>
           <H2 en="Skill" ja="スキル" />
-          <div className="content" css={[containerContent, skillContent]}>
+          <div className="content" css={skillContent}>
             <ul>{skillGraph}</ul>
             <Button css={button} href="/works" />
           </div>
