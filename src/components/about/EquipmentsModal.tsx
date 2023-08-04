@@ -145,12 +145,12 @@ const EquipmentsModal = ({ name, maker, about, imgName, gen, variety, owning }: 
   return (
     <>
       <div css={cover} className="clickable" onClick={() => setIsOpen(true)}>
-        <img src={`/images/equipments/${imgName}`} alt="" />
+        <img src={`/images/equipments/${imgName}`} alt={imgName} />
       </div>
       <div css={[modal, isOpen]}>
         <div css={closeButton} className="clickable" onClick={() => setIsOpen(false)}></div>
         <div css={scrolls}>
-          <img src={`/images/equipments/${imgName}`} alt="" />
+          <img src={`/images/equipments/${imgName}`} alt={imgName} />
           <div css={desc}>
             <div className="name">{nameNVerNOwn}</div>
             <div className="maker-and-gen">{makerNGen}</div>
