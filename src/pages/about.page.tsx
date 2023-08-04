@@ -7,17 +7,13 @@ import Button from "@/components/Button";
 import Container from "@/components/Container";
 import Layout from "@/components/Layout";
 import Logo from "@/components/Logo";
+import Note from "@/components/Note";
 import meaningItemElm from "@/components/about/MeaningItem";
 import skillGraph from "@/components/about/SkillGraph";
 import H1 from "@/components/heading/Heading1";
 import H2 from "@/components/heading/Heading2";
 import H3 from "@/components/heading/Heading3";
-import { breakPoint } from "@/styles/config";
-
-const containerContent = css`
-  display: flex;
-  flex-direction: column;
-`;
+import { breakPoint, dg4Color } from "@/styles/config";
 
 const infoItem = css`
   display: flex;
@@ -43,19 +39,23 @@ const infoImage = css`
 const infoTable = css`
   display: block;
   tbody tr {
+    line-height: 1.6em;
+
     th {
-      min-width: 5em;
-      width: 120px;
+      width: 6.5em;
       font-weight: bold;
-      text-align: left;
-      padding: 8px 0;
-    }
-    td {
-      width: 230px;
+
+      padding-right: 1em;
     }
 
-    ul {
-      line-height: 1.6em;
+    td {
+      width: 230px;
+      padding: 4px 0;
+      border-bottom: 1px solid ${dg4Color.black}44;
+
+      ${breakPoint.sp} {
+        width: unset;
+      }
     }
 
     /* add marker */
@@ -67,11 +67,6 @@ const infoTable = css`
       padding-left: 2em;
     }
   }
-`;
-
-const logoPara = css`
-  text-align: center;
-  margin-bottom: 40px;
 `;
 
 const logoImage = css`
@@ -129,7 +124,7 @@ const About: NextPage = () => {
       <section id="overview">
         <Container>
           <H2 en="Overview" ja="概要" />
-          <div className="content" css={containerContent}>
+          <div className="content">
             <H3 en="My Profile" ja="プロフィール" />
             <div css={infoItem}>
               <div css={infoImage}>
@@ -139,11 +134,19 @@ const About: NextPage = () => {
                 <tbody>
                   <tr>
                     <th>名称</th>
-                    <td>dgdgdgdg (だがし)</td>
+                    <td>
+                      <ruby>
+                        dgdgdgdg<rt>だがし</rt>
+                      </ruby>
+                    </td>
                   </tr>
                   <tr>
                     <th>所在地</th>
-                    <td>宮城県</td>
+                    <td>
+                      〒986-0822
+                      <br />
+                      宮城県石巻市中央2丁目4-3 パナックけいてい内
+                    </td>
                   </tr>
                   <tr>
                     <th>事業開始日</th>
@@ -187,10 +190,10 @@ const About: NextPage = () => {
             </div>
           </div>
 
-          <div className="content logo" css={containerContent}>
+          <div className="content logo">
             <H3 en="Logo" ja="ロゴ" />
             <div className="item">
-              <p css={logoPara}>dgdgdgdgで「だがし」と読みます</p>
+              <Note>dgdgdgdgで「だがし」と読みます</Note>
               <div className="logo" css={logoImage}>
                 <Logo />
               </div>
@@ -198,12 +201,12 @@ const About: NextPage = () => {
             <Button css={button} href="/design-resource" />
           </div>
 
-          <div className="content meaning" css={containerContent}>
+          <div className="content meaning">
             <H3 css={meaningHeading} en={`Meaning of "dgdgdgdg"`} ja={`"だがし"に含まれる意味`} />
           </div>
         </Container>
         <Container css={meaningContainer}>
-          <div className="content" css={containerContent}>
+          <div className="content">
             <ul css={meaningItem}>{[meaningItemElm, meaningItemElm, meaningItemElm]}</ul>
           </div>
         </Container>
@@ -212,7 +215,7 @@ const About: NextPage = () => {
       <section id="skill">
         <Container>
           <H2 en="Skill" ja="スキル" />
-          <div className="content" css={[containerContent, skillContent]}>
+          <div className="content" css={skillContent}>
             <ul>{skillGraph}</ul>
             <Button css={button} href="/works" />
           </div>

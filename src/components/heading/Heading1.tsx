@@ -81,7 +81,7 @@ const H1 = () => {
         <h1 className="en">{en}</h1>
         <div className="ja">{ja}</div>
       </div>
-      <Image css={bg} src={imagePath} priority={true} layout="fill" alt="" />
+      <Image css={bg} src={imagePath} priority={true} layout="fill" alt={`${formattedPageName} first view`} />
     </section>
   );
 };
