@@ -62,7 +62,7 @@ const DataItem = ({ name }: { name: string }) => {
 
   return (
     <div css={[logoItem, white]}>
-      <Image css={img} src={imgHref} width={552} height={264} alt="" />
+      <Image css={img} src={imgHref} width={552} height={264} alt={name} />
       <div css={linkWrap}>
         <a href={imgHref} download>
           .svg
