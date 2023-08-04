@@ -59,7 +59,8 @@ const footerButton = css`
     bottom: 0;
     left: 4px;
 
-    margin: auto 0;
+    margin-top: auto;
+    margin-bottom: auto;
 
     background-size: contain;
     background-repeat: no-repeat;
@@ -110,7 +111,8 @@ const creditLogo = css`
 
     ${breakPoint.sp} {
       min-width: unset;
-      margin: 0 4px;
+      margin-left: 4px;
+      margin-right: 4px;
     }
   }
 `;
@@ -153,7 +155,7 @@ const LinkItems = () => {
     return (
       <li key={value} css={itemContent}>
         <a href={href} target="_blank" rel="noopener noreferrer">
-          <Image className="img" src={src} width="154" height="154" alt="" />
+          <Image className="img" src={src} width="154" height="154" alt={value} />
         </a>
       </li>
     );
