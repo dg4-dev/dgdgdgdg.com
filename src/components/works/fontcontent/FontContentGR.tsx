@@ -206,7 +206,9 @@ const FontContentGR = ({ text }: { text: string }) => {
     ${breakPoint.sp} {
       width: 100%;
     }
+  `;
 
+  const makeRange = (image: string) => css`
     ::before {
       content: "";
       display: block;
@@ -216,6 +218,7 @@ const FontContentGR = ({ text }: { text: string }) => {
 
       background-repeat: no-repeat;
       background-position: center;
+      background-image: url(${image});
 
       ${breakPoint.sp} {
         width: 36px;
@@ -224,35 +227,11 @@ const FontContentGR = ({ text }: { text: string }) => {
     }
   `;
 
-  const rangeFontSize = css`
-    ::before {
-      background-image: url("/images/ui/textformat-size.svg");
-    }
-  `;
-
-  const rangeLineHeight = css`
-    ::before {
-      background-image: url("/images/ui/arrow-up-and-down.svg");
-    }
-  `;
-
-  const rangeLetterSpacing = css`
-    ::before {
-      background-image: url("/images/ui/arrow-left-and-right.svg");
-    }
-  `;
-
-  const rangeRoundness = css`
-    ::before {
-      background-image: url("/images/ui/roundness.svg");
-    }
-  `;
-
-  const rangeDotSize = css`
-    ::before {
-      background-image: url("/images/ui/arrow-up-left-and-arrow-down-right.svg");
-    }
-  `;
+  const rangeFontSize = makeRange("/images/ui/textformat-size.svg");
+  const rangeLineHeight = makeRange("/images/ui/arrow-up-and-down.svg");
+  const rangeLetterSpacing = makeRange("/images/ui/arrow-left-and-right.svg");
+  const rangeRoundness = makeRange("/images/ui/roundness.svg");
+  const rangeDotSize = makeRange("/images/ui/arrow-up-left-and-arrow-down-right.svg");
 
   const rangeInput = css`
     -webkit-appearance: none;
@@ -323,7 +302,7 @@ const FontContentGR = ({ text }: { text: string }) => {
     }
   `;
 
-  const buttonAlign = css`
+  const makeButtonAlign = (image: string) => css`
     ::before {
       content: "";
       display: block;
@@ -331,6 +310,7 @@ const FontContentGR = ({ text }: { text: string }) => {
       width: 24px;
       height: 24px;
 
+      background-image: url(${image});
       background-repeat: no-repeat;
       background-position: center;
       filter: grayscale(100%) brightness(30%);
@@ -348,23 +328,9 @@ const FontContentGR = ({ text }: { text: string }) => {
     }
   `;
 
-  const buttonAlignLeft = css`
-    ::before {
-      background-image: url("/images/ui/text-alignleft.svg");
-    }
-  `;
-
-  const buttonAlignCenter = css`
-    ::before {
-      background-image: url("/images/ui/text-aligncenter.svg");
-    }
-  `;
-
-  const buttonAlignRight = css`
-    ::before {
-      background-image: url("/images/ui/text-alignright.svg");
-    }
-  `;
+  const buttonAlignLeft = makeButtonAlign("/images/ui/text-alignleft.svg");
+  const buttonAlignCenter = makeButtonAlign("/images/ui/text-aligncenter.svg");
+  const buttonAlignRight = makeButtonAlign("/images/ui/text-alignright.svg");
 
   const colorWrapper = css`
     display: flex;
@@ -519,7 +485,7 @@ const FontContentGR = ({ text }: { text: string }) => {
                 value="left"
                 checked={styles.textAlign === "left"}
                 onChange={setAlign}
-                css={[buttonAlign, buttonAlignLeft]}
+                css={buttonAlignLeft}
               />
             </label>
             <label className="clickable">
@@ -528,7 +494,7 @@ const FontContentGR = ({ text }: { text: string }) => {
                 value="center"
                 checked={styles.textAlign === "center"}
                 onChange={setAlign}
-                css={[buttonAlign, buttonAlignCenter]}
+                css={buttonAlignCenter}
               />
             </label>
             <label className="clickable">
@@ -537,7 +503,7 @@ const FontContentGR = ({ text }: { text: string }) => {
                 value="right"
                 checked={styles.textAlign === "right"}
                 onChange={setAlign}
-                css={[buttonAlign, buttonAlignRight]}
+                css={buttonAlignRight}
               />
             </label>
           </div>
