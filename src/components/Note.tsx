@@ -12,7 +12,8 @@ const para = css`
   line-height: 1.5;
   text-align: center;
 
-  margin: 32px 0;
+  margin-top: 32px;
+  margin-bottom: 32px;
 
   a {
     display: inline;

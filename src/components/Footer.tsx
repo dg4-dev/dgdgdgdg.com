@@ -59,7 +59,8 @@ const footerButton = css`
     bottom: 0;
     left: 4px;
 
-    margin: auto 0;
+    margin-top: auto;
+    margin-bottom: auto;
 
     background-size: contain;
     background-repeat: no-repeat;
@@ -110,7 +111,8 @@ const creditLogo = css`
 
     ${breakPoint.sp} {
       min-width: unset;
-      margin: 0 4px;
+      margin-left: 4px;
+      margin-right: 4px;
     }
   }
 `;
