@@ -363,7 +363,8 @@ const externalLinkJA = css`
     top: 0;
     bottom: 0;
 
-    margin: auto 0;
+    margin-top: auto;
+    margin-bottom: auto;
 
     background-image: url("/images/icon-external.svg");
     background-size: contain;
