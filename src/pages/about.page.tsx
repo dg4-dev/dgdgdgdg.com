@@ -13,7 +13,7 @@ import skillGraph from "@/components/about/SkillGraph";
 import H1 from "@/components/heading/Heading1";
 import H2 from "@/components/heading/Heading2";
 import H3 from "@/components/heading/Heading3";
-import { breakPoint } from "@/styles/config";
+import { breakPoint, dg4Color } from "@/styles/config";
 
 const containerContent = css`
   display: flex;
@@ -44,19 +44,23 @@ const infoImage = css`
 const infoTable = css`
   display: block;
   tbody tr {
+    line-height: 1.6em;
+
     th {
-      min-width: 5em;
-      width: 120px;
+      width: 6.5em;
       font-weight: bold;
-      text-align: left;
-      padding: 8px 0;
-    }
-    td {
-      width: 230px;
+
+      padding-right: 1em;
     }
 
-    ul {
-      line-height: 1.6em;
+    td {
+      width: 230px;
+      padding: 4px 0;
+      border-bottom: 1px solid ${dg4Color.black}44;
+
+      ${breakPoint.sp} {
+        width: unset;
+      }
     }
 
     /* add marker */
@@ -135,11 +139,19 @@ const About: NextPage = () => {
                 <tbody>
                   <tr>
                     <th>名称</th>
-                    <td>dgdgdgdg (だがし)</td>
+                    <td>
+                      <ruby>
+                        dgdgdgdg<rt>だがし</rt>
+                      </ruby>
+                    </td>
                   </tr>
                   <tr>
                     <th>所在地</th>
-                    <td>宮城県</td>
+                    <td>
+                      〒986-0822
+                      <br />
+                      宮城県石巻市中央2丁目4-3 パナックけいてい内
+                    </td>
                   </tr>
                   <tr>
                     <th>事業開始日</th>
