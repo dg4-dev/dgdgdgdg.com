@@ -153,7 +153,7 @@ const LinkItems = () => {
     return (
       <li key={value} css={itemContent}>
         <a href={href} target="_blank" rel="noopener noreferrer">
-          <Image className="img" src={src} width="154" height="154" alt="" />
+          <Image className="img" src={src} width="154" height="154" alt={value} />
         </a>
       </li>
     );
