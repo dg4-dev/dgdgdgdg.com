@@ -15,6 +15,110 @@ import H2 from "@/components/heading/Heading2";
 import H3 from "@/components/heading/Heading3";
 import { breakPoint, dg4Color } from "@/styles/config";
 
+const card = css`
+  border-radius: 40px;
+  background: ${dg4Color.black};
+
+  ${breakPoint.sp} {
+    border-radius: 24px;
+  }
+`;
+
+const cardImages = css`
+  width: 100%;
+  height: 250px;
+
+  background-image: url("/images/ogp.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  border-radius: 40px 40px 0 0;
+
+  position: relative;
+
+  ${breakPoint.sp} {
+    height: 200px;
+
+    border-radius: 24px 24px 0 0;
+  }
+`;
+
+const profileImage = css`
+  width: 192px;
+  height: 192px;
+
+  border-radius: 50%;
+  border: 4px solid ${dg4Color.black};
+
+  position: absolute;
+  bottom: 0;
+  left: 32px;
+  transform: translateY(50%);
+
+  > * {
+    border-radius: 50%;
+  }
+
+  ${breakPoint.sp} {
+    width: 135px;
+    height: 135px;
+
+    left: 24px;
+  }
+`;
+
+const cardContents = css`
+  padding: 32px;
+  padding-left: 256px;
+
+  color: #ffffff;
+
+  h4 ruby {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+
+    rt {
+      font-size: 12px;
+      font-weight: bold;
+    }
+  }
+
+  ${breakPoint.sp} {
+    padding: 24px;
+    padding-top: 84px;
+  }
+`;
+
+const advInfo = css`
+  margin-top: 16px;
+
+  p {
+    color: #ffffff99;
+    line-height: 1.6em;
+
+    display: flex;
+    gap: 8px;
+
+    ::before {
+      color: #ffffff;
+    }
+  }
+
+  .place::before {
+    content: "📍";
+  }
+
+  .startDate {
+    margin-top: 8px;
+    ::before {
+      content: "📅";
+    }
+  }
+`;
+
+/* 
 const infoItem = css`
   display: flex;
   gap: 50px;
@@ -58,7 +162,6 @@ const infoTable = css`
       }
     }
 
-    /* add marker */
     li {
       list-style: disc inside;
     }
@@ -68,6 +171,8 @@ const infoTable = css`
     }
   }
 `;
+
+ */
 
 const logoImage = css`
   width: 600px;
@@ -126,6 +231,25 @@ const About: NextPage = () => {
           <H2 en="Overview" ja="概要" />
           <div className="content">
             <H3 en="My Profile" ja="プロフィール" />
+            <div css={card}>
+              <div css={cardImages}>
+                <div css={profileImage}>
+                  <Image src="/images/profile.png" width={192} height={192} alt="profile image" />
+                </div>
+              </div>
+              <div css={cardContents}>
+                <h4>
+                  <ruby>
+                    dgdgdgdg<rt>だがし</rt>
+                  </ruby>
+                </h4>
+                <div css={advInfo}>
+                  <p className="place">〒986-0822 宮城県石巻市中央2丁目4-3 パナックけいてい</p>
+                  <p className="startDate">2021年2月1日から事業を開始しました</p>
+                </div>
+              </div>
+            </div>
+            {/* 
             <div css={infoItem}>
               <div css={infoImage}>
                 <Image src="/images/profile.png" width={600} height={600} alt="" />
@@ -188,6 +312,7 @@ const About: NextPage = () => {
                 </tbody>
               </table>
             </div>
+             */}
           </div>
 
           <div className="content logo">
