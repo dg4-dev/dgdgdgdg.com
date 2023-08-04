@@ -15,12 +15,7 @@ import H2 from "@/components/heading/Heading2";
 import H3 from "@/components/heading/Heading3";
 import { breakPoint } from "@/styles/config";
 
-const containerContent = css`
-  display: flex;
-  flex-direction: column;
-`;
-
-const colorContent = css`
+const colorItems = css`
   height: 500px;
   display: grid;
   grid-template-rows: 50% 50%;
@@ -99,19 +94,21 @@ const DesignResource: NextPage = () => {
       <section id="color">
         <Container>
           <H2 en="Color Palette" ja="カラーパレット" />
-          <Note>
-            このサイトに使用しているカラーです。これらのカラーは
-            <span> dgdgdgdg </span>に由来して、
-            <br />
-            16進数表記のカラーコードで&nbsp;
-            <span>0</span>,&nbsp;<span>4</span>,&nbsp;<span>d</span>&nbsp;のみを組み合わせて設定しています。
-          </Note>
 
-          <div className="content" css={[containerContent, colorContent]}>
-            <ColorItem color={"cyan"} />
-            <ColorItem color={"black"} />
-            <ColorItem color={"blue"} />
-            <ColorItem color={"orange"} />
+          <div className="content">
+            <Note>
+              このサイトに使用しているカラーです。これらのカラーは
+              <span> dgdgdgdg </span>に由来して、
+              <br />
+              16進数表記のカラーコードで&nbsp;
+              <span>0</span>,&nbsp;<span>4</span>,&nbsp;<span>d</span>&nbsp;のみを組み合わせて設定しています。
+            </Note>
+            <div css={colorItems}>
+              <ColorItem color={"cyan"} />
+              <ColorItem color={"black"} />
+              <ColorItem color={"blue"} />
+              <ColorItem color={"orange"} />
+            </div>
           </div>
         </Container>
       </section>
@@ -122,7 +119,7 @@ const DesignResource: NextPage = () => {
           <div className="content">
             <Logo />
           </div>
-          <div className="content" css={containerContent}>
+          <div className="content">
             <H3 en="Monthly Color" ja="月ごとの色" />
             <Note>
               メインで使用しているロゴは、<Link href="/about/#skill">4つのスキル</Link>
@@ -139,7 +136,7 @@ const DesignResource: NextPage = () => {
             </div>
           </div>
 
-          <div className="content" css={containerContent}>
+          <div className="content">
             <H3 en="Material Download" ja="素材ダウンロード" />
             <Note>ロゴ自体の編集、変更、変形、色の塗り直し、その他手を加えることはしないでください。</Note>
             <div css={logoList}>
@@ -157,18 +154,18 @@ const DesignResource: NextPage = () => {
       <section id="font">
         <H2 en="Font" ja="フォント" />
         <Container>
-          <div className="content" css={containerContent}>
+          <div className="content">
             <H3 en="Dont" />
             <Note>
               Dontは、このサイトのタイトル部分等に使用されているフォントです。
               <br />
-              dgdgdgdgによるオリジナルのフォントで、<a href="/works/#font">こちら</a>で配布しています。
+              dgdgdgdgによるオリジナルのフォントで、<a href="/works#font">こちら</a>で配布しています。
               <br />
               最小限のドットでアルファベットを表現しています。
             </Note>
             <div css={[fontSample, dont]}>Almost before we knew it, we had left the ground.</div>
           </div>
-          <div className="content" css={containerContent}>
+          <div className="content">
             <H3 en="Zen Kaku Gothic New" ja="ZEN角ゴシックNew" />
             <Note>
               Zen Kaku Gothic Newは、このサイトの文章部分に使用されているフォントです。
