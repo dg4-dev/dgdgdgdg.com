@@ -118,47 +118,39 @@ const advInfo = css`
   }
 `;
 
-// const infoItem = css`
-//   display: flex;
-//   gap: 50px;
+const businessItems = css`
+  line-height: 1.6em;
+  display: flex;
+  justify-content: space-between;
 
-//   ${breakPoint.sp} {
-//     flex-direction: column;
-//     gap: 20px;
-//   }
-// `;
+  div {
+    width: 235px;
+    padding: 24px 40px;
 
-// const infoTable = css`
-//   display: block;
-//   tbody tr {
-//     line-height: 1.6em;
+    background-color: ${dg4Color.black};
+    color: #ffffff;
 
-//     th {
-//       width: 6.5em;
-//       font-weight: bold;
+    h3 {
+      font-weight: bold;
+    }
 
-//       padding-right: 1em;
-//     }
+    ul {
+      margin-top: 8px;
+      li {
+        list-style: disc inside;
+      }
+    }
 
-//     td {
-//       width: 230px;
-//       padding: 4px 0;
-//       border-bottom: 1px solid ${dg4Color.black}44;
+    ${breakPoint.sp} {
+      width: 100%;
+    }
+  }
 
-//       ${breakPoint.sp} {
-//         width: unset;
-//       }
-//     }
-
-//     li {
-//       list-style: disc inside;
-//     }
-
-//     li > ul {
-//       padding-left: 2em;
-//     }
-//   }
-// `;
+  ${breakPoint.tab} {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+`;
 
 const logoImage = css`
   width: 600px;
@@ -235,45 +227,6 @@ const About: NextPage = () => {
                 </div>
               </div>
             </div>
-            {/* <div css={infoItem}>
-              <table css={infoTable}>
-                <tbody>
-                  <tr>
-                    <th>事業内容</th>
-                    <td>
-                      <ul>
-                        <li>
-                          Webサイト制作
-                          <ul>
-                            <li>ワイヤーフレーム</li>
-                            <li>デザイン</li>
-                            <li>コーディング</li>
-                            <li>STUDIO実装</li>
-                          </ul>
-                        </li>
-                        <li>
-                          デザイン
-                          <ul>
-                            <li>ロゴ</li>
-                            <li>名刺</li>
-                            <li>ドット絵</li>
-                            <li>チラシ・ポスター</li>
-                          </ul>
-                        </li>
-                        <li>
-                          映像制作
-                          <ul>
-                            <li>写真 撮影・編集</li>
-                            <li>動画 撮影・編集</li>
-                            <li>アニメーション</li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div> */}
           </div>
 
           <div className="content logo">
@@ -294,6 +247,42 @@ const About: NextPage = () => {
         <Container css={meaningContainer}>
           <div className="content">
             <ul css={meaningItem}>{[meaningItemElm, meaningItemElm, meaningItemElm]}</ul>
+          </div>
+        </Container>
+      </section>
+
+      <section id="Business">
+        <Container>
+          <H2 en="Business" ja="事業内容" />
+          <div className="content">
+            <div css={businessItems}>
+              <div>
+                <h3>Webサイト制作</h3>
+                <ul>
+                  <li>ワイヤーフレーム</li>
+                  <li>デザイン</li>
+                  <li>コーディング</li>
+                  <li>STUDIO実装</li>
+                </ul>
+              </div>
+              <div>
+                <h3>デザイン</h3>
+                <ul>
+                  <li>ロゴ</li>
+                  <li>名刺</li>
+                  <li>ドット絵</li>
+                  <li>チラシ・ポスター</li>
+                </ul>
+              </div>
+              <div>
+                <h3>映像制作</h3>
+                <ul>
+                  <li>写真 撮影・編集</li>
+                  <li>動画 撮影・編集</li>
+                  <li>2dモーション</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </Container>
       </section>
