@@ -118,61 +118,47 @@ const advInfo = css`
   }
 `;
 
-/* 
-const infoItem = css`
-  display: flex;
-  gap: 50px;
+// const infoItem = css`
+//   display: flex;
+//   gap: 50px;
 
-  ${breakPoint.sp} {
-    flex-direction: column;
-    gap: 20px;
-  }
-`;
+//   ${breakPoint.sp} {
+//     flex-direction: column;
+//     gap: 20px;
+//   }
+// `;
 
-const infoImage = css`
-  width: calc(100% - 370px);
-  height: auto;
+// const infoTable = css`
+//   display: block;
+//   tbody tr {
+//     line-height: 1.6em;
 
-  ${breakPoint.sp} {
-    width: 100%;
-    padding: 32px;
-    margin: 0 auto;
-  }
-`;
+//     th {
+//       width: 6.5em;
+//       font-weight: bold;
 
-const infoTable = css`
-  display: block;
-  tbody tr {
-    line-height: 1.6em;
+//       padding-right: 1em;
+//     }
 
-    th {
-      width: 6.5em;
-      font-weight: bold;
+//     td {
+//       width: 230px;
+//       padding: 4px 0;
+//       border-bottom: 1px solid ${dg4Color.black}44;
 
-      padding-right: 1em;
-    }
+//       ${breakPoint.sp} {
+//         width: unset;
+//       }
+//     }
 
-    td {
-      width: 230px;
-      padding: 4px 0;
-      border-bottom: 1px solid ${dg4Color.black}44;
+//     li {
+//       list-style: disc inside;
+//     }
 
-      ${breakPoint.sp} {
-        width: unset;
-      }
-    }
-
-    li {
-      list-style: disc inside;
-    }
-
-    li > ul {
-      padding-left: 2em;
-    }
-  }
-`;
-
- */
+//     li > ul {
+//       padding-left: 2em;
+//     }
+//   }
+// `;
 
 const logoImage = css`
   width: 600px;
@@ -249,33 +235,9 @@ const About: NextPage = () => {
                 </div>
               </div>
             </div>
-            {/* 
-            <div css={infoItem}>
-              <div css={infoImage}>
-                <Image src="/images/profile.png" width={600} height={600} alt="" />
-              </div>
+            {/* <div css={infoItem}>
               <table css={infoTable}>
                 <tbody>
-                  <tr>
-                    <th>名称</th>
-                    <td>
-                      <ruby>
-                        dgdgdgdg<rt>だがし</rt>
-                      </ruby>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>所在地</th>
-                    <td>
-                      〒986-0822
-                      <br />
-                      宮城県石巻市中央2丁目4-3 パナックけいてい内
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>事業開始日</th>
-                    <td>2021/02/01</td>
-                  </tr>
                   <tr>
                     <th>事業内容</th>
                     <td>
@@ -311,8 +273,7 @@ const About: NextPage = () => {
                   </tr>
                 </tbody>
               </table>
-            </div>
-             */}
+            </div> */}
           </div>
 
           <div className="content logo">
