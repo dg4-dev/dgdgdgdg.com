@@ -317,61 +317,22 @@ const FontContentGR = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Cir
     background-repeat: no-repeat;
     background-position: center;
     position: relative;
-
-    ::before {
-      opacity: 0;
-      content: "";
-
-      position: absolute;
-      top: -32px;
-      right: 0;
-
-      padding: 0.4em 0.7em;
-      font-size: 12px;
-      font-weight: 400;
-      color: #fff;
-      white-space: nowrap;
-      background: ${dg4Color.black};
-      border-radius: 4px;
-
-      transition: opacity 0.2s ease-in-out;
-    }
-
-    :hover::before {
-      opacity: 1;
-    }
   `;
 
   const reverseButton = css`
     background-image: url("/images/ui/arrow-left-arrow-right.svg");
-
-    ::before {
-      content: "Swap Color";
-    }
   `;
 
   const shuffleButton = css`
     background-image: url("/images/ui/shuffle.svg");
-
-    ::before {
-      content: "Shuffle";
-    }
   `;
 
   const resetButton = css`
     background-image: url("/images/ui/arrow-counterclockwise.svg");
-
-    ::before {
-      content: "Reset";
-    }
   `;
 
   const copyButton = css`
     background-image: url("/images/ui/doc-on-doc.svg");
-
-    ::before {
-      content: "Copy CSS";
-    }
   `;
 
   const itemLetter = css`
@@ -399,7 +360,7 @@ const FontContentGR = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Cir
       <H3 en={name} />
       <div css={editWrapper}>
         <div css={rangeContainer}>
-          <div css={[rangeWrapper, rangeFontSize]}>
+          <div css={[rangeWrapper, rangeFontSize]} title="Font Size">
             <input
               type="range"
               min="10"
@@ -412,7 +373,7 @@ const FontContentGR = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Cir
               css={rangeInput}
             />
           </div>
-          <div css={[rangeWrapper, rangeLineHeight]}>
+          <div css={[rangeWrapper, rangeLineHeight]} title="Line Height">
             <input
               type="range"
               min="100"
@@ -425,7 +386,7 @@ const FontContentGR = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Cir
               css={rangeInput}
             />
           </div>
-          <div css={[rangeWrapper, rangeLetterSpacing]}>
+          <div css={[rangeWrapper, rangeLetterSpacing]} title="Letter Spacing">
             <input
               type="range"
               min="0"
@@ -443,7 +404,7 @@ const FontContentGR = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Cir
           </div>
         </div>
         <div css={buttonContainer}>
-          <div css={buttonWrapper}>
+          <div css={buttonWrapper} title="Text Align">
             <label className="clickable">
               <input
                 type="radio"
@@ -504,6 +465,7 @@ const FontContentGR = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Cir
               onClick={reverseColor}
               className="clickable"
               css={[buttonWithToolTip, buttonSquare, reverseButton]}
+              title="Swap Color"
             />
             <input
               className="clickable"
@@ -523,6 +485,7 @@ const FontContentGR = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Cir
               onClick={shuffleValue}
               className="clickable"
               css={[buttonWithToolTip, buttonSquare, shuffleButton]}
+              title="Shuffle"
             />
             <button
               onClick={() => {
@@ -530,8 +493,14 @@ const FontContentGR = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Cir
               }}
               className="clickable"
               css={[buttonWithToolTip, buttonSquare, resetButton]}
+              title="Reset"
             />
-            <button onClick={copyValue} className="clickable" css={[buttonWithToolTip, buttonSquare, copyButton]} />
+            <button
+              onClick={copyValue}
+              className="clickable"
+              css={[buttonWithToolTip, buttonSquare, copyButton]}
+              title="Copy CSS"
+            />
           </div>
         </div>
       </div>
