@@ -12,6 +12,8 @@ const para = css`
   line-height: 1.5;
   text-align: center;
 
+  margin: 32px 0;
+
   a {
     display: inline;
     word-break: break-all;
@@ -24,18 +26,8 @@ const para = css`
   }
 `;
 
-const Note = ({ className, children, margin = false }: Props) => {
-  const paraMargin = margin
-    ? css`
-        margin-bottom: 40px;
-      `
-    : css``;
-
-  return (
-    <p css={[para, paraMargin]} className={className}>
-      {children}
-    </p>
-  );
+const Note = ({ children }: Props) => {
+  return <p css={para}>{children}</p>;
 };
 
 export default Note;
