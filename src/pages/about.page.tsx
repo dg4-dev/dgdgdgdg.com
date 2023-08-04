@@ -15,57 +15,140 @@ import H2 from "@/components/heading/Heading2";
 import H3 from "@/components/heading/Heading3";
 import { breakPoint, dg4Color } from "@/styles/config";
 
-const infoItem = css`
-  display: flex;
-  gap: 50px;
+const card = css`
+  border-radius: 40px;
+  background: ${dg4Color.black};
 
   ${breakPoint.sp} {
-    flex-direction: column;
-    gap: 20px;
+    border-radius: 24px;
   }
 `;
 
-const infoImage = css`
-  width: calc(100% - 370px);
-  height: auto;
+const cardImages = css`
+  width: 100%;
+  height: 250px;
+
+  background-image: url("/images/ogp.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  border-radius: 40px 40px 0 0;
+
+  position: relative;
 
   ${breakPoint.sp} {
-    width: 100%;
-    padding: 32px;
-    margin: 0 auto;
+    height: 200px;
+
+    border-radius: 24px 24px 0 0;
   }
 `;
 
-const infoTable = css`
-  display: block;
-  tbody tr {
+const profileImage = css`
+  width: 192px;
+  height: 192px;
+
+  border-radius: 50%;
+  border: 4px solid ${dg4Color.black};
+
+  position: absolute;
+  bottom: 0;
+  left: 32px;
+  transform: translateY(50%);
+
+  > * {
+    border-radius: 50%;
+  }
+
+  ${breakPoint.sp} {
+    width: 135px;
+    height: 135px;
+
+    left: 24px;
+  }
+`;
+
+const cardContents = css`
+  padding: 32px;
+  padding-left: 256px;
+
+  color: #ffffff;
+
+  h4 ruby {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+
+    rt {
+      font-size: 12px;
+      font-weight: bold;
+    }
+  }
+
+  ${breakPoint.sp} {
+    padding: 24px;
+    padding-top: 84px;
+  }
+`;
+
+const advInfo = css`
+  margin-top: 16px;
+
+  p {
+    color: #ffffff99;
     line-height: 1.6em;
 
-    th {
-      width: 6.5em;
-      font-weight: bold;
+    display: flex;
+    gap: 8px;
 
-      padding-right: 1em;
+    ::before {
+      color: #ffffff;
+    }
+  }
+
+  .place::before {
+    content: "📍";
+  }
+
+  .startDate {
+    margin-top: 8px;
+    ::before {
+      content: "📅";
+    }
+  }
+`;
+
+const businessItems = css`
+  line-height: 1.6em;
+  display: flex;
+  justify-content: space-between;
+
+  div {
+    width: 235px;
+    padding: 24px 40px;
+
+    background-color: ${dg4Color.black};
+    color: #ffffff;
+
+    h3 {
+      font-weight: bold;
     }
 
-    td {
-      width: 230px;
-      padding: 4px 0;
-      border-bottom: 1px solid ${dg4Color.black}44;
-
-      ${breakPoint.sp} {
-        width: unset;
+    ul {
+      margin-top: 8px;
+      li {
+        list-style: disc inside;
       }
     }
 
-    /* add marker */
-    li {
-      list-style: disc inside;
+    ${breakPoint.sp} {
+      width: 100%;
     }
+  }
 
-    li > ul {
-      padding-left: 2em;
-    }
+  ${breakPoint.tab} {
+    flex-wrap: wrap;
+    gap: 16px;
   }
 `;
 
@@ -126,67 +209,23 @@ const About: NextPage = () => {
           <H2 en="Overview" ja="概要" />
           <div className="content">
             <H3 en="My Profile" ja="プロフィール" />
-            <div css={infoItem}>
-              <div css={infoImage}>
-                <Image src="/images/profile.png" width={600} height={600} alt="" />
+            <div css={card}>
+              <div css={cardImages}>
+                <div css={profileImage}>
+                  <Image src="/images/profile.png" width={192} height={192} alt="profile image" />
+                </div>
               </div>
-              <table css={infoTable}>
-                <tbody>
-                  <tr>
-                    <th>名称</th>
-                    <td>
-                      <ruby>
-                        dgdgdgdg<rt>だがし</rt>
-                      </ruby>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>所在地</th>
-                    <td>
-                      〒986-0822
-                      <br />
-                      宮城県石巻市中央2丁目4-3 パナックけいてい内
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>事業開始日</th>
-                    <td>2021/02/01</td>
-                  </tr>
-                  <tr>
-                    <th>事業内容</th>
-                    <td>
-                      <ul>
-                        <li>
-                          Webサイト制作
-                          <ul>
-                            <li>ワイヤーフレーム</li>
-                            <li>デザイン</li>
-                            <li>コーディング</li>
-                            <li>STUDIO実装</li>
-                          </ul>
-                        </li>
-                        <li>
-                          デザイン
-                          <ul>
-                            <li>ロゴ</li>
-                            <li>名刺</li>
-                            <li>ドット絵</li>
-                            <li>チラシ・ポスター</li>
-                          </ul>
-                        </li>
-                        <li>
-                          映像制作
-                          <ul>
-                            <li>写真 撮影・編集</li>
-                            <li>動画 撮影・編集</li>
-                            <li>アニメーション</li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div css={cardContents}>
+                <h4>
+                  <ruby>
+                    dgdgdgdg<rt>だがし</rt>
+                  </ruby>
+                </h4>
+                <div css={advInfo}>
+                  <p className="place">〒986-0822 宮城県石巻市中央2丁目4-3 パナックけいてい</p>
+                  <p className="startDate">2021年2月1日から事業を開始しました</p>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -208,6 +247,42 @@ const About: NextPage = () => {
         <Container css={meaningContainer}>
           <div className="content">
             <ul css={meaningItem}>{[meaningItemElm, meaningItemElm, meaningItemElm]}</ul>
+          </div>
+        </Container>
+      </section>
+
+      <section id="Business">
+        <Container>
+          <H2 en="Business" ja="事業内容" />
+          <div className="content">
+            <div css={businessItems}>
+              <div>
+                <h3>Webサイト制作</h3>
+                <ul>
+                  <li>ワイヤーフレーム</li>
+                  <li>デザイン</li>
+                  <li>コーディング</li>
+                  <li>STUDIO実装</li>
+                </ul>
+              </div>
+              <div>
+                <h3>デザイン</h3>
+                <ul>
+                  <li>ロゴ</li>
+                  <li>名刺</li>
+                  <li>ドット絵</li>
+                  <li>チラシ・ポスター</li>
+                </ul>
+              </div>
+              <div>
+                <h3>映像制作</h3>
+                <ul>
+                  <li>写真 撮影・編集</li>
+                  <li>動画 撮影・編集</li>
+                  <li>2dモーション</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </Container>
       </section>
