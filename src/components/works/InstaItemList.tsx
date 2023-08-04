@@ -83,7 +83,7 @@ const InstaItemList = () => {
     return (
       <div key={instaData.id} css={instaItem}>
         <a href={instaData.permalink} target="_blank" rel="noopener noreferrer">
-          <img src={instaData.media_url} alt="" />
+          <img src={instaData.media_url} alt={instaData.id} />
         </a>
       </div>
     );
