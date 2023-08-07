@@ -43,7 +43,7 @@ const SkillGraph = ({ amountData = skillAmount, color = dg4Color.cyan, graphWidt
 
     const skillItem = css`
       :not(:first-of-type) {
-        margin-top: 40px;
+        margin-top: 24px;
       }
     `;
 
