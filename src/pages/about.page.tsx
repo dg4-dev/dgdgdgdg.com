@@ -9,7 +9,7 @@ import Layout from "@/components/Layout";
 import Logo from "@/components/Logo";
 import Note from "@/components/Note";
 import meaningItemElm from "@/components/about/MeaningItem";
-import skillGraph from "@/components/about/SkillGraph";
+import SkillGraph from "@/components/about/SkillGraph";
 import H1 from "@/components/heading/Heading1";
 import H2 from "@/components/heading/Heading2";
 import H3 from "@/components/heading/Heading3";
@@ -291,7 +291,7 @@ const About: NextPage = () => {
         <Container>
           <H2 en="Skill" ja="スキル" />
           <div className="content" css={skillContent}>
-            <ul>{skillGraph}</ul>
+            <SkillGraph />
             <Button css={button} href="/works" />
           </div>
         </Container>
