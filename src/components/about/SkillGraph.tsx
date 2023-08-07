@@ -33,9 +33,10 @@ type SkillGraphProps = {
     amount: number;
   }[];
   color?: string;
+  graphWidth?: number;
 };
 
-const SkillGraph = ({ amountData = skillAmount, color = dg4Color.cyan }: SkillGraphProps) => {
+const SkillGraph = ({ amountData = skillAmount, color = dg4Color.cyan, graphWidth = 100 }: SkillGraphProps) => {
   const maxAmount = Math.max(...amountData.map(({ amount }) => amount));
   const skillGraph = amountData.map(({ name, amount }) => {
     const ratio = Math.round((amount / maxAmount) * 100);
@@ -70,7 +71,7 @@ const SkillGraph = ({ amountData = skillAmount, color = dg4Color.cyan }: SkillGr
         height: 100%;
         background-color: ${color};
         position: absolute;
-        width: ${ratio * 0.95}%;
+        width: ${ratio * graphWidth * 0.01}%;
       }
     `;
 
