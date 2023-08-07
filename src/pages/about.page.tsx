@@ -193,10 +193,18 @@ const meaningItem = css`
 `;
 
 const skillContent = css`
-  width: fit-content;
+  display: flex;
+  justify-content: space-between;
 
-  margin-left: auto;
-  margin-right: auto;
+  gap: 40px;
+
+  ${breakPoint.tab} {
+    flex-wrap: wrap;
+  }
+
+  ${breakPoint.sp} {
+    flex-direction: column;
+  }
 `;
 
 const About: NextPage = () => {
@@ -291,9 +299,37 @@ const About: NextPage = () => {
         <Container>
           <H2 en="Skill" ja="スキル" />
           <div className="content" css={skillContent}>
-            <SkillGraph />
-            <Button css={button} href="/works" />
+            <div>
+              <H3 en="Days Ratio" ja="初めてからの日数比" />
+              <SkillGraph />
+            </div>
+            <div>
+              <H3 en="Self Assessment" ja="自己評価" />
+              <SkillGraph
+                amountData={[
+                  {
+                    name: "デザイン",
+                    amount: 8,
+                  },
+                  {
+                    name: "映像制作",
+                    amount: 5,
+                  },
+                  {
+                    name: "モーショングラフィックス",
+                    amount: 6,
+                  },
+                  {
+                    name: "Web制作",
+                    amount: 10,
+                  },
+                ]}
+                color={dg4Color.blue}
+                graphWidth={78}
+              />
+            </div>
           </div>
+          <Button css={button} href="/works" />
         </Container>
       </section>
     </Layout>
