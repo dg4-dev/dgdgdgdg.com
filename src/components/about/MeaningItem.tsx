@@ -77,18 +77,18 @@ const meaningItemElm = meaningRaw.map((value) => {
 
     if (letter.match(/[dg4]/g)) {
       return (
-        <span key={`${letter}${random}`} css={cyan}>
+        <span key={letter + random} css={cyan}>
           {letter}
         </span>
       );
     } else if (letter.match(/[駄菓子]/g)) {
       return (
-        <span key={`${letter}${random}`} css={[cyan, noto]}>
+        <span key={letter + random} css={[cyan, noto]}>
           {letter}
         </span>
       );
     } else {
-      return <span key={`${letter}${random}`}>{letter}</span>;
+      return <span key={letter + random}>{letter}</span>;
     }
   });
 
