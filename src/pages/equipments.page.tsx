@@ -27,7 +27,7 @@ const Equipments: NextPage = () => {
       `;
 
       return (
-        <div key={`${name}${variety}`} css={equipmentsItem}>
+        <div key={name + variety} css={equipmentsItem}>
           <EquipmentsModal
             name={name}
             maker={maker}

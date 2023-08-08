@@ -71,6 +71,18 @@ export const itemData: itemDataProps[] = [
     gen: 2019,
     variety: "Space Gray",
   },
+  // {
+  //   address: {
+  //     section: "Viewing Content",
+  //     order: 11,
+  //   },
+  //   name: 'MacBook Air 13"',
+  //   maker: "Apple",
+  //   about: "Laptop",
+  //   imgName: "apple-macbookpro16-spacegray.png",
+  //   gen: 2022,
+  //   variety: "Midnight",
+  // },
   {
     address: {
       section: "Viewing Content",
@@ -374,105 +386,6 @@ export const itemData: itemDataProps[] = [
     about: "Teleprompter for tablet",
     imgName: "smallrig-sr3374.png",
     gen: 2021,
-  },
-  {
-    address: {
-      section: "Develop and Design",
-      order: 10,
-    },
-    name: "Illustrator",
-    maker: "Adobe",
-    about: "Vector graphics editor and design program",
-    imgName: "adobe-illustrator.png",
-    gen: "Latest version",
-  },
-  {
-    address: {
-      section: "Develop and Design",
-      order: 20,
-    },
-    name: "XD",
-    maker: "Adobe",
-    about: "Vector-based user experience design tool for web apps and mobile apps",
-    imgName: "adobe-xd.png",
-    gen: "Latest version",
-  },
-  {
-    address: {
-      section: "Develop and Design",
-      order: 30,
-    },
-    name: "Premiere Pro",
-    maker: "Adobe",
-    about: "Timeline-based video editing software application",
-    imgName: "adobe-premierepro.png",
-    gen: "Latest version",
-  },
-  {
-    address: {
-      section: "Develop and Design",
-      order: 40,
-    },
-    name: "After Effects",
-    maker: "Adobe",
-    about: "Digital visual effects, motion graphics, and compositing application",
-    imgName: "adobe-aftereffects.png",
-    gen: "Latest version",
-  },
-  {
-    address: {
-      section: "Develop and Design",
-      order: 50,
-    },
-    name: "Photoshop",
-    maker: "Adobe",
-    about: "Raster graphics editor",
-    imgName: "adobe-photoshop.png",
-    gen: "Latest version",
-  },
-  {
-    address: {
-      section: "Develop and Design",
-      order: 60,
-    },
-    name: "Lightroom",
-    maker: "Adobe",
-    about: "Creative image organization and image manipulation software",
-    imgName: "adobe-lightroom.png",
-    gen: "Latest version",
-  },
-  {
-    address: {
-      section: "Develop and Design",
-      order: 70,
-    },
-    name: "Visual Studio Code",
-    maker: "Microsoft",
-    about: "Source code editor",
-    imgName: "microsoft-visualstudiocode.png",
-    gen: "Latest version",
-  },
-  {
-    address: {
-      section: "Develop and Design",
-      order: 80,
-    },
-    name: "Figma",
-    maker: "Figma",
-    about: "Vector graphics editor and prototyping tool",
-    imgName: "figma-figma.png",
-    gen: "Latest version",
-  },
-  {
-    address: {
-      section: "Develop and Design",
-      order: 90,
-    },
-    name: "STUDIO",
-    maker: "STUDIO",
-    about: "Cloud-based no code website creation tool",
-    imgName: "studio-studio.png",
-    gen: "Latest version",
   },
   {
     address: {

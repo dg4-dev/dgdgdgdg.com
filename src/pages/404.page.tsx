@@ -69,7 +69,7 @@ const Works: NextPage = () => {
           <p css={[para, dont]}>Page not found :(</p>
           <Button
             href="/"
-            text="Back to top"
+            text="Back to Top"
             css={css`
               margin: 0 auto;
             `}
