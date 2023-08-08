@@ -1,4 +1,26 @@
 import { css } from "@emotion/react";
+import {
+  SiFigma,
+  SiAdobexd,
+  SiHtml5,
+  SiCss3,
+  SiSass,
+  SiJavascript,
+  SiTypescript,
+  SiReact,
+  SiNextdotjs,
+  SiVuedotjs,
+  SiGit,
+  SiGithub,
+  SiGitlab,
+  SiBitbucket,
+  SiAdobephotoshop,
+  SiAdobeillustrator,
+  SiAseprite,
+  SiAdobelightroom,
+  SiAdobeaftereffects,
+  SiAdobepremierepro,
+} from "@icons-pack/react-simple-icons";
 import Image from "next/image";
 
 import type { NextPage } from "next";
@@ -118,27 +140,33 @@ const advInfo = css`
   }
 `;
 
-const businessItems = css`
+const ulItems = css`
   line-height: 1.6em;
   display: flex;
-  justify-content: space-between;
-
   div {
-    width: 235px;
-    padding: 24px 40px;
-
     background-color: ${dg4Color.black};
     color: #ffffff;
 
-    h3 {
+    .heading {
       font-weight: bold;
     }
 
     ul {
       margin-top: 8px;
-      li {
-        list-style: disc inside;
-      }
+    }
+  }
+`;
+
+const businessItems = css`
+  justify-content: space-between;
+
+  div {
+    width: 235px;
+
+    padding: 24px 40px;
+
+    ul li {
+      list-style: disc inside;
     }
 
     ${breakPoint.sp} {
@@ -149,6 +177,36 @@ const businessItems = css`
   ${breakPoint.tab} {
     flex-wrap: wrap;
     gap: 16px;
+  }
+`;
+
+const techItems = css`
+  flex-direction: column;
+  gap: 16px;
+
+  div {
+    padding: 24px;
+    padding-top: 16px;
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      li {
+        padding: 4px 10px;
+        border: 1px solid #ffffff;
+        border-radius: 4px;
+
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
   }
 `;
 
@@ -263,9 +321,9 @@ const About: NextPage = () => {
         <Container>
           <H2 en="Business" ja="事業内容" />
           <div className="content">
-            <div css={businessItems}>
+            <div css={[ulItems, businessItems]}>
               <div>
-                <h3>Webサイト制作</h3>
+                <h3 className="heading">Webサイト制作</h3>
                 <ul>
                   <li>ワイヤーフレーム</li>
                   <li>デザイン</li>
@@ -274,7 +332,7 @@ const About: NextPage = () => {
                 </ul>
               </div>
               <div>
-                <h3>デザイン</h3>
+                <h3 className="heading">デザイン</h3>
                 <ul>
                   <li>ロゴ</li>
                   <li>名刺</li>
@@ -283,7 +341,7 @@ const About: NextPage = () => {
                 </ul>
               </div>
               <div>
-                <h3>映像制作</h3>
+                <h3 className="heading">映像制作</h3>
                 <ul>
                   <li>写真 撮影・編集</li>
                   <li>動画 撮影・編集</li>
@@ -298,9 +356,123 @@ const About: NextPage = () => {
       <section id="skill">
         <Container>
           <H2 en="Skill" ja="スキル" />
+          <div className="content">
+            <H3 en="Technologies" ja="使用技術" />
+            <div css={[ulItems, techItems]}>
+              <div>
+                <h4 className="heading">Webサイト制作</h4>
+                <ul>
+                  <li>
+                    <SiFigma />
+                    <span>Figma</span>
+                  </li>
+                  <li>
+                    <SiAdobexd color="default" />
+                    <span>Adobe XD</span>
+                  </li>
+                  <li>STUDIO</li>
+                  <li>
+                    <SiHtml5 color="default" />
+                    <span>HTML</span>
+                  </li>
+                  <li>
+                    <SiCss3 color="default" />
+                    <span>CSS</span>
+                  </li>
+                  <li>
+                    <SiSass color="default" />
+                    <span>Sass</span>
+                  </li>
+                  <li>
+                    <SiJavascript color="default" />
+                    <span>JavaScript</span>
+                  </li>
+                  <li>
+                    <SiTypescript color="default" />
+                    <span>TypeScript</span>
+                  </li>
+                  <li>
+                    <SiReact color="default" />
+                    <span>React</span>
+                  </li>
+                  <li>
+                    <SiNextdotjs />
+                    <span>Next.js</span>
+                  </li>
+                  <li>
+                    <SiVuedotjs color="default" />
+                    <span>Vue.js</span>
+                  </li>
+                  <li>
+                    <SiGit color="default" />
+                    <span>Git</span>
+                  </li>
+                  <li>
+                    <SiGithub />
+                    <span>GitHub</span>
+                  </li>
+                  <li>
+                    <SiGitlab color="default" />
+                    <span>GitLab</span>
+                  </li>
+                  <li>
+                    <SiBitbucket color="default" />
+                    <span>Bitbucket</span>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="heading">デザイン</h4>
+                <ul>
+                  <li>
+                    <SiAdobeillustrator color="default" />
+                    <span>Adobe Illustrator</span>
+                  </li>
+                  <li>
+                    <SiFigma />
+                    <span>Figma</span>
+                  </li>
+                  <li>
+                    <SiAdobexd color="default" />
+                    <span>Adobe XD</span>
+                  </li>
+                  <li>
+                    <SiAdobephotoshop color="default" />
+                    <span>Adobe Photoshop</span>
+                  </li>
+                  <li>
+                    <SiAseprite />
+                    <span>Aseprite</span>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="heading">映像制作</h4>
+                <ul>
+                  <li>
+                    <SiAdobephotoshop color="default" />
+                    <span>Adobe Photoshop</span>
+                  </li>
+                  <li>
+                    <SiAdobelightroom color="default" />
+                    <span>Adobe Lightroom</span>
+                  </li>
+                  <li>
+                    <SiAdobeaftereffects color="default" />
+                    <span>Adobe After Effects</span>
+                  </li>
+                  <li>
+                    <SiAdobepremierepro color="default" />
+                    <span>Adobe Premiere Pro</span>
+                  </li>
+                  <li>Loopback</li>
+                </ul>
+              </div>
+            </div>
+          </div>
           <div className="content" css={skillContent}>
             <div>
-              <H3 en="Days Ratio" ja="初めてからの日数比" />
+              <H3 en="Days Ratio" ja="始めてからの日数比" />
               <SkillGraph />
             </div>
             <div>
