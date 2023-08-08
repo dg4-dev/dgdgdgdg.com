@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 
 import { breakPoint, dg4Color } from "@/styles/config";
 
-const skillRaw = [
+const skillStart = [
   {
     name: "デザイン",
     start: dayjs("2015-05-01"),
@@ -22,52 +22,67 @@ const skillRaw = [
   },
 ];
 
-const maxMonths = skillRaw.reduce((max, skill) => Math.max(max, dayjs().diff(skill.start, "month")), 0);
+const skillAmount = skillStart.map((skill) => ({
+  name: skill.name,
+  amount: dayjs().diff(skill.start, "month"),
+}));
 
-const skillGraph = skillRaw.map(({ name, start }) => {
-  const months = dayjs().diff(start, "month");
-  const ratio = Math.round((months / maxMonths) * 100);
+type SkillGraphProps = {
+  amountData?: {
+    name: string;
+    amount: number;
+  }[];
+  color?: string;
+  graphWidth?: number;
+};
 
-  const skillItem = css`
-    :not(:first-of-type) {
-      margin-top: 40px;
-    }
-  `;
+const SkillGraph = ({ amountData = skillAmount, color = dg4Color.cyan, graphWidth = 100 }: SkillGraphProps) => {
+  const maxAmount = Math.max(...amountData.map(({ amount }) => amount));
+  const skillGraph = amountData.map(({ name, amount }) => {
+    const ratio = Math.round((amount / maxAmount) * 100);
 
-  const skillName = css`
-    font-weight: bold;
-    margin-bottom: 10px;
-  `;
+    const skillItem = css`
+      :not(:first-of-type) {
+        margin-top: 24px;
+      }
+    `;
 
-  const skillBar = css`
-    width: 350px;
-    height: 10px;
+    const skillName = css`
+      font-weight: bold;
+      margin-bottom: 10px;
+    `;
 
-    background-color: #eee;
+    const skillBar = css`
+      width: 350px;
+      height: 10px;
 
-    position: relative;
+      background-color: #eee;
 
-    ${breakPoint.sp} {
-      width: 100%;
-    }
+      position: relative;
 
-    ::after {
-      content: "";
-      display: block;
+      ${breakPoint.sp} {
+        width: 100%;
+      }
 
-      height: 100%;
-      background-color: ${dg4Color.cyan};
-      position: absolute;
-      width: ${ratio * 0.95}%;
-    }
-  `;
+      ::after {
+        content: "";
+        display: block;
 
-  return (
-    <li key={name} css={skillItem}>
-      <p css={skillName}>{name}</p>
-      <div css={skillBar}></div>
-    </li>
-  );
-});
+        height: 100%;
+        background-color: ${color};
+        position: absolute;
+        width: ${ratio * graphWidth * 0.01}%;
+      }
+    `;
 
-export default skillGraph;
+    return (
+      <li key={name} css={skillItem}>
+        <p css={skillName}>{name}</p>
+        <div css={skillBar}></div>
+      </li>
+    );
+  });
+  return <ul>{skillGraph}</ul>;
+};
+
+export default SkillGraph;
