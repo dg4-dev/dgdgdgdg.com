@@ -15,19 +15,14 @@ export const categoryNames = [
     order: 30,
   },
   {
-    en: "Develop and Design",
-    ja: "開発とデザイン",
-    order: 40,
-  },
-  {
     en: "Audio",
     ja: "音響処理",
-    order: 50,
+    order: 40,
   },
   {
     en: "Music Performance",
     ja: "演奏する",
-    order: 60,
+    order: 50,
   },
 ] as const;
 

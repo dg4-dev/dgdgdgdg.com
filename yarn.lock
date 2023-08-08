@@ -1246,6 +1246,11 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
+"@icons-pack/react-simple-icons@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@icons-pack/react-simple-icons/-/react-simple-icons-8.0.1.tgz#333c7fe2fea098e06e16eedc875d990f64cf64a5"
+  integrity sha512-lCdPSp+EFJKDabwQ16pQsTJKViwGa8naoYAnL0IpxQvl7E1CeQ7Z84BbJWhIustrrdNIZwcyuKg+ClPi7BXFWw==
+
 "@jridgewell/gen-mapping@^0.1.0":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@jridgewell/gen-mapping/-/gen-mapping-0.1.1.tgz#e5d2e450306a9491e3bd77e323e38d7aff315996"
