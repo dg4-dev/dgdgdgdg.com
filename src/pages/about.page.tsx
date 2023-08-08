@@ -249,7 +249,7 @@ const About: NextPage = () => {
           </div>
 
           <div className="content meaning">
-            <H3 css={meaningHeading} en={`Meaning of "dgdgdgdg"`} ja={`"だがし"に含まれる意味`} />
+            <H3 css={meaningHeading} en='Meaning of "dgdgdgdg"' ja='"だがし"に含まれる意味' />
           </div>
         </Container>
         <Container css={meaningContainer}>
@@ -329,7 +329,7 @@ const About: NextPage = () => {
               />
             </div>
           </div>
-          <Button css={button} href="/works" />
+          <Button text="See Works Page" css={button} href="/works" />
         </Container>
       </section>
     </Layout>
