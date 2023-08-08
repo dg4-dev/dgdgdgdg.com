@@ -381,7 +381,7 @@ type Props = {
 
 const HeaderLink = ({ href, en, ja, external = false }: Props) => {
   return external ? (
-    <a css={externalLinkStyle} href={`${href}`} target="_blank" rel="noopener noreferrer">
+    <a css={externalLinkStyle} href={href.toString()} target="_blank" rel="noopener noreferrer">
       <div className="en" css={[linkEN, externalLinkEN]}>
         {en}
       </div>
