@@ -33,9 +33,6 @@ const fv = css`
 
     margin: auto;
 
-    transform: translate3d(0, 0, 0);
-    will-change: transform;
-
     ${breakPoint.sp} {
       width: unset;
       height: 100vh;
@@ -85,16 +82,16 @@ const Home: NextPage = () => {
     <Layout description="2021年2月1日に開業。デザイン、映像制作、Web制作をメインに、多方面であることを生かしつつ洗練されたものを目指して制作していきます。">
       <section css={fv}>
         <object id="space" data="/images/fv/space.svg" type="image/svg+xml"></object>
-        <Parallax factor={0.1}>
+        <Parallax factor={0.4}>
           <object className="logo" id="logo1" data="/images/dist/logo-white.svg" type="image/svg+xml"></object>
         </Parallax>
-        <Parallax factor={0.13}>
+        <Parallax factor={0.2}>
           <object className="logo" id="logo2" data="/images/dist/logo-white.svg" type="image/svg+xml"></object>
         </Parallax>
-        <Parallax factor={0.2}>
+        <Parallax factor={-0.4}>
           <object className="logo" id="logo3" data="/images/dist/logo-white.svg" type="image/svg+xml"></object>
         </Parallax>
-        <Parallax factor={0.4}>
+        <Parallax factor={-1.5}>
           <object className="logo" id="logo4" data="/images/dist/logo-white.svg" type="image/svg+xml"></object>
         </Parallax>
       </section>
