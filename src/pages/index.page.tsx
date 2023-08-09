@@ -33,9 +33,6 @@ const fv = css`
 
     margin: auto;
 
-    transform: translate3d(0, 0, 0);
-    will-change: transform;
-
     ${breakPoint.sp} {
       width: unset;
       height: 100vh;
