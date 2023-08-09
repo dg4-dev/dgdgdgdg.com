@@ -2,13 +2,14 @@ import { css } from "@emotion/react";
 
 const reset = css`
   /***
-    The new CSS reset - version 1.8.4 (last updated 14.2.2023)
+    The new CSS reset - version 1.9 (last updated 19.6.2023)
     GitHub page: https://github.com/elad2412/the-new-css-reset
   ***/
 
   /*
     Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
     - The "symbol *" part is to solve Firefox SVG sprite bug
+    - The "html" element is excluded, otherwise a bug in Chrome breaks the CSS hyphens property (https://github.com/elad2412/the-new-css-reset/issues/36)
   */
   *:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
     all: unset;
