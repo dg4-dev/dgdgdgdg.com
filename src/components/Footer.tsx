@@ -82,7 +82,7 @@ const emailButton = css`
   ::before {
     background-size: 22px;
     background-position: center;
-    background-image: url("/images/ui/envelope-fill.svg");
+    background-image: url("/images/icon/envelope-fill.svg");
   }
 `;
 
