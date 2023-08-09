@@ -8,22 +8,22 @@ interface ParallaxProps {
 const Parallax: React.FC<ParallaxProps> = ({ factor, children }) => {
   const parallaxRef = useRef<HTMLDivElement>(null);
 
-  const handleScroll = () => {
-    const element = parallaxRef.current;
-    if (element) {
-      const position = window.pageYOffset;
-      const targetPosition = position * factor;
-      element.style.transform = `translate3d(0, ${targetPosition}px, 0)`;
-    }
-  };
-
   useEffect(() => {
+    const handleScroll = () => {
+      const element = parallaxRef.current;
+      if (element) {
+        const position = window.pageYOffset;
+        const targetPosition = Math.abs(factor) * position;
+        element.style.transform = `translate3d(0, ${factor > 0 ? targetPosition : -targetPosition}px, 0)`;
+      }
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [factor]); // factorを依存配列に追加
 
   return <div ref={parallaxRef}>{children}</div>;
 };
