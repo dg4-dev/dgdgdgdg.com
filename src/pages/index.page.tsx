@@ -91,7 +91,7 @@ const Home: NextPage = () => {
         <Parallax factor={-0.4}>
           <object className="logo" id="logo3" data="/images/dist/logo-white.svg" type="image/svg+xml"></object>
         </Parallax>
-        <Parallax factor={-0.8}>
+        <Parallax factor={-1.5}>
           <object className="logo" id="logo4" data="/images/dist/logo-white.svg" type="image/svg+xml"></object>
         </Parallax>
       </section>
