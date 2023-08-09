@@ -7,7 +7,7 @@ import { breakPoint, dg4Color } from "@/styles/config";
 
 const FontContentGR = ({ text }: { text: string }) => {
   const defaultStyles = {
-    fontSize: 36,
+    fontSize: 80,
     lineHeight: 100,
     letterSpacing: 0,
     textAlign: "center",
