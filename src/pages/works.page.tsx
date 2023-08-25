@@ -160,6 +160,18 @@ const Works: NextPage = () => {
               link={true}
               href="https://aiueokuizumo.com/"
             />
+            <Item
+              title="自然食食堂 さん"
+              imgHref="/images/works/sun-naturalfood.studio.site_.png"
+              link={true}
+              href="https://sun-naturalfood.studio.site/"
+            />
+            <Item
+              title="株式会社 千葉工業"
+              imgHref="/images/works/chibaindustrial.co.jp_.png"
+              link={true}
+              href="https://chibaindustrial.co.jp/"
+            />
           </div>
         </Container>
       </section>
