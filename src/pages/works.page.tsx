@@ -54,10 +54,12 @@ const sampleWrapper = css`
   }
 
   input {
+    font-family: "Menlo", "Courier", "Courier New", sans-serif;
+    font-size: 18px;
     width: 100%;
     background-color: #fafafa;
 
-    padding: 8px 16px;
+    padding: 12px 20px;
     border: 1px solid #bebebe;
     border-radius: 4px;
 
