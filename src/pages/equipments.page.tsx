@@ -11,8 +11,6 @@ import { breakPoint } from "@/styles/config";
 import { equipment } from "@/types/equipments";
 
 const Equipments = ({ equipments }: { equipments: equipment[] }) => {
-  console.log(equipments);
-
   const itemElements = categoryNames.map(({ en, ja }) => {
     const items = equipments.filter((item) => item.category[0] === en);
     const sortedItems = items.sort((a, b) => a.order - b.order);
