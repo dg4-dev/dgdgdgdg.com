@@ -1,40 +1,39 @@
+/* eslint-disable @next/next/no-img-element */
 import { css } from "@emotion/react";
+import Link from "next/link";
 
 import Container from "@/components/Container";
 import Layout from "@/components/Layout";
-import EquipmentsModal from "@/components/about/EquipmentsModal";
 import H1 from "@/components/heading/Heading1";
 import H2 from "@/components/heading/Heading2";
 import { categoryNames } from "@/data/categoryNames";
 import { client } from "@/libs/client";
 import { breakPoint } from "@/styles/config";
-import { equipment } from "@/types/equipments";
+import { equipmentType } from "@/types/equipments";
 
-const Equipments = ({ equipments }: { equipments: equipment[] }) => {
+const Equipments = ({ equipments }: { equipments: equipmentType[] }) => {
   const itemElements = categoryNames.map(({ en, ja }) => {
     const items = equipments.filter((item) => item.category[0] === en);
     const sortedItems = items.sort((a, b) => a.order - b.order);
 
-    const itemContent = sortedItems.map(({ name, maker, about, image, generation, variety, owning }) => {
+    const itemContent = sortedItems.map(({ id, image }) => {
       const equipmentsItem = css`
         width: calc(100% / 6);
+        display: block;
+
+        /* ぼやけさせないぞ */
+        image-rendering: pixelated;
         ${breakPoint.tab} {
           width: calc(100% / 3);
         }
       `;
 
       return (
-        <div key={name + variety} css={equipmentsItem}>
-          <EquipmentsModal
-            name={name}
-            maker={maker[0]}
-            about={about}
-            imgName={image.url}
-            gen={generation}
-            variety={variety}
-            owning={owning}
-          />
-        </div>
+        <Link key={id} href={`/equipments/${id}`}>
+          <a css={equipmentsItem}>
+            <img src={image.url} alt={id} />
+          </a>
+        </Link>
       );
     });
 
@@ -82,7 +81,7 @@ const Equipments = ({ equipments }: { equipments: equipment[] }) => {
 export default Equipments;
 
 export const getStaticProps = async () => {
-  const data = await client.get({ endpoint: "equipments", queries: { limit: 100 } });
+  const data = await client.get({ endpoint: "equipments", queries: { fields: "id,category,order,image", limit: 100 } });
 
   return {
     props: {

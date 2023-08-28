@@ -1,0 +1,161 @@
+/* eslint-disable @next/next/no-img-element */
+import { Global, css } from "@emotion/react";
+import Head from "next/head";
+import Link from "next/link";
+
+import { client } from "@/libs/client";
+import { breakPoint, dg4Color } from "@/styles/config";
+import global from "@/styles/global";
+import reset from "@/styles/reset";
+import { equipmentType } from "@/types/equipments";
+
+const EquipmentDetail = ({ equipments }: { equipments: equipmentType }) => {
+  const nameNVer = equipments.variety ? `${equipments.name} - ${equipments.variety}` : equipments.name;
+  const nameNVerNOwn = equipments.owning ? `${nameNVer} * ${equipments.owning}` : nameNVer;
+
+  const makerNGen = equipments.generation ? `${equipments.maker}・${equipments.generation}` : equipments.maker;
+
+  const modal = css`
+    width: 100%;
+    height: 100vh;
+
+    background-color: #fff;
+  `;
+
+  const closeButton = css`
+    position: absolute;
+    top: 32px;
+    left: 0;
+    right: 0;
+
+    width: 40px;
+    height: 40px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    ${breakPoint.sp} {
+      top: 20px;
+    }
+
+    ::before,
+    ::after {
+      content: "";
+      display: block;
+      width: 40px;
+      border-top: 3px solid ${dg4Color.black};
+      position: absolute;
+      top: 50%;
+    }
+    ::before {
+      transform: rotate(25deg);
+    }
+    ::after {
+      transform: rotate(-25deg);
+    }
+  `;
+
+  const scrolls = css`
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 64px;
+
+    ${breakPoint.sp} {
+      flex-direction: column;
+      justify-content: normal;
+      overflow-y: auto;
+      padding: 64px 24px;
+    }
+
+    img {
+      display: block;
+      width: 60%;
+      max-width: 760px;
+
+      object-fit: contain;
+
+      /* ぼやけさせないぞ */
+      image-rendering: pixelated;
+
+      ${breakPoint.sp} {
+        width: 100%;
+        max-width: 380px;
+      }
+    }
+  `;
+
+  const desc = css`
+    width: 40%;
+    line-height: 1.5;
+    margin-left: 40px;
+
+    ${breakPoint.sp} {
+      width: 100%;
+      margin-left: 0;
+      margin-top: 24px;
+    }
+
+    .name {
+      font-weight: bold;
+      font-size: 24px;
+    }
+    .about {
+      margin-top: 16px;
+    }
+  `;
+
+  return (
+    <>
+      <Global styles={[reset, global]} />
+
+      <Head>
+        <link rel="icon" href="/images/favicon.ico" />
+        <title>{`${equipments.name} | Equipments | dgdgdgdg`}</title>
+
+        <meta name="robots" content="noindex" />
+      </Head>
+
+      <main>
+        <div css={modal}>
+          <Link href="/equipments">
+            <a css={closeButton} className="clickable"></a>
+          </Link>
+          <div css={scrolls}>
+            <img src={equipments.image.url} alt={equipments.id} />
+            <div css={desc}>
+              <div className="name">{nameNVerNOwn}</div>
+              <div className="maker-and-gen">{makerNGen}</div>
+              <div className="about">{equipments.about}</div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </>
+  );
+};
+
+export default EquipmentDetail;
+
+export const getStaticPaths = async () => {
+  const data = await client.get({ endpoint: "equipments", queries: { limit: 100 } });
+
+  const paths = data.contents.map((content: { id: string }) => `/equipments/${content.id}`);
+  console.log(paths);
+  return { paths, fallback: false };
+};
+
+export const getStaticProps = async (context: { params: { id: string } }) => {
+  const id = context.params.id;
+  const data = await client.get({ endpoint: "equipments", queries: { limit: 100 }, contentId: id });
+
+  return {
+    props: {
+      equipments: data,
+    },
+  };
+};
