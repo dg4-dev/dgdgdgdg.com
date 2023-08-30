@@ -9,11 +9,15 @@ import global from "@/styles/global";
 import reset from "@/styles/reset";
 import { equipmentType } from "@/types/equipments";
 
-const EquipmentDetail = ({ equipments }: { equipments: equipmentType }) => {
-  const nameNVer = equipments.variety ? `${equipments.name} - ${equipments.variety}` : equipments.name;
-  const nameNVerNOwn = equipments.owning ? `${nameNVer} * ${equipments.owning}` : nameNVer;
+const EquipmentDetail = ({
+  equipments: { id, variety, name, image, about, owning, generation, maker },
+}: {
+  equipments: equipmentType;
+}) => {
+  const nameNVer = variety ? `${name} - ${variety}` : name;
+  const nameNVerNOwn = owning ? `${nameNVer} * ${owning}` : nameNVer;
 
-  const makerNGen = equipments.generation ? `${equipments.maker}・${equipments.generation}` : equipments.maker;
+  const makerNGen = generation ? `${maker}・${generation}` : maker;
 
   const modal = css`
     width: 100%;
@@ -114,8 +118,8 @@ const EquipmentDetail = ({ equipments }: { equipments: equipmentType }) => {
       <Global styles={[reset, global]} />
 
       <Head>
-        <link rel="icon" href="/images/favicon.ico" />
-        <title>{`${equipments.name} | Equipments | dgdgdgdg`}</title>
+        <link rel="icon" href={image.url} />
+        <title>{`${name} | Equipments | dgdgdgdg`}</title>
 
         <meta name="robots" content="noindex" />
       </Head>
@@ -123,14 +127,14 @@ const EquipmentDetail = ({ equipments }: { equipments: equipmentType }) => {
       <main>
         <div css={modal}>
           <Link href="/equipments">
-            <a css={closeButton} className="clickable"></a>
+            <a css={closeButton} className="clickable" />
           </Link>
           <div css={scrolls}>
-            <img src={equipments.image.url} alt={equipments.id} />
+            <img src={image.url} alt={id} />
             <div css={desc}>
               <div className="name">{nameNVerNOwn}</div>
               <div className="maker-and-gen">{makerNGen}</div>
-              <div className="about">{equipments.about}</div>
+              <div className="about">{about}</div>
             </div>
           </div>
         </div>
