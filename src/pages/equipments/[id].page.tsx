@@ -118,7 +118,7 @@ const EquipmentDetail = ({
       <Global styles={[reset, global]} />
 
       <Head>
-        <link rel="icon" href="/images/favicon.ico" />
+        <link rel="icon" href={image.url} />
         <title>{`${name} | Equipments | dgdgdgdg`}</title>
 
         <meta name="robots" content="noindex" />
@@ -127,7 +127,7 @@ const EquipmentDetail = ({
       <main>
         <div css={modal}>
           <Link href="/equipments">
-            <a css={closeButton} className="clickable"></a>
+            <a css={closeButton} className="clickable" />
           </Link>
           <div css={scrolls}>
             <img src={image.url} alt={id} />
