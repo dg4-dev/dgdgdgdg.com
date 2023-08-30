@@ -18,7 +18,16 @@ const DataItem = ({ name }: { name: string }) => {
     background-image: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%),
       linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%);
     background-size: 40px 40px;
-    background-position: 0 0, 20px 20px;
+    animation: data-bg 2s infinite linear;
+
+    @keyframes data-bg {
+      0% {
+        background-position: 0 0, 20px 20px;
+      }
+      100% {
+        background-position: 20px 20px, 40px 40px;
+      }
+    }
 
     ${breakPoint.sp} {
       width: calc(100% - 16px);
