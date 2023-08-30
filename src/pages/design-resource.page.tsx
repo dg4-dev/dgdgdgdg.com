@@ -28,6 +28,7 @@ const colorItems = css`
 
   ${breakPoint.sp} {
     display: flex;
+    flex-direction: column;
     height: auto;
   }
 
@@ -122,7 +123,7 @@ const DesignResource: NextPage = () => {
           <div className="content">
             <H3 en="Monthly Color" ja="月ごとの色" />
             <Note>
-              メインで使用しているロゴは、<Link href="/about/#skill">4つのスキル</Link>
+              メインで使用しているロゴは、<Link href="/about#skill">4つのスキル</Link>
               の経験月数比を色に変換したものになっています。
               <br />
               それによって、ロゴの色は毎月
@@ -159,7 +160,7 @@ const DesignResource: NextPage = () => {
             <Note>
               Dontは、このサイトのタイトル部分等に使用されているフォントです。
               <br />
-              dgdgdgdgによるオリジナルのフォントで、<a href="/works#font">こちら</a>で配布しています。
+              dgdgdgdgによるオリジナルのフォントで、<Link href="/works#font">こちら</Link>で配布しています。
               <br />
               最小限のドットでアルファベットを表現しています。
             </Note>
