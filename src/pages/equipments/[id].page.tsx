@@ -14,11 +14,6 @@ const EquipmentDetail = ({
 }: {
   equipments: equipmentType;
 }) => {
-  const nameNVer = variety ? `${name} - ${variety}` : name;
-  const nameNVerNOwn = owning ? `${nameNVer} * ${owning}` : nameNVer;
-
-  const makerNGen = generation ? `${maker}・${generation}` : maker;
-
   const modal = css`
     width: 100%;
     height: 100vh;
@@ -104,11 +99,11 @@ const EquipmentDetail = ({
       margin-top: 24px;
     }
 
-    .name {
+    h4.name {
       font-weight: bold;
       font-size: 24px;
     }
-    .about {
+    p.about {
       margin-top: 16px;
     }
   `;
@@ -132,9 +127,16 @@ const EquipmentDetail = ({
           <div css={scrolls}>
             <img src={image.url} alt={id} />
             <div css={desc}>
-              <div className="name">{nameNVerNOwn}</div>
-              <div className="maker-and-gen">{makerNGen}</div>
-              <div className="about">{about}</div>
+              <h4 className="name">
+                {name}
+                {variety && ` - ${variety}`}
+                {owning && ` * ${owning}`}
+              </h4>
+              <p>
+                {maker}
+                {generation && `・${generation}`}
+              </p>
+              <p className="about">{about}</p>
             </div>
           </div>
         </div>
