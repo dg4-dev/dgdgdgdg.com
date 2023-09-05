@@ -203,11 +203,17 @@ const cyan = css`
   height: 90px;
   background-color: ${dg4Color.cyan};
 
+  position: relative;
+
   display: grid;
   place-items: center;
 
   margin-left: auto;
   transition: all 0.2s;
+
+  ${breakPoint.tab} {
+    position: static;
+  }
 
   ${breakPoint.sp} {
     width: 65px;
@@ -372,6 +378,25 @@ const externalLinkJA = css`
   }
 `;
 
+const roadmapLink = css`
+  display: block;
+  width: 48px;
+  height: 48px;
+
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+
+  border-radius: 50%;
+
+  background-color: ${dg4Color.orange};
+
+  background-image: url("/images/ui/map.svg");
+  background-size: 24px;
+  background-position: center;
+  background-repeat: no-repeat;
+`;
+
 type Props = {
   href: string | UrlObject;
   en: string;
@@ -462,6 +487,13 @@ const Header: NextPage = () => {
           <div css={linkWrapper} className={`link-wrapper ${openState}`}>
             {extLinkContents}
           </div>
+
+          <a
+            css={roadmapLink}
+            href="https://dg4.notion.site/dg4-roadmap-e76a15889d9743e4b2c59c8c3616f97a"
+            target="_blank"
+            rel="noopener noreferrer"
+          />
         </div>
       </div>
     </header>
