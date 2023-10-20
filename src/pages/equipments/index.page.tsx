@@ -20,6 +20,7 @@ const Equipments = ({ equipments }: { equipments: equipmentType[] }) => {
       const equipmentsItem = css`
         width: calc(100% / 6);
         display: block;
+        line-height: 0;
 
         /* ぼやけさせないぞ */
         image-rendering: pixelated;
