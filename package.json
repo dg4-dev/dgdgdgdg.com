@@ -18,7 +18,7 @@
     "@icons-pack/react-simple-icons": "^8.0.1",
     "dayjs": "^1.11.5",
     "microcms-js-sdk": "^2.5.0",
-    "next": "12.2.5",
+    "next": "13.5.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sass": "^1.54.5",
