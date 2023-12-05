@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -186,7 +187,7 @@ const Footer: NextPage = () => {
               <object data="/images/dist/logo-white.svg" type="image/svg+xml"></object>
             </a>
           </Link>
-          <p css={copyRightText}>©︎ 2021 dgdgdgdg</p>
+          <p css={copyRightText}>©︎ 2021 - {dayjs().year()} dgdgdgdg</p>
         </div>
       </Container>
     </footer>

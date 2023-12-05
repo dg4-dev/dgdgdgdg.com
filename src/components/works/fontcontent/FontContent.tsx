@@ -323,8 +323,6 @@ const FontContentGR = ({ name, text }: { name: "Dont" | "Dont Round" | "Dont Cir
     overflow-wrap: break-word;
 
     min-height: calc(${styles.lineHeight / 100}em + 32px);
-
-    transition: all 0.2s ease-in-out;
   `;
 
   const ff = css`
