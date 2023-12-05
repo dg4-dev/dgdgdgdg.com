@@ -2,6 +2,9 @@
   "name": "dg4-site",
   "version": "2.2.0",
   "private": true,
+  "engines": {
+    "node": ">=14.19.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -25,9 +28,6 @@
     "sass": "^1.54.5",
     "sharp": "^0.32.6",
     "zod": "3.22.3"
-  },
-  "engines": {
-    "node": ">=14.19.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
