@@ -6,8 +6,6 @@ import { useState } from "react";
 
 import Logo from "./Logo";
 
-import type { NextPage } from "next";
-
 import pageName from "@/data/pageName";
 import { dg4Color, breakPoint } from "@/styles/config";
 
@@ -409,7 +407,7 @@ const HeaderLink = ({ href, en, ja, external = false }: Props) => {
   );
 };
 
-const Header: NextPage = () => {
+const Header: React.FC = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const menuFunction = () => setOpenMenu(!openMenu);
   const menuReset = () => setOpenMenu(false);
