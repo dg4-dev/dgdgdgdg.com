@@ -30,10 +30,8 @@ const Equipments = ({ equipments }: { equipments: equipmentType[] }) => {
       `;
 
       return (
-        <Link key={id} href={`/equipments/${id}`}>
-          <a css={equipmentsItem}>
-            <img src={image.url} alt={id} />
-          </a>
+        <Link key={id} css={equipmentsItem} href={`/equipments/${id}`}>
+          <img src={image.url} alt={id} />
         </Link>
       );
     });

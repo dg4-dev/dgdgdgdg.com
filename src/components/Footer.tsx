@@ -180,10 +180,8 @@ const Footer: React.FC = () => {
         </div>
 
         <div css={credit}>
-          <Link href="/">
-            <a css={creditLogo}>
-              <object data="/images/dist/logo-white.svg" type="image/svg+xml"></object>
-            </a>
+          <Link href="/" css={creditLogo}>
+            <object data="/images/dist/logo-white.svg" type="image/svg+xml"></object>
           </Link>
           <p css={copyRightText}>©︎ 2021 - {dayjs().year()} dgdgdgdg</p>
         </div>
