@@ -61,7 +61,6 @@ const global = css`
 
     cursor: -webkit-image-set(url("/images/cursor/cursor-normal.png") 1x, url("/images/cursor/cursor-normal@2x.png") 2x),
       default;
-    user-select: none;
     scroll-behavior: smooth;
 
     -ms-overflow-style: none;
