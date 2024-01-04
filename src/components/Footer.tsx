@@ -3,8 +3,6 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
 
-import type { NextPage } from "next";
-
 import Button from "@/components/Button";
 import Container from "@/components/Container";
 import { dg4Color, breakPoint } from "@/styles/config";
@@ -164,7 +162,7 @@ const LinkItems = () => {
   return <ul css={linkItem}>{linkElm}</ul>;
 };
 
-const Footer: NextPage = () => {
+const Footer: React.FC = () => {
   return (
     <footer id="footer" css={footerStyle}>
       <Container css={footerContainer}>
