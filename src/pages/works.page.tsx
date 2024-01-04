@@ -9,9 +9,7 @@ import Container from "@/components/Container";
 import Layout from "@/components/Layout";
 import H1 from "@/components/heading/Heading1";
 import H2 from "@/components/heading/Heading2";
-import InstaItemList from "@/components/works/InstaItemList";
 import Item from "@/components/works/Item";
-import YoutubeItemList from "@/components/works/YoutubeItemList";
 import FontContent from "@/components/works/fontcontent/FontContent";
 import FontContentGR from "@/components/works/fontcontent/FontContentGR";
 import { breakPoint } from "@/styles/config";
@@ -82,10 +80,7 @@ const Works: NextPage = () => {
   const changeSampleText = (event: React.ChangeEvent<HTMLInputElement>) => setSampleText(event.target.value);
 
   return (
-    <Layout
-      title="Works"
-      description="フォント、ロゴ、写真、動画、Webサイトと、制作実績の中からピックアップしてご紹介します。"
-    >
+    <Layout title="Works" description="フォント、ロゴ、Webサイトと、制作実績の中からピックアップしてご紹介します。">
       <H1 />
 
       <section id="font">
@@ -124,22 +119,6 @@ const Works: NextPage = () => {
             <Item title="自然食食堂 さん" imgHref="/images/works/sunlogo.webp" />
             <Item title="モノクローム" imgHref="/images/works/monologo.webp" />
           </div>
-        </Container>
-      </section>
-
-      <section id="photography">
-        <Container css={contain}>
-          <H2 en="Photography" ja="写真" />
-          <InstaItemList />
-          <Button external={true} href="https://instagram.dgdgdgdg.com/" text="Instagram" css={button} />
-        </Container>
-      </section>
-
-      <section id="video">
-        <Container css={contain}>
-          <H2 en="Video" ja="映像" />
-          <YoutubeItemList />
-          <Button external={true} href="https://youtube.dgdgdgdg.com/" text="YouTube" css={button} />
         </Container>
       </section>
 
