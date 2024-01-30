@@ -121,9 +121,7 @@ const EquipmentDetail = ({
 
       <main>
         <div css={modal}>
-          <Link href="/equipments">
-            <a css={closeButton} className="clickable" />
-          </Link>
+          <Link href="/equipments" css={closeButton} className="clickable" />
           <div css={scrolls}>
             <img src={image.url} alt={id} />
             <div css={desc}>

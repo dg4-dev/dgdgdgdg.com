@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Loading from "@/components/Loading";
 import global from "@/styles/global";
 import reset from "@/styles/reset";
 
@@ -63,8 +62,6 @@ const Layout = ({ children, title, description, noindex = false }: Props) => {
           </>
         )}
       </Head>
-
-      <Loading />
 
       <Header />
 

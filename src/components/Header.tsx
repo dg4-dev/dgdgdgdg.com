@@ -6,8 +6,6 @@ import { useState } from "react";
 
 import Logo from "./Logo";
 
-import type { NextPage } from "next";
-
 import pageName from "@/data/pageName";
 import { dg4Color, breakPoint } from "@/styles/config";
 
@@ -396,20 +394,18 @@ const HeaderLink = ({ href, en, ja, external = false }: Props) => {
       </div>
     </a>
   ) : (
-    <Link href={href} passHref>
-      <a css={headerLinkStyle}>
-        <div className="en" css={linkEN}>
-          {en}
-        </div>
-        <div className="ja" css={linkJA}>
-          {ja}
-        </div>
-      </a>
+    <Link href={href} css={headerLinkStyle} passHref>
+      <div className="en" css={linkEN}>
+        {en}
+      </div>
+      <div className="ja" css={linkJA}>
+        {ja}
+      </div>
     </Link>
   );
 };
 
-const Header: NextPage = () => {
+const Header: React.FC = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const menuFunction = () => setOpenMenu(!openMenu);
   const menuReset = () => setOpenMenu(false);
@@ -443,10 +439,8 @@ const Header: NextPage = () => {
   return (
     <header css={header}>
       <div css={outside}>
-        <Link href="/">
-          <a css={logo} onClick={() => menuReset()}>
-            <Logo />
-          </a>
+        <Link href="/" css={logo} onClick={() => menuReset()}>
+          <Logo />
         </Link>
         <div css={burger} className="clickable" onClick={() => menuFunction()}>
           <svg css={line}>
