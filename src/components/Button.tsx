@@ -49,10 +49,8 @@ const Button = ({ href, text = "See more", className, external = false }: Props)
       {text}
     </a>
   ) : (
-    <Link href={href}>
-      <a css={button} className={className}>
-        {text}
-      </a>
+    <Link href={href} css={button} className={className}>
+      {text}
     </Link>
   );
 };
