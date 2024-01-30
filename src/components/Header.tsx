@@ -423,15 +423,15 @@ const Header: React.FC = () => {
   const extLinkContents = (
     <ul>
       <li>
-        <HeaderLink href="https://www.apps.dgdgdgdg.com/" en="dg4-apps" ja="dg4-apps" external={true} />
-      </li>
-      <li>
         <HeaderLink
-          href="https://www.radio.dgdgdgdg.com/"
-          en="Enter the radio title"
-          ja="ラジオのタイトルを入力"
+          href="https://www.solid.dgdgdgdg.com/"
+          en="Solid Point"
+          ja="Solid Point (共作チーム)"
           external={true}
         />
+      </li>
+      <li>
+        <HeaderLink href="https://www.apps.dgdgdgdg.com/" en="dg4-apps" ja="dg4-apps" external={true} />
       </li>
     </ul>
   );
