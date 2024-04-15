@@ -70,7 +70,8 @@ const fontSample = css`
   padding: 16px;
   background-color: #eee;
 
-  font-family: "Dont", "Zen Kaku Gothic New", sans-serif;
+  font-family: "Dont-GR", "Zen Kaku Gothic New", sans-serif;
+  font-variation-settings: "rnds" 0, "dtsz" 100;
 
   ${breakPoint.sp} {
     font-size: 24px;
@@ -80,7 +81,8 @@ const fontSample = css`
 `;
 
 const dont = css`
-  font-family: "Dont", sans-serif;
+  font-family: "Dont-GR", sans-serif;
+  font-variation-settings: "rnds" 0, "dtsz" 100;
 `;
 
 const zen = css`
