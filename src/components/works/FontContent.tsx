@@ -5,7 +5,7 @@ import H3 from "../heading/Heading3";
 
 import { breakPoint, dg4Color } from "@/styles/config";
 
-const FontContentGR = ({ text }: { text: string }) => {
+const FontContent = ({ text }: { text: string }) => {
   const defaultStyles = {
     fontSize: 80,
     lineHeight: 100,
@@ -566,4 +566,4 @@ const FontContentGR = ({ text }: { text: string }) => {
   );
 };
 
-export default FontContentGR;
+export default FontContent;
