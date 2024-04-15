@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { useState } from "react";
 
-import H3 from "../../heading/Heading3";
+import H3 from "../heading/Heading3";
 
 import { breakPoint, dg4Color } from "@/styles/config";
 
@@ -15,8 +15,8 @@ const FontContentGR = ({ text }: { text: string }) => {
     textColor: dg4Color.black,
 
     label: "Dont GR Custom",
-    rnds: 50,
-    dtsz: 50,
+    rnds: 0,
+    dtsz: 100,
   };
 
   const [styles, setStyles] = useState(defaultStyles);

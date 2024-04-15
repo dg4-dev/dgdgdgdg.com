@@ -12,7 +12,8 @@ const heading3 = css`
   }
 
   .en {
-    font-family: "Dont", "Zen Kaku Gothic New", sans-serif;
+    font-family: "Dont-GR", "Zen Kaku Gothic New", sans-serif;
+    font-variation-settings: "rnds" 0, "dtsz" 100;
     font-size: 36px;
     ${breakPoint.sp} {
       font-size: 22px;
