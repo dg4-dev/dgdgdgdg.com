@@ -57,10 +57,10 @@ const burger = css`
   }
 
   :hover rect:nth-of-type(1) {
-    y: 6px;
+    transform: translateY(6px);
 
     ${breakPoint.sp} {
-      y: 4px;
+      transform: translateY(4px);
     }
   }
   :hover rect:nth-of-type(2) {
@@ -69,9 +69,9 @@ const burger = css`
   }
 
   :hover rect:nth-of-type(3) {
-    y: 18px;
+    transform: translateY(18px);
     ${breakPoint.sp} {
-      y: 12px;
+      transform: translateY(12px);
     }
   }
 `;
@@ -100,24 +100,24 @@ const line = css`
   }
 
   rect:nth-of-type(1) {
-    y: 0;
+    transform: translateY(0);
   }
 
   rect:nth-of-type(1).is-open {
-    y: 12px;
+    transform: translateY(12px);
 
     ${breakPoint.sp} {
-      y: 8px;
+      transform: translateY(8px);
     }
   }
 
   rect:nth-of-type(2) {
     visibility: visible;
     opacity: 1;
-    y: 12px;
+    transform: translateY(12px);
 
     ${breakPoint.sp} {
-      y: 8px;
+      transform: translateY(8px);
     }
   }
 
@@ -127,17 +127,17 @@ const line = css`
   }
 
   rect:nth-of-type(3) {
-    y: 24px;
+    transform: translateY(24px);
     ${breakPoint.sp} {
-      y: 16px;
+      transform: translateY(16px);
     }
   }
 
   rect:nth-of-type(3).is-open {
-    y: 12px;
+    transform: translateY(12px);
 
     ${breakPoint.sp} {
-      y: 8px;
+      transform: translateY(8px);
     }
   }
 `;
