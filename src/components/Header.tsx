@@ -271,7 +271,8 @@ const headerLinkStyle = css`
 `;
 
 const linkEN = css`
-  font-family: "Dont", sans-serif;
+  font-family: "Dont-GR", sans-serif;
+  font-variation-settings: "rnds" 0, "dtsz" 100;
   font-size: 14px;
   line-height: 14px;
   color: #fff;
