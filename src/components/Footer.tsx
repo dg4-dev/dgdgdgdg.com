@@ -174,7 +174,12 @@ const Footer: React.FC = () => {
               text="Messenger"
               external={true}
             />
-            <Button css={[footerButton, emailButton]} href="mailto:info@dgdgdgdg.com" text="E-mail" external={true} />
+            <Button
+              css={[footerButton, emailButton]}
+              href="mailto:contact@dgdgdgdg.com"
+              text="E-mail"
+              external={true}
+            />
           </div>
           <LinkItems />
         </div>
