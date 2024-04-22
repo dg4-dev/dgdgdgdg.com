@@ -9,7 +9,7 @@ import Container from "@/components/Container";
 import Layout from "@/components/Layout";
 import H1 from "@/components/heading/Heading1";
 import H2 from "@/components/heading/Heading2";
-import FontContentGR from "@/components/works/FontContentGR";
+import FontContent from "@/components/works/FontContent";
 import Item from "@/components/works/Item";
 import { breakPoint } from "@/styles/config";
 
@@ -92,7 +92,7 @@ const Works: NextPage = () => {
             <span>サンプルテキスト</span>
             <input type="text" value={sampleText} onChange={changeSampleText} />
           </div>
-          <FontContentGR text={sampleText} />
+          <FontContent text={sampleText} />
           <Button
             href="https://github.com/dg4-dev/dont/raw/main/var-fonts.zip"
             text="Download"
