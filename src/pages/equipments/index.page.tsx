@@ -71,7 +71,7 @@ const Equipments = ({ equipments }: { equipments: equipmentType[] }) => {
       title="Equipments"
       description="使用している機材をドット絵として描き上げています。使用機材そのものの詳しい情報もこちら。"
     >
-      <H1 />
+      <H1 en="Equipments" ja="使用機材" />
       {itemElements}
     </Layout>
   );

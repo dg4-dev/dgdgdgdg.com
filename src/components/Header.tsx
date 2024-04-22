@@ -6,7 +6,6 @@ import { useState } from "react";
 
 import Logo from "./Logo";
 
-import pageName from "@/data/pageName";
 import { dg4Color, breakPoint } from "@/styles/config";
 
 const header = css`
@@ -412,15 +411,6 @@ const Header: React.FC = () => {
   const menuReset = () => setOpenMenu(false);
   let openState = openMenu ? "is-open" : "";
 
-  const linkContents = pageName.map(({ href, en, ja }) => {
-    const linkContent = (
-      <li key={en} onClick={() => menuReset()}>
-        <HeaderLink href={href} en={en} ja={ja} />
-      </li>
-    );
-    return linkContent;
-  });
-
   const extLinkContents = (
     <ul>
       <li>
@@ -458,7 +448,10 @@ const Header: React.FC = () => {
         </div>
         <div css={cyan} className={`cyan ${openState}`}>
           <nav css={nav} className={`nav ${openState}`}>
-            <ul>{linkContents}</ul>
+            <ul>
+              <HeaderLink href="/about" en="About" ja="dgdgdgdgとは" />
+              <HeaderLink href="/works" en="Works" ja="作品紹介" />
+            </ul>
           </nav>
           <div css={linkWrapper} className={`link-wrapper ${openState}`}>
             {extLinkContents}
