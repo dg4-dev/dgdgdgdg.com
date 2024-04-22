@@ -92,7 +92,7 @@ const zen = css`
 const DesignResource: NextPage = () => {
   return (
     <Layout title="Design Resource" description="サイトのカラーやロゴについて詳しく説明します。ロゴデータの配布も。">
-      <H1 />
+      <H1 en="Design Resource" ja="デザインリソース" />
 
       <section id="color">
         <Container>

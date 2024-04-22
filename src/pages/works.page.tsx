@@ -80,7 +80,7 @@ const Works: NextPage = () => {
 
   return (
     <Layout title="Works" description="フォント、ロゴ、Webサイトと、制作実績の中からピックアップしてご紹介します。">
-      <H1 />
+      <H1 en="Works" ja="作品紹介" />
 
       <section id="font">
         <Container css={fontContainer}>
@@ -99,6 +99,15 @@ const Works: NextPage = () => {
             css={button}
             external={true}
           />
+        </Container>
+      </section>
+
+      <section id="pixelArt">
+        <Container css={contain}>
+          <H2 en="Pixel Art" ja="ドット絵" />
+          <div css={itemList}>
+            <Item title="使用機材" imgHref="/images/works/strida.png" link={true} href="/equipments" />
+          </div>
         </Container>
       </section>
 
