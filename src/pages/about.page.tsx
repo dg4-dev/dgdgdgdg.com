@@ -158,36 +158,6 @@ const businessItems = css`
   }
 `;
 
-const techItems = css`
-  flex-direction: column;
-  gap: 16px;
-
-  div {
-    padding: 24px;
-    padding-top: 16px;
-    ul {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-
-      li {
-        padding: 4px 10px;
-        border: 1px solid #ffffff;
-        border-radius: 4px;
-
-        display: flex;
-        align-items: center;
-        gap: 8px;
-
-        svg {
-          width: 16px;
-          height: 16px;
-        }
-      }
-    }
-  }
-`;
-
 const logoImage = css`
   width: 600px;
 
@@ -246,7 +216,7 @@ const skillContent = css`
 const About: NextPage = () => {
   return (
     <Layout title="About" description="dgdgdgdgについての概要、スキル、使用機材についての説明です。">
-      <H1 />
+      <H1 en="About" ja="dgdgdgdgとは" />
 
       <section id="overview">
         <Container>
