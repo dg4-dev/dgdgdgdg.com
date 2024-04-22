@@ -1,9 +1,7 @@
 /* eslint-disable react/jsx-no-undef */
 import { css } from "@emotion/react";
 import Image from "next/image";
-import { useRouter } from "next/router";
 
-import pageName from "@/data/pageName";
 import { breakPoint } from "@/styles/config";
 
 const pageTitle = css`
@@ -67,14 +65,14 @@ const bg = css`
   filter: brightness(60%);
 `;
 
-const H1 = () => {
-  const location = useRouter();
-  const nowPageName = pageName.find(({ href }) => location.pathname === href);
+interface HeadingProps {
+  en: string;
+  ja: string;
+}
 
-  const en = nowPageName?.en as string;
+const H1 = ({ en, ja }: HeadingProps) => {
   const formattedPageName = en.toLowerCase().replace(/[ ]/g, "");
   const imagePath = `/images/fv/${formattedPageName}.jpg`;
-  const ja = nowPageName?.ja;
 
   return (
     <section css={pageTitle}>
