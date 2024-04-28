@@ -16,7 +16,7 @@ const FontContent = ({ text }: { text: string }) => {
 
     label: "Dont GR Custom",
     rnds: 0,
-    dtsz: 100,
+    wght: 400,
   };
 
   const [styles, setStyles] = useState(defaultStyles);
@@ -26,13 +26,13 @@ const FontContent = ({ text }: { text: string }) => {
       ...styles,
       rnds: Number(event.target.value),
     });
-    setLabel(Number(event.target.value), styles.dtsz);
+    setLabel(Number(event.target.value), styles.wght);
   };
 
-  const handleDtszChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleWghtChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setStyles({
       ...styles,
-      dtsz: Number(event.target.value),
+      wght: Number(event.target.value),
     });
     setLabel(styles.rnds, Number(event.target.value));
   };
@@ -77,8 +77,8 @@ const FontContent = ({ text }: { text: string }) => {
       return randomNumber(100);
     };
 
-    const randomVDtsz = () => {
-      return randomNumber(50) + 50;
+    const randomVWght = () => {
+      return randomNumber(200) + 200;
     };
 
     setStyles((prevStyles) => ({
@@ -91,10 +91,10 @@ const FontContent = ({ text }: { text: string }) => {
       textColor: randomColor(),
 
       rnds: randomVRnds(),
-      dtsz: randomVDtsz(),
+      wght: randomVWght(),
     }));
 
-    setLabel(randomVRnds(), randomVDtsz());
+    setLabel(randomVRnds(), randomVWght());
   };
 
   // copy value
@@ -102,8 +102,8 @@ const FontContent = ({ text }: { text: string }) => {
     // create textarea
     const copyElement = document.createElement("textarea");
 
-    copyElement.value = `font-family: "Dont-GR";\nfont-variation-settings: "rnds" ${styles.rnds}, "dtsz" ${
-      styles.dtsz
+    copyElement.value = `font-family: "Dont-GR";\nfont-variation-settings: "rnds" ${styles.rnds}, "wght" ${
+      styles.wght
     };\nfont-size: ${styles.fontSize}px;\nline-height: ${styles.lineHeight / 100}em;\nletter-spacing: ${
       styles.letterSpacing / 100
     }em;\ntext-align: ${styles.textAlign};\nbackground-color: ${styles.backgroundColor};\ncolor: ${styles.textColor};`;
@@ -139,21 +139,21 @@ const FontContent = ({ text }: { text: string }) => {
   };
 
   // set label
-  // rndsが0かつdtszが100の場合はlabelを"Square"にする
-  // rndsが100かつdtszが100の場合はlabelを"Circle"にする
-  // rndsが0かつdtszが50の場合はlabelを"Square mini"にする
-  // rndsが100かつdtszが50の場合はlabelを"Circle mini"にする
+  // rndsが0かつwghtが100の場合はlabelを"Square"にする
+  // rndsが100かつwghtが100の場合はlabelを"Circle"にする
+  // rndsが0かつwghtが50の場合はlabelを"Square mini"にする
+  // rndsが100かつwghtが50の場合はlabelを"Circle mini"にする
 
-  const setLabel = (rnds: number, dtsz: number) => {
+  const setLabel = (rnds: number, wght: number) => {
     let newLabel = "Dont GR Custom";
-    if (rnds === 0 && dtsz === 100) {
+    if (rnds === 0 && wght === 400) {
       newLabel = "Dont GR Square";
-    } else if (rnds === 100 && dtsz === 100) {
+    } else if (rnds === 100 && wght === 400) {
       newLabel = "Dont GR Circle";
-    } else if (rnds === 0 && dtsz === 50) {
-      newLabel = "Dont GR Square mini";
-    } else if (rnds === 100 && dtsz === 50) {
-      newLabel = "Dont GR Circle mini";
+    } else if (rnds === 0 && wght === 200) {
+      newLabel = "Dont GR Square light";
+    } else if (rnds === 100 && wght === 200) {
+      newLabel = "Dont GR Circle light";
     }
 
     setStyles((prevStyles) => ({
@@ -394,7 +394,7 @@ const FontContent = ({ text }: { text: string }) => {
     background-color: ${styles.backgroundColor};
     color: ${styles.textColor};
 
-    font-variation-settings: "rnds" ${styles.rnds}, "dtsz" ${styles.dtsz};
+    font-variation-settings: "rnds" ${styles.rnds}, "wght" ${styles.wght};
 
     overflow-wrap: break-word;
 
@@ -455,11 +455,11 @@ const FontContent = ({ text }: { text: string }) => {
           <div css={[rangeWrapper, rangeDotSize]} title="Dot Size">
             <input
               type="range"
-              min="50"
-              max="100"
-              value={styles.dtsz}
+              min="200"
+              max="400"
+              value={styles.wght}
               className="clickable"
-              onChange={handleDtszChange}
+              onChange={handleWghtChange}
               css={rangeInput}
             />
           </div>
