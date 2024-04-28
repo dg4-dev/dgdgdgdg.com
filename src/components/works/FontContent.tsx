@@ -231,7 +231,7 @@ const FontContent = ({ text }: { text: string }) => {
   const rangeLineHeight = makeRange("/images/ui/arrow-up-and-down.svg");
   const rangeLetterSpacing = makeRange("/images/ui/arrow-left-and-right.svg");
   const rangeRoundness = makeRange("/images/ui/roundness.svg");
-  const rangeDotSize = makeRange("/images/ui/arrow-up-left-and-arrow-down-right.svg");
+  const rangeWeight = makeRange("/images/ui/arrow-up-left-and-arrow-down-right.svg");
 
   const rangeInput = css`
     -webkit-appearance: none;
@@ -452,7 +452,7 @@ const FontContent = ({ text }: { text: string }) => {
               css={rangeInput}
             />
           </div>
-          <div css={[rangeWrapper, rangeDotSize]} title="Dot Size">
+          <div css={[rangeWrapper, rangeWeight]} title="Weight">
             <input
               type="range"
               min="200"
