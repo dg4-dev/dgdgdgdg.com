@@ -1,6 +1,6 @@
 {
   "name": "dg4-site",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "private": true,
   "engines": {
     "node": ">=14.19.0"
@@ -13,28 +13,18 @@
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,json}'"
   },
   "dependencies": {
-    "@emotion/cache": "^11.10.2",
     "@emotion/react": "^11.10.0",
-    "@emotion/server": "^11.10.0",
-    "@emotion/styled": "^11.10.0",
-    "@emotion/use-insertion-effect-with-fallbacks": "^1.0.0",
     "dayjs": "^1.11.5",
     "microcms-js-sdk": "^2.5.0",
     "next": "13.5.1",
-    "postcss": "8.4.31",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "sass": "^1.54.5",
-    "sharp": "^0.32.6",
-    "zod": "3.22.3"
+    "sass": "^1.54.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
     "@emotion/babel-plugin": "^11.10.2",
-    "@svgr/webpack": "^7.0.0",
     "@types/node": "16.11.6",
     "@types/react": "18.0.17",
-    "@types/react-dom": "18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.34.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "8.22.0",
