@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,json}'"
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,json}'",
+    "install-and-build": "yarn install && yarn build"
   },
   "dependencies": {
     "@emotion/react": "^11.10.0",
