@@ -4,7 +4,6 @@
     "mhutchie.git-graph",
     "eamodio.gitlens",
     "esbenp.prettier-vscode",
-    "wayou.vscode-todo-highlight",
     "styled-components.vscode-styled-components"
   ]
 }
