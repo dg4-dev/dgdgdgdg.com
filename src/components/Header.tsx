@@ -6,9 +6,6 @@ import { useState } from "react";
 
 import Logo from "./Logo";
 
-import type { NextPage } from "next";
-
-import pageName from "@/data/pageName";
 import { dg4Color, breakPoint } from "@/styles/config";
 
 const header = css`
@@ -59,10 +56,10 @@ const burger = css`
   }
 
   :hover rect:nth-of-type(1) {
-    y: 6px;
+    transform: translateY(6px);
 
     ${breakPoint.sp} {
-      y: 4px;
+      transform: translateY(4px);
     }
   }
   :hover rect:nth-of-type(2) {
@@ -71,9 +68,9 @@ const burger = css`
   }
 
   :hover rect:nth-of-type(3) {
-    y: 18px;
+    transform: translateY(18px);
     ${breakPoint.sp} {
-      y: 12px;
+      transform: translateY(12px);
     }
   }
 `;
@@ -102,24 +99,24 @@ const line = css`
   }
 
   rect:nth-of-type(1) {
-    y: 0;
+    transform: translateY(0);
   }
 
   rect:nth-of-type(1).is-open {
-    y: 12px;
+    transform: translateY(12px);
 
     ${breakPoint.sp} {
-      y: 8px;
+      transform: translateY(8px);
     }
   }
 
   rect:nth-of-type(2) {
     visibility: visible;
     opacity: 1;
-    y: 12px;
+    transform: translateY(12px);
 
     ${breakPoint.sp} {
-      y: 8px;
+      transform: translateY(8px);
     }
   }
 
@@ -129,17 +126,17 @@ const line = css`
   }
 
   rect:nth-of-type(3) {
-    y: 24px;
+    transform: translateY(24px);
     ${breakPoint.sp} {
-      y: 16px;
+      transform: translateY(16px);
     }
   }
 
   rect:nth-of-type(3).is-open {
-    y: 12px;
+    transform: translateY(12px);
 
     ${breakPoint.sp} {
-      y: 8px;
+      transform: translateY(8px);
     }
   }
 `;
@@ -203,11 +200,17 @@ const cyan = css`
   height: 90px;
   background-color: ${dg4Color.cyan};
 
+  position: relative;
+
   display: grid;
   place-items: center;
 
   margin-left: auto;
   transition: all 0.2s;
+
+  ${breakPoint.tab} {
+    position: static;
+  }
 
   ${breakPoint.sp} {
     width: 65px;
@@ -267,7 +270,8 @@ const headerLinkStyle = css`
 `;
 
 const linkEN = css`
-  font-family: "Dont", sans-serif;
+  font-family: "Dont-GR", sans-serif;
+  font-variation-settings: "rnds" 0, "dtsz" 100;
   font-size: 14px;
   line-height: 14px;
   color: #fff;
@@ -390,46 +394,35 @@ const HeaderLink = ({ href, en, ja, external = false }: Props) => {
       </div>
     </a>
   ) : (
-    <Link href={href} passHref>
-      <a css={headerLinkStyle}>
-        <div className="en" css={linkEN}>
-          {en}
-        </div>
-        <div className="ja" css={linkJA}>
-          {ja}
-        </div>
-      </a>
+    <Link href={href} css={headerLinkStyle} passHref>
+      <div className="en" css={linkEN}>
+        {en}
+      </div>
+      <div className="ja" css={linkJA}>
+        {ja}
+      </div>
     </Link>
   );
 };
 
-const Header: NextPage = () => {
+const Header: React.FC = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const menuFunction = () => setOpenMenu(!openMenu);
   const menuReset = () => setOpenMenu(false);
   let openState = openMenu ? "is-open" : "";
 
-  const linkContents = pageName.map(({ href, en, ja }) => {
-    const linkContent = (
-      <li key={en} onClick={() => menuReset()}>
-        <HeaderLink href={href} en={en} ja={ja} />
-      </li>
-    );
-    return linkContent;
-  });
-
   const extLinkContents = (
     <ul>
       <li>
-        <HeaderLink href="https://www.apps.dgdgdgdg.com/" en="dg4-apps" ja="dg4-apps" external={true} />
-      </li>
-      <li>
         <HeaderLink
-          href="https://www.radio.dgdgdgdg.com/"
-          en="Enter the radio title"
-          ja="ラジオのタイトルを入力"
+          href="https://www.solid.dgdgdgdg.com/"
+          en="Solid Point"
+          ja="Solid Point (共作チーム)"
           external={true}
         />
+      </li>
+      <li>
+        <HeaderLink href="https://www.apps.dgdgdgdg.com/" en="dg4-apps" ja="dg4-apps" external={true} />
       </li>
     </ul>
   );
@@ -437,10 +430,8 @@ const Header: NextPage = () => {
   return (
     <header css={header}>
       <div css={outside}>
-        <Link href="/">
-          <a css={logo} onClick={() => menuReset()}>
-            <Logo />
-          </a>
+        <Link href="/" css={logo} onClick={() => menuReset()}>
+          <Logo />
         </Link>
         <div css={burger} className="clickable" onClick={() => menuFunction()}>
           <svg css={line}>
@@ -457,7 +448,10 @@ const Header: NextPage = () => {
         </div>
         <div css={cyan} className={`cyan ${openState}`}>
           <nav css={nav} className={`nav ${openState}`}>
-            <ul>{linkContents}</ul>
+            <ul>
+              <HeaderLink href="/about" en="About" ja="dgdgdgdgとは" />
+              <HeaderLink href="/works" en="Works" ja="作品紹介" />
+            </ul>
           </nav>
           <div css={linkWrapper} className={`link-wrapper ${openState}`}>
             {extLinkContents}

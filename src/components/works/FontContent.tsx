@@ -1,11 +1,11 @@
 import { css } from "@emotion/react";
 import { useState } from "react";
 
-import H3 from "../../heading/Heading3";
+import H3 from "../heading/Heading3";
 
 import { breakPoint, dg4Color } from "@/styles/config";
 
-const FontContentGR = ({ text }: { text: string }) => {
+const FontContent = ({ text }: { text: string }) => {
   const defaultStyles = {
     fontSize: 80,
     lineHeight: 100,
@@ -15,8 +15,9 @@ const FontContentGR = ({ text }: { text: string }) => {
     textColor: dg4Color.black,
 
     label: "Dont GR Custom",
-    rnds: 50,
-    dtsz: 50,
+    rnds: 0,
+    wght: 400,
+    slnt: 0,
   };
 
   const [styles, setStyles] = useState(defaultStyles);
@@ -26,15 +27,23 @@ const FontContentGR = ({ text }: { text: string }) => {
       ...styles,
       rnds: Number(event.target.value),
     });
-    setLabel(Number(event.target.value), styles.dtsz);
+    setLabel(Number(event.target.value), styles.wght, styles.slnt);
   };
 
-  const handleDtszChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleWghtChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setStyles({
       ...styles,
-      dtsz: Number(event.target.value),
+      wght: Number(event.target.value),
     });
-    setLabel(styles.rnds, Number(event.target.value));
+    setLabel(styles.rnds, Number(event.target.value), styles.slnt);
+  };
+
+  const handleSlntChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setStyles({
+      ...styles,
+      slnt: Number(event.target.value),
+    });
+    setLabel(styles.rnds, styles.wght, Number(event.target.value));
   };
 
   // set alignment
@@ -77,8 +86,12 @@ const FontContentGR = ({ text }: { text: string }) => {
       return randomNumber(100);
     };
 
-    const randomVDtsz = () => {
-      return randomNumber(50) + 50;
+    const randomVWght = () => {
+      return randomNumber(200) + 200;
+    };
+
+    const randomVSlnt = () => {
+      return randomNumber(40) * -1;
     };
 
     setStyles((prevStyles) => ({
@@ -91,10 +104,11 @@ const FontContentGR = ({ text }: { text: string }) => {
       textColor: randomColor(),
 
       rnds: randomVRnds(),
-      dtsz: randomVDtsz(),
+      wght: randomVWght(),
+      slnt: randomVSlnt(),
     }));
 
-    setLabel(randomVRnds(), randomVDtsz());
+    setLabel(randomVRnds(), randomVWght(), randomVSlnt());
   };
 
   // copy value
@@ -102,11 +116,13 @@ const FontContentGR = ({ text }: { text: string }) => {
     // create textarea
     const copyElement = document.createElement("textarea");
 
-    copyElement.value = `font-family: "Dont-GR";\nfont-variation-settings: "rnds" ${styles.rnds}, "dtsz" ${
-      styles.dtsz
-    };\nfont-size: ${styles.fontSize}px;\nline-height: ${styles.lineHeight / 100}em;\nletter-spacing: ${
-      styles.letterSpacing / 100
-    }em;\ntext-align: ${styles.textAlign};\nbackground-color: ${styles.backgroundColor};\ncolor: ${styles.textColor};`;
+    copyElement.value = `font-family: "Dont-GR";\nfont-variation-settings: "rnds" ${styles.rnds}, "wght" ${
+      styles.wght
+    } "slnt" ${styles.slnt};\nfont-size: ${styles.fontSize}px;\nline-height: ${
+      styles.lineHeight / 100
+    }em;\nletter-spacing: ${styles.letterSpacing / 100}em;\ntext-align: ${styles.textAlign};\nbackground-color: ${
+      styles.backgroundColor
+    };\ncolor: ${styles.textColor};`;
     document.body.appendChild(copyElement);
 
     // copy
@@ -138,23 +154,20 @@ const FontContentGR = ({ text }: { text: string }) => {
     }, 1000);
   };
 
-  // set label
-  // rndsが0かつdtszが100の場合はlabelを"Square"にする
-  // rndsが100かつdtszが100の場合はlabelを"Circle"にする
-  // rndsが0かつdtszが50の場合はlabelを"Square mini"にする
-  // rndsが100かつdtszが50の場合はlabelを"Circle mini"にする
-
-  const setLabel = (rnds: number, dtsz: number) => {
+  const setLabel = (rnds: number, wght: number, slnt: number) => {
     let newLabel = "Dont GR Custom";
-    if (rnds === 0 && dtsz === 100) {
-      newLabel = "Dont GR Square";
-    } else if (rnds === 100 && dtsz === 100) {
-      newLabel = "Dont GR Circle";
-    } else if (rnds === 0 && dtsz === 50) {
-      newLabel = "Dont GR Square mini";
-    } else if (rnds === 100 && dtsz === 50) {
-      newLabel = "Dont GR Circle mini";
-    }
+    const styleKey = `${rnds}|${wght}|${slnt}`;
+    const labelMap: { [key: string]: string } = {
+      "0|400|0": "Dont GR Square",
+      "100|400|0": "Dont GR Circle",
+      "0|200|0": "Dont GR Square Light",
+      "100|200|0": "Dont GR Circle Light",
+      "0|400|-40": "Dont GR Square Italic",
+      "100|400|-40": "Dont GR Circle Italic",
+      "0|200|-40": "Dont GR Square Light Italic",
+      "100|200|-40": "Dont GR Circle Light Italic",
+    };
+    newLabel = labelMap[styleKey] || newLabel;
 
     setStyles((prevStyles) => ({
       ...prevStyles,
@@ -231,7 +244,8 @@ const FontContentGR = ({ text }: { text: string }) => {
   const rangeLineHeight = makeRange("/images/ui/arrow-up-and-down.svg");
   const rangeLetterSpacing = makeRange("/images/ui/arrow-left-and-right.svg");
   const rangeRoundness = makeRange("/images/ui/roundness.svg");
-  const rangeDotSize = makeRange("/images/ui/arrow-up-left-and-arrow-down-right.svg");
+  const rangeWeight = makeRange("/images/ui/arrow-up-left-and-arrow-down-right.svg");
+  const rangeSlant = makeRange("/images/ui/italic.svg");
 
   const rangeInput = css`
     -webkit-appearance: none;
@@ -394,13 +408,11 @@ const FontContentGR = ({ text }: { text: string }) => {
     background-color: ${styles.backgroundColor};
     color: ${styles.textColor};
 
-    font-variation-settings: "rnds" ${styles.rnds}, "dtsz" ${styles.dtsz};
+    font-variation-settings: "rnds" ${styles.rnds}, "wght" ${styles.wght}, "slnt" ${styles.slnt};
 
     overflow-wrap: break-word;
 
     min-height: calc(${styles.lineHeight / 100}em + 32px);
-
-    transition: all 0.2s ease-in-out;
   `;
 
   const ff = css`
@@ -454,14 +466,25 @@ const FontContentGR = ({ text }: { text: string }) => {
               css={rangeInput}
             />
           </div>
-          <div css={[rangeWrapper, rangeDotSize]} title="Dot Size">
+          <div css={[rangeWrapper, rangeWeight]} title="Weight">
             <input
               type="range"
-              min="50"
-              max="100"
-              value={styles.dtsz}
+              min="200"
+              max="400"
+              value={styles.wght}
               className="clickable"
-              onChange={handleDtszChange}
+              onChange={handleWghtChange}
+              css={rangeInput}
+            />
+          </div>
+          <div css={[rangeWrapper, rangeSlant]} title="Slant">
+            <input
+              type="range"
+              min="-40"
+              max="0"
+              value={styles.slnt}
+              className="clickable"
+              onChange={handleSlntChange}
               css={rangeInput}
             />
           </div>
@@ -568,4 +591,4 @@ const FontContentGR = ({ text }: { text: string }) => {
   );
 };
 
-export default FontContentGR;
+export default FontContent;
