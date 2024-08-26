@@ -1,4 +1,6 @@
-export type equipment = {
+import { categoryNamesProps } from "@/data/categoryNames";
+
+export type equipmentType = {
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -14,7 +16,7 @@ export type equipment = {
     width: number;
   };
   generation?: number;
-  category: string[];
+  category: categoryNamesProps["en"];
   variety?: string;
   owning?: number;
 };

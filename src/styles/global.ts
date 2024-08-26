@@ -5,21 +5,6 @@ import { breakPoint, dg4Color } from "@/styles/config";
 const global = css`
   // font
   @font-face {
-    font-family: "Dont";
-    src: url("/fonts/Dont.ttf");
-  }
-
-  @font-face {
-    font-family: "Dont Round";
-    src: url("/fonts/DontRound.ttf");
-  }
-
-  @font-face {
-    font-family: "Dont Circle";
-    src: url("/fonts/DontCircle.ttf");
-  }
-
-  @font-face {
     font-family: "Dont-GR";
     src: url("/fonts/Dont-GR-SquareVF.ttf");
   }
@@ -61,7 +46,6 @@ const global = css`
 
     cursor: -webkit-image-set(url("/images/cursor/cursor-normal.png") 1x, url("/images/cursor/cursor-normal@2x.png") 2x),
       default;
-    user-select: none;
     scroll-behavior: smooth;
 
     -ms-overflow-style: none;
