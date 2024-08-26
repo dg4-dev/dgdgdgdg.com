@@ -9,11 +9,8 @@ import Container from "@/components/Container";
 import Layout from "@/components/Layout";
 import H1 from "@/components/heading/Heading1";
 import H2 from "@/components/heading/Heading2";
-import InstaItemList from "@/components/works/InstaItemList";
+import FontContent from "@/components/works/FontContent";
 import Item from "@/components/works/Item";
-import YoutubeItemList from "@/components/works/YoutubeItemList";
-import FontContent from "@/components/works/fontcontent/FontContent";
-import FontContentGR from "@/components/works/fontcontent/FontContentGR";
 import { breakPoint } from "@/styles/config";
 
 const contain = css`
@@ -82,11 +79,8 @@ const Works: NextPage = () => {
   const changeSampleText = (event: React.ChangeEvent<HTMLInputElement>) => setSampleText(event.target.value);
 
   return (
-    <Layout
-      title="Works"
-      description="フォント、ロゴ、写真、動画、Webサイトと、制作実績の中からピックアップしてご紹介します。"
-    >
-      <H1 />
+    <Layout title="Works" description="フォント、ロゴ、Webサイトと、制作実績の中からピックアップしてご紹介します。">
+      <H1 en="Works" ja="作品紹介" />
 
       <section id="font">
         <Container css={fontContainer}>
@@ -98,22 +92,22 @@ const Works: NextPage = () => {
             <span>サンプルテキスト</span>
             <input type="text" value={sampleText} onChange={changeSampleText} />
           </div>
-          <FontContent text={sampleText} name="Dont" />
-          <FontContent text={sampleText} name="Dont Round" />
-          <FontContent text={sampleText} name="Dont Circle" />
-          <Button
-            href="https://github.com/dg4-dev/dont/raw/main/fonts.zip"
-            text="Download"
-            css={button}
-            external={true}
-          />
-          <FontContentGR text={sampleText} />
+          <FontContent text={sampleText} />
           <Button
             href="https://github.com/dg4-dev/dont/raw/main/var-fonts.zip"
             text="Download"
             css={button}
             external={true}
           />
+        </Container>
+      </section>
+
+      <section id="pixelArt">
+        <Container css={contain}>
+          <H2 en="Pixel Art" ja="ドット絵" />
+          <div css={itemList}>
+            <Item title="使用機材" imgHref="/images/works/strida.png" link={true} href="/equipments" />
+          </div>
         </Container>
       </section>
 
@@ -124,22 +118,6 @@ const Works: NextPage = () => {
             <Item title="自然食食堂 さん" imgHref="/images/works/sunlogo.webp" />
             <Item title="モノクローム" imgHref="/images/works/monologo.webp" />
           </div>
-        </Container>
-      </section>
-
-      <section id="photography">
-        <Container css={contain}>
-          <H2 en="Photography" ja="写真" />
-          <InstaItemList />
-          <Button external={true} href="https://instagram.dgdgdgdg.com/" text="Instagram" css={button} />
-        </Container>
-      </section>
-
-      <section id="video">
-        <Container css={contain}>
-          <H2 en="Video" ja="映像" />
-          <YoutubeItemList />
-          <Button external={true} href="https://youtube.dgdgdgdg.com/" text="YouTube" css={button} />
         </Container>
       </section>
 

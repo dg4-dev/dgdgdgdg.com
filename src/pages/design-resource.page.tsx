@@ -28,6 +28,7 @@ const colorItems = css`
 
   ${breakPoint.sp} {
     display: flex;
+    flex-direction: column;
     height: auto;
   }
 
@@ -69,7 +70,8 @@ const fontSample = css`
   padding: 16px;
   background-color: #eee;
 
-  font-family: "Dont", "Zen Kaku Gothic New", sans-serif;
+  font-family: "Dont-GR", "Zen Kaku Gothic New", sans-serif;
+  font-variation-settings: "rnds" 0, "dtsz" 100;
 
   ${breakPoint.sp} {
     font-size: 24px;
@@ -79,7 +81,8 @@ const fontSample = css`
 `;
 
 const dont = css`
-  font-family: "Dont", sans-serif;
+  font-family: "Dont-GR", sans-serif;
+  font-variation-settings: "rnds" 0, "dtsz" 100;
 `;
 
 const zen = css`
@@ -89,7 +92,7 @@ const zen = css`
 const DesignResource: NextPage = () => {
   return (
     <Layout title="Design Resource" description="サイトのカラーやロゴについて詳しく説明します。ロゴデータの配布も。">
-      <H1 />
+      <H1 en="Design Resource" ja="デザインリソース" />
 
       <section id="color">
         <Container>
@@ -122,7 +125,7 @@ const DesignResource: NextPage = () => {
           <div className="content">
             <H3 en="Monthly Color" ja="月ごとの色" />
             <Note>
-              メインで使用しているロゴは、<Link href="/about/#skill">4つのスキル</Link>
+              メインで使用しているロゴは、<Link href="/about#skill">4つのスキル</Link>
               の経験月数比を色に変換したものになっています。
               <br />
               それによって、ロゴの色は毎月
@@ -159,7 +162,7 @@ const DesignResource: NextPage = () => {
             <Note>
               Dontは、このサイトのタイトル部分等に使用されているフォントです。
               <br />
-              dgdgdgdgによるオリジナルのフォントで、<a href="/works#font">こちら</a>で配布しています。
+              dgdgdgdgによるオリジナルのフォントで、<Link href="/works#font">こちら</Link>で配布しています。
               <br />
               最小限のドットでアルファベットを表現しています。
             </Note>

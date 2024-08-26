@@ -1,8 +1,7 @@
 import { css } from "@emotion/react";
+import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
-
-import type { NextPage } from "next";
 
 import Button from "@/components/Button";
 import Container from "@/components/Container";
@@ -146,7 +145,7 @@ const LinkItems = () => {
     }
   `;
 
-  const linkData = ["x", "misskey", "instagram", "note", "youtube", "suzuri", "zenn", "github"];
+  const linkData = ["x", "misskey", "instagram", "bsky", "note", "youtube", "suzuri", "github"];
 
   const linkElm = linkData.map((value) => {
     const href = `https://${value}.dgdgdgdg.com`;
@@ -163,7 +162,7 @@ const LinkItems = () => {
   return <ul css={linkItem}>{linkElm}</ul>;
 };
 
-const Footer: NextPage = () => {
+const Footer: React.FC = () => {
   return (
     <footer id="footer" css={footerStyle}>
       <Container css={footerContainer}>
@@ -175,18 +174,21 @@ const Footer: NextPage = () => {
               text="Messenger"
               external={true}
             />
-            <Button css={[footerButton, emailButton]} href="mailto:info@dgdgdgdg.com" text="E-mail" external={true} />
+            <Button
+              css={[footerButton, emailButton]}
+              href="mailto:contact@dgdgdgdg.com"
+              text="E-mail"
+              external={true}
+            />
           </div>
           <LinkItems />
         </div>
 
         <div css={credit}>
-          <Link href="/">
-            <a css={creditLogo}>
-              <object data="/images/dist/logo-white.svg" type="image/svg+xml"></object>
-            </a>
+          <Link href="/" css={creditLogo}>
+            <object data="/images/dist/logo-white.svg" type="image/svg+xml"></object>
           </Link>
-          <p css={copyRightText}>©︎ 2021 dgdgdgdg</p>
+          <p css={copyRightText}>©︎ 2021 - {dayjs().year()} dgdgdgdg</p>
         </div>
       </Container>
     </footer>
