@@ -30,7 +30,14 @@ const Equipments = ({ equipments }: { equipments: equipmentType[] }) => {
       `;
 
       return (
-        <Link key={id} css={equipmentsItem} href={`/equipments/${id}`}>
+        <Link
+          key={id}
+          css={equipmentsItem}
+          href={`/equipments/${id}`}
+          onClick={() => {
+            sessionStorage.setItem("scrollPosition", window.scrollY.toString());
+          }}
+        >
           <img src={image.url} alt={id} />
         </Link>
       );

@@ -2,6 +2,7 @@
 import { Global, css } from "@emotion/react";
 import Head from "next/head";
 import Link from "next/link";
+import { useEffect } from "react";
 
 import { client } from "@/libs/client";
 import { breakPoint, dg4Color } from "@/styles/config";
@@ -14,6 +15,26 @@ const EquipmentDetail = ({
 }: {
   equipments: equipmentType;
 }) => {
+  useEffect(() => {
+    return () => {
+      const savedPosition = sessionStorage.getItem("scrollPosition");
+      if (savedPosition) {
+        // 一時的にスムーススクロールを無効化
+        document.documentElement.style.scrollBehavior = "auto";
+
+        window.scrollTo({
+          top: parseInt(savedPosition),
+          behavior: "auto",
+        });
+
+        // スクロール後にスムーススクロールを元に戻す
+        setTimeout(() => {
+          document.documentElement.style.scrollBehavior = "smooth";
+        }, 100);
+      }
+    };
+  }, []);
+
   const modal = css`
     width: 100%;
     height: 100vh;
