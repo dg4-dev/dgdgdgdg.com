@@ -9,7 +9,6 @@ import Layout from "@/components/Layout";
 import Logo from "@/components/Logo";
 import Note from "@/components/Note";
 import meaningItemElm from "@/components/about/MeaningItem";
-import SkillGraph from "@/components/about/SkillGraph";
 import H1 from "@/components/heading/Heading1";
 import H2 from "@/components/heading/Heading2";
 import H3 from "@/components/heading/Heading3";
@@ -198,21 +197,6 @@ const meaningItem = css`
   }
 `;
 
-const skillContent = css`
-  display: flex;
-  justify-content: space-between;
-
-  gap: 40px;
-
-  ${breakPoint.tab} {
-    flex-wrap: wrap;
-  }
-
-  ${breakPoint.sp} {
-    flex-direction: column;
-  }
-`;
-
 const About: NextPage = () => {
   return (
     <Layout title="About" description="dgdgdgdgについての概要、スキル、使用機材についての説明です。">
@@ -298,44 +282,6 @@ const About: NextPage = () => {
               </div>
             </div>
           </div>
-        </Container>
-      </section>
-
-      <section id="skill">
-        <Container>
-          <H2 en="Skill" ja="スキル" />
-          <div className="content" css={skillContent}>
-            <div>
-              <H3 en="Days Ratio" ja="始めてからの日数比" />
-              <SkillGraph />
-            </div>
-            <div>
-              <H3 en="Self Assessment" ja="自己評価" />
-              <SkillGraph
-                amountData={[
-                  {
-                    name: "デザイン",
-                    amount: 8,
-                  },
-                  {
-                    name: "映像制作",
-                    amount: 5,
-                  },
-                  {
-                    name: "モーショングラフィックス",
-                    amount: 6,
-                  },
-                  {
-                    name: "Web制作",
-                    amount: 10,
-                  },
-                ]}
-                color={dg4Color.blue}
-                graphWidth={78}
-              />
-            </div>
-          </div>
-          <Button text="See Works Page" css={button} href="/works" />
         </Container>
       </section>
     </Layout>
