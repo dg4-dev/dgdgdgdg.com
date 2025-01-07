@@ -30,7 +30,14 @@ const Equipments = ({ equipments }: { equipments: equipmentType[] }) => {
       `;
 
       return (
-        <Link key={id} css={equipmentsItem} href={`/equipments/${id}`}>
+        <Link
+          key={id}
+          css={equipmentsItem}
+          href={`/equipments/${id}`}
+          onClick={() => {
+            sessionStorage.setItem("scrollPosition", window.scrollY.toString());
+          }}
+        >
           <img src={image.url} alt={id} />
         </Link>
       );
@@ -79,7 +86,7 @@ const Equipments = ({ equipments }: { equipments: equipmentType[] }) => {
 
 export default Equipments;
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const data = await client.get({ endpoint: "equipments", queries: { fields: "id,category,order,image", limit: 100 } });
 
   return {
