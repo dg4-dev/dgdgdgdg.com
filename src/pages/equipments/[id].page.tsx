@@ -10,6 +10,8 @@ import global from "@/styles/global";
 import reset from "@/styles/reset";
 import { equipmentType } from "@/types/equipments";
 
+export const runtime = "edge";
+
 const EquipmentDetail = ({
   equipments: { id, variety, name, image, about, owning, generation, maker },
 }: {

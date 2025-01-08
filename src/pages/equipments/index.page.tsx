@@ -11,6 +11,8 @@ import { client } from "@/libs/client";
 import { breakPoint } from "@/styles/config";
 import { equipmentType } from "@/types/equipments";
 
+export const runtime = "edge";
+
 const Equipments = ({ equipments }: { equipments: equipmentType[] }) => {
   const itemElements = categoryNames.map(({ en, ja }) => {
     const items = equipments.filter((item) => item.category[0] === en);
