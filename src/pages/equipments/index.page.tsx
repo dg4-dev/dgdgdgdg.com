@@ -11,7 +11,7 @@ import { client } from "@/libs/client";
 import { breakPoint } from "@/styles/config";
 import { equipmentType } from "@/types/equipments";
 
-export const runtime = "edge";
+export const runtime = "experimental-edge";
 
 const Equipments = ({ equipments }: { equipments: equipmentType[] }) => {
   const itemElements = categoryNames.map(({ en, ja }) => {
