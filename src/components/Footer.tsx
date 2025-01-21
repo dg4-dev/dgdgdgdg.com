@@ -148,7 +148,35 @@ const LinkItems = () => {
   const linkData = ["x", "misskey", "instagram", "bsky", "note", "youtube", "suzuri", "github"];
 
   const linkElm = linkData.map((value) => {
-    const href = `https://${value}.dgdgdgdg.com`;
+    let href;
+    switch (value) {
+      case "x":
+        href = "https://x.com/dg4_design";
+        break;
+      case "misskey":
+        href = "https://misskey.design/@dg4_design";
+        break;
+      case "instagram":
+        href = "https://instagram.com/dg4_design";
+        break;
+      case "bsky":
+        href = "https://bsky.app/profile/dgdgdgdg.com";
+        break;
+      case "note":
+        href = "https://note.com/dg4_design";
+        break;
+      case "youtube":
+        href = "https://youtube.com/@dg4_design";
+        break;
+      case "suzuri":
+        href = "https://suzuri.jp/dg4_design";
+        break;
+      case "github":
+        href = "https://github.com/dg4-design";
+        break;
+      default:
+        href = "#";
+    }
     const src = `/images/icon/${value}.svg`;
 
     return (
@@ -170,7 +198,7 @@ const Footer: React.FC = () => {
           <div className="content" css={messageContent}>
             <Button
               css={[footerButton, messengerButton]}
-              href="https://messenger.dgdgdgdg.com"
+              href="https://m.me/dg4.design"
               text="Messenger"
               external={true}
             />
