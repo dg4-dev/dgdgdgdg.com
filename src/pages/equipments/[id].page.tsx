@@ -168,13 +168,24 @@ const EquipmentDetail = ({
 
 export default EquipmentDetail;
 
-export const getServerSideProps = async (context: { params: { id: string } }) => {
-  const id = context.params.id;
+export const getStaticProps = async ({ params }: { params: { id: string } }) => {
+  const id = params.id;
   const data = await client.get({ endpoint: "equipments", queries: { limit: 100 }, contentId: id });
 
   return {
     props: {
       equipments: data,
     },
+  };
+};
+
+export const getStaticPaths = async () => {
+  const data = await client.get({ endpoint: "equipments", queries: { fields: "id", limit: 100 } });
+
+  const paths = data.contents.map((content: { id: string }) => `/equipments/${content.id}`);
+
+  return {
+    paths,
+    fallback: false,
   };
 };

@@ -88,7 +88,7 @@ const Equipments = ({ equipments }: { equipments: equipmentType[] }) => {
 
 export default Equipments;
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const data = await client.get({ endpoint: "equipments", queries: { fields: "id,category,order,image", limit: 100 } });
 
   return {
