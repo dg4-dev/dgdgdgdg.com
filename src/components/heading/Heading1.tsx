@@ -40,8 +40,10 @@ const heading1 = css`
   }
 
   .en {
-    font-family: "Dont-GR", sans-serif;
-    font-variation-settings: "rnds" 0, "dtsz" 100;
+    font-family: "Atomic Dot", sans-serif;
+    font-variation-settings:
+      "RNDS" 0,
+      "wght" 400;
     font-size: 100px;
 
     ${breakPoint.tab} {

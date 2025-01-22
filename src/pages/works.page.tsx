@@ -1,5 +1,4 @@
 import { css } from "@emotion/react";
-import Image from "next/image";
 import { useState } from "react";
 
 import type { NextPage } from "next";
@@ -32,12 +31,6 @@ const fontContainer = css`
   }
 `;
 
-const fontDesc = css`
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-`;
-
 const sampleWrapper = css`
   margin-top: 64px;
   margin-bottom: ${-80 + 40}px;
@@ -67,7 +60,6 @@ const sampleWrapper = css`
 `;
 
 const button = css`
-  margin-top: 40px;
   margin-left: auto;
   margin-right: auto;
 `;
@@ -85,16 +77,13 @@ const Works: NextPage = () => {
       <section id="font">
         <Container css={fontContainer}>
           <H2 en="Font" ja="フォント" />
-          <div css={fontDesc}>
-            <Image src="/images/works/dont-desc.webp" width={500} height={175} alt="" />
-          </div>
           <div css={sampleWrapper}>
             <span>サンプルテキスト</span>
             <input type="text" value={sampleText} onChange={changeSampleText} />
           </div>
           <FontContent text={sampleText} />
           <Button
-            href="https://github.com/dg4-dev/dont/raw/main/var-fonts.zip"
+            href="https://github.com/dg4-dev/atomic-dot/raw/main/var-fonts.zip"
             text="Download"
             css={button}
             external={true}
