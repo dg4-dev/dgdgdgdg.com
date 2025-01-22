@@ -44,8 +44,6 @@ const global = css`
   * {
     font-weight: normal;
 
-    cursor: -webkit-image-set(url("/images/cursor/cursor-normal.png") 1x, url("/images/cursor/cursor-normal@2x.png") 2x),
-      default;
     scroll-behavior: smooth;
 
     -ms-overflow-style: none;
@@ -79,11 +77,7 @@ const global = css`
   a *,
   .clickable,
   .clickable * {
-    cursor: -webkit-image-set(
-        url("/images/cursor/cursor-pointer.png") 1x,
-        url("/images/cursor/cursor-pointer@2x.png") 2x
-      ),
-      pointer;
+    cursor: pointer;
   }
 
   section {
