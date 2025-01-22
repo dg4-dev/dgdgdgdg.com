@@ -92,7 +92,7 @@ const FontContent = ({ text }: { text: string }) => {
     };
 
     const randomVSlnt = () => {
-      return randomNumber(40) * -1;
+      return randomNumber(40);
     };
 
     setStyles((prevStyles) => ({
