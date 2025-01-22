@@ -49,8 +49,10 @@ const meaningItemElm = meaningRaw.map((value) => {
 
   const meaningPhrase = css`
     white-space: nowrap;
-    font-family: "Dont-GR", sans-serif;
-    font-variation-settings: "rnds" 0, "dtsz" 100;
+    font-family: "Atomic Dot", sans-serif;
+    font-variation-settings:
+      "RNDS" 0,
+      "wght" 400;
     font-size: 64px;
     margin-bottom: 16px;
 

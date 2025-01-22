@@ -45,9 +45,11 @@ const notFoundSection = css`
   }
 `;
 
-const dont = css`
-  font-family: "Dont-GR", sans-serif;
-  font-variation-settings: "rnds" 0, "dtsz" 100;
+const atomicDot = css`
+  font-family: "Atomic Dot", sans-serif;
+  font-variation-settings:
+    "RNDS" 0,
+    "wght" 400;
   text-align: center;
 `;
 
@@ -66,8 +68,8 @@ const Works: NextPage = () => {
     <Layout title="Page not found" noindex={true}>
       <section css={notFoundSection}>
         <div>
-          <h1 css={[heading1, dont]}>404</h1>
-          <p css={[para, dont]}>Page not found :(</p>
+          <h1 css={[heading1, atomicDot]}>404</h1>
+          <p css={[para, atomicDot]}>Page not found :(</p>
           <Button
             href="/"
             text="Back to Top"

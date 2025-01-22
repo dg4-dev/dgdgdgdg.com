@@ -270,10 +270,10 @@ const headerLinkStyle = css`
 `;
 
 const linkEN = css`
-  font-family: "Dont-GR", sans-serif;
+  font-family: "Atomic Dot", sans-serif;
   font-variation-settings:
-    "rnds" 0,
-    "dtsz" 100;
+    "RNDS" 0,
+    "wght" 400;
   font-size: 14px;
   line-height: 14px;
   color: #fff;

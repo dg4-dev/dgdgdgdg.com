@@ -70,8 +70,10 @@ const fontSample = css`
   padding: 16px;
   background-color: #eee;
 
-  font-family: "Dont-GR", "Zen Kaku Gothic New", sans-serif;
-  font-variation-settings: "rnds" 0, "dtsz" 100;
+  font-family: "Atomic Dot", "Zen Kaku Gothic New", sans-serif;
+  font-variation-settings:
+    "RNDS" 0,
+    "wght" 400;
 
   ${breakPoint.sp} {
     font-size: 24px;
@@ -80,9 +82,11 @@ const fontSample = css`
   }
 `;
 
-const dont = css`
-  font-family: "Dont-GR", sans-serif;
-  font-variation-settings: "rnds" 0, "dtsz" 100;
+const atomicDot = css`
+  font-family: "Atomic Dot", sans-serif;
+  font-variation-settings:
+    "RNDS" 0,
+    "wght" 400;
 `;
 
 const zen = css`
@@ -158,15 +162,15 @@ const DesignResource: NextPage = () => {
         <H2 en="Font" ja="フォント" />
         <Container>
           <div className="content">
-            <H3 en="Dont" />
+            <H3 en="Atomic Dot" />
             <Note>
-              Dontは、このサイトのタイトル部分等に使用されているフォントです。
+              Atomic Dotは、このサイトのタイトル部分等に使用されているフォントです。
               <br />
               dgdgdgdgによるオリジナルのフォントで、<Link href="/works#font">こちら</Link>で配布しています。
               <br />
               最小限のドットでアルファベットを表現しています。
             </Note>
-            <div css={[fontSample, dont]}>Almost before we knew it, we had left the ground.</div>
+            <div css={[fontSample, atomicDot]}>Almost before we knew it, we had left the ground.</div>
           </div>
           <div className="content">
             <H3 en="Zen Kaku Gothic New" ja="ZEN角ゴシックNew" />

@@ -5,8 +5,8 @@ import { breakPoint, dg4Color } from "@/styles/config";
 const global = css`
   // font
   @font-face {
-    font-family: "Dont-GR";
-    src: url("/fonts/Dont-GR-SquareVF.ttf");
+    font-family: "Atomic Dot";
+    src: url("/fonts/DG4AtomicDot-SquareVF.ttf");
   }
 
   @font-face {
