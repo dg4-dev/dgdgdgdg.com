@@ -44,39 +44,6 @@ const heading2 = css`
 
     margin-top: 8px;
   }
-
-  ::before,
-  ::after {
-    content: "";
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    background-size: cover;
-    background-position: center center;
-    top: 0px;
-  }
-
-  ::before {
-    background-image: url("/images/h2-l.svg");
-    left: -130px;
-
-    ${breakPoint.sp} {
-      width: 50px;
-      height: 50px;
-      left: -75px;
-    }
-  }
-
-  ::after {
-    background-image: url("/images/h2-r.svg");
-    right: -130px;
-
-    ${breakPoint.sp} {
-      width: 50px;
-      height: 50px;
-      right: -75px;
-    }
-  }
 `;
 
 type Props = {
