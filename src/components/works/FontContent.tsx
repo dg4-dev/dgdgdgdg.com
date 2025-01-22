@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import { useState } from "react";
 
+import Note from "../Note";
 import H3 from "../heading/Heading3";
 
 import { breakPoint, dg4Color } from "@/styles/config";
@@ -14,7 +15,7 @@ const FontContent = ({ text }: { text: string }) => {
     backgroundColor: "#eeeeee",
     textColor: dg4Color.black,
 
-    label: "Dont GR Custom",
+    label: "Atomic Dot Custom",
     rnds: 0,
     wght: 400,
     slnt: 0,
@@ -116,7 +117,7 @@ const FontContent = ({ text }: { text: string }) => {
     // create textarea
     const copyElement = document.createElement("textarea");
 
-    copyElement.value = `font-family: "Dont-GR";\nfont-variation-settings: "rnds" ${styles.rnds}, "wght" ${
+    copyElement.value = `font-family: "DG4 Atomic Dot";\nfont-variation-settings: "RNDS" ${styles.rnds}, "wght" ${
       styles.wght
     } "slnt" ${styles.slnt};\nfont-size: ${styles.fontSize}px;\nline-height: ${
       styles.lineHeight / 100
@@ -140,10 +141,10 @@ const FontContent = ({ text }: { text: string }) => {
         color: #fff;
         padding: 8px 16px;
         border-radius: 4px;
-        font-family: 'Dont', sans-serif;
+        font-family: 'Atomic Dot', sans-serif;
         font-size: 20px;
         z-index: 100;
-      " id="copyAlert">Copied!</div>`
+      " id="copyAlert">Copied!</div>`,
     );
 
     setTimeout(() => {
@@ -155,17 +156,17 @@ const FontContent = ({ text }: { text: string }) => {
   };
 
   const setLabel = (rnds: number, wght: number, slnt: number) => {
-    let newLabel = "Dont GR Custom";
+    let newLabel = "Atomic Dot Custom";
     const styleKey = `${rnds}|${wght}|${slnt}`;
     const labelMap: { [key: string]: string } = {
-      "0|400|0": "Dont GR Square",
-      "100|400|0": "Dont GR Circle",
-      "0|200|0": "Dont GR Square Light",
-      "100|200|0": "Dont GR Circle Light",
-      "0|400|-40": "Dont GR Square Italic",
-      "100|400|-40": "Dont GR Circle Italic",
-      "0|200|-40": "Dont GR Square Light Italic",
-      "100|200|-40": "Dont GR Circle Light Italic",
+      "0|400|0": "Atomic Dot Square",
+      "100|400|0": "Atomic Dot Circle",
+      "0|200|0": "Atomic Dot Square Light",
+      "100|200|0": "Atomic Dot Circle Light",
+      "0|400|40": "Atomic Dot Square Italic",
+      "100|400|40": "Atomic Dot Circle Italic",
+      "0|200|40": "Atomic Dot Square Light Italic",
+      "100|200|40": "Atomic Dot Circle Light Italic",
     };
     newLabel = labelMap[styleKey] || newLabel;
 
@@ -408,7 +409,10 @@ const FontContent = ({ text }: { text: string }) => {
     background-color: ${styles.backgroundColor};
     color: ${styles.textColor};
 
-    font-variation-settings: "rnds" ${styles.rnds}, "wght" ${styles.wght}, "slnt" ${styles.slnt};
+    font-variation-settings:
+      "RNDS" ${styles.rnds},
+      "wght" ${styles.wght},
+      "slnt" ${styles.slnt};
 
     overflow-wrap: break-word;
 
@@ -416,7 +420,7 @@ const FontContent = ({ text }: { text: string }) => {
   `;
 
   const ff = css`
-    font-family: "Dont-GR", sans-serif;
+    font-family: "Atomic Dot", sans-serif;
   `;
 
   return (
@@ -480,8 +484,8 @@ const FontContent = ({ text }: { text: string }) => {
           <div css={[rangeWrapper, rangeSlant]} title="Slant">
             <input
               type="range"
-              min="-40"
-              max="0"
+              min="0"
+              max="40"
               value={styles.slnt}
               className="clickable"
               onChange={handleSlntChange}
@@ -587,6 +591,16 @@ const FontContent = ({ text }: { text: string }) => {
         </div>
       </div>
       <div css={[itemLetter, ff]}>{text}</div>
+
+      <Note>
+        このフォントは可読性が保てる最小のピクセルで構成されている。
+        <br />
+        1980年代の8ビットコンピュータ時代から継承された表現手法を用い、現代のスクリーン上でも機能するよう最適化されている。
+        <br />
+        文字の形状は判読可能な最小単位まで削ぎ落とされ、ピクセルの有無による二値的な構成で文字を形成する。
+        <br />
+        ドットの大きさと丸み、文字の傾きを調整できるバリアブル機能を持ち、ピクセルフォントの表現の幅を広げている。
+      </Note>
     </div>
   );
 };
