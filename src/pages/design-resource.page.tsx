@@ -129,8 +129,7 @@ const DesignResource: NextPage = () => {
           <div className="content">
             <H3 en="Monthly Color" ja="月ごとの色" />
             <Note>
-              メインで使用しているロゴは、<Link href="/about#skill">4つのスキル</Link>
-              の経験月数比を色に変換したものになっています。
+              メインで使用しているロゴは、4つのスキルの経験月数比を色に変換したものになっています。
               <br />
               それによって、ロゴの色は毎月
               <span>&nbsp;#00d4d4&nbsp;</span>
