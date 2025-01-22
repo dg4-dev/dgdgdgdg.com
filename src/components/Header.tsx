@@ -419,7 +419,7 @@ const Header: React.FC = () => {
         <HeaderLink href="https://solid.dgdgdgdg.com/" en="Solid Point" ja="Solid Point (共作チーム)" external={true} />
       </li>
       <li>
-        <HeaderLink href="https://apps.dgdgdgdg.com/" en="dg4-apps" ja="dg4-apps" external={true} />
+        <HeaderLink href="https://dg4-design.github.io" en="dg4-apps" ja="dg4-apps" external={true} />
       </li>
     </ul>
   );
