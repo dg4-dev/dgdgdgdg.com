@@ -2,7 +2,7 @@
 
 dgdgdgdg の Web サイトです。
 
-![ogp](https://www.dgdgdgdg.com/images/ogp.webp)
+![ogp](https://dgdgdgdg.com/images/ogp.webp)
 
 ![technology](https://img.shields.io/badge/-technology-333.svg?style=for-the-badge)
 
@@ -20,4 +20,5 @@ dgdgdgdg の Web サイトです。
 ![en-us](https://img.shields.io/badge/-en__US-004444.svg?style=for-the-badge)
 
 ---
+
 ![GitHub repo size](https://img.shields.io/github/repo-size/dg4-dev/dgdgdgdg.com?style=for-the-badge)

@@ -271,7 +271,9 @@ const headerLinkStyle = css`
 
 const linkEN = css`
   font-family: "Dont-GR", sans-serif;
-  font-variation-settings: "rnds" 0, "dtsz" 100;
+  font-variation-settings:
+    "rnds" 0,
+    "dtsz" 100;
   font-size: 14px;
   line-height: 14px;
   color: #fff;
@@ -414,15 +416,10 @@ const Header: React.FC = () => {
   const extLinkContents = (
     <ul>
       <li>
-        <HeaderLink
-          href="https://www.solid.dgdgdgdg.com/"
-          en="Solid Point"
-          ja="Solid Point (共作チーム)"
-          external={true}
-        />
+        <HeaderLink href="https://solid.dgdgdgdg.com/" en="Solid Point" ja="Solid Point (共作チーム)" external={true} />
       </li>
       <li>
-        <HeaderLink href="https://www.apps.dgdgdgdg.com/" en="dg4-apps" ja="dg4-apps" external={true} />
+        <HeaderLink href="https://apps.dgdgdgdg.com/" en="dg4-apps" ja="dg4-apps" external={true} />
       </li>
     </ul>
   );

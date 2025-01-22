@@ -130,7 +130,7 @@ const Works: NextPage = () => {
               title="dg4 app archive"
               imgHref="/images/works/archive.webp"
               link={true}
-              href="https://www.apps.dgdgdgdg.com/"
+              href="https://apps.dgdgdgdg.com/"
             />
             <Item
               title="あいうえ奥出雲"
