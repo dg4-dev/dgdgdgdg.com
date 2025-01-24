@@ -3,7 +3,6 @@ import { useState } from "react";
 
 import type { NextPage } from "next";
 
-import Button from "@/components/Button";
 import Container from "@/components/Container";
 import Layout from "@/components/Layout";
 import H1 from "@/components/heading/Heading1";
@@ -59,11 +58,6 @@ const sampleWrapper = css`
   }
 `;
 
-const button = css`
-  margin-left: auto;
-  margin-right: auto;
-`;
-
 const Works: NextPage = () => {
   // sample text
   const defaultSampleText = "Almost before we knew it, we had left the ground.";
@@ -82,12 +76,6 @@ const Works: NextPage = () => {
             <input type="text" value={sampleText} onChange={changeSampleText} />
           </div>
           <FontContent text={sampleText} />
-          <Button
-            href="https://github.com/dg4-dev/atomic-dot/raw/main/var-fonts.zip"
-            text="Download"
-            css={button}
-            external={true}
-          />
         </Container>
       </section>
 
