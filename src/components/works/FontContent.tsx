@@ -4,6 +4,7 @@ import { useState } from "react";
 import Note from "../Note";
 import H3 from "../heading/Heading3";
 
+import Button from "@/components/Button";
 import { breakPoint, dg4Color } from "@/styles/config";
 
 const FontContent = ({ text }: { text: string }) => {
@@ -15,7 +16,7 @@ const FontContent = ({ text }: { text: string }) => {
     backgroundColor: "#eeeeee",
     textColor: dg4Color.black,
 
-    label: "Atomic Dot Custom",
+    label: "Atomic Dot Square",
     rnds: 0,
     wght: 400,
     slnt: 0,
@@ -423,6 +424,11 @@ const FontContent = ({ text }: { text: string }) => {
     font-family: "Atomic Dot", sans-serif;
   `;
 
+  const button = css`
+    margin-left: auto;
+    margin-right: auto;
+  `;
+
   return (
     <div className="content" css={fontContent}>
       <H3 en={styles.label} />
@@ -593,14 +599,16 @@ const FontContent = ({ text }: { text: string }) => {
       <div css={[itemLetter, ff]}>{text}</div>
 
       <Note>
-        このフォントは可読性が保てる最小のピクセルで構成されている。
-        <br />
-        1980年代の8ビットコンピュータ時代から継承された表現手法を用い、現代のスクリーン上でも機能するよう最適化されている。
+        「原子」が物質の最小単位であるように、Atomic Dotは可読性が保てる最小のピクセルで構成されている。
         <br />
         文字の形状は判読可能な最小単位まで削ぎ落とされ、ピクセルの有無による二値的な構成で文字を形成する。
-        <br />
-        ドットの大きさと丸み、文字の傾きを調整できるバリアブル機能を持ち、ピクセルフォントの表現の幅を広げている。
       </Note>
+      <Button
+        href="https://github.com/dg4-dev/atomic-dot/raw/main/var-fonts.zip"
+        text="Download"
+        css={button}
+        external={true}
+      />
     </div>
   );
 };
