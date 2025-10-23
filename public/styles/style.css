@@ -72,17 +72,12 @@ main {
   margin: 0;
 }
 
-.link-old {
-  color: var(--text-secondary);
-  margin: 0.5rem 0 0;
-}
-
-.link-old a {
+.status a {
   color: var(--accent-color);
   text-decoration: underline;
 }
 
-.link-old a:hover {
+.status a:hover {
   opacity: 0.8;
 }
 
@@ -178,8 +173,11 @@ footer p {
   }
 
   .links a {
-    gap: 0.75rem;
-    padding: 0.875rem 1.25rem;
+    display: grid;
+    grid-template-columns: 30% 1fr;
+    align-items: center;
+    justify-items: start;
+    padding: 0.5rem 30%;
   }
 
   .links a span {
