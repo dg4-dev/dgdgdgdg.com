@@ -6,6 +6,9 @@
   --link-bg: #1a1a1a;
   --link-hover: #2a2a2a;
   --border-color: #2a2a2a;
+
+  /* icon size */
+  --icon-size-larger: scale(1.2);
 }
 
 body {
@@ -90,15 +93,30 @@ main {
 }
 
 .links a {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
   padding: 1rem 1.5rem;
   background-color: var(--link-bg);
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  text-align: center;
   color: var(--text-color);
   text-decoration: none;
   font-weight: 500;
+}
+
+.links a iconify-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+.links a iconify-icon[icon="simple-icons:instagram"],
+.links a iconify-icon[icon="simple-icons:youtube"],
+.links a iconify-icon[icon="mdi:shopping-outline"],
+.links a iconify-icon[icon="simple-icons:github"] {
+  transform: var(--icon-size-larger);
 }
 
 .links a:hover {
