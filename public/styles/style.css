@@ -1,5 +1,5 @@
 :root {
-  --bg-color: #0a0a0a;
+  --bg-color: #000000;
   --text-color: #ffffff;
   --text-secondary: #a0a0a0;
   --accent-color: #00d4d4;
@@ -28,6 +28,7 @@ body {
 }
 
 header {
+  height: fit-content;
   padding: 2rem;
   display: flex;
   justify-content: center;
@@ -41,8 +42,7 @@ header {
 
 main {
   flex: 1;
-  max-width: 600px;
-  width: 100%;
+  width: fit-content;
   margin: 0 auto;
   padding: 2rem 1.5rem;
   display: flex;
@@ -63,7 +63,6 @@ main {
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--border-color);
 }
 
 .status {
