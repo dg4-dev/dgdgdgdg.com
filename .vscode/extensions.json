@@ -1,9 +1,8 @@
 {
   "recommendations": [
     "streetsidesoftware.code-spell-checker",
-    "mhutchie.git-graph",
+    "gnx.git-graph-3",
     "eamodio.gitlens",
-    "esbenp.prettier-vscode",
-    "styled-components.vscode-styled-components"
+    "esbenp.prettier-vscode"
   ]
 }
