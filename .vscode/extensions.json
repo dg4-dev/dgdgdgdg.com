@@ -1,8 +1,3 @@
 {
-  "recommendations": [
-    "streetsidesoftware.code-spell-checker",
-    "gnx.git-graph-3",
-    "eamodio.gitlens",
-    "esbenp.prettier-vscode"
-  ]
+  "recommendations": ["esbenp.prettier-vscode"]
 }
