@@ -2,10 +2,7 @@
   "editor.formatOnType": true,
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.tabSize": 2,
-  "editor.stickyTabStops": true,
-  "prettier.prettierPath": "./node_modules/prettier",
-  "cSpell.words": ["dgdgdgdg"],
-  "scm.defaultViewMode": "tree"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.prettierPath": "./node_modules/prettier"
 }
