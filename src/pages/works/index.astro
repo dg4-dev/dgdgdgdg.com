@@ -4,7 +4,7 @@ import { getNotionData } from '@/lib/notion';
 
 // Notionデータベースからデータを取得
 const notionData = await getNotionData();
-console.log('=== Index Page: Notion Data ===');
+console.log('=== Works Page: Notion Data ===');
 console.log(JSON.stringify(notionData, null, 2));
 ---
 
@@ -13,17 +13,14 @@ console.log(JSON.stringify(notionData, null, 2));
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dgdgdgdg.com</title>
+    <title>Works - dgdgdgdg.com</title>
   </head>
   <body>
     <Header />
     <main>
-      <h1>Welcome to My Portfolio</h1>
+      <h1>Works</h1>
+      <!-- 将来ここにNotionデータから取得したコンテンツ一覧を表示 -->
     </main>
   </body>
 </html>
 
-<style lang="sass">
-  main
-    height: 200vh
-</style>

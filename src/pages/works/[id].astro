@@ -1,0 +1,40 @@
+---
+import Header from '@/components/header.astro';
+import { getNotionData } from '@/lib/notion';
+
+// 静的パス生成（Astroの動的ルートに必須）
+export async function getStaticPaths() {
+  const notionData = await getNotionData();
+  return notionData.results.map((page: any) => ({
+    params: { id: page.id },
+  }));
+}
+
+// URLパラメータからidを取得
+const { id } = Astro.params;
+
+// Notionデータベースからデータを取得
+const notionData = await getNotionData();
+console.log(`=== Works Detail Page (ID: ${id}): Notion Data ===`);
+console.log(JSON.stringify(notionData, null, 2));
+
+// 将来的には、ここで特定のidに対応するデータをフィルタリング
+// const workDetail = notionData.results.find(item => item.id === id);
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Work Detail - dgdgdgdg.com</title>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <h1>Work Detail: {id}</h1>
+      <!-- 将来ここにNotionデータから取得した特定コンテンツの詳細を表示 -->
+    </main>
+  </body>
+</html>
+
