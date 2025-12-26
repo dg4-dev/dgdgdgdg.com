@@ -1,5 +1,11 @@
 ---
 import Header from '@/components/header.astro';
+import { getNotionData } from '@/lib/notion';
+
+// Notionデータベースからデータを取得
+const notionData = await getNotionData();
+console.log('=== Index Page: Notion Data ===');
+console.log(JSON.stringify(notionData, null, 2));
 ---
 
 <!doctype html>

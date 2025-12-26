@@ -1,0 +1,26 @@
+---
+import Header from '@/components/header.astro';
+import { getNotionData } from '@/lib/notion';
+
+// Notionデータベースからデータを取得
+const notionData = await getNotionData();
+console.log('=== Works Page: Notion Data ===');
+console.log(JSON.stringify(notionData, null, 2));
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Works - dgdgdgdg.com</title>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <h1>Works</h1>
+      <!-- 将来ここにNotionデータから取得したコンテンツ一覧を表示 -->
+    </main>
+  </body>
+</html>
+
