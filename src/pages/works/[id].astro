@@ -1,25 +1,159 @@
 ---
 import Header from '@/components/header.astro';
-import { getNotionData } from '@/lib/notion';
+import { getNotionData, getNotionPage, getNotionBlocksRecursive, findPageByCustomId } from '@/lib/notion';
 
 // 静的パス生成（Astroの動的ルートに必須）
 export async function getStaticPaths() {
   const notionData = await getNotionData();
   return notionData.results.map((page: any) => ({
-    params: { id: page.id },
+    params: { id: page.properties?.id?.rich_text?.[0]?.plain_text ?? page.id },
   }));
 }
 
 // URLパラメータからidを取得
 const { id } = Astro.params;
 
-// Notionデータベースからデータを取得
-const notionData = await getNotionData();
-console.log(`=== Works Detail Page (ID: ${id}): Notion Data ===`);
-console.log(JSON.stringify(notionData, null, 2));
+// UUID形式かどうかを判定（ハイフン付きUUID形式）
+const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
 
-// 将来的には、ここで特定のidに対応するデータをフィルタリング
-// const workDetail = notionData.results.find(item => item.id === id);
+// UUIDの場合はそのまま使用、カスタムIDの場合は検索してUUIDを取得
+let pageUuid: string;
+if (isUuid) {
+  pageUuid = id;
+} else {
+  const pageData: any = await findPageByCustomId(id);
+  pageUuid = pageData.id;
+}
+
+// ページの詳細情報とブロックを取得（再帰的に子ブロックも含む）
+const page: any = await getNotionPage(pageUuid);
+const blocks: any[] = await getNotionBlocksRecursive(pageUuid);
+
+console.log(`=== Works Detail Page (ID: ${id}) ===`);
+console.log('Page:', JSON.stringify(page, null, 2));
+console.log('Blocks:', JSON.stringify(blocks, null, 2));
+
+// プロパティからデータを抽出
+const title = page.properties?.Title?.title?.[0]?.plain_text ?? 'No title';
+const client = page.properties?.Client?.rich_text?.[0]?.plain_text ?? '';
+const createdDate = page.properties?.['Created Date']?.date?.start ?? '';
+const categories = page.properties?.Category?.multi_select ?? [];
+const coverImage = page.properties?.Cover?.files?.[0]?.file?.url ?? '';
+const summary = page.properties?.Summary?.rich_text?.[0]?.plain_text ?? '';
+
+// ブロックをレンダリングするヘルパー関数（子ブロックも再帰的に処理）
+function renderBlock(block: any): string {
+  const { type, id, children } = block;
+  const value = block[type];
+
+  // 子ブロックのレンダリング
+  const childrenHtml = children && children.length > 0 ? renderBlocks(children) : '';
+
+  switch (type) {
+    case 'paragraph':
+      return `<p>${renderRichText(value.rich_text)}</p>`;
+    case 'heading_1':
+      return `<h1>${renderRichText(value.rich_text)}</h1>`;
+    case 'heading_2':
+      return `<h2>${renderRichText(value.rich_text)}</h2>`;
+    case 'heading_3':
+      return `<h3>${renderRichText(value.rich_text)}</h3>`;
+    case 'bulleted_list_item':
+      return `<li>${renderRichText(value.rich_text)}${childrenHtml}</li>`;
+    case 'numbered_list_item':
+      return `<li>${renderRichText(value.rich_text)}${childrenHtml}</li>`;
+    case 'to_do':
+      const checked = value.checked ? 'checked' : '';
+      return `<li class="todo-item"><input type="checkbox" ${checked} disabled /> <span>${renderRichText(value.rich_text)}</span>${childrenHtml}</li>`;
+    case 'toggle':
+      return `<details class="toggle-block"><summary>${renderRichText(value.rich_text)}</summary><div class="toggle-content">${childrenHtml}</div></details>`;
+    case 'child_page':
+      // 子ページは表示しない
+      return '';
+    case 'callout':
+      // コールアウトは表示しない
+      return '';
+    case 'quote':
+      // 引用は表示しない
+      return '';
+    case 'code':
+      return `<pre><code class="language-${value.language}">${renderRichText(value.rich_text)}</code></pre>`;
+    case 'image':
+      const imageUrl = value.type === 'file' ? value.file.url : value.external.url;
+      const caption = value.caption ? renderRichText(value.caption) : '';
+      return `<figure><img src="${imageUrl}" alt="${caption}" />${caption ? `<figcaption>${caption}</figcaption>` : ''}</figure>`;
+    case 'divider':
+      return '<hr />';
+    case 'table':
+      // テーブルは表示しない
+      return '';
+    case 'table_row':
+      // table_rowは親のtableブロック内で処理されるためここでは処理しない
+      return '';
+    default:
+      return `<p><em>Unsupported block type: ${type}</em></p>`;
+  }
+}
+
+// リッチテキストをHTMLに変換
+function renderRichText(richTextArray: any[]) {
+  if (!richTextArray || richTextArray.length === 0) return '';
+
+  return richTextArray
+    .map((text) => {
+      let content = text.plain_text;
+
+      if (text.annotations.bold) content = `<strong>${content}</strong>`;
+      if (text.annotations.italic) content = `<em>${content}</em>`;
+      if (text.annotations.strikethrough) content = `<s>${content}</s>`;
+      if (text.annotations.underline) content = `<u>${content}</u>`;
+      if (text.annotations.code) content = `<code>${content}</code>`;
+      if (text.href) content = `<a href="${text.href}">${content}</a>`;
+
+      return content;
+    })
+    .join('');
+}
+
+// ブロックをグループ化してレンダリング（リストを適切に処理）
+function renderBlocks(blocks: any[]) {
+  const result: string[] = [];
+  let i = 0;
+
+  while (i < blocks.length) {
+    const block = blocks[i];
+    const type = block.type;
+
+    // 連続するリストアイテムをグループ化
+    if (type === 'bulleted_list_item') {
+      const items: string[] = [];
+      while (i < blocks.length && blocks[i].type === 'bulleted_list_item') {
+        items.push(renderBlock(blocks[i]));
+        i++;
+      }
+      result.push(`<ul>${items.join('')}</ul>`);
+    } else if (type === 'numbered_list_item') {
+      const items: string[] = [];
+      while (i < blocks.length && blocks[i].type === 'numbered_list_item') {
+        items.push(renderBlock(blocks[i]));
+        i++;
+      }
+      result.push(`<ol>${items.join('')}</ol>`);
+    } else if (type === 'to_do') {
+      const items: string[] = [];
+      while (i < blocks.length && blocks[i].type === 'to_do') {
+        items.push(renderBlock(blocks[i]));
+        i++;
+      }
+      result.push(`<ul class="todo-list">${items.join('')}</ul>`);
+    } else {
+      result.push(renderBlock(block));
+      i++;
+    }
+  }
+
+  return result.join('');
+}
 ---
 
 <!doctype html>
@@ -27,14 +161,290 @@ console.log(JSON.stringify(notionData, null, 2));
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Work Detail - dgdgdgdg.com</title>
+    <title>{title} - dgdgdgdg.com</title>
   </head>
   <body>
     <Header />
     <main>
-      <h1>Work Detail: {id}</h1>
-      <!-- 将来ここにNotionデータから取得した特定コンテンツの詳細を表示 -->
+      <article class="work-detail">
+        {
+          coverImage && (
+            <div class="work-cover">
+              <img src={coverImage} alt={title} />
+            </div>
+          )
+        }
+
+        <div class="work-header">
+          <h1>{title}</h1>
+
+          <div class="work-meta">
+            {
+              client && (
+                <p class="meta-item">
+                  <strong>Client:</strong> {client}
+                </p>
+              )
+            }
+            {
+              createdDate && (
+                <p class="meta-item">
+                  <strong>Date:</strong> {createdDate}
+                </p>
+              )
+            }
+            {
+              categories.length > 0 && (
+                <div class="meta-item">
+                  <strong>Categories:</strong>
+                  <div class="categories">
+                    {categories.map((cat: any) => (
+                      <span class="category-tag">{cat.name}</span>
+                    ))}
+                  </div>
+                </div>
+              )
+            }
+            {
+              summary && (
+                <p class="meta-item">
+                  <strong>Summary:</strong> {summary}
+                </p>
+              )
+            }
+          </div>
+        </div>
+
+        <div class="work-content">
+          <Fragment set:html={renderBlocks(blocks)} />
+        </div>
+      </article>
+
+      <!-- デバッグ用 -->
+      <details class="debug">
+        <summary>デバッグ: ページデータ</summary>
+        <pre>{JSON.stringify(page, null, 2)}</pre>
+      </details>
+      <details class="debug">
+        <summary>デバッグ: ブロックデータ（再帰的に取得）</summary>
+        <pre>{JSON.stringify(blocks, null, 2)}</pre>
+      </details>
     </main>
   </body>
 </html>
 
+<style lang="scss">
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .work-detail {
+    .work-cover {
+      width: 100%;
+      max-height: 400px;
+      overflow: hidden;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .work-header {
+      margin-bottom: 3rem;
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .work-meta {
+        .meta-item {
+          margin: 0.5rem 0;
+          line-height: 1.6;
+
+          strong {
+            color: #666;
+            margin-right: 0.5rem;
+          }
+        }
+
+        .categories {
+          display: inline-flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+          margin-left: 0.5rem;
+
+          .category-tag {
+            padding: 0.25rem 0.75rem;
+            background: #e0e0e0;
+            border-radius: 12px;
+            font-size: 0.85rem;
+          }
+        }
+      }
+    }
+
+    .work-content {
+      line-height: 1.8;
+
+      :global(h1),
+      :global(h2),
+      :global(h3) {
+        margin: 2rem 0 1rem;
+      }
+
+      :global(p) {
+        margin: 1rem 0;
+      }
+
+      :global(ul),
+      :global(ol) {
+        margin: 1rem 0;
+        padding-left: 2rem;
+
+        // ネストされたリスト
+        :global(ul),
+        :global(ol) {
+          margin: 0.25rem 0;
+        }
+      }
+
+      :global(li) {
+        margin: 0.5rem 0;
+
+        // リストアイテム内のネストされたリスト
+        > :global(ul),
+        > :global(ol) {
+          margin-top: 0.25rem;
+        }
+      }
+
+      :global(.todo-list) {
+        list-style: none;
+        padding-left: 0;
+
+        // ネストされたTODOリスト
+        :global(.todo-list) {
+          padding-left: 2rem;
+          margin: 0.25rem 0;
+        }
+
+        :global(.todo-item) {
+          :global(input[type='checkbox']) {
+            margin-right: 0.5rem;
+            vertical-align: middle;
+          }
+
+          // TODOアイテム内のネストされたリスト
+          > :global(ul),
+          > :global(ol),
+          > :global(.todo-list) {
+            margin-top: 0.25rem;
+            padding-left: 2rem;
+          }
+        }
+      }
+
+      :global(.toggle-block) {
+        margin: 1rem 0;
+        padding: 0.75rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+
+        :global(summary) {
+          cursor: pointer;
+          font-weight: 500;
+          user-select: none;
+
+          &:hover {
+            color: #0066cc;
+          }
+        }
+      }
+
+      :global(.toggle-content) {
+        margin-top: 0.5rem;
+        padding-left: 1rem;
+      }
+
+      :global(pre) {
+        margin: 1.5rem 0;
+        padding: 1rem;
+        background: #f5f5f5;
+        border-radius: 4px;
+        overflow-x: auto;
+
+        :global(code) {
+          font-family: 'Courier New', monospace;
+          font-size: 0.9rem;
+        }
+      }
+
+      :global(code) {
+        background: #f0f0f0;
+        padding: 0.2rem 0.4rem;
+        border-radius: 3px;
+        font-family: 'Courier New', monospace;
+      }
+
+      :global(figure) {
+        margin: 2rem 0;
+
+        :global(img) {
+          max-width: 100%;
+          border-radius: 4px;
+        }
+
+        :global(figcaption) {
+          text-align: center;
+          font-size: 0.9rem;
+          color: #666;
+          margin-top: 0.5rem;
+        }
+      }
+
+      :global(hr) {
+        margin: 2rem 0;
+        border: none;
+        border-top: 2px solid #ddd;
+      }
+
+      :global(a) {
+        color: #0066cc;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .debug {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px dashed #ddd;
+
+    summary {
+      cursor: pointer;
+      padding: 0.5rem;
+      background: #f5f5f5;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+
+    pre {
+      padding: 1rem;
+      background: #f5f5f5;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+    }
+  }
+</style>

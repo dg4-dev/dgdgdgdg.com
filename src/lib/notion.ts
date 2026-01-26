@@ -20,3 +20,75 @@ export async function getNotionData() {
     throw error;
   }
 }
+
+// 個別ページの詳細を取得
+export async function getNotionPage(pageId: string) {
+  try {
+    const page = await notion.pages.retrieve({ page_id: pageId });
+    return page;
+  } catch (error) {
+    console.error('Notion Page Retrieve Error:', error);
+    throw error;
+  }
+}
+
+// ページのブロック（コンテンツ）を取得
+export async function getNotionBlocks(pageId: string) {
+  try {
+    const blocks = await notion.blocks.children.list({
+      block_id: pageId,
+    });
+    return blocks;
+  } catch (error) {
+    console.error('Notion Blocks List Error:', error);
+    throw error;
+  }
+}
+
+// ブロックを再帰的に取得（子ブロックを含む）
+export async function getNotionBlocksRecursive(blockId: string): Promise<any[]> {
+  try {
+    const { results } = await notion.blocks.children.list({
+      block_id: blockId,
+    });
+
+    // 各ブロックに対して、子ブロックがある場合は再帰的に取得
+    const blocksWithChildren = await Promise.all(
+      results.map(async (block: any) => {
+        if (block.has_children) {
+          const children = await getNotionBlocksRecursive(block.id);
+          return { ...block, children };
+        }
+        return block;
+      })
+    );
+
+    return blocksWithChildren;
+  } catch (error) {
+    console.error('Notion Blocks Recursive Error:', error);
+    throw error;
+  }
+}
+
+// カスタムIDからページを検索する関数
+export async function findPageByCustomId(customId: string) {
+  try {
+    // データソースから全データを取得
+    const response = await getNotionData();
+    
+    // カスタムIDがマッチするページを検索
+    const page = response.results.find((item: any) => {
+      const pageCustomId = item.properties?.id?.rich_text?.[0]?.plain_text;
+      return pageCustomId === customId;
+    });
+
+    if (!page) {
+      throw new Error(`Page with custom id "${customId}" not found`);
+    }
+
+    return page;
+  } catch (error) {
+    console.error('Find Page By Custom ID Error:', error);
+    throw error;
+  }
+}
