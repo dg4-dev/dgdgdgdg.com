@@ -7,6 +7,11 @@ const navItems = [
 ---
 
 <header>
+  <div class="logo-container">
+    <a href="/">
+      <img src="/images/row.svg" alt="Logo" class="hero-logo" />
+    </a>
+  </div>
   <nav>
     <ul>
       {
@@ -19,3 +24,57 @@ const navItems = [
     </ul>
   </nav>
 </header>
+
+<style lang="sass">
+  header
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    height: 60px
+    background-color: #000000
+    color: #ffffff
+    z-index: 1000
+    nav
+      ul
+        list-style: none
+        margin: 0
+        padding: 0
+        display: flex
+        gap: 20px
+        justify-content: center
+        li
+          a:hover
+            color: #cccccc
+            text-decoration: underline
+          a
+            color: #ffffff
+            text-decoration: none
+            font-size: 16px
+            font-weight: 600
+            transition: color 0.3s ease
+
+  @media (max-width: 768px)
+    header
+      height: 40px
+      nav
+        ul
+          gap: 10px
+          li
+            a
+              font-size: 14px
+              &:hover
+                color: #cccccc
+                text-decoration: underline
+</style>
+
+<script>
+  const header = document.querySelector('header');
+  if (!header) return;
+  const navItems = header.querySelectorAll('li');
+  navItems.forEach((item) => {
+    item.addEventListener('click', () => {
+      item.classList.add('active');
+    });
+  });
+</script>
