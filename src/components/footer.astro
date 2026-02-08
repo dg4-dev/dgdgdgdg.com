@@ -1,0 +1,22 @@
+---
+const navItems = [
+  { label: 'About', href: '/about' },
+  { label: 'Works', href: '/works' },
+  { label: 'Contact', href: '/contact' },
+];
+---
+
+<footer>
+  <nav>
+    <ul>
+      {
+        navItems.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+  <p>© 2026 dgdgdgdg.com</p>
+</footer>
