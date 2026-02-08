@@ -1,29 +1,635 @@
 ---
+import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
 import { getNotionData } from '@/lib/notion';
+import Footer from '@/components/footer.astro';
 
 // Notionデータベースからデータを取得
 const notionData = await getNotionData();
 console.log('=== Index Page: Notion Data ===');
 console.log(JSON.stringify(notionData, null, 2));
+
+// ロゴ周りに表示するテキストデータ
+const meaningRaw: {
+  phrase: string;
+  mean: [string, ...string[]];
+}[] = [
+  {
+    phrase: '4',
+    mean: ['四季', '.mp4', '四次元', '四則演算'],
+  },
+  {
+    phrase: 'dgdg',
+    mean: ['ドラムの音'],
+  },
+  {
+    phrase: 'deep',
+    mean: ['深い', '奥行きのある'],
+  },
+  {
+    phrase: '駄菓子',
+    mean: ['多種多様', '多方面'],
+  },
+  {
+    phrase: 'dig',
+    mean: ['調べる', '発掘する'],
+  },
+  {
+    phrase: 'digital',
+    mean: ['デジタル'],
+  },
+  {
+    phrase: 'delight',
+    mean: ['喜び', '楽しみ'],
+  },
+  {
+    phrase: 'design',
+    mean: ['デザイン'],
+  },
+  { phrase: 'geek', mean: ['オタク'] },
+];
+
+const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
 ---
 
-<!doctype html>
-<html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dgdgdgdg.com</title>
-  </head>
-  <body>
-    <Header />
-    <main>
-      <h1>Welcome to My Portfolio</h1>
-    </main>
-  </body>
-</html>
+<BaseLayout title="dgdgdgdg" description="dgdgdgdg.comのポートフォリオサイト" keywords="portfolio, design, web">
+  <Fragment slot="head">
+    <!-- ページ固有の追加メタタグやスクリプトをここに記述可能 -->
+  </Fragment>
+  <Header />
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <img src="/images/row.svg" alt="Logo" class="hero-logo" />
+        <div class="orbiting-words">
+          {
+            meaningRaw.map((item, index) => (
+              <div class="orbit-item" data-orbit={index}>
+                <span class="phrase">
+                  {item.phrase
+                    .split('')
+                    .map((char) => (highlightChars.has(char) ? <span class="dg4">{char}</span> : <span>{char}</span>))}
+                </span>
+                <div class="satellites">
+                  {item.mean.map((meaning) => (
+                    <span class="satellite">{meaning}</span>
+                  ))}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+        <div class="scroll-indicator">
+          <span class="scroll-text">SCROLL</span>
+          <svg class="scroll-line" viewBox="0 0 1 60" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0.5" y1="0" x2="0.5" y2="60" stroke="white" stroke-width="1"></line>
+          </svg>
+        </div>
+      </div>
+    </section>
+    <section class="test-section-dark">
+      <h2 class="about-title">dgdgdgdgとは</h2>
+      <div class="about-logo">
+        <img src="/images/row.svg" alt="dgdgdgdg" />
+      </div>
+      <div class="about-text">
+        <p>
+          dgdgdgdgは私のハンドルネームであり、屋号でもあります。読み方は日本語の「駄菓子（だがし）」と同じ発音です。
+        </p>
+        <p>
+          駄菓子屋に並ぶお菓子のように、小さくても色とりどりで、手に取った人がちょっと嬉しくなるようなものづくりをしたい——そんな思いを込めています。
+        </p>
+        <p>
+          デザイン、コーディング、映像、音楽など、さまざまな領域を横断しながら、デジタルとアナログの境界を自由に行き来する制作活動を行っています。「深く掘り下げる（dig）」ことと「喜び（delight）」を届けることの両方を大切にしながら、四季のように移り変わる好奇心のままに、多方面のクリエイティブに取り組んでいます。
+        </p>
+      </div>
+    </section>
+    <section class="test-section-light">
+      <h2>Section 3 — Light</h2>
+      <p>白背景のテストセクション</p>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
 
 <style lang="sass">
   main
-    height: 200vh
+    margin: 0
+    padding: 0
+
+  .hero
+    --orbit-scale-y: 0.35
+    --counter-scale-y: 2.857
+    background-color: #000000
+    height: 300vh
+    position: relative
+    overflow: clip
+
+  .hero-content
+    position: sticky
+    top: 0
+    width: 100%
+    height: 100vh
+    display: flex
+    align-items: center
+    justify-content: center
+    overflow: hidden
+    will-change: transform, opacity
+
+  .hero-logo
+    width: 20vw
+    height: auto
+    position: relative
+    z-index: 10
+
+  .scroll-indicator
+    position: absolute
+    bottom: 40px
+    left: 50%
+    transform: translateX(-50%)
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: 12px
+    z-index: 20
+    transition: opacity 0.3s ease
+
+  .scroll-text
+    color: #ffffff
+    font-family: 'DG4 Atomic Dot', sans-serif
+    font-variation-settings: 'RNDS' 0
+    font-size: 12px
+    letter-spacing: 0.2em
+
+  .scroll-line
+    width: 1px
+    height: 60px
+    overflow: visible
+    line
+      stroke-dasharray: 60 60
+      animation: scroll-line-trim 2s ease-in-out infinite
+
+  @keyframes scroll-line-trim
+    0%
+      stroke-dashoffset: 60
+    50%
+      stroke-dashoffset: 0
+    100%
+      stroke-dashoffset: -60
+
+  .orbiting-words
+    position: absolute
+    width: 100%
+    height: 100%
+    top: 0
+    left: 0
+    pointer-events: none
+    font-family: 'DG4 Atomic Dot', sans-serif
+    font-variation-settings: 'RNDS' 0
+    font-weight: 400
+    transform: scaleY(var(--orbit-scale-y))
+
+  .orbit-item
+    position: absolute
+    top: 50%
+    left: 50%
+    pointer-events: all
+    transform-origin: 0 0
+
+  .phrase
+    display: block
+    color: #ffffff
+    font-size: 5vw
+    white-space: nowrap
+    cursor: default
+    transition: color 0.3s ease
+
+  .orbit-item[data-orbit="3"] .phrase
+    font-size: 2.56vw
+
+  .orbit-item:hover .dg4
+    color: #00d4d4
+
+  .satellites
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    opacity: 0
+    visibility: hidden
+    transition: opacity 0.3s ease, visibility 0.3s ease
+    pointer-events: none
+
+  .orbit-item:hover .satellites
+    opacity: 1
+    visibility: visible
+
+  .satellite
+    position: absolute
+    top: 50%
+    left: 50%
+    color: #888888
+    font-size: 16px
+    white-space: nowrap
+    transform-origin: center
+    animation: satellite-orbit 10s linear infinite
+
+  // 各orbit-itemの3D軌道設定（スタート位置をバラバラに）
+  .orbit-item[data-orbit="0"]
+    animation: orbit-3d-0 40s linear infinite
+    animation-delay: 0s
+
+  .orbit-item[data-orbit="1"]
+    animation: orbit-3d-1 50s linear infinite
+    animation-delay: -10s
+
+  .orbit-item[data-orbit="2"]
+    animation: orbit-3d-2 60s linear infinite
+    animation-delay: -24s
+
+  .orbit-item[data-orbit="3"]
+    animation: orbit-3d-3 44s linear infinite
+    animation-delay: -16s
+
+  .orbit-item[data-orbit="4"]
+    animation: orbit-3d-4 56s linear infinite
+    animation-delay: -30s
+
+  .orbit-item[data-orbit="5"]
+    animation: orbit-3d-5 48s linear infinite
+    animation-delay: -20s
+
+  .orbit-item[data-orbit="6"]
+    animation: orbit-3d-6 52s linear infinite
+    animation-delay: -36s
+
+  .orbit-item[data-orbit="7"]
+    animation: orbit-3d-7 64s linear infinite
+    animation-delay: -44s
+
+  .orbit-item[data-orbit="8"]
+    animation: orbit-3d-8 54s linear infinite
+    animation-delay: -28s
+
+  // 楕円軌道アニメーション定義（rotateZで2D回転、scaleYで文字の潰れを打ち消し）
+  // リングサイズ: 17, 52, 28, 110, 35, 62, 21, 130, 85 → 半径(+5vw): 13.5, 31, 19, 60, 22.5, 36, 15.5, 70, 47.5
+  // tilt: 5, -2.67, 7.33, -4, 10, -6, 3.33, -8.33, 11.67
+  // 中心: ロゴ位置（画面中央）
+  @keyframes orbit-3d-0
+    0%
+      transform: translate(-50%, -50%) rotate(5deg) rotate(0deg) translateX(13.5vw) rotate(0deg) rotate(-5deg) scaleY(var(--counter-scale-y))
+    100%
+      transform: translate(-50%, -50%) rotate(5deg) rotate(360deg) translateX(13.5vw) rotate(-360deg) rotate(-5deg) scaleY(var(--counter-scale-y))
+
+  @keyframes orbit-3d-1
+    0%
+      transform: translate(-50%, -50%) rotate(-2.67deg) rotate(0deg) translateX(36vw) rotate(0deg) rotate(2.67deg) scaleY(var(--counter-scale-y))
+    100%
+      transform: translate(-50%, -50%) rotate(-2.67deg) rotate(360deg) translateX(36vw) rotate(-360deg) rotate(2.67deg) scaleY(var(--counter-scale-y))
+
+  @keyframes orbit-3d-2
+    0%
+      transform: translate(-50%, -50%) rotate(7.33deg) rotate(0deg) translateX(19vw) rotate(0deg) rotate(-7.33deg) scaleY(var(--counter-scale-y))
+    100%
+      transform: translate(-50%, -50%) rotate(7.33deg) rotate(360deg) translateX(19vw) rotate(-360deg) rotate(-7.33deg) scaleY(var(--counter-scale-y))
+
+  @keyframes orbit-3d-3
+    0%
+      transform: translate(-50%, -50%) rotate(-4deg) rotate(0deg) translateX(60vw) rotate(0deg) rotate(4deg) scaleY(var(--counter-scale-y))
+    100%
+      transform: translate(-50%, -50%) rotate(-4deg) rotate(360deg) translateX(60vw) rotate(-360deg) rotate(4deg) scaleY(var(--counter-scale-y))
+
+  @keyframes orbit-3d-4
+    0%
+      transform: translate(-50%, -50%) rotate(10deg) rotate(0deg) translateX(22.5vw) rotate(0deg) rotate(-10deg) scaleY(var(--counter-scale-y))
+    100%
+      transform: translate(-50%, -50%) rotate(10deg) rotate(360deg) translateX(22.5vw) rotate(-360deg) rotate(-10deg) scaleY(var(--counter-scale-y))
+
+  @keyframes orbit-3d-5
+    0%
+      transform: translate(-50%, -50%) rotate(-6deg) rotate(0deg) translateX(36vw) rotate(0deg) rotate(6deg) scaleY(var(--counter-scale-y))
+    100%
+      transform: translate(-50%, -50%) rotate(-6deg) rotate(360deg) translateX(36vw) rotate(-360deg) rotate(6deg) scaleY(var(--counter-scale-y))
+
+  @keyframes orbit-3d-6
+    0%
+      transform: translate(-50%, -50%) rotate(3.33deg) rotate(0deg) translateX(15.5vw) rotate(0deg) rotate(-3.33deg) scaleY(var(--counter-scale-y))
+    100%
+      transform: translate(-50%, -50%) rotate(3.33deg) rotate(360deg) translateX(15.5vw) rotate(-360deg) rotate(-3.33deg) scaleY(var(--counter-scale-y))
+
+  @keyframes orbit-3d-7
+    0%
+      transform: translate(-50%, -50%) rotate(-8.33deg) rotate(0deg) translateX(70vw) rotate(0deg) rotate(8.33deg) scaleY(var(--counter-scale-y))
+    100%
+      transform: translate(-50%, -50%) rotate(-8.33deg) rotate(360deg) translateX(70vw) rotate(-360deg) rotate(8.33deg) scaleY(var(--counter-scale-y))
+
+  @keyframes orbit-3d-8
+    0%
+      transform: translate(-50%, -50%) rotate(11.67deg) rotate(0deg) translateX(47.5vw) rotate(0deg) rotate(-11.67deg) scaleY(var(--counter-scale-y))
+    100%
+      transform: translate(-50%, -50%) rotate(11.67deg) rotate(360deg) translateX(47.5vw) rotate(-360deg) rotate(-11.67deg) scaleY(var(--counter-scale-y))
+
+  // 衛星の周回アニメーション（常に回転）
+  .orbit-item[data-orbit="0"] .satellite:nth-child(1)
+    animation: satellite-orbit 8s linear infinite
+    animation-delay: 0s
+
+  .orbit-item[data-orbit="0"] .satellite:nth-child(2)
+    animation: satellite-orbit 8s linear infinite
+    animation-delay: 2s
+
+  .orbit-item[data-orbit="0"] .satellite:nth-child(3)
+    animation: satellite-orbit 8s linear infinite
+    animation-delay: 4s
+
+  .orbit-item[data-orbit="0"] .satellite:nth-child(4)
+    animation: satellite-orbit 8s linear infinite
+    animation-delay: 6s
+
+  .orbit-item[data-orbit="1"] .satellite:nth-child(1)
+    animation: satellite-orbit 9s linear infinite
+    animation-delay: 0s
+
+  .orbit-item[data-orbit="2"] .satellite:nth-child(1)
+    animation: satellite-orbit 10s linear infinite
+    animation-delay: 0s
+
+  .orbit-item[data-orbit="2"] .satellite:nth-child(2)
+    animation: satellite-orbit 10s linear infinite
+    animation-delay: 5s
+
+  .orbit-item[data-orbit="3"] .satellite:nth-child(1)
+    animation: satellite-orbit 11s linear infinite
+    animation-delay: 0s
+
+  .orbit-item[data-orbit="4"] .satellite:nth-child(1)
+    animation: satellite-orbit 9.5s linear infinite
+    animation-delay: 0s
+
+  .orbit-item[data-orbit="4"] .satellite:nth-child(2)
+    animation: satellite-orbit 9.5s linear infinite
+    animation-delay: 4.75s
+
+  .orbit-item[data-orbit="5"] .satellite:nth-child(1)
+    animation: satellite-orbit 10.5s linear infinite
+    animation-delay: 0s
+
+  .orbit-item[data-orbit="6"] .satellite:nth-child(1)
+    animation: satellite-orbit 8.5s linear infinite
+    animation-delay: 0s
+
+  .orbit-item[data-orbit="7"] .satellite:nth-child(1)
+    animation: satellite-orbit 11.5s linear infinite
+    animation-delay: 0s
+
+  .orbit-item[data-orbit="8"] .satellite:nth-child(1)
+    animation: satellite-orbit 10s linear infinite
+    animation-delay: 0s
+
+  @keyframes satellite-orbit
+    from
+      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(0deg) translateX(120px) rotate(0deg) scaleY(var(--counter-scale-y))
+    to
+      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(360deg) translateX(120px) rotate(-360deg) scaleY(var(--counter-scale-y))
+
+  // 他のorbit-itemにも衛星アニメーションを適用
+  .orbit-item:not([data-orbit="0"]) .satellite
+    transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) translateX(120px) scaleY(var(--counter-scale-y))
+
+  @media (max-width: 768px)
+    .phrase
+      font-size: 24px
+
+    .satellite
+      font-size: 14px
+
+    @keyframes orbit-3d-0
+      0%
+        transform: translate(-50%, -50%) rotate(5deg) rotate(0deg) translateX(13.5vw) rotate(0deg) rotate(-5deg) scaleY(var(--counter-scale-y))
+      100%
+        transform: translate(-50%, -50%) rotate(5deg) rotate(360deg) translateX(13.5vw) rotate(-360deg) rotate(-5deg) scaleY(var(--counter-scale-y))
+
+    @keyframes orbit-3d-1
+      0%
+        transform: translate(-50%, -50%) rotate(-2.67deg) rotate(0deg) translateX(36vw) rotate(0deg) rotate(2.67deg) scaleY(var(--counter-scale-y))
+      100%
+        transform: translate(-50%, -50%) rotate(-2.67deg) rotate(360deg) translateX(36vw) rotate(-360deg) rotate(2.67deg) scaleY(var(--counter-scale-y))
+
+    @keyframes orbit-3d-2
+      0%
+        transform: translate(-50%, -50%) rotate(7.33deg) rotate(0deg) translateX(19vw) rotate(0deg) rotate(-7.33deg) scaleY(var(--counter-scale-y))
+      100%
+        transform: translate(-50%, -50%) rotate(7.33deg) rotate(360deg) translateX(19vw) rotate(-360deg) rotate(-7.33deg) scaleY(var(--counter-scale-y))
+
+    @keyframes orbit-3d-3
+      0%
+        transform: translate(-50%, -50%) rotate(-4deg) rotate(0deg) translateX(60vw) rotate(0deg) rotate(4deg) scaleY(var(--counter-scale-y))
+      100%
+        transform: translate(-50%, -50%) rotate(-4deg) rotate(360deg) translateX(60vw) rotate(-360deg) rotate(4deg) scaleY(var(--counter-scale-y))
+
+    @keyframes orbit-3d-4
+      0%
+        transform: translate(-50%, -50%) rotate(10deg) rotate(0deg) translateX(22.5vw) rotate(0deg) rotate(-10deg) scaleY(var(--counter-scale-y))
+      100%
+        transform: translate(-50%, -50%) rotate(10deg) rotate(360deg) translateX(22.5vw) rotate(-360deg) rotate(-10deg) scaleY(var(--counter-scale-y))
+
+    @keyframes orbit-3d-5
+      0%
+        transform: translate(-50%, -50%) rotate(-6deg) rotate(0deg) translateX(36vw) rotate(0deg) rotate(6deg) scaleY(var(--counter-scale-y))
+      100%
+        transform: translate(-50%, -50%) rotate(-6deg) rotate(360deg) translateX(36vw) rotate(-360deg) rotate(6deg) scaleY(var(--counter-scale-y))
+
+    @keyframes orbit-3d-6
+      0%
+        transform: translate(-50%, -50%) rotate(3.33deg) rotate(0deg) translateX(15.5vw) rotate(0deg) rotate(-3.33deg) scaleY(var(--counter-scale-y))
+      100%
+        transform: translate(-50%, -50%) rotate(3.33deg) rotate(360deg) translateX(15.5vw) rotate(-360deg) rotate(-3.33deg) scaleY(var(--counter-scale-y))
+
+    @keyframes orbit-3d-7
+      0%
+        transform: translate(-50%, -50%) rotate(-8.33deg) rotate(0deg) translateX(70vw) rotate(0deg) rotate(8.33deg) scaleY(var(--counter-scale-y))
+      100%
+        transform: translate(-50%, -50%) rotate(-8.33deg) rotate(360deg) translateX(70vw) rotate(-360deg) rotate(8.33deg) scaleY(var(--counter-scale-y))
+
+    @keyframes orbit-3d-8
+      0%
+        transform: translate(-50%, -50%) rotate(11.67deg) rotate(0deg) translateX(47.5vw) rotate(0deg) rotate(-11.67deg) scaleY(var(--counter-scale-y))
+      100%
+        transform: translate(-50%, -50%) rotate(11.67deg) rotate(360deg) translateX(47.5vw) rotate(-360deg) rotate(-11.67deg) scaleY(var(--counter-scale-y))
+
+    @keyframes satellite-orbit
+      from
+        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(0deg) translateX(80px) rotate(0deg) scaleY(var(--counter-scale-y))
+      to
+        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(360deg) translateX(80px) rotate(-360deg) scaleY(var(--counter-scale-y))
+
+  .test-section-dark
+    background-color: #000000
+    min-height: 100vh
+    display: grid
+    grid-template-columns: auto auto
+    grid-template-rows: auto auto
+    align-items: center
+    align-content: center
+    justify-content: center
+    justify-items: start
+    position: relative
+    z-index: 1
+    padding: 120px 80px
+    gap: 16px 80px
+
+    .about-title
+      grid-column: 2
+      grid-row: 1
+      color: #ffffff
+      font-size: 40px
+      font-weight: 700
+      letter-spacing: 0.08em
+
+    .about-logo
+      grid-column: 1
+      grid-row: 1 / -1
+      display: flex
+      align-items: center
+      justify-content: center
+      img
+        width: 40vw
+        min-width: 400px
+        max-width: 600px
+        height: auto
+
+    .about-text
+      grid-column: 2
+      grid-row: 2
+      max-width: 560px
+      p
+        color: #aaaaaa
+        font-size: 16px
+        margin-top: 24px
+        line-height: 2.2
+        text-align: justify
+        letter-spacing: 0.04em
+
+    @media (max-width: 768px)
+      display: flex
+      flex-direction: column
+      align-items: center
+      padding: 80px 24px
+      gap: 48px
+      .about-title
+        font-size: 28px
+        text-align: center
+        order: 1
+      .about-logo
+        order: 2
+        img
+          width: 48vw
+          min-width: 300px
+          max-width: 720px
+      .about-text
+        order: 3
+        max-width: 100%
+        p
+          font-size: 15px
+          margin-top: 20px
+          line-height: 2
+
+  .test-section-light
+    background-color: #ffffff
+    min-height: 100vh
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    h2
+      color: #000000
+      font-size: 48px
+      font-weight: 700
+    p
+      color: #666666
+      font-size: 18px
+      margin-top: 16px
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 衛星アニメーションの動的設定
+    const orbitItems = document.querySelectorAll('.orbit-item');
+    orbitItems.forEach((item) => {
+      const satellites = item.querySelectorAll('.satellite');
+      const satelliteCount = satellites.length;
+      satellites.forEach((satellite, index) => {
+        const delay = (10 / satelliteCount) * index;
+        (satellite as HTMLElement).style.animationDelay = `${delay}s`;
+      });
+    });
+
+    // スクロールパララックス + ズームイン
+    const hero = document.querySelector('.hero') as HTMLElement;
+    const heroContent = document.querySelector('.hero-content') as HTMLElement;
+    const scrollIndicator = document.querySelector('.scroll-indicator') as HTMLElement;
+    if (!hero || !heroContent) return;
+
+    let ticking = false;
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const heroRect = hero.getBoundingClientRect();
+        const heroHeight = hero.offsetHeight;
+        const viewportHeight = window.innerHeight;
+        const scrollableDistance = heroHeight - viewportHeight;
+
+        // ヒーロー内でスクロールした量（0〜scrollableDistance）
+        const scrolled = Math.max(0, -heroRect.top);
+        const progress = Math.min(1, scrolled / scrollableDistance);
+
+        // パララックス: scaleY 0.35 → 1.0（楕円の角度が変わる）
+        const scaleY = 0.35 + progress * 0.65;
+        const counterScaleY = 1 / scaleY;
+
+        hero.style.setProperty('--orbit-scale-y', String(scaleY));
+        hero.style.setProperty('--counter-scale-y', String(counterScaleY));
+
+        // ズームイン: 後半で指数的に加速
+        // 0-40%: scale 1 → 1.3（ゆるやか）
+        // 40-100%: scale 1.3 → 20（急加速、画面を埋め尽くす）
+        let scale: number;
+        if (progress < 0.4) {
+          scale = 1 + (progress / 0.4) * 0.3;
+        } else {
+          const zoomProgress = (progress - 0.4) / 0.6;
+          // イージング: 指数カーブで急加速
+          const eased = zoomProgress * zoomProgress * zoomProgress;
+          scale = 1.3 + eased * 18.7;
+        }
+
+        heroContent.style.transform = `scale(${scale})`;
+
+        // フェードアウト: 60%〜85%でopacity 1→0（黒背景だけ残す）
+        let opacity: number;
+        if (progress < 0.6) {
+          opacity = 1;
+        } else if (progress < 0.85) {
+          opacity = 1 - (progress - 0.6) / 0.25;
+        } else {
+          opacity = 0;
+        }
+        heroContent.style.opacity = String(opacity);
+
+        // スクロールインジケーターのフェードアウト
+        if (scrollIndicator) {
+          const indicatorOpacity = progress < 0.03 ? 1 : Math.max(0, 1 - (progress - 0.03) / 0.07);
+          scrollIndicator.style.opacity = String(indicatorOpacity);
+        }
+
+        ticking = false;
+      });
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    // 初期状態を設定
+    onScroll();
+  });
+</script>
