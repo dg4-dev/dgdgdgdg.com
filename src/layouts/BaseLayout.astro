@@ -1,4 +1,5 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
 import '@/styles/reset.css';
 import '@/styles/global.sass';
 
@@ -50,6 +51,8 @@ const currentUrl = canonicalUrl || Astro.url.href;
       rel="stylesheet"
     />
 
+    <ViewTransitions />
+
     <!-- 各ページから追加のheadコンテンツを挿入可能 -->
     <slot name="head" />
   </head>
@@ -61,5 +64,48 @@ const currentUrl = canonicalUrl || Astro.url.href;
 <style is:global>
   body {
     overflow-x: hidden;
+  }
+
+  ::view-transition-old(root) {
+    animation: none;
+  }
+
+  ::view-transition-new(root) {
+    animation: fade-in 250ms ease-out;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  /* current-page: 横スライドのみ */
+  ::view-transition-group(current-page) {
+    animation: none;
+  }
+
+  ::view-transition-image-pair(current-page) {
+    overflow: hidden;
+  }
+
+  ::view-transition-old(current-page) {
+    animation: current-page-out 200ms ease-out both;
+  }
+
+  ::view-transition-new(current-page) {
+    animation: current-page-in 200ms ease-out both;
+  }
+
+  @keyframes current-page-out {
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes current-page-in {
+    from {
+      transform: translateX(100%);
+    }
   }
 </style>
