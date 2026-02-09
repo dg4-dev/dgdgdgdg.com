@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
 import { getNotionData, getNotionBlocksRecursive } from '@/lib/notion';
 import Footer from '@/components/footer.astro';
+import { Image } from 'astro:assets';
 
 // Notionデータベースからデータを取得
 const notionData = await getNotionData();
@@ -169,6 +170,23 @@ function formatDateToYearMonth(dateString: string): string {
   return dateString.substring(0, 7);
 }
 
+// Notionのカテゴリー色をCSSのHEXカラーに変換する関数
+function getNotionCategoryColor(colorName: string): string {
+  const colorMap: Record<string, string> = {
+    default: '#373530',
+    gray: '#9B9A97',
+    brown: '#64473A',
+    red: '#E03E3E',
+    orange: '#D9730D',
+    yellow: '#DFAB01',
+    green: '#0F7B6C',
+    blue: '#0B6E99',
+    purple: '#6940A5',
+    pink: '#AD1A72',
+  };
+  return colorMap[colorName] || colorMap.default;
+}
+
 // 作成日で降順にソート（新しい順）
 const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
   const dateA = a.properties?.['Created Date']?.date?.start || '';
@@ -180,6 +198,18 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
   // 降順（新しい順）
   return dateB.localeCompare(dateA);
 });
+
+// 全カテゴリを取得（重複を除去）
+const allCategories = new Set<string>();
+worksWithCoverImages.forEach((work: any) => {
+  const categories = work.properties?.Category?.multi_select ?? [];
+  categories.forEach((cat: any) => {
+    if (cat.name) {
+      allCategories.add(cat.name);
+    }
+  });
+});
+const uniqueCategories = Array.from(allCategories).sort();
 ---
 
 <BaseLayout title="Works - dgdgdgdg" description="制作実績の一覧" keywords="works, portfolio, projects">
@@ -187,8 +217,9 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
   <Header />
   <main>
     <!-- Works data for client-side filtering/sorting -->
-    <script define:vars={{ worksData: works }}>
+    <script define:vars={{ worksData: works, categoriesData: uniqueCategories }}>
       window.__WORKS_DATA__ = worksData;
+      window.__CATEGORIES_DATA__ = categoriesData;
     </script>
     <div class="works-grid" id="works-grid">
       {
@@ -206,12 +237,18 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
             <>
               {isPrivate ? (
                 <div class="work-cover">
-                  <img src="/images/private-sample.png" alt="Private work sample" />
+                  <Image
+                    src="/images/private-sample.png"
+                    alt="Private work sample"
+                    width={520}
+                    height={360}
+                    loading="lazy"
+                  />
                 </div>
               ) : (
                 coverImage && (
                   <div class="work-cover">
-                    <img src={coverImage} alt={title} />
+                    <Image src={coverImage} alt={title} width={520} height={360} loading="lazy" />
                   </div>
                 )
               )}
@@ -226,7 +263,7 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
                 {categories.length > 0 && (
                   <div class="work-categories">
                     {categories.map((cat: any) => (
-                      <span class="category-tag" style={`background-color: ${cat.color}`}>
+                      <span class="category-tag" style={`background-color: ${getNotionCategoryColor(cat.color)}`}>
                         {cat.name}
                       </span>
                     ))}
@@ -236,12 +273,15 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
             </>
           );
 
+          const categoryNames = categories.map((cat: any) => cat.name).join(',');
+
           return isPrivate ? (
             <article
               class="work-card"
               data-work-title={title}
               data-work-date={createdDateFull || ''}
               data-work-private="true"
+              data-work-categories={categoryNames}
             >
               {cardInner}
             </article>
@@ -252,6 +292,7 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
               data-work-title={title}
               data-work-date={createdDateFull || ''}
               data-work-private="false"
+              data-work-categories={categoryNames}
             >
               {cardInner}
             </a>
@@ -268,34 +309,26 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
     margin: 0
     padding: 0
 
-  .under-construction
-    min-height: 100vh
-    display: flex
-    align-items: center
-    justify-content: center
-    background-color: #0a0a0a
-    background-image: repeating-linear-gradient(45deg, #0a0a0a 0px, #0a0a0a 10px, #151515 10px, #151515 20px)
-    background-size: 28.28px 28.28px
-    position: relative
+  .works-grid
+    width: 100%
+    max-width: 1200px
+    margin: 0 auto
+    padding: 120px 40px
+    display: grid
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))
+    gap: 24px
 
-  .uc-content
-    text-align: center
-    padding: 48px 64px
-    background: rgba(0, 0, 0, 0.85)
-    border: 1px solid rgba(255, 255, 255, 0.06)
-    border-radius: 4px
-
-  .uc-label
-    display: block
-    color: rgba(255, 255, 255, 0.5)
-    font-family: 'DG4 Atomic Dot', sans-serif
-    font-variation-settings: 'RNDS' 0
-    font-size: 24px
-    letter-spacing: 0.15em
+  .work-card
+    border: 1px solid #e0e0e0
+    border-radius: 12px
+    overflow: hidden
+    background-color: #ffffff
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04)
+    transition: transform 0.2s ease, box-shadow 0.2s ease
 
     &:hover
       transform: translateY(-4px)
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1)
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08)
 
   .work-card--link
     text-decoration: none
@@ -304,7 +337,7 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
 
   .work-cover
     width: 100%
-    height: 200px
+    height: 180px
     overflow: hidden
 
     img
@@ -313,33 +346,37 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
       object-fit: cover
 
   .work-content
-    padding: 1.5rem
+    padding: 16px 20px 20px
 
     h2
-      margin: 0 0 0.5rem 0
-      font-size: 1.25rem
+      margin: 0 0 8px 0
+      font-size: 20px
+      color: #111111
 
     .work-client
-      color: #666
-      font-size: 0.9rem
-      margin: 0.25rem 0
+      color: #777777
+      font-size: 14px
+      margin: 2px 0
 
     .work-date
-      color: #999
-      font-size: 0.85rem
-      margin: 0.25rem 0
+      color: #999999
+      font-size: 12px
+      margin-top: 4px
 
     .work-categories
       display: flex
       flex-wrap: wrap
-      gap: 0.5rem
-      margin-top: 0.75rem
+      gap: 6px
+      margin-top: 10px
 
       .category-tag
-        padding: 0.25rem 0.75rem
-        border-radius: 12px
-        font-size: 0.75rem
-        opacity: 0.8
+        padding: 2px 6px 4px 6px
+        border-radius: 4px
+        font-size: 16px
+        font-family: 'Zen Kaku Gothic New', sans-serif
+        font-weight: 700
+        color: #ffffff
+        opacity: 0.9
 
   details
     margin-top: 3rem
@@ -364,9 +401,10 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
     var sortHandler = null;
     var filterHandler = null;
 
-    function updateWorks(sortSelect, filterSelect, worksGrid) {
+    function updateWorks(sortSelect, filterSelect, categorySelect, worksGrid) {
       var sortValue = sortSelect.value;
       var filterValue = filterSelect.value;
+      var categoryValue = categorySelect.value;
       var cards = Array.from(worksGrid.querySelectorAll('.work-card'));
 
       // フィルタリング（表示/非表示を判定）
@@ -375,6 +413,14 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
 
       cards.forEach(function (card) {
         var isPrivate = card.getAttribute('data-work-private') === 'true';
+        var categories = card.getAttribute('data-work-categories') || '';
+        var categoryList = categories
+          ? categories.split(',').map(function (c) {
+              return c.trim();
+            })
+          : [];
+
+        // 公開/プライベートフィルター
         var shouldShow = false;
         if (filterValue === 'public') {
           shouldShow = !isPrivate;
@@ -382,6 +428,11 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
           shouldShow = isPrivate;
         } else {
           shouldShow = true; // 'all'
+        }
+
+        // カテゴリフィルター
+        if (shouldShow && categoryValue !== 'all') {
+          shouldShow = categoryList.includes(categoryValue);
         }
 
         if (shouldShow) {
@@ -403,10 +454,6 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
           var dateA = a.getAttribute('data-work-date') || '';
           var dateB = b.getAttribute('data-work-date') || '';
           return dateA.localeCompare(dateB);
-        } else if (sortValue === 'title_asc') {
-          var titleA = a.getAttribute('data-work-title') || '';
-          var titleB = b.getAttribute('data-work-title') || '';
-          return titleA.localeCompare(titleB, 'ja');
         }
         return 0;
       });
@@ -423,9 +470,10 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
     function initWorksSortAndFilter() {
       var sortSelect = document.querySelector('[data-works-sort]');
       var filterSelect = document.querySelector('[data-works-filter]');
+      var categorySelect = document.querySelector('[data-works-category]');
       var worksGridElement = document.getElementById('works-grid');
 
-      if (!sortSelect || !filterSelect || !worksGridElement) {
+      if (!sortSelect || !filterSelect || !categorySelect || !worksGridElement) {
         // 要素が見つからない場合は少し待って再試行
         setTimeout(initWorksSortAndFilter, 100);
         return;
@@ -442,16 +490,16 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
       }
 
       // 新しいイベントハンドラーを作成
-      sortHandler = function () {
-        updateWorks(sortSelect, filterSelect, worksGrid);
+      var updateHandler = function () {
+        updateWorks(sortSelect, filterSelect, categorySelect, worksGrid);
       };
-      filterHandler = function () {
-        updateWorks(sortSelect, filterSelect, worksGrid);
-      };
+      sortHandler = updateHandler;
+      filterHandler = updateHandler;
 
       // イベントリスナーを追加
       sortSelect.addEventListener('change', sortHandler);
       filterSelect.addEventListener('change', filterHandler);
+      categorySelect.addEventListener('change', updateHandler);
     }
 
     // 初期化関数
@@ -463,9 +511,10 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
           setTimeout(function () {
             var sortSelect = document.querySelector('[data-works-sort]');
             var filterSelect = document.querySelector('[data-works-filter]');
+            var categorySelect = document.querySelector('[data-works-category]');
             var worksGridElement = document.getElementById('works-grid');
-            if (sortSelect && filterSelect && worksGridElement) {
-              updateWorks(sortSelect, filterSelect, worksGridElement);
+            if (sortSelect && filterSelect && categorySelect && worksGridElement) {
+              updateWorks(sortSelect, filterSelect, categorySelect, worksGridElement);
             }
           }, 100);
         });
@@ -477,9 +526,10 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
           setTimeout(function () {
             var sortSelect = document.querySelector('[data-works-sort]');
             var filterSelect = document.querySelector('[data-works-filter]');
+            var categorySelect = document.querySelector('[data-works-category]');
             var worksGridElement = document.getElementById('works-grid');
-            if (sortSelect && filterSelect && worksGridElement) {
-              updateWorks(sortSelect, filterSelect, worksGridElement);
+            if (sortSelect && filterSelect && categorySelect && worksGridElement) {
+              updateWorks(sortSelect, filterSelect, categorySelect, worksGridElement);
             }
           }, 100);
         }, 0);
