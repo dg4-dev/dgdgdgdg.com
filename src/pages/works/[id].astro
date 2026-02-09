@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
 import { getNotionData, getNotionPage, getNotionBlocksRecursive, findPageByCustomId } from '@/lib/notion';
+import Footer from '@/components/footer.astro';
 
 // 静的パス生成（Astroの動的ルートに必須）
 export async function getStaticPaths() {
@@ -158,7 +159,7 @@ function renderBlocks(blocks: any[]) {
 ---
 
 <BaseLayout
-  title={`${title} - dgdgdgdg.com`}
+  title={`${title} - dgdgdgdg`}
   description={summary || `${title}の詳細ページ`}
   ogImage={coverImage}
   keywords={categories.map((cat: any) => cat.name).join(', ')}
@@ -232,6 +233,7 @@ function renderBlocks(blocks: any[]) {
       <pre>{JSON.stringify(blocks, null, 2)}</pre>
     </details>
   </main>
+  <Footer />
 </BaseLayout>
 
 <style lang="scss">
