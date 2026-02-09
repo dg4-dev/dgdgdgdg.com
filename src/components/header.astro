@@ -20,6 +20,7 @@ const pageNameMap: Record<string, string> = {
 
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 const currentPageName = pageName ?? pageNameMap[pathname] ?? pathname.split('/').pop() ?? 'Top';
+const isWorksPage = pathname === '/works';
 ---
 
 <header transition:animate="none">
@@ -29,6 +30,38 @@ const currentPageName = pageName ?? pageNameMap[pathname] ?? pathname.split('/')
         <img src="/images/row.svg" alt="Logo" class="header-logo" />
       </a>
       <h1 class="current-page" transition:name="current-page">{currentPageName}</h1>
+      {
+        isWorksPage && (
+          <div class="works-controls">
+            <label class="works-control">
+              <span class="works-control-label">
+                <svg class="works-control-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 3h8M3 6h6M4 9h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                SORT
+              </span>
+              <select class="works-control-select" data-works-sort>
+                <option value="date_desc">作成日 新しい順</option>
+                <option value="date_asc">作成日 古い順</option>
+                <option value="title_asc">タイトル A→Z</option>
+              </select>
+            </label>
+            <label class="works-control">
+              <span class="works-control-label">
+                <svg class="works-control-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 2h10l-2 4v4l-2 1V6L1 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                </svg>
+                FILTER
+              </span>
+              <select class="works-control-select" data-works-filter>
+                <option value="all">すべて</option>
+                <option value="public">公開のみ</option>
+                <option value="private">プライベートのみ</option>
+              </select>
+            </label>
+          </div>
+        )
+      }
       <button
         class="hamburger"
         type="button"
@@ -86,6 +119,53 @@ const currentPageName = pageName ?? pageNameMap[pathname] ?? pathname.split('/')
     align-items: center
     gap: 24px
     padding: 10px 28px
+
+  .works-controls
+    display: flex
+    flex-direction: row
+    gap: 12px
+    margin-left: 8px
+
+  .works-control
+    display: flex
+    flex-direction: row
+    align-items: center
+    gap: 8px
+
+  .works-control-label
+    display: flex
+    align-items: center
+    gap: 4px
+    font-size: 9px
+    letter-spacing: 0.12em
+    text-transform: uppercase
+    color: rgba(255, 255, 255, 0.6)
+
+  .works-control-icon
+    width: 12px
+    height: 12px
+    color: rgba(255, 255, 255, 0.6)
+    flex-shrink: 0
+
+  .works-control-select
+    appearance: none
+    -webkit-appearance: none
+    -moz-appearance: none
+    font-size: 11px
+    padding: 2px 6px
+    border-radius: 4px
+    border: 1px solid rgba(255, 255, 255, 0.16)
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(10, 10, 10, 0.9))
+    color: #f5f5f5
+    cursor: pointer
+    min-width: 120px
+    outline: none
+    &:focus
+      border-color: #00d4d4
+      box-shadow: 0 0 0 1px rgba(0, 212, 212, 0.4)
+    option
+      background: #050505
+      color: #f5f5f5
 
   .header-logo-link
     display: flex
