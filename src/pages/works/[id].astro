@@ -1,10 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
-import { getNotionData, getNotionPage, getNotionBlocksRecursive, findPageByCustomId } from '@/lib/notion';
 import Footer from '@/components/footer.astro';
 
-// 静的パス生成（Astroの動的ルートに必須）
+// 静的パス生成（空にして生成を停止）
 export async function getStaticPaths() {
   const notionData = await getNotionData();
   // Privateがtrueのものは詳細ページを生成しない
@@ -260,108 +259,50 @@ function renderBlocks(blocks: any[]) {
 }
 ---
 
-<BaseLayout
-  title={`${title} - dgdgdgdg`}
-  description={summary || `${title}の詳細ページ`}
-  ogImage={coverImage}
-  keywords={categories.map((cat: any) => cat.name).join(', ')}
->
+<BaseLayout title="Works - dgdgdgdg" description="制作実績" keywords="works, portfolio, projects">
   <Fragment slot="head">
-    <!-- ページ固有の追加メタタグやスクリプトをここに記述可能 -->
   </Fragment>
   <Header />
   <main>
-    <article class="work-detail">
-      {
-        coverImage && (
-          <div class="work-cover">
-            <img src={coverImage} alt={title} />
-          </div>
-        )
-      }
-
-      <div class="work-header">
-        <h1>{title}</h1>
-
-        <div class="work-meta">
-          {
-            client && (
-              <p class="meta-item">
-                <strong>Client:</strong> {client}
-              </p>
-            )
-          }
-          {
-            createdDate && (
-              <p class="meta-item">
-                <strong>Date:</strong> {createdDate}
-              </p>
-            )
-          }
-          {
-            categories.length > 0 && (
-              <div class="meta-item">
-                <strong>Categories:</strong>
-                <div class="categories">
-                  {categories.map((cat: any) => (
-                    <span class="category-tag">{cat.name}</span>
-                  ))}
-                </div>
-              </div>
-            )
-          }
-          {
-            summary && (
-              <p class="meta-item">
-                <strong>Summary:</strong> {summary}
-              </p>
-            )
-          }
-        </div>
+    <div class="under-construction">
+      <div class="uc-content">
+        <span class="uc-label">Under Construction</span>
+        <p class="uc-sub">準備中</p>
       </div>
-
-      <div class="work-content">
-        <Fragment set:html={renderBlocks(blocks)} />
-      </div>
-    </article>
-
-    <!-- デバッグ用 -->
-    <details class="debug">
-      <summary>デバッグ: ページデータ</summary>
-      <pre>{JSON.stringify(page, null, 2)}</pre>
-    </details>
-    <details class="debug">
-      <summary>デバッグ: ブロックデータ（再帰的に取得）</summary>
-      <pre>{JSON.stringify(blocks, null, 2)}</pre>
-    </details>
+    </div>
   </main>
   <Footer />
 </BaseLayout>
 
-<style lang="scss">
-  main {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
+<style lang="sass">
+  main
+    margin: 0
+    padding: 0
 
-  .work-detail {
-    .work-cover {
-      width: 100%;
-      max-height: 400px;
-      overflow: hidden;
-      border-radius: 8px;
-      margin-bottom: 2rem;
+  .under-construction
+    min-height: 100vh
+    display: flex
+    align-items: center
+    justify-content: center
+    background-color: #0a0a0a
+    background-image: repeating-linear-gradient(45deg, #0a0a0a 0px, #0a0a0a 10px, #151515 10px, #151515 20px)
+    background-size: 28.28px 28.28px
+    position: relative
 
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
+  .uc-content
+    text-align: center
+    padding: 48px 64px
+    background: rgba(0, 0, 0, 0.85)
+    border: 1px solid rgba(255, 255, 255, 0.06)
+    border-radius: 4px
 
-    .work-header {
-      margin-bottom: 3rem;
+  .uc-label
+    display: block
+    color: rgba(255, 255, 255, 0.5)
+    font-family: 'DG4 Atomic Dot', sans-serif
+    font-variation-settings: 'RNDS' 0
+    font-size: 24px
+    letter-spacing: 0.15em
 
       h1 {
         font-size: 2.5rem;
