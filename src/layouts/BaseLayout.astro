@@ -1,5 +1,6 @@
 ---
 import '@/styles/reset.css';
+import '@/styles/global.sass';
 
 interface Props {
   title?: string;
@@ -40,6 +41,14 @@ const currentUrl = canonicalUrl || Astro.url.href;
     <meta name="twitter:title" content={title} />
     {description && <meta name="twitter:description" content={description} />}
     {ogImage && <meta name="twitter:image" content={ogImage} />}
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=Zen+Old+Mincho&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- 各ページから追加のheadコンテンツを挿入可能 -->
     <slot name="head" />
