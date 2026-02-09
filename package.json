@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@astrojs/vue": "5.1.4",
+    "@lucide/astro": "^0.563.0",
     "@notionhq/client": "^5.6.0",
     "astro": "5.17.1",
     "vue": "^3.5.26"
