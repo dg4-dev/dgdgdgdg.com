@@ -1,13 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
-import { getNotionData } from '@/lib/notion';
 import Footer from '@/components/footer.astro';
-
-// Notionデータベースからデータを取得
-const notionData = await getNotionData();
-console.log('=== Index Page: Notion Data ===');
-console.log(JSON.stringify(notionData, null, 2));
 
 // ロゴ周りに表示するテキストデータ
 const meaningRaw: {
@@ -87,7 +81,7 @@ const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
         </div>
       </div>
     </section>
-    <section class="test-section-dark">
+    <section class="about">
       <h2 class="about-title">dgdgdgdgとは</h2>
       <div class="about-logo">
         <img src="/images/row.svg" alt="dgdgdgdg" />
@@ -103,10 +97,6 @@ const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
           デザイン、コーディング、映像、音楽など、さまざまな領域を横断しながら、デジタルとアナログの境界を自由に行き来する制作活動を行っています。「深く掘り下げる（dig）」ことと「喜び（delight）」を届けることの両方を大切にしながら、四季のように移り変わる好奇心のままに、多方面のクリエイティブに取り組んでいます。
         </p>
       </div>
-    </section>
-    <section class="test-section-light">
-      <h2>Section 3 — Light</h2>
-      <p>白背景のテストセクション</p>
     </section>
   </main>
   <Footer />
@@ -464,7 +454,7 @@ const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
       to
         transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(360deg) translateX(80px) rotate(-360deg) scaleY(var(--counter-scale-y))
 
-  .test-section-dark
+  section.about
     background-color: #000000
     min-height: 100vh
     display: grid
