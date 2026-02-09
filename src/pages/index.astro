@@ -52,7 +52,7 @@ const meaningRaw: {
 const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
 ---
 
-<BaseLayout title="dgdgdgdg" description="dgdgdgdg.comのポートフォリオサイト" keywords="portfolio, design, web">
+<BaseLayout title="dgdgdgdg" description="dgdgdgdgのポートフォリオサイト" keywords="portfolio, design, web">
   <Fragment slot="head">
     <!-- ページ固有の追加メタタグやスクリプトをここに記述可能 -->
   </Fragment>
@@ -229,6 +229,7 @@ const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
     top: 50%
     left: 50%
     color: #888888
+    font-family: 'Zen Old Mincho', serif
     font-size: 16px
     white-space: nowrap
     transform-origin: center
@@ -483,7 +484,6 @@ const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
       grid-row: 1
       color: #ffffff
       font-size: 40px
-      font-weight: 700
       letter-spacing: 0.08em
 
     .about-logo
@@ -544,7 +544,6 @@ const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
     h2
       color: #000000
       font-size: 48px
-      font-weight: 700
     p
       color: #666666
       font-size: 18px
@@ -563,6 +562,15 @@ const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
         (satellite as HTMLElement).style.animationDelay = `${delay}s`;
       });
     });
+
+    // ヘッダー非表示制御（トランジション完了まで）
+    const header = document.querySelector('header') as HTMLElement;
+    if (header) {
+      header.style.opacity = '0';
+      header.style.pointerEvents = 'none';
+      header.style.transform = 'translateY(-100%)';
+      header.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+    }
 
     // スクロールパララックス + ズームイン
     const hero = document.querySelector('.hero') as HTMLElement;
@@ -622,6 +630,19 @@ const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
         if (scrollIndicator) {
           const indicatorOpacity = progress < 0.03 ? 1 : Math.max(0, 1 - (progress - 0.03) / 0.07);
           scrollIndicator.style.opacity = String(indicatorOpacity);
+        }
+
+        // ヘッダー表示制御: トランジション完了（progress >= 0.85）で表示
+        if (header) {
+          if (progress >= 0.85) {
+            header.style.opacity = '1';
+            header.style.pointerEvents = '';
+            header.style.transform = 'translateY(0)';
+          } else {
+            header.style.opacity = '0';
+            header.style.pointerEvents = 'none';
+            header.style.transform = 'translateY(-100%)';
+          }
         }
 
         ticking = false;
