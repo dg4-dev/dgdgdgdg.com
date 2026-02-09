@@ -100,12 +100,12 @@ function renderBlock(block: any): string {
     case 'embed':
       // Notionのembedブロックをiframeで表示
       if (!value.url) return '';
-      
+
       // URLをembed用に変換する関数
       function convertToEmbedUrl(url: string): { url: string; isTwitter: boolean } {
         try {
           const urlObj = new URL(url);
-          
+
           // X (Twitter)
           if (urlObj.hostname.includes('twitter.com') || urlObj.hostname.includes('x.com')) {
             // TwitterのツイートURLを検出
@@ -115,7 +115,7 @@ function renderBlock(block: any): string {
               return { url, isTwitter: true };
             }
           }
-          
+
           // YouTube
           if (urlObj.hostname.includes('youtube.com') || urlObj.hostname.includes('youtu.be')) {
             let videoId = '';
@@ -128,7 +128,7 @@ function renderBlock(block: any): string {
               return { url: `https://www.youtube.com/embed/${videoId}`, isTwitter: false };
             }
           }
-          
+
           // Vimeo
           if (urlObj.hostname.includes('vimeo.com')) {
             const videoId = urlObj.pathname.split('/').filter(Boolean).pop();
@@ -136,7 +136,7 @@ function renderBlock(block: any): string {
               return { url: `https://player.vimeo.com/video/${videoId}`, isTwitter: false };
             }
           }
-          
+
           // その他のURLはそのまま使用
           return { url, isTwitter: false };
         } catch (e) {
@@ -144,13 +144,13 @@ function renderBlock(block: any): string {
           return { url, isTwitter: false };
         }
       }
-      
+
       const embedInfo = convertToEmbedUrl(value.url);
       const escapedUrl = embedInfo.url.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-      
+
       // デバッグ用: 元のURLと変換後のURLをログ出力
       console.log('Embed URL:', { original: value.url, converted: embedInfo.url, isTwitter: embedInfo.isTwitter });
-      
+
       // Twitterの場合は特別な処理
       if (embedInfo.isTwitter) {
         const twitterEscapedUrl = value.url.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -161,7 +161,7 @@ function renderBlock(block: any): string {
           <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>`;
       }
-      
+
       // その他のサービスはiframeで表示
       return `<div class="embed-container" data-embed-url="${escapedUrl}">
         <iframe 
@@ -185,9 +185,7 @@ function renderBlock(block: any): string {
       // Notionのbookmarkブロックをリンクカードとして表示
       if (!value.url) return '';
       const bookmarkUrl = value.url.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-      const bookmarkCaption = value.caption && value.caption.length > 0 
-        ? renderRichText(value.caption) 
-        : '';
+      const bookmarkCaption = value.caption && value.caption.length > 0 ? renderRichText(value.caption) : '';
       return `<div class="bookmark-container">
         <a href="${bookmarkUrl}" target="_blank" rel="noopener noreferrer" class="bookmark-link">
           <div class="bookmark-content">
@@ -578,7 +576,7 @@ function renderBlocks(blocks: any[]) {
         }
 
         // iframeが読み込まれたらフォールバックを非表示
-        &:has(iframe[src]:not([src=""])) {
+        &:has(iframe[src]:not([src=''])) {
           :global(.embed-fallback) {
             display: none;
           }
