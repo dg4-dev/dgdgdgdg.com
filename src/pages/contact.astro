@@ -42,16 +42,16 @@ const socialLinks = [
 ];
 ---
 
-<BaseLayout title="Contact - dgdgdgdg" description="dgdgdgdgへのお問い合わせ・各種SNSリンク" keywords="contact, SNS, dgdgdgdg">
-  <Fragment slot="head">
-  </Fragment>
+<BaseLayout
+  title="Contact - dgdgdgdg"
+  description="dgdgdgdgへのお問い合わせ・各種SNSリンク"
+  keywords="contact, SNS, dgdgdgdg"
+>
+  <Fragment slot="head"> </Fragment>
   <Header />
   <main>
     <section class="contact-hero">
-      <h2 class="contact-title">Contact</h2>
-      <p class="contact-description">
-        お仕事のご依頼・ご相談は、XのDMまたは各SNSからお気軽にどうぞ。
-      </p>
+      <p class="contact-description">お仕事のご依頼・ご相談は、XのDMまたは各SNSからお気軽にどうぞ。</p>
     </section>
 
     <section class="social-links">
@@ -61,7 +61,14 @@ const socialLinks = [
             <span class="social-icon" set:html={link.icon} />
             <span class="social-name">{link.name}</span>
             <span class="social-arrow">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <line x1="7" y1="17" x2="17" y2="7" />
                 <polyline points="7 7 17 7 17 17" />
               </svg>

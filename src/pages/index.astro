@@ -551,7 +551,13 @@ const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  let scrollController: AbortController | null = null;
+
+  document.addEventListener('astro:page-load', () => {
+    // 前のスクロールリスナーをクリーンアップ
+    scrollController?.abort();
+    scrollController = null;
+
     // 衛星アニメーションの動的設定
     const orbitItems = document.querySelectorAll('.orbit-item');
     orbitItems.forEach((item) => {
@@ -566,9 +572,6 @@ const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
     // ヘッダー非表示制御（トランジション完了まで）
     const header = document.querySelector('header') as HTMLElement;
     if (header) {
-      header.style.opacity = '0';
-      header.style.pointerEvents = 'none';
-      header.style.transform = 'translateY(-100%)';
       header.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
     }
 
@@ -578,6 +581,7 @@ const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
     const scrollIndicator = document.querySelector('.scroll-indicator') as HTMLElement;
     if (!hero || !heroContent) return;
 
+    scrollController = new AbortController();
     let ticking = false;
 
     const onScroll = () => {
@@ -649,7 +653,7 @@ const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
       });
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true, signal: scrollController.signal });
     // 初期状態を設定
     onScroll();
   });
