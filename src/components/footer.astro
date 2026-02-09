@@ -1,0 +1,126 @@
+---
+const navItems = [
+  { label: 'Works', href: '/works' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <a href="/" class="footer-logo-link">
+        <img src="/images/row-white.svg" alt="dgdgdgdg" class="footer-logo" />
+      </a>
+      <nav>
+        <ul>
+          {
+            navItems.map((item) => (
+              <li>
+                <a href={item.href} class:list={[{ current: item.href.replace(/\/$/, '') === pathname }]}>
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p class="copyright">© 2021 - {new Date().getFullYear()} dgdgdgdg</p>
+    </div>
+  </div>
+</footer>
+
+<style lang="sass">
+  footer
+    background-color: #000000
+    border-top: 1px solid rgba(255, 255, 255, 0.08)
+    padding: 64px 80px 40px
+
+  .footer-inner
+    max-width: 1200px
+    margin: 0 auto
+    display: flex
+    flex-direction: column
+    gap: 48px
+
+  .footer-top
+    display: flex
+    align-items: center
+    justify-content: space-between
+
+  .footer-logo-link
+    display: flex
+    align-items: center
+    line-height: 0
+
+  .footer-logo
+    height: 28px
+    width: auto
+    opacity: 0.7
+    transition: opacity 0.3s ease
+    &:hover
+      opacity: 1
+
+  nav
+    ul
+      list-style: none
+      margin: 0
+      padding: 0
+      display: flex
+      gap: 32px
+      li
+        a
+          color: rgba(255, 255, 255, 0.5)
+          text-decoration: none
+          font-family: 'Zen Kaku Gothic New', sans-serif
+          font-size: 13px
+          font-weight: 700
+          letter-spacing: 0.08em
+          transition: color 0.3s ease
+          &:hover
+            color: #ffffff
+          &.current
+            color: #00d4d4
+            font-weight: 900
+
+  .footer-bottom
+    border-top: 1px solid rgba(255, 255, 255, 0.06)
+    padding-top: 24px
+
+  .copyright
+    color: rgba(255, 255, 255, 0.3)
+    font-size: 12px
+    letter-spacing: 0.06em
+
+  @media (max-width: 768px)
+    footer
+      padding: 48px 24px 32px
+
+    .footer-inner
+      gap: 36px
+
+    .footer-top
+      flex-direction: column
+      gap: 28px
+      align-items: flex-start
+
+    .footer-logo
+      height: 22px
+
+    nav
+      ul
+        gap: 24px
+        li
+          a
+            font-size: 12px
+
+    .footer-bottom
+      padding-top: 20px
+
+    .copyright
+      font-size: 11px
+</style>

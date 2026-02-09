@@ -1,0 +1,117 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/header.astro';
+import Footer from '@/components/footer.astro';
+---
+
+<BaseLayout title="404 - dgdgdgdg" description="ページが見つかりませんでした">
+  <Fragment slot="head">
+  </Fragment>
+  <Header pageName="404" />
+  <main>
+    <section class="not-found">
+      <h2 class="error-code">404</h2>
+      <p class="not-found-message">お探しのページは見つかりませんでした</p>
+      <p class="not-found-sub">ページが移動・削除されたか、URLが間違っている可能性があります。</p>
+      <a href="/" class="back-link">
+        <span class="back-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12" />
+            <polyline points="12 19 5 12 12 5" />
+          </svg>
+        </span>
+        <span>トップページへ戻る</span>
+      </a>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style lang="sass">
+  main
+    background-color: #000000
+    min-height: 100vh
+    display: flex
+    align-items: center
+    justify-content: center
+    padding: 160px 80px 120px
+
+  .not-found
+    text-align: center
+    display: flex
+    flex-direction: column
+    align-items: center
+
+  .error-code
+    color: #ffffff
+    font-family: 'Zen Kaku Gothic New', sans-serif
+    font-size: clamp(120px, 20vw, 240px)
+    font-weight: 900
+    letter-spacing: 0.08em
+    line-height: 1
+    margin-bottom: 32px
+
+  .not-found-message
+    color: #ffffff
+    font-size: 18px
+    font-weight: 500
+    letter-spacing: 0.06em
+    margin-bottom: 12px
+
+  .not-found-sub
+    color: #666666
+    font-size: 14px
+    letter-spacing: 0.04em
+    line-height: 1.8
+    margin-bottom: 48px
+
+  .back-link
+    display: inline-flex
+    align-items: center
+    gap: 10px
+    padding: 14px 28px
+    background: rgba(255, 255, 255, 0.03)
+    border: 1px solid rgba(255, 255, 255, 0.08)
+    border-radius: 100px
+    text-decoration: none
+    color: rgba(255, 255, 255, 0.7)
+    font-family: 'Zen Kaku Gothic New', sans-serif
+    font-size: 14px
+    font-weight: 500
+    letter-spacing: 0.06em
+    transition: all 0.3s ease
+    &:hover
+      background: rgba(255, 255, 255, 0.06)
+      border-color: rgba(0, 212, 212, 0.3)
+      color: #ffffff
+      .back-arrow
+        color: #00d4d4
+        transform: translateX(-3px)
+
+  .back-arrow
+    width: 18px
+    height: 18px
+    display: flex
+    align-items: center
+    color: rgba(255, 255, 255, 0.5)
+    transition: all 0.3s ease
+    svg
+      width: 100%
+      height: 100%
+      display: block
+
+  @media (max-width: 768px)
+    main
+      padding: 120px 24px 80px
+
+    .not-found-message
+      font-size: 16px
+
+    .not-found-sub
+      font-size: 13px
+      margin-bottom: 36px
+
+    .back-link
+      padding: 12px 24px
+      font-size: 13px
+</style>

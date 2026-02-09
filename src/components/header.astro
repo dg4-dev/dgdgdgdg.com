@@ -1,0 +1,152 @@
+---
+interface Props {
+  pageName?: string;
+}
+
+const { pageName } = Astro.props;
+
+const navItems = [
+  { label: 'Works', href: '/works', greyedOut: true },
+  { label: 'About', href: '/about', greyedOut: true },
+  { label: 'Contact', href: '/contact' },
+];
+
+const pageNameMap: Record<string, string> = {
+  '/': 'Top',
+  '/works': 'Works',
+  '/about': 'About',
+  '/contact': 'Contact',
+};
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const currentPageName = pageName ?? pageNameMap[pathname] ?? pathname.split('/').pop() ?? 'Top';
+---
+
+<header>
+  <div class="header-inner">
+    <a href="/" class="header-logo-link">
+      <img src="/images/row.svg" alt="Logo" class="header-logo" />
+    </a>
+    <h1 class="current-page">{currentPageName}</h1>
+    <nav>
+      <ul>
+        {
+          navItems
+            .filter((item) => item.href.replace(/\/$/, '') !== pathname)
+            .map((item) => (
+              <li>
+                <a href={item.href} class:list={[{ 'nav-greyed': item.greyedOut }]}>
+                  {item.label}
+                </a>
+              </li>
+            ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style lang="sass">
+  header
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    z-index: 1000
+    display: flex
+    justify-content: center
+    padding: 16px
+    pointer-events: none
+
+  .header-inner
+    display: flex
+    align-items: center
+    gap: 24px
+    padding: 10px 28px
+    background: rgba(10, 10, 10, 0.6)
+    backdrop-filter: blur(24px)
+    -webkit-backdrop-filter: blur(24px)
+    border: 1px solid rgba(255, 255, 255, 0.08)
+    border-radius: 100px
+    pointer-events: all
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4), 0 0 0 0.5px rgba(255, 255, 255, 0.04) inset
+
+  .header-logo-link
+    display: flex
+    align-items: center
+    line-height: 0
+
+  .header-logo
+    height: 18px
+    width: auto
+    opacity: 0.9
+    transition: opacity 0.3s ease
+    &:hover
+      opacity: 1
+
+  .current-page
+    color: #00d4d4
+    font-size: 16px
+    font-family: 'DG4 Atomic Dot', sans-serif
+    font-variation-settings: 'RNDS' 0
+    font-weight: 400
+    white-space: nowrap
+
+  nav
+    ul
+      list-style: none
+      margin: 0
+      padding: 0
+      display: flex
+      font-family: 'DG4 Atomic Dot', sans-serif
+      font-variation-settings: 'RNDS' 0
+      font-weight: 400
+      gap: 24px
+      li
+        a
+          color: rgba(255, 255, 255, 0.6)
+          text-decoration: none
+          font-size: 13px
+          font-weight: 500
+          letter-spacing: 0.08em
+          transition: color 0.3s ease
+          &:hover
+            color: #ffffff
+          &.nav-greyed
+            color: rgba(255, 255, 255, 0.2)
+            &:hover
+              color: rgba(255, 255, 255, 0.2)
+
+  @media (max-width: 768px)
+    header
+      padding: 12px
+
+    .header-inner
+      padding: 8px 20px
+      gap: 16px
+
+    .header-logo
+      height: 14px
+
+    .current-page
+      font-size: 11px
+
+    nav
+      ul
+        gap: 16px
+        li
+          a
+            font-size: 12px
+</style>
+
+<script>
+  const header = document.querySelector('header');
+  if (header) {
+    const navItems = header.querySelectorAll('li');
+    navItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        item.classList.add('active');
+      });
+    });
+  }
+</script>
