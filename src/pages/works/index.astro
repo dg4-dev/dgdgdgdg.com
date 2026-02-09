@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
-import { getNotionData } from '@/lib/notion';
+import { getNotionData, getNotionBlocksRecursive } from '@/lib/notion';
 import Footer from '@/components/footer.astro';
 
 // Notionデータベースからデータを取得
@@ -11,6 +11,173 @@ console.log(JSON.stringify(notionData, null, 2));
 
 // すべてのデータを取得（Privateも含めて表示する）
 const works = notionData.results;
+
+// Twitterのツイートから画像を取得する関数（SSG対応）
+async function getTwitterImageFromUrl(twitterUrl: string): Promise<string | null> {
+  try {
+    const oembedUrl = `https://publish.twitter.com/oembed?url=${encodeURIComponent(twitterUrl)}&omit_script=true`;
+    
+    // タイムアウト設定（10秒）
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    
+    try {
+      const response = await fetch(oembedUrl, {
+        signal: controller.signal,
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (compatible; dgdgdgdg.com/1.0)',
+        },
+      });
+      
+      clearTimeout(timeoutId);
+      
+      if (!response.ok) {
+        console.warn(`Twitter oEmbed API error for ${twitterUrl}:`, response.status);
+        return null;
+      }
+      
+      const data = await response.json();
+      const html = data.html || '';
+    
+    // HTMLから画像URLを抽出
+    // Twitterの埋め込みHTMLには通常、画像のURLが含まれています
+    // パターン1: <img>タグのsrc属性
+    const imgMatch = html.match(/<img[^>]+src="([^"]+)"[^>]*>/i);
+    if (imgMatch && imgMatch[1]) {
+      const imgUrl = imgMatch[1];
+      // Twitterの画像URLのパターンをチェック（pbs.twimg.comなど）
+      if (imgUrl.includes('pbs.twimg.com') || imgUrl.includes('twimg.com')) {
+        return imgUrl;
+      }
+    }
+    
+    // パターン2: data-src属性
+    const dataSrcMatch = html.match(/data-src="([^"]+)"/i);
+    if (dataSrcMatch && dataSrcMatch[1]) {
+      const imgUrl = dataSrcMatch[1];
+      if (imgUrl.includes('pbs.twimg.com') || imgUrl.includes('twimg.com')) {
+        return imgUrl;
+      }
+    }
+    
+    // パターン3: background-imageのURL
+    const bgMatch = html.match(/background-image:\s*url\(['"]?([^'"]+)['"]?\)/i);
+    if (bgMatch && bgMatch[1]) {
+      const imgUrl = bgMatch[1];
+      if (imgUrl.includes('pbs.twimg.com') || imgUrl.includes('twimg.com')) {
+        return imgUrl;
+      }
+    }
+    
+    // パターン4: TwitterのメディアURLを直接構築（ツイートIDから）
+    try {
+      const urlObj = new URL(twitterUrl);
+      const pathParts = urlObj.pathname.split('/').filter(Boolean);
+      const statusIndex = pathParts.indexOf('status');
+      if (statusIndex !== -1 && pathParts[statusIndex + 1]) {
+        const tweetId = pathParts[statusIndex + 1];
+        // ツイートIDから画像URLを推測（これは確実ではないため、最後の手段）
+        // 実際にはoEmbed APIのレスポンスから取得する方が確実
+      }
+    } catch (e) {
+      // URL解析に失敗
+    }
+    
+      return null;
+    } catch (fetchError: any) {
+      clearTimeout(timeoutId);
+      if (fetchError.name === 'AbortError') {
+        console.warn(`Twitter oEmbed API timeout for ${twitterUrl}`);
+      } else {
+        console.warn(`Error fetching Twitter image for ${twitterUrl}:`, fetchError.message);
+      }
+      return null;
+    }
+  } catch (error: any) {
+    console.error(`Unexpected error fetching Twitter image for ${twitterUrl}:`, error.message);
+    return null;
+  }
+}
+
+// ブロックからTwitterのURLを検出する関数
+function findTwitterUrlInBlocks(blocks: any[]): string | null {
+  for (const block of blocks) {
+    // embedブロックをチェック
+    if (block.type === 'embed' && block.embed?.url) {
+      const url = block.embed.url;
+      if (url.includes('twitter.com') || url.includes('x.com')) {
+        return url;
+      }
+    }
+    
+    // 子ブロックを再帰的にチェック
+    if (block.children && block.children.length > 0) {
+      const found = findTwitterUrlInBlocks(block.children);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
+// 各ワークのカバー画像を取得（Twitterから画像を取得する場合も含む）
+// SSGビルド時に実行されるため、エラーハンドリングを強化
+const worksWithCoverImages = await Promise.all(
+  works.map(async (work: any) => {
+    const coverImage = work.properties?.Cover?.files?.[0]?.file?.url ?? '';
+    
+    // カバー画像が設定されていない場合、Twitterの画像を取得
+    if (!coverImage) {
+      try {
+        // ブロック取得（SSGビルド時に実行）
+        const blocks = await getNotionBlocksRecursive(work.id);
+        const twitterUrl = findTwitterUrlInBlocks(blocks);
+        
+        if (twitterUrl) {
+          console.log(`Found Twitter URL for work ${work.id}: ${twitterUrl}`);
+          const twitterImage = await getTwitterImageFromUrl(twitterUrl);
+          if (twitterImage) {
+            console.log(`Successfully fetched Twitter image for work ${work.id}`);
+            // カバー画像として使用
+            work.properties = work.properties || {};
+            work.properties.Cover = {
+              files: [{
+                file: {
+                  url: twitterImage
+                }
+              }]
+            };
+          } else {
+            console.warn(`Could not fetch Twitter image for work ${work.id}`);
+          }
+        }
+      } catch (error: any) {
+        // エラーが発生してもビルドを続行
+        console.warn(`Error processing work ${work.id} (continuing build):`, error.message);
+      }
+    }
+    
+    return work;
+  })
+);
+
+// 日付を年月のみにフォーマットする関数（表示用）
+function formatDateToYearMonth(dateString: string): string {
+  if (!dateString) return '';
+  // YYYY-MM-DD形式からYYYY-MMに変換
+  return dateString.substring(0, 7);
+}
+
+// 作成日で降順にソート（新しい順）
+const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
+  const dateA = a.properties?.['Created Date']?.date?.start || '';
+  const dateB = b.properties?.['Created Date']?.date?.start || '';
+  // 日付が空の場合は最後に配置
+  if (!dateA && !dateB) return 0;
+  if (!dateA) return 1;
+  if (!dateB) return -1;
+  // 降順（新しい順）
+  return dateB.localeCompare(dateA);
+});
 ---
 
 <BaseLayout title="Works - dgdgdgdg" description="制作実績の一覧" keywords="works, portfolio, projects">
@@ -25,10 +192,11 @@ const works = notionData.results;
     </script>
     <div class="works-grid" id="works-grid">
       {
-        works.map((item: any) => {
+        sortedWorks.map((item: any) => {
           const title = item.properties?.Title?.title?.[0]?.plain_text ?? 'No title';
           const client = item.properties?.Client?.rich_text?.[0]?.plain_text ?? '';
-          const createdDate = item.properties?.['Created Date']?.date?.start ?? '';
+          const createdDateFull = item.properties?.['Created Date']?.date?.start ?? '';
+          const createdDate = formatDateToYearMonth(createdDateFull); // 表示用は年月のみ
           const categories = item.properties?.Category?.multi_select ?? [];
           const coverImage = item.properties?.Cover?.files?.[0]?.file?.url ?? '';
           const workId = item.properties?.id?.rich_text?.[0]?.plain_text ?? item.id;
@@ -72,7 +240,7 @@ const works = notionData.results;
             <article 
               class="work-card" 
               data-work-title={title}
-              data-work-date={createdDate || ''}
+              data-work-date={createdDateFull || ''}
               data-work-private="true"
             >
               {cardInner}
@@ -82,7 +250,7 @@ const works = notionData.results;
               href={`/works/${workId}`} 
               class="work-card work-card--link"
               data-work-title={title}
-              data-work-date={createdDate || ''}
+              data-work-date={createdDateFull || ''}
               data-work-private="false"
             >
               {cardInner}
@@ -304,10 +472,32 @@ const works = notionData.results;
     // 初期化関数
     function init() {
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initWorksSortAndFilter);
+        document.addEventListener('DOMContentLoaded', function() {
+          initWorksSortAndFilter();
+          // 初期表示時にソートを実行
+          setTimeout(function() {
+            var sortSelect = document.querySelector('[data-works-sort]');
+            var filterSelect = document.querySelector('[data-works-filter]');
+            var worksGridElement = document.getElementById('works-grid');
+            if (sortSelect && filterSelect && worksGridElement) {
+              updateWorks(sortSelect, filterSelect, worksGridElement);
+            }
+          }, 100);
+        });
       } else {
         // DOMが既に読み込まれている場合は少し待ってから実行
-        setTimeout(initWorksSortAndFilter, 0);
+        setTimeout(function() {
+          initWorksSortAndFilter();
+          // 初期表示時にソートを実行
+          setTimeout(function() {
+            var sortSelect = document.querySelector('[data-works-sort]');
+            var filterSelect = document.querySelector('[data-works-filter]');
+            var worksGridElement = document.getElementById('works-grid');
+            if (sortSelect && filterSelect && worksGridElement) {
+              updateWorks(sortSelect, filterSelect, worksGridElement);
+            }
+          }, 100);
+        }, 0);
       }
     }
 
