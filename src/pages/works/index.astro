@@ -1,0 +1,57 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/header.astro';
+import Footer from '@/components/footer.astro';
+---
+
+<BaseLayout title="Works - dgdgdgdg" description="制作実績の一覧" keywords="works, portfolio, projects">
+  <Fragment slot="head">
+  </Fragment>
+  <Header />
+  <main>
+    <div class="under-construction">
+      <div class="uc-content">
+        <span class="uc-label">Under Construction</span>
+        <p class="uc-sub">準備中</p>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style lang="sass">
+  main
+    margin: 0
+    padding: 0
+
+  .under-construction
+    min-height: 100vh
+    display: flex
+    align-items: center
+    justify-content: center
+    background-color: #0a0a0a
+    background-image: repeating-linear-gradient(45deg, #0a0a0a 0px, #0a0a0a 10px, #151515 10px, #151515 20px)
+    background-size: 28.28px 28.28px
+    position: relative
+
+  .uc-content
+    text-align: center
+    padding: 48px 64px
+    background: rgba(0, 0, 0, 0.85)
+    border: 1px solid rgba(255, 255, 255, 0.06)
+    border-radius: 4px
+
+  .uc-label
+    display: block
+    color: rgba(255, 255, 255, 0.5)
+    font-family: 'DG4 Atomic Dot', sans-serif
+    font-variation-settings: 'RNDS' 0
+    font-size: 24px
+    letter-spacing: 0.15em
+
+  .uc-sub
+    color: rgba(255, 255, 255, 0.25)
+    font-size: 14px
+    margin-top: 12px
+    letter-spacing: 0.1em
+</style>
