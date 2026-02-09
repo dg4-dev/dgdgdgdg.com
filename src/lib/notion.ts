@@ -60,7 +60,7 @@ export async function getNotionBlocksRecursive(blockId: string): Promise<any[]> 
           return { ...block, children };
         }
         return block;
-      })
+      }),
     );
 
     return blocksWithChildren;
@@ -75,7 +75,7 @@ export async function findPageByCustomId(customId: string) {
   try {
     // データソースから全データを取得
     const response = await getNotionData();
-    
+
     // カスタムIDがマッチするページを検索
     const page = response.results.find((item: any) => {
       const pageCustomId = item.properties?.id?.rich_text?.[0]?.plain_text;

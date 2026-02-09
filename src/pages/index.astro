@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
 import Footer from '@/components/footer.astro';
+import { getNotionData } from '@/lib/notion';
 
 // ロゴ周りに表示するテキストデータ
 const meaningRaw: {
@@ -46,6 +47,7 @@ const meaningRaw: {
 const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
 
 // Worksデータ（FeaturedやPrivateの判定に利用）
+const notionData = await getNotionData();
 const works = notionData.results;
 // Featuredのworksを抽出し、新しい順でソートして最大8件に制限
 const featuredWorks = works

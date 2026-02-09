@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
 import Footer from '@/components/footer.astro';
+import { getNotionData, findPageByCustomId, getNotionPage, getNotionBlocksRecursive } from '@/lib/notion';
 
 // 静的パス生成（空にして生成を停止）
 export async function getStaticPaths() {
@@ -260,8 +261,7 @@ function renderBlocks(blocks: any[]) {
 ---
 
 <BaseLayout title="Works - dgdgdgdg" description="制作実績" keywords="works, portfolio, projects">
-  <Fragment slot="head">
-  </Fragment>
+  <Fragment slot="head"> </Fragment>
   <Header />
   <main>
     <div class="under-construction">
@@ -304,300 +304,249 @@ function renderBlocks(blocks: any[]) {
     font-size: 24px
     letter-spacing: 0.15em
 
-      h1 {
-        font-size: 2.5rem;
-        margin-bottom: 1.5rem;
-      }
+    h1
+      font-size: 2.5rem
+      margin-bottom: 1.5rem
 
-      .work-meta {
-        .meta-item {
-          margin: 0.5rem 0;
-          line-height: 1.6;
+      .work-meta
+        .meta-item
+          margin: 0.5rem 0
+          line-height: 1.6
 
-          strong {
-            color: #666;
-            margin-right: 0.5rem;
-          }
-        }
+          strong
+            color: #666
+            margin-right: 0.5rem
 
-        .categories {
-          display: inline-flex;
-          flex-wrap: wrap;
-          gap: 0.5rem;
-          margin-left: 0.5rem;
+        .categories
+          display: inline-flex
+          flex-wrap: wrap
+          gap: 0.5rem
+          margin-left: 0.5rem
 
-          .category-tag {
-            padding: 0.25rem 0.75rem;
-            background: #e0e0e0;
-            border-radius: 12px;
-            font-size: 0.85rem;
-          }
-        }
-      }
-    }
+          .category-tag
+            padding: 0.25rem 0.75rem
+            background: #e0e0e0
+            border-radius: 12px
+            font-size: 0.85rem
 
-    .work-content {
-      line-height: 1.8;
+    .work-content
+      line-height: 1.8
 
       :global(h1),
       :global(h2),
-      :global(h3) {
-        margin: 2rem 0 1rem;
-      }
+      :global(h3)
+        margin: 2rem 0 1rem
 
-      :global(p) {
-        margin: 1rem 0;
-      }
+      :global(p)
+        margin: 1rem 0
 
       :global(ul),
-      :global(ol) {
-        margin: 1rem 0;
-        padding-left: 2rem;
+      :global(ol)
+        margin: 1rem 0
+        padding-left: 2rem
 
         // ネストされたリスト
         :global(ul),
-        :global(ol) {
-          margin: 0.25rem 0;
-        }
-      }
+        :global(ol)
+          margin: 0.25rem 0
 
-      :global(li) {
-        margin: 0.5rem 0;
+      :global(li)
+        margin: 0.5rem 0
 
         // リストアイテム内のネストされたリスト
         > :global(ul),
-        > :global(ol) {
-          margin-top: 0.25rem;
-        }
-      }
+        > :global(ol)
+          margin-top: 0.25rem
 
-      :global(.todo-list) {
-        list-style: none;
-        padding-left: 0;
+      :global(.todo-list)
+        list-style: none
+        padding-left: 0
 
         // ネストされたTODOリスト
-        :global(.todo-list) {
-          padding-left: 2rem;
-          margin: 0.25rem 0;
-        }
+        :global(.todo-list)
+          padding-left: 2rem
+          margin: 0.25rem 0
 
-        :global(.todo-item) {
-          :global(input[type='checkbox']) {
-            margin-right: 0.5rem;
-            vertical-align: middle;
-          }
+        :global(.todo-item)
+          :global(input[type='checkbox'])
+            margin-right: 0.5rem
+            vertical-align: middle
 
           // TODOアイテム内のネストされたリスト
           > :global(ul),
           > :global(ol),
-          > :global(.todo-list) {
-            margin-top: 0.25rem;
-            padding-left: 2rem;
-          }
-        }
-      }
+          > :global(.todo-list)
+            margin-top: 0.25rem
+            padding-left: 2rem
 
-      :global(.toggle-block) {
-        margin: 1rem 0;
-        padding: 0.75rem;
-        border: 1px solid #e0e0e0;
-        border-radius: 4px;
+      :global(.toggle-block)
+        margin: 1rem 0
+        padding: 0.75rem
+        border: 1px solid #e0e0e0
+        border-radius: 4px
 
-        :global(summary) {
-          cursor: pointer;
-          font-weight: 500;
-          user-select: none;
+        :global(summary)
+          cursor: pointer
+          font-weight: 500
+          user-select: none
 
-          &:hover {
-            color: #0066cc;
-          }
-        }
-      }
+          &:hover
+            color: #0066cc
 
-      :global(.toggle-content) {
-        margin-top: 0.5rem;
-        padding-left: 1rem;
-      }
+      :global(.toggle-content)
+        margin-top: 0.5rem
+        padding-left: 1rem
 
-      :global(pre) {
-        margin: 1.5rem 0;
-        padding: 1rem;
-        background: #f5f5f5;
-        border-radius: 4px;
-        overflow-x: auto;
+      :global(pre)
+        margin: 1.5rem 0
+        padding: 1rem
+        background: #f5f5f5
+        border-radius: 4px
+        overflow-x: auto
 
-        :global(code) {
-          font-family: 'Courier New', monospace;
-          font-size: 0.9rem;
-        }
-      }
+        :global(code)
+          font-family: 'Courier New', monospace
+          font-size: 0.9rem
 
-      :global(code) {
-        background: #f0f0f0;
-        padding: 0.2rem 0.4rem;
-        border-radius: 3px;
-        font-family: 'Courier New', monospace;
-      }
+      :global(code)
+        background: #f0f0f0
+        padding: 0.2rem 0.4rem
+        border-radius: 3px
+        font-family: 'Courier New', monospace
 
-      :global(figure) {
-        margin: 2rem 0;
+      :global(figure)
+        margin: 2rem 0
 
-        :global(img) {
-          max-width: 100%;
-          border-radius: 4px;
-        }
+        :global(img)
+          max-width: 100%
+          border-radius: 4px
 
-        :global(figcaption) {
-          text-align: center;
-          font-size: 0.9rem;
-          color: #666;
-          margin-top: 0.5rem;
-        }
-      }
+        :global(figcaption)
+          text-align: center
+          font-size: 0.9rem
+          color: #666
+          margin-top: 0.5rem
 
-      :global(hr) {
-        margin: 2rem 0;
-        border: none;
-        border-top: 2px solid #ddd;
-      }
+      :global(hr)
+        margin: 2rem 0
+        border: none
+        border-top: 2px solid #ddd
 
-      :global(a) {
-        color: #0066cc;
-        text-decoration: none;
+      :global(a)
+        color: #0066cc
+        text-decoration: none
 
-        &:hover {
-          text-decoration: underline;
-        }
-      }
+        &:hover
+          text-decoration: underline
 
-      :global(.embed-container) {
-        position: relative;
-        width: 100%;
-        margin: 2rem 0;
-        padding-bottom: 56.25%; // 16:9のアスペクト比
-        height: 0;
-        overflow: hidden;
-        border-radius: 4px;
-        background: #f5f5f5;
+      :global(.embed-container)
+        position: relative
+        width: 100%
+        margin: 2rem 0
+        padding-bottom: 56.25% // 16:9のアスペクト比
+        height: 0
+        overflow: hidden
+        border-radius: 4px
+        background: #f5f5f5
 
-        :global(iframe) {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          border: none;
-          z-index: 1;
-        }
+        :global(iframe)
+          position: absolute
+          top: 0
+          left: 0
+          width: 100%
+          height: 100%
+          border: none
+          z-index: 1
 
-        :global(.embed-fallback) {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          padding: 2rem;
-          text-align: center;
-          z-index: 0;
-          color: #666;
+        :global(.embed-fallback)
+          position: absolute
+          top: 0
+          left: 0
+          width: 100%
+          height: 100%
+          display: flex
+          flex-direction: column
+          align-items: center
+          justify-content: center
+          padding: 2rem
+          text-align: center
+          z-index: 0
+          color: #666
 
-          a {
-            margin-top: 1rem;
-            color: #0066cc;
-            text-decoration: none;
+          a
+            margin-top: 1rem
+            color: #0066cc
+            text-decoration: none
 
-            &:hover {
-              text-decoration: underline;
-            }
-          }
-        }
+            &:hover
+              text-decoration: underline
 
         // iframeが読み込まれたらフォールバックを非表示
-        &:has(iframe[src]:not([src=''])) {
-          :global(.embed-fallback) {
-            display: none;
-          }
-        }
-      }
+        &:has(iframe[src]:not([src='']))
+          :global(.embed-fallback)
+            display: none
 
       // Twitter埋め込み用のスタイル
-      :global(.embed-twitter) {
-        padding-bottom: 0;
-        height: auto;
-        min-height: 200px;
-        background: transparent;
+      :global(.embed-twitter)
+        padding-bottom: 0
+        height: auto
+        min-height: 200px
+        background: transparent
 
-        :global(blockquote.twitter-tweet) {
-          margin: 0;
-          padding: 1rem;
-          border: 1px solid #e0e0e0;
-          border-radius: 4px;
-          background: #fff;
-        }
-      }
+        :global(blockquote.twitter-tweet)
+          margin: 0
+          padding: 1rem
+          border: 1px solid #e0e0e0
+          border-radius: 4px
+          background: #fff
 
       // Bookmarkブロック用のスタイル
-      :global(.bookmark-container) {
-        margin: 2rem 0;
+      :global(.bookmark-container)
+        margin: 2rem 0
 
-        :global(.bookmark-link) {
-          display: block;
-          padding: 1rem;
-          border: 1px solid #e0e0e0;
-          border-radius: 8px;
-          background: #f9f9f9;
-          text-decoration: none;
-          color: inherit;
-          transition: all 0.2s ease;
+        :global(.bookmark-link)
+          display: block
+          padding: 1rem
+          border: 1px solid #e0e0e0
+          border-radius: 8px
+          background: #f9f9f9
+          text-decoration: none
+          color: inherit
+          transition: all 0.2s ease
 
-          &:hover {
-            border-color: #0066cc;
-            background: #f0f7ff;
-            box-shadow: 0 2px 8px rgba(0, 102, 204, 0.1);
-          }
+          &:hover
+            border-color: #0066cc
+            background: #f0f7ff
+            box-shadow: 0 2px 8px rgba(0, 102, 204, 0.1)
 
-          :global(.bookmark-content) {
-            :global(.bookmark-url) {
-              font-weight: 500;
-              color: #0066cc;
-              word-break: break-all;
-              margin-bottom: 0.5rem;
-            }
+          :global(.bookmark-content)
+            :global(.bookmark-url)
+              font-weight: 500
+              color: #0066cc
+              word-break: break-all
+              margin-bottom: 0.5rem
 
-            :global(.bookmark-caption) {
-              font-size: 0.9rem;
-              color: #666;
-              line-height: 1.5;
-            }
-          }
-        }
-      }
-    }
-  }
+            :global(.bookmark-caption)
+              font-size: 0.9rem
+              color: #666
+              line-height: 1.5
 
-  .debug {
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 2px dashed #ddd;
+  .debug
+    margin-top: 3rem
+    padding-top: 2rem
+    border-top: 2px dashed #ddd
 
-    summary {
-      cursor: pointer;
-      padding: 0.5rem;
-      background: #f5f5f5;
-      border-radius: 4px;
-      margin-bottom: 0.5rem;
-    }
+    summary
+      cursor: pointer
+      padding: 0.5rem
+      background: #f5f5f5
+      border-radius: 4px
+      margin-bottom: 0.5rem
 
-    pre {
-      padding: 1rem;
-      background: #f5f5f5;
-      border-radius: 4px;
-      overflow-x: auto;
-      font-size: 0.85rem;
-    }
-  }
+    pre
+      padding: 1rem
+      background: #f5f5f5
+      border-radius: 4px
+      overflow-x: auto
+      font-size: 0.85rem
 </style>
