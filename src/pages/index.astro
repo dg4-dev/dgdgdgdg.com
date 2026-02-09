@@ -50,6 +50,10 @@ const meaningRaw: {
 ];
 
 const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
+
+// Worksデータ（FeaturedやPrivateの判定に利用）
+const works = notionData.results;
+const featuredWorks = works.filter((item: any) => item.properties?.Featured?.checkbox);
 ---
 
 <BaseLayout title="dgdgdgdg" description="dgdgdgdgのポートフォリオサイト" keywords="portfolio, design, web">
@@ -87,7 +91,7 @@ const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
         </div>
       </div>
     </section>
-    <section class="test-section-dark">
+    <section class="about">
       <h2 class="about-title">dgdgdgdgとは</h2>
       <div class="about-logo">
         <img src="/images/row.svg" alt="dgdgdgdg" />
@@ -102,11 +106,74 @@ const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
         <p>
           デザイン、コーディング、映像、音楽など、さまざまな領域を横断しながら、デジタルとアナログの境界を自由に行き来する制作活動を行っています。「深く掘り下げる（dig）」ことと「喜び（delight）」を届けることの両方を大切にしながら、四季のように移り変わる好奇心のままに、多方面のクリエイティブに取り組んでいます。
         </p>
+        <p class="section-link-wrapper">
+          <a href="/about" class="section-link">Aboutページへ</a>
+        </p>
       </div>
     </section>
-    <section class="test-section-light">
-      <h2>Section 3 — Light</h2>
-      <p>白背景のテストセクション</p>
+    <section class="featured-works">
+      <h2>Featured Works</h2>
+      <p>ピックアップした制作実績</p>
+      <p class="section-link-wrapper">
+        <a href="/works" class="section-link">Works一覧ページへ</a>
+      </p>
+      {
+        featuredWorks.length > 0 && (
+          <div class="featured-grid">
+            {featuredWorks.map((item: any) => {
+              const title = item.properties?.Title?.title?.[0]?.plain_text ?? 'No title';
+              const client = item.properties?.Client?.rich_text?.[0]?.plain_text ?? '';
+              const createdDate = item.properties?.['Created Date']?.date?.start ?? '';
+              const categories = item.properties?.Category?.multi_select ?? [];
+              const coverImage = item.properties?.Cover?.files?.[0]?.file?.url ?? '';
+              const workId = item.properties?.id?.rich_text?.[0]?.plain_text ?? item.id;
+              const isPrivate = item.properties?.Private?.checkbox;
+
+              const cardInner = (
+                <>
+                  {isPrivate ? (
+                    <div class="featured-cover">
+                      <img src="/images/private-sample.png" alt="Private work sample" />
+                    </div>
+                  ) : (
+                    coverImage && (
+                      <div class="featured-cover">
+                        <img src={coverImage} alt={title} />
+                      </div>
+                    )
+                  )}
+                  <div class="featured-content">
+                    <h3>{title}</h3>
+                    {isPrivate ? (
+                      <p class="featured-client">プライベート</p>
+                    ) : (
+                      client && <p class="featured-client">Client: {client}</p>
+                    )}
+                    {createdDate && <p class="featured-date">{createdDate}</p>}
+                    {categories.length > 0 && (
+                      <div class="featured-categories">
+                        {categories.map((cat: any) => (
+                          <span class="featured-category-tag" style={`background-color: ${cat.color}`}>
+                            {cat.name}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </>
+              );
+
+              return isPrivate ? (
+                <article class="featured-card">{cardInner}</article>
+              ) : (
+                <a href={`/works/${workId}`} class="featured-card featured-card--link">
+                  {cardInner}
+                </a>
+              );
+            })}
+          </div>
+        )
+      }
     </section>
   </main>
   <Footer />
@@ -116,6 +183,41 @@ const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
   main
     margin: 0
     padding: 0
+
+  .section-link-wrapper
+    margin-top: 24px
+
+  .section-link
+    display: inline-flex
+    align-items: center
+    gap: 8px
+    padding: 8px 16px
+    border-radius: 999px
+    border: 1px solid currentColor
+    font-size: 14px
+    letter-spacing: 0.06em
+    text-decoration: none
+    transition: background-color 0.2s ease, color 0.2s ease
+
+    &::after
+      content: '→'
+      font-size: 12px
+
+  .about .section-link
+    color: #ffffff
+    border-color: #ffffff
+
+    &:hover
+      background-color: #ffffff
+      color: #000000
+
+  .featured-works .section-link
+    color: #000000
+    border-color: #000000
+
+    &:hover
+      background-color: #000000
+      color: #ffffff
 
   .hero
     --orbit-scale-y: 0.35
@@ -464,7 +566,7 @@ const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
       to
         transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(360deg) translateX(80px) rotate(-360deg) scaleY(var(--counter-scale-y))
 
-  .test-section-dark
+  .about
     background-color: #000000
     min-height: 100vh
     display: grid
@@ -534,20 +636,89 @@ const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
           margin-top: 20px
           line-height: 2
 
-  .test-section-light
+  .featured-works
     background-color: #ffffff
     min-height: 100vh
     display: flex
     flex-direction: column
     align-items: center
     justify-content: center
+    padding: 80px 40px
+
     h2
       color: #000000
       font-size: 48px
+
     p
       color: #666666
       font-size: 18px
       margin-top: 16px
+      margin-bottom: 40px
+
+    .featured-grid
+      width: 100%
+      max-width: 1200px
+      display: grid
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))
+      gap: 24px
+
+    .featured-card
+      border: 1px solid #e0e0e0
+      border-radius: 12px
+      overflow: hidden
+      background-color: #ffffff
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04)
+      transition: transform 0.2s ease, box-shadow 0.2s ease
+
+      &:hover
+        transform: translateY(-4px)
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08)
+
+    .featured-card--link
+      text-decoration: none
+      color: inherit
+      display: block
+
+    .featured-cover
+      width: 100%
+      height: 180px
+      overflow: hidden
+
+      img
+        width: 100%
+        height: 100%
+        object-fit: cover
+
+    .featured-content
+      padding: 16px 20px 20px
+
+      h3
+        margin: 0 0 8px 0
+        font-size: 20px
+        color: #111111
+
+      .featured-client
+        color: #777777
+        font-size: 14px
+        margin: 2px 0
+
+      .featured-date
+        color: #999999
+        font-size: 12px
+        margin-top: 4px
+
+      .featured-categories
+        display: flex
+        flex-wrap: wrap
+        gap: 6px
+        margin-top: 10px
+
+      .featured-category-tag
+        padding: 4px 10px
+        border-radius: 999px
+        font-size: 11px
+        color: #ffffff
+        opacity: 0.9
 </style>
 
 <script>
