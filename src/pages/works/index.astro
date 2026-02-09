@@ -16,11 +16,11 @@ const works = notionData.results;
 async function getTwitterImageFromUrl(twitterUrl: string): Promise<string | null> {
   try {
     const oembedUrl = `https://publish.twitter.com/oembed?url=${encodeURIComponent(twitterUrl)}&omit_script=true`;
-    
+
     // タイムアウト設定（10秒）
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
-    
+
     try {
       const response = await fetch(oembedUrl, {
         signal: controller.signal,
@@ -28,61 +28,61 @@ async function getTwitterImageFromUrl(twitterUrl: string): Promise<string | null
           'User-Agent': 'Mozilla/5.0 (compatible; dgdgdgdg.com/1.0)',
         },
       });
-      
+
       clearTimeout(timeoutId);
-      
+
       if (!response.ok) {
         console.warn(`Twitter oEmbed API error for ${twitterUrl}:`, response.status);
         return null;
       }
-      
+
       const data = await response.json();
       const html = data.html || '';
-    
-    // HTMLから画像URLを抽出
-    // Twitterの埋め込みHTMLには通常、画像のURLが含まれています
-    // パターン1: <img>タグのsrc属性
-    const imgMatch = html.match(/<img[^>]+src="([^"]+)"[^>]*>/i);
-    if (imgMatch && imgMatch[1]) {
-      const imgUrl = imgMatch[1];
-      // Twitterの画像URLのパターンをチェック（pbs.twimg.comなど）
-      if (imgUrl.includes('pbs.twimg.com') || imgUrl.includes('twimg.com')) {
-        return imgUrl;
+
+      // HTMLから画像URLを抽出
+      // Twitterの埋め込みHTMLには通常、画像のURLが含まれています
+      // パターン1: <img>タグのsrc属性
+      const imgMatch = html.match(/<img[^>]+src="([^"]+)"[^>]*>/i);
+      if (imgMatch && imgMatch[1]) {
+        const imgUrl = imgMatch[1];
+        // Twitterの画像URLのパターンをチェック（pbs.twimg.comなど）
+        if (imgUrl.includes('pbs.twimg.com') || imgUrl.includes('twimg.com')) {
+          return imgUrl;
+        }
       }
-    }
-    
-    // パターン2: data-src属性
-    const dataSrcMatch = html.match(/data-src="([^"]+)"/i);
-    if (dataSrcMatch && dataSrcMatch[1]) {
-      const imgUrl = dataSrcMatch[1];
-      if (imgUrl.includes('pbs.twimg.com') || imgUrl.includes('twimg.com')) {
-        return imgUrl;
+
+      // パターン2: data-src属性
+      const dataSrcMatch = html.match(/data-src="([^"]+)"/i);
+      if (dataSrcMatch && dataSrcMatch[1]) {
+        const imgUrl = dataSrcMatch[1];
+        if (imgUrl.includes('pbs.twimg.com') || imgUrl.includes('twimg.com')) {
+          return imgUrl;
+        }
       }
-    }
-    
-    // パターン3: background-imageのURL
-    const bgMatch = html.match(/background-image:\s*url\(['"]?([^'"]+)['"]?\)/i);
-    if (bgMatch && bgMatch[1]) {
-      const imgUrl = bgMatch[1];
-      if (imgUrl.includes('pbs.twimg.com') || imgUrl.includes('twimg.com')) {
-        return imgUrl;
+
+      // パターン3: background-imageのURL
+      const bgMatch = html.match(/background-image:\s*url\(['"]?([^'"]+)['"]?\)/i);
+      if (bgMatch && bgMatch[1]) {
+        const imgUrl = bgMatch[1];
+        if (imgUrl.includes('pbs.twimg.com') || imgUrl.includes('twimg.com')) {
+          return imgUrl;
+        }
       }
-    }
-    
-    // パターン4: TwitterのメディアURLを直接構築（ツイートIDから）
-    try {
-      const urlObj = new URL(twitterUrl);
-      const pathParts = urlObj.pathname.split('/').filter(Boolean);
-      const statusIndex = pathParts.indexOf('status');
-      if (statusIndex !== -1 && pathParts[statusIndex + 1]) {
-        const tweetId = pathParts[statusIndex + 1];
-        // ツイートIDから画像URLを推測（これは確実ではないため、最後の手段）
-        // 実際にはoEmbed APIのレスポンスから取得する方が確実
+
+      // パターン4: TwitterのメディアURLを直接構築（ツイートIDから）
+      try {
+        const urlObj = new URL(twitterUrl);
+        const pathParts = urlObj.pathname.split('/').filter(Boolean);
+        const statusIndex = pathParts.indexOf('status');
+        if (statusIndex !== -1 && pathParts[statusIndex + 1]) {
+          const tweetId = pathParts[statusIndex + 1];
+          // ツイートIDから画像URLを推測（これは確実ではないため、最後の手段）
+          // 実際にはoEmbed APIのレスポンスから取得する方が確実
+        }
+      } catch (e) {
+        // URL解析に失敗
       }
-    } catch (e) {
-      // URL解析に失敗
-    }
-    
+
       return null;
     } catch (fetchError: any) {
       clearTimeout(timeoutId);
@@ -109,7 +109,7 @@ function findTwitterUrlInBlocks(blocks: any[]): string | null {
         return url;
       }
     }
-    
+
     // 子ブロックを再帰的にチェック
     if (block.children && block.children.length > 0) {
       const found = findTwitterUrlInBlocks(block.children);
@@ -124,14 +124,14 @@ function findTwitterUrlInBlocks(blocks: any[]): string | null {
 const worksWithCoverImages = await Promise.all(
   works.map(async (work: any) => {
     const coverImage = work.properties?.Cover?.files?.[0]?.file?.url ?? '';
-    
+
     // カバー画像が設定されていない場合、Twitterの画像を取得
     if (!coverImage) {
       try {
         // ブロック取得（SSGビルド時に実行）
         const blocks = await getNotionBlocksRecursive(work.id);
         const twitterUrl = findTwitterUrlInBlocks(blocks);
-        
+
         if (twitterUrl) {
           console.log(`Found Twitter URL for work ${work.id}: ${twitterUrl}`);
           const twitterImage = await getTwitterImageFromUrl(twitterUrl);
@@ -140,11 +140,13 @@ const worksWithCoverImages = await Promise.all(
             // カバー画像として使用
             work.properties = work.properties || {};
             work.properties.Cover = {
-              files: [{
-                file: {
-                  url: twitterImage
-                }
-              }]
+              files: [
+                {
+                  file: {
+                    url: twitterImage,
+                  },
+                },
+              ],
             };
           } else {
             console.warn(`Could not fetch Twitter image for work ${work.id}`);
@@ -155,9 +157,9 @@ const worksWithCoverImages = await Promise.all(
         console.warn(`Error processing work ${work.id} (continuing build):`, error.message);
       }
     }
-    
+
     return work;
-  })
+  }),
 );
 
 // 日付を年月のみにフォーマットする関数（表示用）
@@ -181,8 +183,7 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
 ---
 
 <BaseLayout title="Works - dgdgdgdg" description="制作実績の一覧" keywords="works, portfolio, projects">
-  <Fragment slot="head">
-  </Fragment>
+  <Fragment slot="head"> </Fragment>
   <Header />
   <main>
     <!-- Works data for client-side filtering/sorting -->
@@ -236,8 +237,8 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
           );
 
           return isPrivate ? (
-            <article 
-              class="work-card" 
+            <article
+              class="work-card"
               data-work-title={title}
               data-work-date={createdDateFull || ''}
               data-work-private="true"
@@ -245,8 +246,8 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
               {cardInner}
             </article>
           ) : (
-            <a 
-              href={`/works/${workId}`} 
+            <a
+              href={`/works/${workId}`}
               class="work-card work-card--link"
               data-work-title={title}
               data-work-date={createdDateFull || ''}
@@ -292,88 +293,74 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
     font-size: 24px
     letter-spacing: 0.15em
 
-    &:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-  }
+    &:hover
+      transform: translateY(-4px)
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1)
 
-  .work-card--link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-  }
+  .work-card--link
+    text-decoration: none
+    color: inherit
+    display: block
 
-  .work-cover {
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
+  .work-cover
+    width: 100%
+    height: 200px
+    overflow: hidden
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
+    img
+      width: 100%
+      height: 100%
+      object-fit: cover
 
-  .work-content {
-    padding: 1.5rem;
+  .work-content
+    padding: 1.5rem
 
-    h2 {
-      margin: 0 0 0.5rem 0;
-      font-size: 1.25rem;
-    }
+    h2
+      margin: 0 0 0.5rem 0
+      font-size: 1.25rem
 
-    .work-client {
-      color: #666;
-      font-size: 0.9rem;
-      margin: 0.25rem 0;
-    }
+    .work-client
+      color: #666
+      font-size: 0.9rem
+      margin: 0.25rem 0
 
-    .work-date {
-      color: #999;
-      font-size: 0.85rem;
-      margin: 0.25rem 0;
-    }
+    .work-date
+      color: #999
+      font-size: 0.85rem
+      margin: 0.25rem 0
 
-    .work-categories {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.75rem;
+    .work-categories
+      display: flex
+      flex-wrap: wrap
+      gap: 0.5rem
+      margin-top: 0.75rem
 
-      .category-tag {
-        padding: 0.25rem 0.75rem;
-        border-radius: 12px;
-        font-size: 0.75rem;
-        opacity: 0.8;
-      }
-    }
-  }
+      .category-tag
+        padding: 0.25rem 0.75rem
+        border-radius: 12px
+        font-size: 0.75rem
+        opacity: 0.8
 
-  details {
-    margin-top: 3rem;
+  details
+    margin-top: 3rem
 
-    summary {
-      cursor: pointer;
-      padding: 0.5rem;
-      background: #f5f5f5;
-      border-radius: 4px;
-    }
+    summary
+      cursor: pointer
+      padding: 0.5rem
+      background: #f5f5f5
+      border-radius: 4px
 
-    pre {
-      margin-top: 1rem;
-      padding: 1rem;
-      background: #f5f5f5;
-      border-radius: 4px;
-      overflow-x: auto;
-      font-size: 0.85rem;
-    }
-  }
+    pre
+      margin-top: 1rem
+      padding: 1rem
+      background: #f5f5f5
+      border-radius: 4px
+      overflow-x: auto
+      font-size: 0.85rem
 </style>
 
 <script is:inline>
-  (function() {
+  (function () {
     var sortHandler = null;
     var filterHandler = null;
 
@@ -385,8 +372,8 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
       // フィルタリング（表示/非表示を判定）
       var visibleCards = [];
       var hiddenCards = [];
-      
-      cards.forEach(function(card) {
+
+      cards.forEach(function (card) {
         var isPrivate = card.getAttribute('data-work-private') === 'true';
         var shouldShow = false;
         if (filterValue === 'public') {
@@ -396,7 +383,7 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
         } else {
           shouldShow = true; // 'all'
         }
-        
+
         if (shouldShow) {
           card.style.display = '';
           visibleCards.push(card);
@@ -407,7 +394,7 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
       });
 
       // 表示されているカードをソート
-      visibleCards.sort(function(a, b) {
+      visibleCards.sort(function (a, b) {
         if (sortValue === 'date_desc') {
           var dateA = a.getAttribute('data-work-date') || '';
           var dateB = b.getAttribute('data-work-date') || '';
@@ -425,10 +412,10 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
       });
 
       // DOMの順序を更新（表示カードをソート順に、その後非表示カードを追加）
-      visibleCards.forEach(function(card) {
+      visibleCards.forEach(function (card) {
         worksGrid.appendChild(card);
       });
-      hiddenCards.forEach(function(card) {
+      hiddenCards.forEach(function (card) {
         worksGrid.appendChild(card);
       });
     }
@@ -437,7 +424,7 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
       var sortSelect = document.querySelector('[data-works-sort]');
       var filterSelect = document.querySelector('[data-works-filter]');
       var worksGridElement = document.getElementById('works-grid');
-      
+
       if (!sortSelect || !filterSelect || !worksGridElement) {
         // 要素が見つからない場合は少し待って再試行
         setTimeout(initWorksSortAndFilter, 100);
@@ -455,10 +442,10 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
       }
 
       // 新しいイベントハンドラーを作成
-      sortHandler = function() {
+      sortHandler = function () {
         updateWorks(sortSelect, filterSelect, worksGrid);
       };
-      filterHandler = function() {
+      filterHandler = function () {
         updateWorks(sortSelect, filterSelect, worksGrid);
       };
 
@@ -470,10 +457,10 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
     // 初期化関数
     function init() {
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
           initWorksSortAndFilter();
           // 初期表示時にソートを実行
-          setTimeout(function() {
+          setTimeout(function () {
             var sortSelect = document.querySelector('[data-works-sort]');
             var filterSelect = document.querySelector('[data-works-filter]');
             var worksGridElement = document.getElementById('works-grid');
@@ -484,10 +471,10 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
         });
       } else {
         // DOMが既に読み込まれている場合は少し待ってから実行
-        setTimeout(function() {
+        setTimeout(function () {
           initWorksSortAndFilter();
           // 初期表示時にソートを実行
-          setTimeout(function() {
+          setTimeout(function () {
             var sortSelect = document.querySelector('[data-works-sort]');
             var filterSelect = document.querySelector('[data-works-filter]');
             var worksGridElement = document.getElementById('works-grid');
@@ -503,7 +490,7 @@ const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
     init();
 
     // Astro View Transitions対応
-    document.addEventListener('astro:after-swap', function() {
+    document.addEventListener('astro:after-swap', function () {
       sortHandler = null;
       filterHandler = null;
       setTimeout(initWorksSortAndFilter, 0);
