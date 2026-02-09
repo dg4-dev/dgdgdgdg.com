@@ -46,6 +46,23 @@ const meaningRaw: {
 
 const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
 
+// Notionのカテゴリー色をCSSのHEXカラーに変換する関数
+function getNotionCategoryColor(colorName: string): string {
+  const colorMap: Record<string, string> = {
+    default: '#373530',
+    gray: '#9B9A97',
+    brown: '#64473A',
+    red: '#E03E3E',
+    orange: '#D9730D',
+    yellow: '#DFAB01',
+    green: '#0F7B6C',
+    blue: '#0B6E99',
+    purple: '#6940A5',
+    pink: '#AD1A72',
+  };
+  return colorMap[colorName] || colorMap.default;
+}
+
 // Worksデータ（FeaturedやPrivateの判定に利用）
 const notionData = await getNotionData();
 const works = notionData.results;
@@ -162,7 +179,10 @@ const featuredWorks = works
                     {categories.length > 0 && (
                       <div class="featured-categories">
                         {categories.map((cat: any) => (
-                          <span class="featured-category-tag" style={`background-color: ${cat.color}`}>
+                          <span
+                            class="featured-category-tag"
+                            style={`background-color: ${getNotionCategoryColor(cat.color)}`}
+                          >
                             {cat.name}
                           </span>
                         ))}
@@ -271,6 +291,7 @@ const featuredWorks = works
     font-variation-settings: 'RNDS' 0
     font-size: 12px
     letter-spacing: 0.2em
+    transform: translateY(1.2px)
 
   .scroll-line
     width: 1px
@@ -314,9 +335,11 @@ const featuredWorks = works
     white-space: nowrap
     cursor: default
     transition: color 0.3s ease
+    transform: translateY(0.5vw)
 
   .orbit-item[data-orbit="3"] .phrase
     font-size: 2.56vw
+    transform: translateY(0.256vw)
 
   .orbit-item:hover .dg4
     color: #00d4d4
@@ -511,6 +534,7 @@ const featuredWorks = works
   @media (max-width: 768px)
     .phrase
       font-size: 24px
+      transform: translateY(2.4px)
 
     .satellite
       font-size: 14px
@@ -723,9 +747,11 @@ const featuredWorks = works
         margin-top: 10px
 
       .featured-category-tag
-        padding: 4px 10px
-        border-radius: 999px
-        font-size: 11px
+        padding: 2px 6px 4px 6px
+        border-radius: 4px
+        font-size: 16px
+        font-family: 'Zen Kaku Gothic New', sans-serif
+        font-weight: 700
         color: #ffffff
         opacity: 0.9
 </style>
