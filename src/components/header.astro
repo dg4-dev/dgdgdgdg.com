@@ -7,12 +7,14 @@ const { pageName } = Astro.props;
 
 const navItems = [
   { label: 'Works', href: '/works' },
+  { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ];
 
 const pageNameMap: Record<string, string> = {
   '/': 'Top',
   '/works': 'Works',
+  '/about': 'About',
   '/contact': 'Contact',
 };
 
@@ -20,25 +22,41 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 const currentPageName = pageName ?? pageNameMap[pathname] ?? pathname.split('/').pop() ?? 'Top';
 ---
 
-<header>
+<header transition:animate="none">
   <div class="header-inner">
-    <a href="/" class="header-logo-link">
-      <img src="/images/row.svg" alt="Logo" class="header-logo" />
-    </a>
-    <h1 class="current-page">{currentPageName}</h1>
-    <nav>
-      <ul>
-        {
-          navItems
-            .filter((item) => item.href.replace(/\/$/, '') !== pathname)
-            .map((item) => (
+    <div class="header-bar">
+      <a href="/" class="header-logo-link" transition:persist="header-logo">
+        <img src="/images/row.svg" alt="Logo" class="header-logo" />
+      </a>
+      <h1 class="current-page" transition:name="current-page">{currentPageName}</h1>
+      <button
+        class="hamburger"
+        type="button"
+        aria-label="メニューを開く"
+        aria-expanded="false"
+        transition:name="hamburger"
+        transition:animate="none"
+      >
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+    <div class="dropdown-wrapper" aria-hidden="true">
+      <nav class="dropdown">
+        <ul>
+          {
+            navItems.map((item) => (
               <li>
-                <a href={item.href}>{item.label}</a>
+                <a href={item.href} class:list={[{ current: item.href.replace(/\/$/, '') === pathname }]}>
+                  {item.label}
+                </a>
               </li>
             ))
-        }
-      </ul>
-    </nav>
+          }
+        </ul>
+      </nav>
+    </div>
   </div>
 </header>
 
@@ -50,27 +68,38 @@ const currentPageName = pageName ?? pageNameMap[pathname] ?? pathname.split('/')
     width: 100%
     z-index: 1000
     display: flex
-    justify-content: center
+    flex-direction: column
+    align-items: center
     padding: 16px
     pointer-events: none
 
   .header-inner
+    background: rgba(10, 10, 10, 0.6)
+    backdrop-filter: blur(24px)
+    border: 1px solid rgba(255, 255, 255, 0.08)
+    border-radius: 8px
+    pointer-events: all
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4), 0 0 0 0.5px rgba(255, 255, 255, 0.04) inset
+
+  .header-bar
     display: flex
     align-items: center
     gap: 24px
     padding: 10px 28px
-    background: rgba(10, 10, 10, 0.6)
-    backdrop-filter: blur(24px)
-    -webkit-backdrop-filter: blur(24px)
-    border: 1px solid rgba(255, 255, 255, 0.08)
-    border-radius: 100px
-    pointer-events: all
-    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4), 0 0 0 0.5px rgba(255, 255, 255, 0.04) inset
 
   .header-logo-link
     display: flex
     align-items: center
     line-height: 0
+    flex-shrink: 0
+    position: relative
+    &::before
+      content: ''
+      position: absolute
+      top: -8px
+      left: -8px
+      right: -8px
+      bottom: -8px
 
   .header-logo
     height: 18px
@@ -87,15 +116,59 @@ const currentPageName = pageName ?? pageNameMap[pathname] ?? pathname.split('/')
     letter-spacing: 0.08em
     white-space: nowrap
 
-  nav
+  .hamburger
+    display: flex
+    flex-direction: column
+    justify-content: center
+    gap: 4px
+    background: none
+    border: none
+    cursor: pointer
+    padding: 4px
+    position: relative
+    &::before
+      content: ''
+      position: absolute
+      top: -8px
+      left: -8px
+      right: -8px
+      bottom: -8px
+    .hamburger-line
+      display: block
+      width: 18px
+      height: 1.5px
+      background: rgba(255, 255, 255, 0.7)
+      border-radius: 1px
+      transition: transform 0.3s ease, opacity 0.3s ease
+    &:hover .hamburger-line
+      background: #ffffff
+    &[aria-expanded="true"]
+      .hamburger-line:nth-child(1)
+        transform: translateY(5.5px) rotate(45deg)
+      .hamburger-line:nth-child(2)
+        opacity: 0
+      .hamburger-line:nth-child(3)
+        transform: translateY(-5.5px) rotate(-45deg)
+
+  .dropdown-wrapper
+    display: grid
+    grid-template-rows: 0fr
+    transition: grid-template-rows 0.3s ease
+    &.open
+      grid-template-rows: 1fr
+
+  .dropdown
+    overflow: hidden
     ul
       list-style: none
       margin: 0
-      padding: 0
+      padding: 0 28px 12px
       display: flex
+      flex-direction: column
       font-family: 'Zen Kaku Gothic New', sans-serif
-      font-weight: 700
-      gap: 24px
+      gap: 8px
+      border-top: 1px solid rgba(255, 255, 255, 0.08)
+      padding-top: 10px
       li
         a
           color: rgba(255, 255, 255, 0.6)
@@ -104,14 +177,27 @@ const currentPageName = pageName ?? pageNameMap[pathname] ?? pathname.split('/')
           font-weight: 500
           letter-spacing: 0.08em
           transition: color 0.3s ease
+          position: relative
+          display: inline-block
+          &::before
+            content: ''
+            position: absolute
+            top: -6px
+            left: -12px
+            right: -12px
+            bottom: -6px
           &:hover
             color: #ffffff
+          &.current
+            color: #00d4d4
+            font-weight: 700
+            pointer-events: none
 
   @media (max-width: 768px)
     header
       padding: 12px
 
-    .header-inner
+    .header-bar
       padding: 8px 20px
       gap: 16px
 
@@ -121,22 +207,102 @@ const currentPageName = pageName ?? pageNameMap[pathname] ?? pathname.split('/')
     .current-page
       font-size: 11px
 
-    nav
+    .hamburger
+      .hamburger-line
+        width: 16px
+
+    .dropdown
       ul
-        gap: 16px
+        padding: 8px 20px 10px
+        gap: 6px
         li
           a
             font-size: 12px
 </style>
 
 <script>
-  const header = document.querySelector('header');
-  if (header) {
-    const navItems = header.querySelectorAll('li');
-    navItems.forEach((item) => {
-      item.addEventListener('click', () => {
-        item.classList.add('active');
-      });
+  function initHeader() {
+    const btn = document.querySelector('.hamburger');
+    const wrapper = document.querySelector('.dropdown-wrapper');
+    const inner = document.querySelector('.header-inner');
+    if (!btn || !wrapper || !inner) return;
+
+    function close() {
+      btn!.setAttribute('aria-expanded', 'false');
+      btn!.setAttribute('aria-label', 'メニューを開く');
+      wrapper!.classList.remove('open');
+      wrapper!.setAttribute('aria-hidden', 'true');
+      inner!.classList.remove('open');
+    }
+
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+      btn.setAttribute('aria-label', expanded ? 'メニューを開く' : 'メニューを閉じる');
+      wrapper.classList.toggle('open', !expanded);
+      wrapper.setAttribute('aria-hidden', String(expanded));
+      inner.classList.toggle('open', !expanded);
+    });
+
+    document.addEventListener('click', (e: Event) => {
+      const target = e.target as Node;
+      if (!inner.contains(target)) {
+        close();
+      }
     });
   }
+
+  function resetHeaderVisibility() {
+    const header = document.querySelector('header') as HTMLElement;
+    if (!header) return;
+    if (location.pathname === '/') {
+      header.style.opacity = '0';
+      header.style.pointerEvents = 'none';
+      header.style.transform = 'translateY(-100%)';
+    } else {
+      header.style.removeProperty('opacity');
+      header.style.removeProperty('pointer-events');
+      header.style.removeProperty('transform');
+    }
+  }
+
+  // header-inner の幅をスムーズにアニメーション
+  let savedInnerWidth = 0;
+
+  document.addEventListener('astro:before-swap', () => {
+    const inner = document.querySelector('.header-inner') as HTMLElement;
+    if (inner && location.pathname !== '/') {
+      savedInnerWidth = inner.getBoundingClientRect().width;
+    }
+  });
+
+  initHeader();
+  document.addEventListener('astro:after-swap', () => {
+    resetHeaderVisibility();
+    initHeader();
+
+    const inner = document.querySelector('.header-inner') as HTMLElement;
+    if (!inner || !savedInnerWidth || location.pathname === '/') {
+      savedInnerWidth = 0;
+      return;
+    }
+
+    const newWidth = inner.getBoundingClientRect().width;
+    if (Math.abs(newWidth - savedInnerWidth) < 1) {
+      savedInnerWidth = 0;
+      return;
+    }
+
+    inner.style.width = `${savedInnerWidth}px`;
+    requestAnimationFrame(() => {
+      inner.style.transition = 'width 200ms ease-out';
+      inner.style.width = `${newWidth}px`;
+      inner.addEventListener('transitionend', function handler() {
+        inner.style.removeProperty('width');
+        inner.style.removeProperty('transition');
+        inner.removeEventListener('transitionend', handler);
+      });
+    });
+    savedInnerWidth = 0;
+  });
 </script>
