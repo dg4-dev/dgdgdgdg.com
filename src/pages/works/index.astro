@@ -9,8 +9,8 @@ const notionData = await getNotionData();
 console.log('=== Works Page: Notion Data ===');
 console.log(JSON.stringify(notionData, null, 2));
 
-// Privateでないものだけフィルタリング
-const works = notionData.results.filter((item: any) => !item.properties?.Private?.checkbox);
+// すべてのデータを取得（Privateも含めて表示する）
+const works = notionData.results;
 ---
 
 <BaseLayout title="Works - dgdgdgdg" description="制作実績の一覧" keywords="works, portfolio, projects">
@@ -19,7 +19,11 @@ const works = notionData.results.filter((item: any) => !item.properties?.Private
   </Fragment>
   <Header />
   <main>
-    <div class="works-grid">
+    <!-- Works data for client-side filtering/sorting -->
+    <script define:vars={{ worksData: works }}>
+      window.__WORKS_DATA__ = worksData;
+    </script>
+    <div class="works-grid" id="works-grid">
       {
         works.map((item: any) => {
           const title = item.properties?.Title?.title?.[0]?.plain_text ?? 'No title';
@@ -28,31 +32,61 @@ const works = notionData.results.filter((item: any) => !item.properties?.Private
           const categories = item.properties?.Category?.multi_select ?? [];
           const coverImage = item.properties?.Cover?.files?.[0]?.file?.url ?? '';
           const workId = item.properties?.id?.rich_text?.[0]?.plain_text ?? item.id;
+          const isPrivate = item.properties?.Private?.checkbox;
 
-          return (
-            <article class="work-card">
-              <a href={`/works/${workId}`}>
-                {coverImage && (
+          const cardInner = (
+            <>
+              {isPrivate ? (
+                <div class="work-cover">
+                  <img src="/images/private-sample.png" alt="Private work sample" />
+                </div>
+              ) : (
+                coverImage && (
                   <div class="work-cover">
                     <img src={coverImage} alt={title} />
                   </div>
+                )
+              )}
+              <div class="work-content">
+                <h2>{title}</h2>
+                {isPrivate ? (
+                  <p class="work-client">プライベート</p>
+                ) : (
+                  client && <p class="work-client">Client: {client}</p>
                 )}
-                <div class="work-content">
-                  <h2>{title}</h2>
-                  {client && <p class="work-client">Client: {client}</p>}
-                  {createdDate && <p class="work-date">{createdDate}</p>}
-                  {categories.length > 0 && (
-                    <div class="work-categories">
-                      {categories.map((cat: any) => (
-                        <span class="category-tag" style={`background-color: ${cat.color}`}>
-                          {cat.name}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </a>
+                {createdDate && <p class="work-date">{createdDate}</p>}
+                {categories.length > 0 && (
+                  <div class="work-categories">
+                    {categories.map((cat: any) => (
+                      <span class="category-tag" style={`background-color: ${cat.color}`}>
+                        {cat.name}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </>
+          );
+
+          return isPrivate ? (
+            <article 
+              class="work-card" 
+              data-work-title={title}
+              data-work-date={createdDate || ''}
+              data-work-private="true"
+            >
+              {cardInner}
             </article>
+          ) : (
+            <a 
+              href={`/works/${workId}`} 
+              class="work-card work-card--link"
+              data-work-title={title}
+              data-work-date={createdDate || ''}
+              data-work-private="false"
+            >
+              {cardInner}
+            </a>
           );
         })
       }
@@ -96,12 +130,12 @@ const works = notionData.results.filter((item: any) => !item.properties?.Private
       transform: translateY(-4px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
+  }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
+  .work-card--link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
   }
 
   .work-cover {
@@ -171,3 +205,120 @@ const works = notionData.results.filter((item: any) => !item.properties?.Private
     }
   }
 </style>
+
+<script is:inline>
+  (function() {
+    var sortHandler = null;
+    var filterHandler = null;
+
+    function updateWorks(sortSelect, filterSelect, worksGrid) {
+      var sortValue = sortSelect.value;
+      var filterValue = filterSelect.value;
+      var cards = Array.from(worksGrid.querySelectorAll('.work-card'));
+
+      // フィルタリング（表示/非表示を判定）
+      var visibleCards = [];
+      var hiddenCards = [];
+      
+      cards.forEach(function(card) {
+        var isPrivate = card.getAttribute('data-work-private') === 'true';
+        var shouldShow = false;
+        if (filterValue === 'public') {
+          shouldShow = !isPrivate;
+        } else if (filterValue === 'private') {
+          shouldShow = isPrivate;
+        } else {
+          shouldShow = true; // 'all'
+        }
+        
+        if (shouldShow) {
+          card.style.display = '';
+          visibleCards.push(card);
+        } else {
+          card.style.display = 'none';
+          hiddenCards.push(card);
+        }
+      });
+
+      // 表示されているカードをソート
+      visibleCards.sort(function(a, b) {
+        if (sortValue === 'date_desc') {
+          var dateA = a.getAttribute('data-work-date') || '';
+          var dateB = b.getAttribute('data-work-date') || '';
+          return dateB.localeCompare(dateA);
+        } else if (sortValue === 'date_asc') {
+          var dateA = a.getAttribute('data-work-date') || '';
+          var dateB = b.getAttribute('data-work-date') || '';
+          return dateA.localeCompare(dateB);
+        } else if (sortValue === 'title_asc') {
+          var titleA = a.getAttribute('data-work-title') || '';
+          var titleB = b.getAttribute('data-work-title') || '';
+          return titleA.localeCompare(titleB, 'ja');
+        }
+        return 0;
+      });
+
+      // DOMの順序を更新（表示カードをソート順に、その後非表示カードを追加）
+      visibleCards.forEach(function(card) {
+        worksGrid.appendChild(card);
+      });
+      hiddenCards.forEach(function(card) {
+        worksGrid.appendChild(card);
+      });
+    }
+
+    function initWorksSortAndFilter() {
+      var sortSelect = document.querySelector('[data-works-sort]');
+      var filterSelect = document.querySelector('[data-works-filter]');
+      var worksGridElement = document.getElementById('works-grid');
+      
+      if (!sortSelect || !filterSelect || !worksGridElement) {
+        // 要素が見つからない場合は少し待って再試行
+        setTimeout(initWorksSortAndFilter, 100);
+        return;
+      }
+
+      var worksGrid = worksGridElement;
+
+      // 既存のイベントリスナーを削除
+      if (sortHandler) {
+        sortSelect.removeEventListener('change', sortHandler);
+      }
+      if (filterHandler) {
+        filterSelect.removeEventListener('change', filterHandler);
+      }
+
+      // 新しいイベントハンドラーを作成
+      sortHandler = function() {
+        updateWorks(sortSelect, filterSelect, worksGrid);
+      };
+      filterHandler = function() {
+        updateWorks(sortSelect, filterSelect, worksGrid);
+      };
+
+      // イベントリスナーを追加
+      sortSelect.addEventListener('change', sortHandler);
+      filterSelect.addEventListener('change', filterHandler);
+    }
+
+    // 初期化関数
+    function init() {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initWorksSortAndFilter);
+      } else {
+        // DOMが既に読み込まれている場合は少し待ってから実行
+        setTimeout(initWorksSortAndFilter, 0);
+      }
+    }
+
+    // 初期化実行
+    init();
+
+    // Astro View Transitions対応
+    document.addEventListener('astro:after-swap', function() {
+      sortHandler = null;
+      filterHandler = null;
+      setTimeout(initWorksSortAndFilter, 0);
+    });
+  })();
+</script>
