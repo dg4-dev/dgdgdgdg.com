@@ -1,13 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
-import { getNotionData } from '@/lib/notion';
 import Footer from '@/components/footer.astro';
-
-// Notionデータベースからデータを取得
-const notionData = await getNotionData();
-console.log('=== Index Page: Notion Data ===');
-console.log(JSON.stringify(notionData, null, 2));
 
 // ロゴ周りに表示するテキストデータ
 const meaningRaw: {
