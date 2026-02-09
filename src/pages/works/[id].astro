@@ -7,7 +7,10 @@ import Footer from '@/components/footer.astro';
 // 静的パス生成（Astroの動的ルートに必須）
 export async function getStaticPaths() {
   const notionData = await getNotionData();
-  return notionData.results.map((page: any) => ({
+  // Privateがtrueのものは詳細ページを生成しない
+  const publicPages = notionData.results.filter((page: any) => !page.properties?.Private?.checkbox);
+
+  return publicPages.map((page: any) => ({
     params: { id: page.properties?.id?.rich_text?.[0]?.plain_text ?? page.id },
   }));
 }
@@ -35,10 +38,18 @@ console.log(`=== Works Detail Page (ID: ${id}) ===`);
 console.log('Page:', JSON.stringify(page, null, 2));
 console.log('Blocks:', JSON.stringify(blocks, null, 2));
 
+// 日付を年月のみにフォーマットする関数（表示用）
+function formatDateToYearMonth(dateString: string): string {
+  if (!dateString) return '';
+  // YYYY-MM-DD形式からYYYY-MMに変換
+  return dateString.substring(0, 7);
+}
+
 // プロパティからデータを抽出
 const title = page.properties?.Title?.title?.[0]?.plain_text ?? 'No title';
 const client = page.properties?.Client?.rich_text?.[0]?.plain_text ?? '';
-const createdDate = page.properties?.['Created Date']?.date?.start ?? '';
+const createdDateFull = page.properties?.['Created Date']?.date?.start ?? '';
+const createdDate = formatDateToYearMonth(createdDateFull); // 表示用は年月のみ
 const categories = page.properties?.Category?.multi_select ?? [];
 const coverImage = page.properties?.Cover?.files?.[0]?.file?.url ?? '';
 const summary = page.properties?.Summary?.rich_text?.[0]?.plain_text ?? '';
@@ -86,12 +97,105 @@ function renderBlock(block: any): string {
       return `<figure><img src="${imageUrl}" alt="${caption}" />${caption ? `<figcaption>${caption}</figcaption>` : ''}</figure>`;
     case 'divider':
       return '<hr />';
+    case 'embed':
+      // Notionのembedブロックをiframeで表示
+      if (!value.url) return '';
+      
+      // URLをembed用に変換する関数
+      function convertToEmbedUrl(url: string): { url: string; isTwitter: boolean } {
+        try {
+          const urlObj = new URL(url);
+          
+          // X (Twitter)
+          if (urlObj.hostname.includes('twitter.com') || urlObj.hostname.includes('x.com')) {
+            // TwitterのツイートURLを検出
+            const pathParts = urlObj.pathname.split('/').filter(Boolean);
+            const statusIndex = pathParts.indexOf('status');
+            if (statusIndex !== -1 && pathParts[statusIndex + 1]) {
+              return { url, isTwitter: true };
+            }
+          }
+          
+          // YouTube
+          if (urlObj.hostname.includes('youtube.com') || urlObj.hostname.includes('youtu.be')) {
+            let videoId = '';
+            if (urlObj.hostname.includes('youtu.be')) {
+              videoId = urlObj.pathname.slice(1);
+            } else {
+              videoId = urlObj.searchParams.get('v') || urlObj.pathname.split('/').pop() || '';
+            }
+            if (videoId) {
+              return { url: `https://www.youtube.com/embed/${videoId}`, isTwitter: false };
+            }
+          }
+          
+          // Vimeo
+          if (urlObj.hostname.includes('vimeo.com')) {
+            const videoId = urlObj.pathname.split('/').filter(Boolean).pop();
+            if (videoId) {
+              return { url: `https://player.vimeo.com/video/${videoId}`, isTwitter: false };
+            }
+          }
+          
+          // その他のURLはそのまま使用
+          return { url, isTwitter: false };
+        } catch (e) {
+          // URL解析に失敗した場合はそのまま返す
+          return { url, isTwitter: false };
+        }
+      }
+      
+      const embedInfo = convertToEmbedUrl(value.url);
+      const escapedUrl = embedInfo.url.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      
+      // デバッグ用: 元のURLと変換後のURLをログ出力
+      console.log('Embed URL:', { original: value.url, converted: embedInfo.url, isTwitter: embedInfo.isTwitter });
+      
+      // Twitterの場合は特別な処理
+      if (embedInfo.isTwitter) {
+        const twitterEscapedUrl = value.url.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        return `<div class="embed-container embed-twitter" data-embed-url="${twitterEscapedUrl}">
+          <blockquote class="twitter-tweet" data-theme="light">
+            <a href="${twitterEscapedUrl}"></a>
+          </blockquote>
+          <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>`;
+      }
+      
+      // その他のサービスはiframeで表示
+      return `<div class="embed-container" data-embed-url="${escapedUrl}">
+        <iframe 
+          src="${escapedUrl}" 
+          loading="lazy" 
+          allowfullscreen
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        ></iframe>
+        <div class="embed-fallback">
+          <p>埋め込みコンテンツを表示できませんでした。</p>
+          <a href="${escapedUrl}" target="_blank" rel="noopener noreferrer">元のページを開く</a>
+        </div>
+      </div>`;
     case 'table':
       // テーブルは表示しない
       return '';
     case 'table_row':
       // table_rowは親のtableブロック内で処理されるためここでは処理しない
       return '';
+    case 'bookmark':
+      // Notionのbookmarkブロックをリンクカードとして表示
+      if (!value.url) return '';
+      const bookmarkUrl = value.url.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      const bookmarkCaption = value.caption && value.caption.length > 0 
+        ? renderRichText(value.caption) 
+        : '';
+      return `<div class="bookmark-container">
+        <a href="${bookmarkUrl}" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+          <div class="bookmark-content">
+            <div class="bookmark-url">${bookmarkUrl}</div>
+            ${bookmarkCaption ? `<div class="bookmark-caption">${bookmarkCaption}</div>` : ''}
+          </div>
+        </a>
+      </div>`;
     default:
       return `<p><em>Unsupported block type: ${type}</em></p>`;
   }
@@ -424,6 +528,113 @@ function renderBlocks(blocks: any[]) {
 
         &:hover {
           text-decoration: underline;
+        }
+      }
+
+      :global(.embed-container) {
+        position: relative;
+        width: 100%;
+        margin: 2rem 0;
+        padding-bottom: 56.25%; // 16:9のアスペクト比
+        height: 0;
+        overflow: hidden;
+        border-radius: 4px;
+        background: #f5f5f5;
+
+        :global(iframe) {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border: none;
+          z-index: 1;
+        }
+
+        :global(.embed-fallback) {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 2rem;
+          text-align: center;
+          z-index: 0;
+          color: #666;
+
+          a {
+            margin-top: 1rem;
+            color: #0066cc;
+            text-decoration: none;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+
+        // iframeが読み込まれたらフォールバックを非表示
+        &:has(iframe[src]:not([src=""])) {
+          :global(.embed-fallback) {
+            display: none;
+          }
+        }
+      }
+
+      // Twitter埋め込み用のスタイル
+      :global(.embed-twitter) {
+        padding-bottom: 0;
+        height: auto;
+        min-height: 200px;
+        background: transparent;
+
+        :global(blockquote.twitter-tweet) {
+          margin: 0;
+          padding: 1rem;
+          border: 1px solid #e0e0e0;
+          border-radius: 4px;
+          background: #fff;
+        }
+      }
+
+      // Bookmarkブロック用のスタイル
+      :global(.bookmark-container) {
+        margin: 2rem 0;
+
+        :global(.bookmark-link) {
+          display: block;
+          padding: 1rem;
+          border: 1px solid #e0e0e0;
+          border-radius: 8px;
+          background: #f9f9f9;
+          text-decoration: none;
+          color: inherit;
+          transition: all 0.2s ease;
+
+          &:hover {
+            border-color: #0066cc;
+            background: #f0f7ff;
+            box-shadow: 0 2px 8px rgba(0, 102, 204, 0.1);
+          }
+
+          :global(.bookmark-content) {
+            :global(.bookmark-url) {
+              font-weight: 500;
+              color: #0066cc;
+              word-break: break-all;
+              margin-bottom: 0.5rem;
+            }
+
+            :global(.bookmark-caption) {
+              font-size: 0.9rem;
+              color: #666;
+              line-height: 1.5;
+            }
+          }
         }
       }
     }
