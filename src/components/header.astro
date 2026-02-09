@@ -6,13 +6,15 @@ interface Props {
 const { pageName } = Astro.props;
 
 const navItems = [
-  { label: 'Works', href: '/works' },
+  { label: 'Works', href: '/works', greyedOut: true },
+  { label: 'About', href: '/about', greyedOut: true },
   { label: 'Contact', href: '/contact' },
 ];
 
 const pageNameMap: Record<string, string> = {
   '/': 'Top',
   '/works': 'Works',
+  '/about': 'About',
   '/contact': 'Contact',
 };
 
@@ -33,7 +35,9 @@ const currentPageName = pageName ?? pageNameMap[pathname] ?? pathname.split('/')
             .filter((item) => item.href.replace(/\/$/, '') !== pathname)
             .map((item) => (
               <li>
-                <a href={item.href}>{item.label}</a>
+                <a href={item.href} class:list={[{ 'nav-greyed': item.greyedOut }]}>
+                  {item.label}
+                </a>
               </li>
             ))
         }
@@ -82,9 +86,10 @@ const currentPageName = pageName ?? pageNameMap[pathname] ?? pathname.split('/')
 
   .current-page
     color: #00d4d4
-    font-size: 13px
-    font-weight: 600
-    letter-spacing: 0.08em
+    font-size: 16px
+    font-family: 'DG4 Atomic Dot', sans-serif
+    font-variation-settings: 'RNDS' 0
+    font-weight: 400
     white-space: nowrap
 
   nav
@@ -93,8 +98,9 @@ const currentPageName = pageName ?? pageNameMap[pathname] ?? pathname.split('/')
       margin: 0
       padding: 0
       display: flex
-      font-family: 'Zen Kaku Gothic New', sans-serif
-      font-weight: 700
+      font-family: 'DG4 Atomic Dot', sans-serif
+      font-variation-settings: 'RNDS' 0
+      font-weight: 400
       gap: 24px
       li
         a
@@ -106,6 +112,10 @@ const currentPageName = pageName ?? pageNameMap[pathname] ?? pathname.split('/')
           transition: color 0.3s ease
           &:hover
             color: #ffffff
+          &.nav-greyed
+            color: rgba(255, 255, 255, 0.2)
+            &:hover
+              color: rgba(255, 255, 255, 0.2)
 
   @media (max-width: 768px)
     header
