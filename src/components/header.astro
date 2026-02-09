@@ -1,4 +1,10 @@
 ---
+interface Props {
+  pageName?: string;
+}
+
+const { pageName } = Astro.props;
+
 const navItems = [
   { label: 'Works', href: '/works' },
   { label: 'Contact', href: '/contact' },
@@ -11,7 +17,7 @@ const pageNameMap: Record<string, string> = {
 };
 
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
-const currentPageName = pageNameMap[pathname] ?? pathname.split('/').pop() ?? 'Top';
+const currentPageName = pageName ?? pageNameMap[pathname] ?? pathname.split('/').pop() ?? 'Top';
 ---
 
 <header>
