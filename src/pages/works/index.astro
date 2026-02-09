@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
 import { getNotionData } from '@/lib/notion';
+import Footer from '@/components/footer.astro';
 
 // Notionデータベースからデータを取得
 const notionData = await getNotionData();
@@ -12,13 +13,12 @@ console.log(JSON.stringify(notionData, null, 2));
 const works = notionData.results.filter((item: any) => !item.properties?.Private?.checkbox);
 ---
 
-<BaseLayout title="Works - dgdgdgdg.com" description="制作実績の一覧" keywords="works, portfolio, projects">
+<BaseLayout title="Works - dgdgdgdg" description="制作実績の一覧" keywords="works, portfolio, projects">
   <Fragment slot="head">
     <!-- ページ固有の追加メタタグやスクリプトをここに記述可能 -->
   </Fragment>
   <Header />
   <main>
-    <h1>Works</h1>
     <div class="works-grid">
       {
         works.map((item: any) => {
@@ -64,6 +64,7 @@ const works = notionData.results.filter((item: any) => !item.properties?.Private
       <pre>{JSON.stringify(notionData, null, 2)}</pre>
     </details>
   </main>
+  <Footer />
 </BaseLayout>
 
 <style lang="scss">
