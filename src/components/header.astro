@@ -1,4 +1,6 @@
 ---
+import { ArrowUpDown, Filter, LayoutGrid } from '@lucide/astro';
+
 interface Props {
   pageName?: string;
 }
@@ -26,63 +28,12 @@ const isWorksPage = pathname === '/works';
 <header transition:animate="none">
   <div class="header-inner">
     <div class="header-bar">
-      <a href="/" class="header-logo-link" transition:persist="header-logo">
-        <img src="/images/row.svg" alt="Logo" class="header-logo" />
-      </a>
-      <h1 class="current-page" transition:name="current-page">{currentPageName}</h1>
-      {
-        isWorksPage && (
-          <div class="works-controls">
-            <label class="works-control">
-              <span class="works-control-label">
-                <svg
-                  class="works-control-icon"
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M2 3h8M3 6h6M4 9h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                </svg>
-                SORT
-              </span>
-              <select class="works-control-select" data-works-sort>
-                <option value="date_desc">作成日 新しい順</option>
-                <option value="date_asc">作成日 古い順</option>
-                <option value="title_asc">タイトル A→Z</option>
-              </select>
-            </label>
-            <label class="works-control">
-              <span class="works-control-label">
-                <svg
-                  class="works-control-icon"
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1 2h10l-2 4v4l-2 1V6L1 2z"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    fill="none"
-                  />
-                </svg>
-                FILTER
-              </span>
-              <select class="works-control-select" data-works-filter>
-                <option value="all">すべて</option>
-                <option value="public">公開のみ</option>
-                <option value="private">プライベートのみ</option>
-              </select>
-            </label>
-          </div>
-        )
-      }
+      <div class="header-left">
+        <a href="/" class="header-logo-link" transition:persist="header-logo">
+          <img src="/images/row.svg" alt="Logo" class="header-logo" />
+        </a>
+        <h1 class="current-page" transition:name="current-page">{currentPageName}</h1>
+      </div>
       <button
         class="hamburger"
         type="button"
@@ -96,6 +47,44 @@ const isWorksPage = pathname === '/works';
         <span class="hamburger-line"></span>
       </button>
     </div>
+    {
+      isWorksPage && (
+        <div class="works-controls-row">
+          <div class="works-controls">
+            <label class="works-control">
+              <span class="works-control-label">
+                <ArrowUpDown class="works-control-icon" size={16} />
+                作成日
+              </span>
+              <select class="works-control-select" data-works-sort>
+                <option value="date_desc">新しい順</option>
+                <option value="date_asc">古い順</option>
+              </select>
+            </label>
+            <label class="works-control">
+              <span class="works-control-label">
+                <Filter class="works-control-icon" size={16} />
+                公開
+              </span>
+              <select class="works-control-select" data-works-filter>
+                <option value="all">すべて</option>
+                <option value="public">公開のみ</option>
+                <option value="private">プライベートのみ</option>
+              </select>
+            </label>
+            <label class="works-control">
+              <span class="works-control-label">
+                <LayoutGrid class="works-control-icon" size={12} />
+                カテゴリ
+              </span>
+              <select class="works-control-select" data-works-category>
+                <option value="all">すべて</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      )
+    }
     <div class="dropdown-wrapper" aria-hidden="true">
       <nav class="dropdown">
         <ul>
@@ -138,14 +127,24 @@ const isWorksPage = pathname === '/works';
   .header-bar
     display: flex
     align-items: center
+    justify-content: space-between
     gap: 24px
     padding: 10px 28px
+
+  .header-left
+    display: flex
+    align-items: center
+    gap: 24px
+
+  .works-controls-row
+    padding: 10px 28px
+    border-top: 1px solid rgba(255, 255, 255, 0.08)
 
   .works-controls
     display: flex
     flex-direction: row
     gap: 12px
-    margin-left: 8px
+    margin-left: 0
 
   .works-control
     display: flex
@@ -157,7 +156,7 @@ const isWorksPage = pathname === '/works';
     display: flex
     align-items: center
     gap: 4px
-    font-size: 9px
+    font-size: 14px
     letter-spacing: 0.12em
     text-transform: uppercase
     color: rgba(255, 255, 255, 0.6)
@@ -172,7 +171,8 @@ const isWorksPage = pathname === '/works';
     appearance: none
     -webkit-appearance: none
     -moz-appearance: none
-    font-size: 11px
+    font-family: 'Zen Kaku Gothic New', sans-serif
+    font-size: 14px
     padding: 2px 6px
     border-radius: 4px
     border: 1px solid rgba(255, 255, 255, 0.16)
@@ -217,6 +217,7 @@ const isWorksPage = pathname === '/works';
     font-variation-settings: 'RNDS' 0
     font-weight: 400
     white-space: nowrap
+    transform: translateY(1.6px)
 
   .hamburger
     display: flex
@@ -267,20 +268,22 @@ const isWorksPage = pathname === '/works';
       padding: 0 28px 12px
       display: flex
       flex-direction: column
-      font-family: 'Zen Kaku Gothic New', sans-serif
-      gap: 8px
+      font-family: 'DG4 Atomic Dot', sans-serif
+      font-variation-settings: 'RNDS' 0
+      gap: 16px
       border-top: 1px solid rgba(255, 255, 255, 0.08)
       padding-top: 10px
       li
         a
           color: rgba(255, 255, 255, 0.6)
           text-decoration: none
-          font-size: 13px
           font-weight: 500
+          font-size: 16px
           letter-spacing: 0.08em
           transition: color 0.3s ease
           position: relative
           display: inline-block
+          transform: translateY(1.6px)
           &::before
             content: ''
             position: absolute
@@ -308,6 +311,7 @@ const isWorksPage = pathname === '/works';
 
     .current-page
       font-size: 11px
+      transform: translateY(1.1px)
 
     .hamburger
       .hamburger-line
@@ -316,10 +320,13 @@ const isWorksPage = pathname === '/works';
     .dropdown
       ul
         padding: 8px 20px 10px
-        gap: 6px
+        gap: 12px
         li
           a
-            font-size: 12px
+            font-size: 16px
+
+    .works-controls-row
+      padding: 8px 20px
 </style>
 
 <script>
@@ -378,10 +385,33 @@ const isWorksPage = pathname === '/works';
     }
   });
 
+  function initCategoryFilter() {
+    const categorySelect = document.querySelector('[data-works-category]') as HTMLSelectElement;
+    if (!categorySelect) return;
+
+    // 既存のオプション（「すべて」）以外を削除
+    while (categorySelect.children.length > 1) {
+      categorySelect.removeChild(categorySelect.lastChild!);
+    }
+
+    // カテゴリデータを取得
+    const categories = (window as any).__CATEGORIES_DATA__;
+    if (categories && Array.isArray(categories)) {
+      categories.forEach((category: string) => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category;
+        categorySelect.appendChild(option);
+      });
+    }
+  }
+
   initHeader();
+  initCategoryFilter();
   document.addEventListener('astro:after-swap', () => {
     resetHeaderVisibility();
     initHeader();
+    initCategoryFilter();
 
     const inner = document.querySelector('.header-inner') as HTMLElement;
     if (!inner || !savedInnerWidth || location.pathname === '/') {
