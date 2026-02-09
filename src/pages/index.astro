@@ -53,7 +53,20 @@ const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
 
 // Worksデータ（FeaturedやPrivateの判定に利用）
 const works = notionData.results;
-const featuredWorks = works.filter((item: any) => item.properties?.Featured?.checkbox);
+// Featuredのworksを抽出し、新しい順でソートして最大8件に制限
+const featuredWorks = works
+  .filter((item: any) => item.properties?.Featured?.checkbox)
+  .sort((a: any, b: any) => {
+    const dateA = a.properties?.['Created Date']?.date?.start || '';
+    const dateB = b.properties?.['Created Date']?.date?.start || '';
+    // 日付が空の場合は最後に配置
+    if (!dateA && !dateB) return 0;
+    if (!dateA) return 1;
+    if (!dateB) return -1;
+    // 降順（新しい順）
+    return dateB.localeCompare(dateA);
+  })
+  .slice(0, 8);
 ---
 
 <BaseLayout title="dgdgdgdg" description="dgdgdgdgのポートフォリオサイト" keywords="portfolio, design, web">
