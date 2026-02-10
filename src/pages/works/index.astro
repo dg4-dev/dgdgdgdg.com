@@ -3,12 +3,10 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
 import { getNotionData, getNotionBlocksRecursive } from '@/lib/notion';
 import Footer from '@/components/footer.astro';
-import { Image } from 'astro:assets';
+import WorkCard from '@/components/WorkCard.astro';
 
 // Notionデータベースからデータを取得
 const notionData = await getNotionData();
-console.log('=== Works Page: Notion Data ===');
-console.log(JSON.stringify(notionData, null, 2));
 
 // すべてのデータを取得（Privateも含めて表示する）
 const works = notionData.results;
@@ -33,7 +31,6 @@ async function getTwitterImageFromUrl(twitterUrl: string): Promise<string | null
       clearTimeout(timeoutId);
 
       if (!response.ok) {
-        console.warn(`Twitter oEmbed API error for ${twitterUrl}:`, response.status);
         return null;
       }
 
@@ -87,15 +84,9 @@ async function getTwitterImageFromUrl(twitterUrl: string): Promise<string | null
       return null;
     } catch (fetchError: any) {
       clearTimeout(timeoutId);
-      if (fetchError.name === 'AbortError') {
-        console.warn(`Twitter oEmbed API timeout for ${twitterUrl}`);
-      } else {
-        console.warn(`Error fetching Twitter image for ${twitterUrl}:`, fetchError.message);
-      }
       return null;
     }
-  } catch (error: any) {
-    console.error(`Unexpected error fetching Twitter image for ${twitterUrl}:`, error.message);
+  } catch {
     return null;
   }
 }
@@ -134,10 +125,8 @@ const worksWithCoverImages = await Promise.all(
         const twitterUrl = findTwitterUrlInBlocks(blocks);
 
         if (twitterUrl) {
-          console.log(`Found Twitter URL for work ${work.id}: ${twitterUrl}`);
           const twitterImage = await getTwitterImageFromUrl(twitterUrl);
           if (twitterImage) {
-            console.log(`Successfully fetched Twitter image for work ${work.id}`);
             // カバー画像として使用
             work.properties = work.properties || {};
             work.properties.Cover = {
@@ -149,13 +138,10 @@ const worksWithCoverImages = await Promise.all(
                 },
               ],
             };
-          } else {
-            console.warn(`Could not fetch Twitter image for work ${work.id}`);
           }
         }
-      } catch (error: any) {
+      } catch {
         // エラーが発生してもビルドを続行
-        console.warn(`Error processing work ${work.id} (continuing build):`, error.message);
       }
     }
 
@@ -168,23 +154,6 @@ function formatDateToYearMonth(dateString: string): string {
   if (!dateString) return '';
   // YYYY-MM-DD形式からYYYY-MMに変換
   return dateString.substring(0, 7);
-}
-
-// Notionのカテゴリー色をCSSのHEXカラーに変換する関数
-function getNotionCategoryColor(colorName: string): string {
-  const colorMap: Record<string, string> = {
-    default: '#373530',
-    gray: '#9B9A97',
-    brown: '#64473A',
-    red: '#E03E3E',
-    orange: '#D9730D',
-    yellow: '#DFAB01',
-    green: '#0F7B6C',
-    blue: '#0B6E99',
-    purple: '#6940A5',
-    pink: '#AD1A72',
-  };
-  return colorMap[colorName] || colorMap.default;
 }
 
 // 作成日で降順にソート（新しい順）
@@ -227,75 +196,27 @@ const uniqueCategories = Array.from(allCategories).sort();
           const title = item.properties?.Title?.title?.[0]?.plain_text ?? 'No title';
           const client = item.properties?.Client?.rich_text?.[0]?.plain_text ?? '';
           const createdDateFull = item.properties?.['Created Date']?.date?.start ?? '';
-          const createdDate = formatDateToYearMonth(createdDateFull); // 表示用は年月のみ
+          const createdDate = formatDateToYearMonth(createdDateFull);
           const categories = item.properties?.Category?.multi_select ?? [];
           const coverImage = item.properties?.Cover?.files?.[0]?.file?.url ?? '';
           const workId = item.properties?.id?.rich_text?.[0]?.plain_text ?? item.id;
-          const isPrivate = item.properties?.Private?.checkbox;
-
-          const cardInner = (
-            <>
-              {isPrivate ? (
-                <div class="work-cover">
-                  <Image
-                    src="/images/private-sample.png"
-                    alt="Private work sample"
-                    width={520}
-                    height={360}
-                    loading="lazy"
-                  />
-                </div>
-              ) : (
-                coverImage && (
-                  <div class="work-cover">
-                    <Image src={coverImage} alt={title} width={520} height={360} loading="lazy" />
-                  </div>
-                )
-              )}
-              <div class="work-content">
-                <h2>{title}</h2>
-                {isPrivate ? (
-                  <p class="work-client">プライベート</p>
-                ) : (
-                  client && <p class="work-client">Client: {client}</p>
-                )}
-                {createdDate && <p class="work-date">{createdDate}</p>}
-                {categories.length > 0 && (
-                  <div class="work-categories">
-                    {categories.map((cat: any) => (
-                      <span class="category-tag" style={`background-color: ${getNotionCategoryColor(cat.color)}`}>
-                        {cat.name}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </>
-          );
-
+          const isPrivate = item.properties?.Private?.checkbox ?? false;
           const categoryNames = categories.map((cat: any) => cat.name).join(',');
 
-          return isPrivate ? (
-            <article
-              class="work-card"
-              data-work-title={title}
-              data-work-date={createdDateFull || ''}
-              data-work-private="true"
-              data-work-categories={categoryNames}
-            >
-              {cardInner}
-            </article>
-          ) : (
-            <a
-              href={`/works/article/${workId}`}
-              class="work-card work-card--link"
-              data-work-title={title}
-              data-work-date={createdDateFull || ''}
-              data-work-private="false"
-              data-work-categories={categoryNames}
-            >
-              {cardInner}
-            </a>
+          return (
+            <WorkCard
+              title={title}
+              client={client}
+              createdDate={createdDate}
+              categories={categories}
+              coverImageUrl={coverImage}
+              workId={workId}
+              isPrivate={isPrivate}
+              href={isPrivate ? undefined : `/works/article/${workId}`}
+              dataWorkTitle={title}
+              dataWorkDate={createdDateFull || ''}
+              dataWorkCategories={categoryNames}
+            />
           );
         })
       }
@@ -316,67 +237,7 @@ const uniqueCategories = Array.from(allCategories).sort();
     padding: 120px 40px
     display: grid
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))
-    gap: 24px
-
-  .work-card
-    border: 1px solid #e0e0e0
-    border-radius: 12px
-    overflow: hidden
-    background-color: #ffffff
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04)
-    transition: transform 0.2s ease, box-shadow 0.2s ease
-
-    &:hover
-      transform: translateY(-4px)
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08)
-
-  .work-card--link
-    text-decoration: none
-    color: inherit
-    display: block
-
-  .work-cover
-    width: 100%
-    height: 180px
-    overflow: hidden
-
-    img
-      width: 100%
-      height: 100%
-      object-fit: cover
-
-  .work-content
-    padding: 16px 20px 20px
-
-    h2
-      margin: 0 0 8px 0
-      font-size: 20px
-      color: #111111
-
-    .work-client
-      color: #777777
-      font-size: 14px
-      margin: 2px 0
-
-    .work-date
-      color: #999999
-      font-size: 12px
-      margin-top: 4px
-
-    .work-categories
-      display: flex
-      flex-wrap: wrap
-      gap: 6px
-      margin-top: 10px
-
-      .category-tag
-        padding: 2px 6px 4px 6px
-        border-radius: 4px
-        font-size: 16px
-        font-family: 'Zen Kaku Gothic New', sans-serif
-        font-weight: 700
-        color: #ffffff
-        opacity: 0.9
+    gap: 40px 24px
 
   details
     margin-top: 3rem

@@ -23,6 +23,7 @@ const pageNameMap: Record<string, string> = {
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 const currentPageName = pageName ?? pageNameMap[pathname] ?? pathname.split('/').pop() ?? 'Top';
 const isWorksPage = pathname === '/works';
+const isWorksArticlePage = pathname.startsWith('/works/article/');
 ---
 
 <header transition:animate="none">
@@ -47,6 +48,15 @@ const isWorksPage = pathname === '/works';
         <span class="hamburger-line"></span>
       </button>
     </div>
+    {
+      isWorksArticlePage && (
+        <div class="back-to-list-row">
+          <a href="/works" class="back-to-list">
+            作品一覧に戻る
+          </a>
+        </div>
+      )
+    }
     {
       isWorksPage && (
         <div class="works-controls-row">
@@ -135,6 +145,16 @@ const isWorksPage = pathname === '/works';
     display: flex
     align-items: center
     gap: 24px
+
+  .back-to-list
+    color: rgba(255, 255, 255, 0.6)
+    font-size: 14px
+    letter-spacing: 0.08em
+    text-decoration: none
+    transition: color 0.3s ease
+    white-space: nowrap
+    &:hover
+      color: #ffffff
 
   .works-controls-row
     padding: 10px 28px
@@ -312,6 +332,9 @@ const isWorksPage = pathname === '/works';
     .current-page
       font-size: 11px
       transform: translateY(1.1px)
+
+    .back-to-list
+      font-size: 12px
 
     .hamburger
       .hamburger-line

@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
 import Footer from '@/components/footer.astro';
+import WorkCard from '@/components/WorkCard.astro';
 import { getNotionData } from '@/lib/notion';
 
 // ロゴ周りに表示するテキストデータ
@@ -46,29 +47,12 @@ const meaningRaw: {
 
 const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
 
-// Notionのカテゴリー色をCSSのHEXカラーに変換する関数
-function getNotionCategoryColor(colorName: string): string {
-  const colorMap: Record<string, string> = {
-    default: '#373530',
-    gray: '#9B9A97',
-    brown: '#64473A',
-    red: '#E03E3E',
-    orange: '#D9730D',
-    yellow: '#DFAB01',
-    green: '#0F7B6C',
-    blue: '#0B6E99',
-    purple: '#6940A5',
-    pink: '#AD1A72',
-  };
-  return colorMap[colorName] || colorMap.default;
-}
-
 // Worksデータ（FeaturedやPrivateの判定に利用）
 const notionData = await getNotionData();
 const works = notionData.results;
-// Featuredのworksを抽出し、新しい順でソートして最大8件に制限
+// Featuredのworksを抽出（プライベートはFeaturedに含めない）、新しい順でソートして最大8件に制限
 const featuredWorks = works
-  .filter((item: any) => item.properties?.Featured?.checkbox)
+  .filter((item: any) => item.properties?.Featured?.checkbox && !item.properties?.Private?.checkbox)
   .sort((a: any, b: any) => {
     const dateA = a.properties?.['Created Date']?.date?.start || '';
     const dateB = b.properties?.['Created Date']?.date?.start || '';
@@ -147,57 +131,18 @@ const featuredWorks = works
         featuredWorks.length > 0 && (
           <div class="featured-grid">
             {featuredWorks.map((item: any) => {
-              const title = item.properties?.Title?.title?.[0]?.plain_text ?? 'No title';
-              const client = item.properties?.Client?.rich_text?.[0]?.plain_text ?? '';
-              const createdDate = item.properties?.['Created Date']?.date?.start ?? '';
-              const categories = item.properties?.Category?.multi_select ?? [];
-              const coverImage = item.properties?.Cover?.files?.[0]?.file?.url ?? '';
               const workId = item.properties?.id?.rich_text?.[0]?.plain_text ?? item.id;
-              const isPrivate = item.properties?.Private?.checkbox;
-
-              const cardInner = (
-                <>
-                  {isPrivate ? (
-                    <div class="featured-cover">
-                      <img src="/images/private-sample.png" alt="Private work sample" />
-                    </div>
-                  ) : (
-                    coverImage && (
-                      <div class="featured-cover">
-                        <img src={coverImage} alt={title} />
-                      </div>
-                    )
-                  )}
-                  <div class="featured-content">
-                    <h3>{title}</h3>
-                    {isPrivate ? (
-                      <p class="featured-client">プライベート</p>
-                    ) : (
-                      client && <p class="featured-client">Client: {client}</p>
-                    )}
-                    {createdDate && <p class="featured-date">{createdDate}</p>}
-                    {categories.length > 0 && (
-                      <div class="featured-categories">
-                        {categories.map((cat: any) => (
-                          <span
-                            class="featured-category-tag"
-                            style={`background-color: ${getNotionCategoryColor(cat.color)}`}
-                          >
-                            {cat.name}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </>
-              );
-
-              return isPrivate ? (
-                <article class="featured-card">{cardInner}</article>
-              ) : (
-                <a href={`/works/article/${workId}`} class="featured-card featured-card--link">
-                  {cardInner}
-                </a>
+              return (
+                <WorkCard
+                  title={item.properties?.Title?.title?.[0]?.plain_text ?? 'No title'}
+                  client={item.properties?.Client?.rich_text?.[0]?.plain_text ?? ''}
+                  createdDate={item.properties?.['Created Date']?.date?.start ?? ''}
+                  categories={item.properties?.Category?.multi_select ?? []}
+                  coverImageUrl={item.properties?.Cover?.files?.[0]?.file?.url ?? ''}
+                  workId={workId}
+                  isPrivate={false}
+                  href={`/works/article/${workId}`}
+                />
               );
             })}
           </div>
@@ -694,66 +639,6 @@ const featuredWorks = works
       display: grid
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))
       gap: 24px
-
-    .featured-card
-      border: 1px solid #e0e0e0
-      border-radius: 12px
-      overflow: hidden
-      background-color: #ffffff
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04)
-      transition: transform 0.2s ease, box-shadow 0.2s ease
-
-      &:hover
-        transform: translateY(-4px)
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08)
-
-    .featured-card--link
-      text-decoration: none
-      color: inherit
-      display: block
-
-    .featured-cover
-      width: 100%
-      height: 180px
-      overflow: hidden
-
-      img
-        width: 100%
-        height: 100%
-        object-fit: cover
-
-    .featured-content
-      padding: 16px 20px 20px
-
-      h3
-        margin: 0 0 8px 0
-        font-size: 20px
-        color: #111111
-
-      .featured-client
-        color: #777777
-        font-size: 14px
-        margin: 2px 0
-
-      .featured-date
-        color: #999999
-        font-size: 12px
-        margin-top: 4px
-
-      .featured-categories
-        display: flex
-        flex-wrap: wrap
-        gap: 6px
-        margin-top: 10px
-
-      .featured-category-tag
-        padding: 2px 6px 4px 6px
-        border-radius: 4px
-        font-size: 16px
-        font-family: 'Zen Kaku Gothic New', sans-serif
-        font-weight: 700
-        color: #ffffff
-        opacity: 0.9
 </style>
 
 <script>
