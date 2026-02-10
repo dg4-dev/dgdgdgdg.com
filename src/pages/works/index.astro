@@ -193,36 +193,39 @@ const uniqueCategories = Array.from(allCategories).sort();
       window.__WORKS_DATA__ = worksData;
       window.__CATEGORIES_DATA__ = categoriesData;
     </script>
-    <div class="works-grid" id="works-grid">
-      {
-        sortedWorks.map((item: any) => {
-          const title = item.properties?.Title?.title?.[0]?.plain_text ?? 'No title';
-          const client = item.properties?.Client?.rich_text?.[0]?.plain_text ?? '';
-          const createdDateFull = item.properties?.['Created Date']?.date?.start ?? '';
-          const createdDate = formatDateToYearMonth(createdDateFull);
-          const categories = item.properties?.Category?.multi_select ?? [];
-          const coverImage = item.properties?.Cover?.files?.[0]?.file?.url ?? '';
-          const workId = item.properties?.id?.rich_text?.[0]?.plain_text ?? item.id;
-          const isPrivate = item.properties?.Private?.checkbox ?? false;
-          const categoryNames = categories.map((cat: any) => cat.name).join(',');
+    <div class="works-inner">
+      <p class="works-note title">まだ掲載しきれていない作品もございます。随時、追加・更新してまいります。</p>
+      <div class="works-grid" id="works-grid">
+        {
+          sortedWorks.map((item: any) => {
+            const title = item.properties?.Title?.title?.[0]?.plain_text ?? 'No title';
+            const client = item.properties?.Client?.rich_text?.[0]?.plain_text ?? '';
+            const createdDateFull = item.properties?.['Created Date']?.date?.start ?? '';
+            const createdDate = formatDateToYearMonth(createdDateFull);
+            const categories = item.properties?.Category?.multi_select ?? [];
+            const coverImage = item.properties?.Cover?.files?.[0]?.file?.url ?? '';
+            const workId = item.properties?.id?.rich_text?.[0]?.plain_text ?? item.id;
+            const isPrivate = item.properties?.Private?.checkbox ?? false;
+            const categoryNames = categories.map((cat: any) => cat.name).join(',');
 
-          return (
-            <WorkCard
-              title={title}
-              client={client}
-              createdDate={createdDate}
-              categories={categories}
-              coverImageUrl={coverImage}
-              workId={workId}
-              isPrivate={isPrivate}
-              href={isPrivate ? undefined : `/works/article/${workId}`}
-              dataWorkTitle={title}
-              dataWorkDate={createdDateFull || ''}
-              dataWorkCategories={categoryNames}
-            />
-          );
-        })
-      }
+            return (
+              <WorkCard
+                title={title}
+                client={client}
+                createdDate={createdDate}
+                categories={categories}
+                coverImageUrl={coverImage}
+                workId={workId}
+                isPrivate={isPrivate}
+                href={isPrivate ? undefined : `/works/article/${workId}`}
+                dataWorkTitle={title}
+                dataWorkDate={createdDateFull || ''}
+                dataWorkCategories={categoryNames}
+              />
+            );
+          })
+        }
+      </div>
     </div>
   </main>
   <ContactCTA />
@@ -234,11 +237,28 @@ const uniqueCategories = Array.from(allCategories).sort();
     margin: 0
     padding: 0
 
-  .works-grid
+  .works-inner
     width: 100%
     max-width: 1200px
     margin: 0 auto
     padding: 120px 40px
+
+  @media (max-width: 768px)
+    .works-inner
+      padding: 190px 16px 120px
+
+  .works-note
+    margin: 0 0 1rem 0
+    font-size: 0.9rem
+    color: var(--c-gray-600)
+    line-height: 1.6
+
+  @media (max-width: 768px)
+    .works-note
+      margin-bottom: 0.75rem
+      font-size: 0.85rem
+
+  .works-grid
     display: grid
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))
     gap: 40px 24px
@@ -246,10 +266,7 @@ const uniqueCategories = Array.from(allCategories).sort();
 
   @media (max-width: 768px)
     .works-grid
-      padding-top: 190px
       grid-template-columns: repeat(2, 1fr)
-      padding-left: 16px
-      padding-right: 16px
       gap: 24px 12px
 
   details
