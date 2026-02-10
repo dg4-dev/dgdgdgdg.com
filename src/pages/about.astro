@@ -49,16 +49,19 @@ import Footer from '@/components/footer.astro';
 
     <section class="about-profile">
       <h2 class="section-title">Profile</h2>
-      <dl class="profile-list">
-        <div class="profile-row">
-          <dt>活動者</dt>
-          <dd>Ren Yaegashi</dd>
-        </div>
-        <div class="profile-row">
-          <dt>開始日</dt>
-          <dd>2021 / 02 / 01</dd>
-        </div>
-      </dl>
+      <div class="profile-content">
+        <img src="/images/profile.png" alt="dgdgdgdg" class="profile-image" />
+        <dl class="profile-list">
+          <div class="profile-row">
+            <dt>活動者</dt>
+            <dd>Ren Yaegashi</dd>
+          </div>
+          <div class="profile-row">
+            <dt>開始日</dt>
+            <dd>2021 / 02 / 01</dd>
+          </div>
+        </dl>
+      </div>
     </section>
   </main>
   <Footer />
@@ -120,8 +123,22 @@ import Footer from '@/components/footer.astro';
     width: 100%
     max-width: 720px
 
+  .profile-content
+    display: flex
+    align-items: flex-start
+    gap: 40px
+
+  .profile-image
+    display: block
+    width: 160px
+    height: 160px
+    border-radius: 50%
+    object-fit: cover
+    flex-shrink: 0
+
   .profile-list
     margin: 0
+    flex: 1
 
   .profile-row
     display: flex
@@ -168,6 +185,13 @@ import Footer from '@/components/footer.astro';
     dt
       font-size: 13px
       min-width: 64px
+
+    .profile-content
+      flex-direction: column
+
+    .profile-image
+      width: 120px
+      height: 120px
 
     dd
       font-size: 15px
