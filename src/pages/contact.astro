@@ -51,7 +51,34 @@ const socialLinks = [
   <Header />
   <main>
     <section class="contact-hero">
-      <p class="contact-description">お仕事のご依頼・ご相談は、XのDMまたは各SNSからお気軽にどうぞ。</p>
+      <p class="contact-description">お仕事のご依頼・ご相談は、Messenger・メールまたは各SNSからお気軽にどうぞ。</p>
+    </section>
+
+    <section class="primary-contacts">
+      <a href="https://m.me/dg4.design" target="_blank" rel="noopener noreferrer" class="social-link-card">
+        <span class="social-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 4.975 0 11.111c0 3.497 1.745 6.616 4.472 8.652V24l4.086-2.242c1.09.301 2.246.464 3.442.464 6.627 0 12-4.974 12-11.111C24 4.975 18.627 0 12 0zm1.193 14.963l-3.056-3.259-5.963 3.259L10.733 8.2l3.13 3.259L19.776 8.2l-6.583 6.763z"/></svg>
+        </span>
+        <span class="social-name">Messenger</span>
+        <span class="social-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7" />
+            <polyline points="7 7 17 7 17 17" />
+          </svg>
+        </span>
+      </a>
+      <a href="mailto:contact@dgdgdgdg.com" class="social-link-card">
+        <span class="social-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </span>
+        <span class="social-name">Email</span>
+        <span class="social-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7" />
+            <polyline points="7 7 17 7 17 17" />
+          </svg>
+        </span>
+      </a>
     </section>
 
     <section class="social-links">
@@ -107,6 +134,14 @@ const socialLinks = [
     font-size: 16px
     line-height: 2
     letter-spacing: 0.04em
+
+  .primary-contacts
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    gap: 16px
+    width: 100%
+    max-width: 640px
+    margin-bottom: 16px
 
   .social-links
     display: grid
@@ -177,6 +212,10 @@ const socialLinks = [
 
     .contact-description
       font-size: 15px
+
+    .primary-contacts
+      grid-template-columns: 1fr
+      max-width: 400px
 
     .social-links
       grid-template-columns: 1fr
