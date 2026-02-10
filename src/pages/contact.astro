@@ -8,8 +8,7 @@ export const prerender = false;
 type Status = 'open' | 'limited' | 'closed';
 
 const STATUS_ENDPOINT =
-  import.meta.env.PUBLIC_STATUS_ENDPOINT ??
-  'https://<your-status-worker-subdomain>.workers.dev/status';
+  import.meta.env.PUBLIC_STATUS_ENDPOINT ?? 'https://<your-status-worker-subdomain>.workers.dev/status';
 
 interface StatusResponse {
   status?: string;
@@ -44,11 +43,11 @@ let statusClass = '';
 
 if (status === 'open') {
   statusLabel = 'STATUS: OPEN';
-  statusMessage = '通常通りご依頼をお受けできます。';
+  statusMessage = '現在、通常通りご依頼をお受けできます。';
   statusClass = 'status-banner--open';
 } else if (status === 'limited') {
   statusLabel = 'STATUS: LIMITED';
-  statusMessage = '内容によってはお時間をいただく場合があります。';
+  statusMessage = '現在、内容によってはお時間をいただく場合があります。';
   statusClass = 'status-banner--limited';
 } else if (status === 'closed') {
   statusLabel = 'STATUS: CLOSED';
@@ -56,8 +55,8 @@ if (status === 'open') {
   statusClass = 'status-banner--closed';
 } else {
   statusLabel = 'STATUS: UNKNOWN';
-  statusMessage = 'ステータスを取得できませんでした（暫定: OPEN）。';
-  statusClass = 'status-banner--unknown';
+  statusMessage = 'ステータスを取得できませんでした（暫定: LIMITED）。';
+  statusClass = 'status-banner--limited';
 }
 
 const socialLinks = [
@@ -108,35 +107,59 @@ const socialLinks = [
   <Header />
   <main>
     <section class="contact-hero">
+      <p class="contact-description">
+        お仕事のご依頼・ご相談は、Messenger・メール<br />または各SNSからお気軽にどうぞ。
+      </p>
       <div class={`status-banner ${statusClass}`}>
-        <span class="status-label">{statusLabel}</span>
+        <span class="status-indicator" aria-label={statusLabel} title={statusLabel}></span>
         <span class="status-message">{statusMessage}</span>
       </div>
-      <p class="contact-description">お仕事のご依頼・ご相談は、Messenger・メールまたは各SNSからお気軽にどうぞ。</p>
     </section>
 
     <section class="primary-contacts">
       <a href="https://m.me/dg4.design" target="_blank" rel="noopener noreferrer" class="social-link-card">
         <span class="social-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 4.975 0 11.111c0 3.497 1.745 6.616 4.472 8.652V24l4.086-2.242c1.09.301 2.246.464 3.442.464 6.627 0 12-4.974 12-11.111C24 4.975 18.627 0 12 0zm1.193 14.963l-3.056-3.259-5.963 3.259L10.733 8.2l3.13 3.259L19.776 8.2l-6.583 6.763z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+            ><path
+              d="M12 0C5.373 0 0 4.975 0 11.111c0 3.497 1.745 6.616 4.472 8.652V24l4.086-2.242c1.09.301 2.246.464 3.442.464 6.627 0 12-4.974 12-11.111C24 4.975 18.627 0 12 0zm1.193 14.963l-3.056-3.259-5.963 3.259L10.733 8.2l3.13 3.259L19.776 8.2l-6.583 6.763z"
+            ></path></svg
+          >
         </span>
         <span class="social-name">Messenger</span>
         <span class="social-arrow">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="7" y1="17" x2="17" y2="7" />
-            <polyline points="7 7 17 7 17 17" />
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
           </svg>
         </span>
       </a>
       <a href="mailto:contact@dgdgdgdg.com" class="social-link-card">
         <span class="social-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+            ><path
+              d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+            ></path></svg
+          >
         </span>
         <span class="social-name">Email</span>
         <span class="social-arrow">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="7" y1="17" x2="17" y2="7" />
-            <polyline points="7 7 17 7 17 17" />
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
           </svg>
         </span>
       </a>
@@ -191,34 +214,43 @@ const socialLinks = [
     border-radius: 999px
     font-size: 11px
     letter-spacing: 0.08em
-    margin-bottom: 20px
     background: var(--c-white-a6)
     color: var(--c-black)
     font-family: 'Zen Kaku Gothic New', sans-serif
 
-  .status-label
-    font-weight: 700
-    text-transform: uppercase
+  .status-indicator
+    width: 8px
+    height: 8px
+    border-radius: 50%
+    flex-shrink: 0
 
   .status-message
     font-weight: 400
     color: var(--c-gray-550)
 
   .status-banner--open
-    background: rgba(26, 207, 120, 0.18)
-    color: #1acf78
+    background: var(--c-status-open-bg)
+    color: var(--c-status-open)
+    .status-indicator
+      background: var(--c-status-open)
 
   .status-banner--limited
-    background: rgba(255, 214, 102, 0.2)
-    color: #ffd666
+    background: var(--c-status-limited-bg)
+    color: var(--c-status-limited)
+    .status-indicator
+      background: var(--c-status-limited)
 
   .status-banner--closed
-    background: rgba(255, 99, 132, 0.2)
-    color: #ff6384
+    background: var(--c-status-closed-bg)
+    color: var(--c-status-closed)
+    .status-indicator
+      background: var(--c-status-closed)
 
   .status-banner--unknown
     background: var(--c-white-a6)
     color: var(--c-white-a80)
+    .status-indicator
+      background: var(--c-white-a80)
 
   .contact-title
     color: var(--c-white)
@@ -232,6 +264,7 @@ const socialLinks = [
     font-size: 16px
     line-height: 2
     letter-spacing: 0.04em
+    margin-bottom: 20px
 
   .primary-contacts
     display: grid
