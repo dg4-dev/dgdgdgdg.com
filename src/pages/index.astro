@@ -643,6 +643,13 @@ const featuredWorks = works
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))
       gap: 24px
       align-items: end
+
+    @media (max-width: 768px)
+      padding: 80px 16px
+
+      .featured-grid
+        grid-template-columns: repeat(2, 1fr)
+        gap: 12px
 </style>
 
 <script>
