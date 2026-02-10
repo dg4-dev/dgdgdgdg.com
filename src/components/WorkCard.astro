@@ -116,21 +116,22 @@ const hasDataAttrs = dataWorkTitle !== undefined;
   .work-card
     overflow: hidden
     background-color: #ffffff
+    display: flex
+    flex-direction: column
 
   .work-card--link
     text-decoration: none
     color: inherit
-    display: block
+    display: flex
+    flex-direction: column
 
   .work-cover
     width: 100%
-    height: 180px
-    overflow: hidden
 
     img
       width: 100%
-      height: 100%
-      object-fit: cover
+      height: auto
+      object-fit: contain
 
   .work-card-title
     margin: 0 0 8px 0
@@ -152,6 +153,10 @@ const hasDataAttrs = dataWorkTitle !== undefined;
     flex-wrap: wrap
     gap: 6px
     margin-top: 10px
+
+  /* 画像以外（テキストなど）のエリアの高さをそろえる */
+  .work-content
+    min-height: 140px
 
   .work-category-tag
     padding: 2px 6px 4px 6px
