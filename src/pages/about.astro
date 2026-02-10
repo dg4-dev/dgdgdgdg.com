@@ -8,8 +8,57 @@ import Footer from '@/components/footer.astro';
   <Fragment slot="head"> </Fragment>
   <Header />
   <main>
-    <section class="about-section">
-      <!-- ここにコンテンツを追加 -->
+    <section class="about-intro">
+      <h2 class="section-title">dgdgdgdgとは</h2>
+      <div class="intro-text">
+        <p>
+          dgdgdgdgは私のハンドルネームであり、屋号でもあります。読み方は日本語の「駄菓子（だがし）」と同じ発音です。
+        </p>
+        <p>
+          駄菓子屋に並ぶお菓子のように、小さくても色とりどりで、手に取った人がちょっと嬉しくなるようなものづくりをしたい——そんな思いを込めています。
+        </p>
+        <p>
+          デザイン、コーディング、映像、音楽など、さまざまな領域を横断しながら、デジタルとアナログの境界を自由に行き来する制作活動を行っています。「深く掘り下げる（dig）」ことと「喜び（delight）」を届けることの両方を大切にしながら、四季のように移り変わる好奇心のままに、多方面のクリエイティブに取り組んでいます。
+        </p>
+      </div>
+    </section>
+
+    <section class="about-activities">
+      <h2 class="section-title">活動内容</h2>
+      <ul class="activity-tree">
+        <li>
+          Create
+          <ul>
+            <li>
+              Design
+              <ul>
+                <li>Typeface</li>
+                <li>Graphic</li>
+                <li>Motion</li>
+              </ul>
+            </li>
+            <li>3D Printed Product</li>
+            <li>Website</li>
+          </ul>
+        </li>
+        <li>Photography</li>
+        <li>Electrical Work</li>
+        <li>Other momentary interests...</li>
+      </ul>
+    </section>
+
+    <section class="about-profile">
+      <h2 class="section-title">Profile</h2>
+      <dl class="profile-list">
+        <div class="profile-row">
+          <dt>活動者</dt>
+          <dd>Ren Yaegashi</dd>
+        </div>
+        <div class="profile-row">
+          <dt>開始日</dt>
+          <dd>2021 / 02 / 01</dd>
+        </div>
+      </dl>
     </section>
   </main>
   <Footer />
@@ -18,17 +67,108 @@ import Footer from '@/components/footer.astro';
 <style lang="sass">
   main
     background-color: var(--c-black)
+    color: var(--c-white)
     min-height: 100vh
     padding: 160px 80px 120px
     display: flex
     flex-direction: column
     align-items: center
+    gap: 100px
 
-  .about-section
+  .section-title
+    color: var(--c-white)
+    font-size: 24px
+    letter-spacing: 0.08em
+    margin-bottom: 32px
+
+  // Intro
+  .about-intro
     width: 100%
-    max-width: 1200px
+    max-width: 720px
+
+  .intro-text
+    p
+      font-size: 16px
+      line-height: 2.2
+      text-align: justify
+      letter-spacing: 0.04em
+      &:not(:first-child)
+        margin-top: 24px
+
+  // Activities
+  .about-activities
+    width: 100%
+    max-width: 720px
+
+  .activity-tree
+    margin: 0
+    padding: 0
+    padding-left: 1.5em
+
+    ul
+      margin: 0
+      padding: 0
+      padding-left: 1.5em
+
+    li
+      font-size: 16px
+      letter-spacing: 0.04em
+      padding: 6px 0
+
+  // Profile
+  .about-profile
+    width: 100%
+    max-width: 720px
+
+  .profile-list
+    margin: 0
+
+  .profile-row
+    display: flex
+    align-items: baseline
+    gap: 40px
+    padding: 16px 0
+    border-top: 1px solid var(--c-white-a8)
+    &:last-child
+      border-bottom: 1px solid var(--c-white-a8)
+
+  dt
+    color: var(--c-gray-550)
+    font-size: 14px
+    font-family: 'Zen Kaku Gothic New', sans-serif
+    font-weight: 500
+    letter-spacing: 0.06em
+    min-width: 72px
+    flex-shrink: 0
+
+  dd
+    color: var(--c-white)
+    font-size: 16px
+    letter-spacing: 0.04em
 
   @media (max-width: 768px)
     main
       padding: 120px 24px 80px
+      gap: 80px
+
+    .section-title
+      font-size: 20px
+      margin-bottom: 24px
+
+    .intro-text
+      p
+        font-size: 15px
+        line-height: 2
+        &:not(:first-child)
+          margin-top: 20px
+
+    .profile-row
+      gap: 24px
+
+    dt
+      font-size: 13px
+      min-width: 64px
+
+    dd
+      font-size: 15px
 </style>
