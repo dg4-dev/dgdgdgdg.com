@@ -96,7 +96,7 @@ const featuredWorks = works
         <div class="scroll-indicator">
           <span class="scroll-text">SCROLL</span>
           <svg class="scroll-line" viewBox="0 0 1 60" xmlns="http://www.w3.org/2000/svg">
-            <line x1="0.5" y1="0" x2="0.5" y2="60" stroke="white" stroke-width="1"></line>
+            <line x1="0.5" y1="0" x2="0.5" y2="60" stroke="currentColor" stroke-width="1"></line>
           </svg>
         </div>
       </div>
@@ -178,25 +178,25 @@ const featuredWorks = works
       font-size: 12px
 
   .about .section-link
-    color: #ffffff
-    border-color: #ffffff
+    color: var(--c-white)
+    border-color: var(--c-white)
 
     &:hover
-      background-color: #ffffff
-      color: #000000
+      background-color: var(--c-white)
+      color: var(--c-black)
 
   .featured-works .section-link
-    color: #000000
-    border-color: #000000
+    color: var(--c-black)
+    border-color: var(--c-black)
 
     &:hover
-      background-color: #000000
-      color: #ffffff
+      background-color: var(--c-black)
+      color: var(--c-white)
 
   .hero
     --orbit-scale-y: 0.35
     --counter-scale-y: 2.857
-    background-color: #000000
+    background-color: var(--c-black)
     height: 300vh
     position: relative
     overflow: clip
@@ -222,6 +222,7 @@ const featuredWorks = works
     position: absolute
     bottom: 40px
     left: 50%
+    color: var(--c-white)
     transform: translateX(-50%)
     display: flex
     flex-direction: column
@@ -231,7 +232,7 @@ const featuredWorks = works
     transition: opacity 0.3s ease
 
   .scroll-text
-    color: #ffffff
+    color: var(--c-white)
     font-family: 'DG4 Atomic Dot', sans-serif
     font-variation-settings: 'RNDS' 0
     font-size: 12px
@@ -275,7 +276,7 @@ const featuredWorks = works
 
   .phrase
     display: block
-    color: #ffffff
+    color: var(--c-white)
     font-size: 5vw
     white-space: nowrap
     cursor: default
@@ -289,7 +290,7 @@ const featuredWorks = works
     transform: translateY(0.256vw)
 
   .orbit-item:hover .dg4
-    color: #00d4d4
+    color: var(--c-accent)
 
   .satellites
     position: absolute
@@ -309,7 +310,7 @@ const featuredWorks = works
     position: absolute
     top: 50%
     left: 50%
-    color: #888888
+    color: var(--c-gray-550)
     font-family: 'Zen Old Mincho', serif
     font-size: 16px
     white-space: nowrap
@@ -547,7 +548,7 @@ const featuredWorks = works
         transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(360deg) translateX(80px) rotate(-360deg) scaleY(var(--counter-scale-y))
 
   .about
-    background-color: #000000
+    background-color: var(--c-black)
     min-height: 100vh
     display: grid
     grid-template-columns: auto auto
@@ -565,7 +566,7 @@ const featuredWorks = works
     .about-title
       grid-column: 2
       grid-row: 1
-      color: #ffffff
+      color: var(--c-white)
       font-size: 40px
       letter-spacing: 0.08em
 
@@ -586,7 +587,7 @@ const featuredWorks = works
       grid-row: 2
       max-width: 560px
       p
-        color: #aaaaaa
+        color: var(--c-gray-400)
         font-size: 16px
         margin-top: 24px
         line-height: 2.2
@@ -618,7 +619,7 @@ const featuredWorks = works
           line-height: 2
 
   .featured-works
-    background-color: #ffffff
+    background-color: var(--c-white)
     min-height: 100vh
     display: flex
     flex-direction: column
@@ -627,11 +628,11 @@ const featuredWorks = works
     padding: 80px 40px
 
     h2
-      color: #000000
+      color: var(--c-black)
       font-size: 48px
 
     p
-      color: #666666
+      color: var(--c-gray-650)
       font-size: 18px
       margin-top: 16px
       margin-bottom: 40px

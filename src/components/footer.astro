@@ -36,8 +36,8 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 <style lang="sass">
   footer
-    background-color: #000000
-    border-top: 1px solid rgba(255, 255, 255, 0.08)
+    background-color: var(--c-black)
+    border-top: 1px solid var(--c-white-a8)
     padding: 64px 80px 40px
 
   .footer-inner
@@ -74,7 +74,7 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
       gap: 32px
       li
         a
-          color: rgba(255, 255, 255, 0.5)
+          color: var(--c-white-a50)
           text-decoration: none
           font-family: 'Zen Kaku Gothic New', sans-serif
           font-size: 13px
@@ -82,17 +82,17 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
           letter-spacing: 0.08em
           transition: color 0.3s ease
           &:hover
-            color: #ffffff
+            color: var(--c-white)
           &.current
-            color: #00d4d4
+            color: var(--c-accent)
             font-weight: 900
 
   .footer-bottom
-    border-top: 1px solid rgba(255, 255, 255, 0.06)
+    border-top: 1px solid var(--c-white-a6)
     padding-top: 24px
 
   .copyright
-    color: rgba(255, 255, 255, 0.3)
+    color: var(--c-white-a30)
     font-size: 12px
     letter-spacing: 0.06em
 
