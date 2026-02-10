@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
 import Footer from '@/components/footer.astro';
+import ContactCTA from '@/components/ContactCTA.astro';
 import { getNotionData, findPageByCustomId, getNotionPage, getNotionBlocksRecursive } from '@/lib/notion';
 
 // 静的パス生成（空にして生成を停止）
@@ -474,6 +475,7 @@ function renderBlocks(blocks: any[]) {
       ></div>
     </article>
   </main>
+  <ContactCTA />
   <Footer />
 </BaseLayout>
 
