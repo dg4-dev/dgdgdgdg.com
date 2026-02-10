@@ -1,3 +1,4 @@
+---
 export const prerender = true;
 
 import BaseLayout from '@/layouts/BaseLayout.astro';
@@ -468,12 +469,8 @@ function renderBlocks(blocks: any[]) {
       }
       <div
         class="work-content"
-        set:html={
-          blocks.length > 0
-            ? renderBlocks(blocks)
-            : '<p class="work-content-empty">本文はまだありません。</p>'
-        }
-      ></div>
+        set:html={blocks.length > 0 ? renderBlocks(blocks) : '<p class="work-content-empty">本文はまだありません。</p>'}
+      />
     </article>
   </main>
   <ContactCTA />
