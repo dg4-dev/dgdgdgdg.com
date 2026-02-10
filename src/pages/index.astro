@@ -195,7 +195,7 @@ const featuredWorks = works
               return isPrivate ? (
                 <article class="featured-card">{cardInner}</article>
               ) : (
-                <a href={`/works/${workId}`} class="featured-card featured-card--link">
+                <a href={`/works/article/${workId}`} class="featured-card featured-card--link">
                   {cardInner}
                 </a>
               );

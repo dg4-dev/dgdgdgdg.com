@@ -45,12 +45,21 @@ export async function getNotionBlocks(pageId: string) {
   }
 }
 
-// ブロックを再帰的に取得（子ブロックを含む）
+// ブロックを再帰的に取得（子ブロックを含む・ページネーション対応）
 export async function getNotionBlocksRecursive(blockId: string): Promise<any[]> {
   try {
-    const { results } = await notion.blocks.children.list({
-      block_id: blockId,
-    });
+    const results: any[] = [];
+    let startCursor: string | undefined;
+
+    do {
+      const response: any = await notion.blocks.children.list({
+        block_id: blockId,
+        page_size: 100,
+        ...(startCursor ? { start_cursor: startCursor } : {}),
+      });
+      results.push(...(response.results ?? []));
+      startCursor = response.has_more ? response.next_cursor : undefined;
+    } while (startCursor);
 
     // 各ブロックに対して、子ブロックがある場合は再帰的に取得
     const blocksWithChildren = await Promise.all(
