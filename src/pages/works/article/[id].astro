@@ -79,10 +79,6 @@ async function enrichBlocksWithBookmarkMeta(blockList: any[]): Promise<void> {
 
 await enrichBlocksWithBookmarkMeta(blocks);
 
-console.log(`=== Works Detail Page (ID: ${id}) ===`);
-console.log('Page:', JSON.stringify(page, null, 2));
-console.log('Blocks:', JSON.stringify(blocks, null, 2));
-
 // 日付を年月のみにフォーマットする関数（表示用）
 function formatDateToYearMonth(dateString: string): string {
   if (!dateString) return '';
@@ -294,9 +290,6 @@ function renderBlock(block: any): string {
 
       const embedInfo = convertToEmbedUrl(value.url);
       const escapedUrl = embedInfo.url.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-
-      // デバッグ用: 元のURLと変換後のURLをログ出力
-      console.log('Embed URL:', { original: value.url, converted: embedInfo.url, isTwitter: embedInfo.isTwitter });
 
       // Twitterの場合は特別な処理
       if (embedInfo.isTwitter) {
@@ -814,23 +807,4 @@ function renderBlocks(blocks: any[]) {
           height: 100%
           object-fit: cover
           display: block
-
-  .debug
-    margin-top: 3rem
-    padding-top: 2rem
-    border-top: 2px dashed #ddd
-
-    summary
-      cursor: pointer
-      padding: 0.5rem
-      background: #f5f5f5
-      border-radius: 4px
-      margin-bottom: 0.5rem
-
-    pre
-      padding: 1rem
-      background: #f5f5f5
-      border-radius: 4px
-      overflow-x: auto
-      font-size: 0.85rem
 </style>
