@@ -26,8 +26,8 @@ const isWorksPage = pathname === '/works';
 const isWorksArticlePage = pathname.startsWith('/works/article/');
 ---
 
-<header transition:animate="none">
-  <div class="header-inner">
+<header>
+    <div class="header-inner" style={pathname === '/' ? 'opacity: 0; pointer-events: none;' : undefined}>
     <div class="header-bar">
       <div class="header-left">
         <a href="/" class="header-logo-link" transition:persist="header-logo">
@@ -127,12 +127,14 @@ const isWorksArticlePage = pathname.startsWith('/works/article/');
     pointer-events: none
 
   .header-inner
-    background: rgba(10, 10, 10, 1)
-    backdrop-filter: blur(24px)
-    border: 1px solid rgba(255, 255, 255, 0.08)
-    border-radius: 8px
+    background: rgba(10, 10, 10, 0.35)
+    backdrop-filter: blur(32px)
+    -webkit-backdrop-filter: blur(32px)
+    border: 1px solid rgba(255, 255, 255, 0.18)
+    border-radius: 12px
     pointer-events: all
-    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4), 0 0 0 0.5px rgba(255, 255, 255, 0.04) inset
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.65), 0 0 0 0.6px rgba(255, 255, 255, 0.08) inset
+    transition: opacity 0.4s ease
 
   .header-bar
     display: flex
@@ -145,6 +147,11 @@ const isWorksArticlePage = pathname.startsWith('/works/article/');
     display: flex
     align-items: center
     gap: 24px
+
+  .back-to-list-row
+    padding: 10px 28px
+    border-top: 1px solid rgba(255, 255, 255, 0.08)
+    transition: border-color 0.3s ease
 
   .back-to-list
     color: rgba(255, 255, 255, 0.6)
@@ -159,6 +166,7 @@ const isWorksArticlePage = pathname.startsWith('/works/article/');
   .works-controls-row
     padding: 10px 28px
     border-top: 1px solid rgba(255, 255, 255, 0.08)
+    transition: border-color 0.3s ease
 
   .works-controls
     display: flex
@@ -180,12 +188,14 @@ const isWorksArticlePage = pathname.startsWith('/works/article/');
     letter-spacing: 0.12em
     text-transform: uppercase
     color: rgba(255, 255, 255, 0.6)
+    transition: color 0.3s ease
 
   .works-control-icon
     width: 12px
     height: 12px
     color: rgba(255, 255, 255, 0.6)
     flex-shrink: 0
+    transition: color 0.3s ease
 
   .works-control-select
     appearance: none
@@ -201,6 +211,7 @@ const isWorksArticlePage = pathname.startsWith('/works/article/');
     cursor: pointer
     min-width: 120px
     outline: none
+    transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease
     &:focus
       border-color: #00d4d4
       box-shadow: 0 0 0 1px rgba(0, 212, 212, 0.4)
@@ -262,7 +273,7 @@ const isWorksArticlePage = pathname.startsWith('/works/article/');
       height: 1.5px
       background: rgba(255, 255, 255, 0.7)
       border-radius: 1px
-      transition: transform 0.3s ease, opacity 0.3s ease
+      transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease
     &:hover .hamburger-line
       background: #ffffff
     &[aria-expanded="true"]
@@ -272,6 +283,32 @@ const isWorksArticlePage = pathname.startsWith('/works/article/');
         opacity: 0
       .hamburger-line:nth-child(3)
         transform: translateY(-5.5px) rotate(-45deg)
+
+  header.on-light-bg
+    .hamburger
+      .hamburger-line
+        background: rgba(0, 0, 0, 0.7)
+      &:hover .hamburger-line
+        background: #000000
+    .back-to-list-row
+      border-top-color: rgba(0, 0, 0, 0.08)
+    .back-to-list
+      color: rgba(0, 0, 0, 0.6)
+      &:hover
+        color: #000000
+    .works-controls-row
+      border-top-color: rgba(0, 0, 0, 0.08)
+    .works-control-label
+      color: rgba(0, 0, 0, 0.6)
+    .works-control-icon
+      color: rgba(0, 0, 0, 0.6)
+    .works-control-select
+      border-color: rgba(0, 0, 0, 0.16)
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(245, 245, 245, 0.9))
+      color: #111111
+      option
+        background: #f5f5f5
+        color: #111111
 
   .dropdown-wrapper
     display: grid
@@ -333,6 +370,9 @@ const isWorksArticlePage = pathname.startsWith('/works/article/');
       font-size: 11px
       transform: translateY(1.1px)
 
+    .back-to-list-row
+      padding: 8px 20px
+
     .back-to-list
       font-size: 12px
 
@@ -385,16 +425,14 @@ const isWorksArticlePage = pathname.startsWith('/works/article/');
   }
 
   function resetHeaderVisibility() {
-    const header = document.querySelector('header') as HTMLElement;
-    if (!header) return;
+    const inner = document.querySelector('.header-inner') as HTMLElement;
+    if (!inner) return;
     if (location.pathname === '/') {
-      header.style.opacity = '0';
-      header.style.pointerEvents = 'none';
-      header.style.transform = 'translateY(-100%)';
+      inner.style.opacity = '0';
+      inner.style.pointerEvents = 'none';
     } else {
-      header.style.removeProperty('opacity');
-      header.style.removeProperty('pointer-events');
-      header.style.removeProperty('transform');
+      inner.style.removeProperty('opacity');
+      inner.style.removeProperty('pointer-events');
     }
   }
 
@@ -429,12 +467,81 @@ const isWorksArticlePage = pathname.startsWith('/works/article/');
     }
   }
 
+  let hamburgerColorCleanup: (() => void) | null = null;
+
+  function initHamburgerColorAdapt() {
+    hamburgerColorCleanup?.();
+    hamburgerColorCleanup = null;
+
+    const hamburger = document.querySelector('.hamburger') as HTMLElement;
+    const headerEl = document.querySelector('header') as HTMLElement;
+    if (!hamburger || !headerEl) return;
+
+    let ticking = false;
+
+    function update() {
+      const rect = hamburger.getBoundingClientRect();
+      const centerY = rect.top + rect.height / 2;
+      const centerX = rect.left + rect.width / 2;
+
+      // ヘッダーを一時的に非表示にして背後の要素を取得
+      const prev = headerEl.style.visibility;
+      headerEl.style.visibility = 'hidden';
+      const el = document.elementFromPoint(centerX, centerY);
+      headerEl.style.visibility = prev;
+
+      let isLight = false;
+      let foundBg = false;
+      let current: Element | null = el;
+      while (current && current !== document.documentElement) {
+        const bg = window.getComputedStyle(current).backgroundColor;
+        const m = bg.match(/rgba?\(\s*(\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\s*\)/);
+        if (m) {
+          const a = m[4] !== undefined ? parseFloat(m[4]) : 1;
+          if (a > 0.1) {
+            const luminance = (0.299 * parseInt(m[1]) + 0.587 * parseInt(m[2]) + 0.114 * parseInt(m[3])) / 255;
+            isLight = luminance > 0.5;
+            foundBg = true;
+            break;
+          }
+        }
+        current = current.parentElement;
+      }
+      // 明示的な背景色が見つからない場合、ブラウザデフォルト（白）として扱う
+      if (!foundBg) {
+        isLight = true;
+      }
+
+      headerEl.classList.toggle('on-light-bg', isLight);
+    }
+
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        update();
+        ticking = false;
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+
+    hamburgerColorCleanup = () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }
+
   initHeader();
   initCategoryFilter();
+  initHamburgerColorAdapt();
   document.addEventListener('astro:after-swap', () => {
     resetHeaderVisibility();
     initHeader();
     initCategoryFilter();
+    initHamburgerColorAdapt();
 
     const inner = document.querySelector('.header-inner') as HTMLElement;
     if (!inner || !savedInnerWidth || location.pathname === '/') {
