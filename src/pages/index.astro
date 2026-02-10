@@ -665,10 +665,7 @@ const featuredWorks = works
     });
 
     // ヘッダー非表示制御（トランジション完了まで）
-    const header = document.querySelector('header') as HTMLElement;
-    if (header) {
-      header.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-    }
+    const headerInner = document.querySelector('.header-inner') as HTMLElement;
 
     // スクロールパララックス + ズームイン
     const hero = document.querySelector('.hero') as HTMLElement;
@@ -732,15 +729,13 @@ const featuredWorks = works
         }
 
         // ヘッダー表示制御: トランジション完了（progress >= 0.85）で表示
-        if (header) {
+        if (headerInner) {
           if (progress >= 0.85) {
-            header.style.opacity = '1';
-            header.style.pointerEvents = '';
-            header.style.transform = 'translateY(0)';
+            headerInner.style.removeProperty('opacity');
+            headerInner.style.removeProperty('pointer-events');
           } else {
-            header.style.opacity = '0';
-            header.style.pointerEvents = 'none';
-            header.style.transform = 'translateY(-100%)';
+            headerInner.style.opacity = '0';
+            headerInner.style.pointerEvents = 'none';
           }
         }
 
