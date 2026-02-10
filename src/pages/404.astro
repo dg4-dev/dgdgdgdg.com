@@ -4,8 +4,13 @@ import Header from '@/components/header.astro';
 import Footer from '@/components/footer.astro';
 ---
 
-<BaseLayout title="404 - dgdgdgdg" description="ページが見つかりませんでした">
-  <Fragment slot="head"> </Fragment>
+<BaseLayout
+  title="404 - dgdgdgdg"
+  description="お探しのページは見つかりませんでした。URLの誤りや移動・削除の可能性があります。トップページへお戻りください。"
+>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, nofollow" />
+  </Fragment>
   <Header pageName="404" />
   <main>
     <section class="not-found">
