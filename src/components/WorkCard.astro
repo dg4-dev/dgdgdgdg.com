@@ -31,16 +31,16 @@ const {
 
 function getNotionCategoryColor(colorName: string): string {
   const colorMap: Record<string, string> = {
-    default: '#373530',
-    gray: '#9B9A97',
-    brown: '#64473A',
-    red: '#E03E3E',
-    orange: '#D9730D',
-    yellow: '#DFAB01',
-    green: '#0F7B6C',
-    blue: '#0B6E99',
-    purple: '#6940A5',
-    pink: '#AD1A72',
+    default: 'var(--c-notion-default)',
+    gray: 'var(--c-notion-gray)',
+    brown: 'var(--c-notion-brown)',
+    red: 'var(--c-notion-red)',
+    orange: 'var(--c-notion-orange)',
+    yellow: 'var(--c-notion-yellow)',
+    green: 'var(--c-notion-green)',
+    blue: 'var(--c-notion-blue)',
+    purple: 'var(--c-notion-purple)',
+    pink: 'var(--c-notion-pink)',
   };
   return colorMap[colorName] || colorMap.default;
 }
@@ -115,7 +115,7 @@ const hasDataAttrs = dataWorkTitle !== undefined;
 <style lang="sass">
   .work-card
     overflow: hidden
-    background-color: #ffffff
+    background-color: var(--c-white)
     display: flex
     flex-direction: column
 
@@ -136,15 +136,15 @@ const hasDataAttrs = dataWorkTitle !== undefined;
   .work-card-title
     margin: 0 0 8px 0
     font-size: 16px
-    color: #111111
+    color: var(--c-gray-925)
 
   .work-client
-    color: #777777
+    color: var(--c-gray-600)
     font-size: 14px
     margin: 2px 0
 
   .work-date
-    color: #999999
+    color: var(--c-gray-500)
     font-size: 12px
     margin-top: 4px
 
@@ -164,6 +164,6 @@ const hasDataAttrs = dataWorkTitle !== undefined;
     font-size: 16px
     font-family: 'Zen Kaku Gothic New', sans-serif
     font-weight: 700
-    color: #ffffff
+    color: var(--c-white)
     opacity: 0.9
 </style>

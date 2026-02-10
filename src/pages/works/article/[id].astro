@@ -89,16 +89,16 @@ function formatDateToYearMonth(dateString: string): string {
 // Notionのカテゴリー色をCSSのHEXカラーに変換する関数
 function getNotionCategoryColor(colorName: string): string {
   const colorMap: Record<string, string> = {
-    default: '#373530',
-    gray: '#9B9A97',
-    brown: '#64473A',
-    red: '#E03E3E',
-    orange: '#D9730D',
-    yellow: '#DFAB01',
-    green: '#0F7B6C',
-    blue: '#0B6E99',
-    purple: '#6940A5',
-    pink: '#AD1A72',
+    default: 'var(--c-notion-default)',
+    gray: 'var(--c-notion-gray)',
+    brown: 'var(--c-notion-brown)',
+    red: 'var(--c-notion-red)',
+    orange: 'var(--c-notion-orange)',
+    yellow: 'var(--c-notion-yellow)',
+    green: 'var(--c-notion-green)',
+    blue: 'var(--c-notion-blue)',
+    purple: 'var(--c-notion-purple)',
+    pink: 'var(--c-notion-pink)',
   };
   return colorMap[colorName] || colorMap.default;
 }
@@ -493,16 +493,16 @@ function renderBlocks(blocks: any[]) {
     h1
       font-size: 2.5rem
       margin-bottom: 1.5rem
-      color: #111111
+      color: var(--c-gray-925)
 
     .work-meta
       .meta-item
         margin: 0.5rem 0
         line-height: 1.6
-        color: #666666
+        color: var(--c-gray-650)
 
         strong
-          color: #333333
+          color: var(--c-gray-800)
           margin-right: 0.5rem
 
       .categories
@@ -517,7 +517,7 @@ function renderBlocks(blocks: any[]) {
           font-size: 16px
           font-family: 'Zen Kaku Gothic New', sans-serif
           font-weight: 700
-          color: #ffffff
+          color: var(--c-white)
           opacity: 0.9
 
   .work-cover
@@ -534,30 +534,30 @@ function renderBlocks(blocks: any[]) {
   .work-summary
     margin-bottom: 3rem
     padding: 1.5rem
-    background: #f9f9f9
+    background: var(--c-gray-50)
     border-radius: 8px
-    border-left: 4px solid #0066cc
+    border-left: 4px solid var(--c-link)
 
     p
       margin: 0
       font-size: 1.1rem
       line-height: 1.8
-      color: #333333
+      color: var(--c-gray-800)
 
   .work-content
     line-height: 1.8
-    color: #333333
+    color: var(--c-gray-800)
 
     :global(.work-content-empty)
       margin: 1rem 0
-      color: #666666
+      color: var(--c-gray-650)
       font-size: 0.95rem
 
     :global(h1),
     :global(h2),
     :global(h3)
       margin: 2rem 0 1rem
-      color: #111111
+      color: var(--c-gray-925)
 
     :global(p)
       margin: 1rem 0
@@ -604,7 +604,7 @@ function renderBlocks(blocks: any[]) {
     :global(.toggle-block)
       margin: 1rem 0
       padding: 0.75rem
-      border: 1px solid #e0e0e0
+      border: 1px solid var(--c-gray-200)
       border-radius: 4px
 
       :global(summary)
@@ -613,7 +613,7 @@ function renderBlocks(blocks: any[]) {
         user-select: none
 
         &:hover
-          color: #0066cc
+          color: var(--c-link)
 
     :global(.toggle-content)
       margin-top: 0.5rem
@@ -622,7 +622,7 @@ function renderBlocks(blocks: any[]) {
     :global(pre)
       margin: 1.5rem 0
       padding: 1rem
-      background: #f5f5f5
+      background: var(--c-gray-100)
       border-radius: 4px
       overflow-x: auto
 
@@ -631,7 +631,7 @@ function renderBlocks(blocks: any[]) {
         font-size: 0.9rem
 
     :global(code)
-      background: #f0f0f0
+      background: var(--c-gray-150)
       padding: 0.2rem 0.4rem
       border-radius: 3px
       font-family: 'Courier New', monospace
@@ -651,16 +651,16 @@ function renderBlocks(blocks: any[]) {
       :global(figcaption)
         text-align: center
         font-size: 0.9rem
-        color: #666
+        color: var(--c-gray-650)
         margin-top: 0.5rem
 
     :global(hr)
       margin: 2rem 0
       border: none
-      border-top: 2px solid #ddd
+      border-top: 2px solid var(--c-gray-250)
 
     :global(a)
-      color: #0066cc
+      color: var(--c-link)
       text-decoration: none
 
       &:hover
@@ -674,7 +674,7 @@ function renderBlocks(blocks: any[]) {
       height: 0
       overflow: hidden
       border-radius: 4px
-      background: #f5f5f5
+      background: var(--c-gray-100)
 
       :global(iframe)
         position: absolute
@@ -698,11 +698,11 @@ function renderBlocks(blocks: any[]) {
         padding: 2rem
         text-align: center
         z-index: 0
-        color: #666
+        color: var(--c-gray-650)
 
         a
           margin-top: 1rem
-          color: #0066cc
+          color: var(--c-link)
           text-decoration: none
 
           &:hover
@@ -723,9 +723,9 @@ function renderBlocks(blocks: any[]) {
       :global(blockquote.twitter-tweet)
         margin: 0
         padding: 1rem
-        border: 1px solid #e0e0e0
+        border: 1px solid var(--c-gray-200)
         border-radius: 4px
-        background: #fff
+        background: var(--c-white)
 
     // Bookmarkブロック用のスタイル（タイトル・説明・ファビコン・URL・OG画像のカード）
     :global(.bookmark-container)
@@ -739,9 +739,9 @@ function renderBlocks(blocks: any[]) {
         padding: 0
         border: none
         border-radius: 12px
-        background: #2a2a2a
+        background: var(--c-gray-850)
         text-decoration: none
-        color: #ffffff
+        color: var(--c-white)
         transition: opacity 0.2s ease
         overflow: hidden
 
@@ -761,7 +761,7 @@ function renderBlocks(blocks: any[]) {
           font-size: 1.1rem
           font-weight: 700
           line-height: 1.4
-          color: #ffffff
+          color: var(--c-white)
           display: -webkit-box
           -webkit-line-clamp: 2
           -webkit-box-orient: vertical
@@ -771,7 +771,7 @@ function renderBlocks(blocks: any[]) {
           font-size: 0.9rem
           font-weight: 400
           line-height: 1.5
-          color: rgba(255, 255, 255, 0.9)
+          color: var(--c-white-a90)
           display: -webkit-box
           -webkit-line-clamp: 2
           -webkit-box-orient: vertical
@@ -791,7 +791,7 @@ function renderBlocks(blocks: any[]) {
 
         :global(.bookmark-url)
           font-size: 0.85rem
-          color: rgba(255, 255, 255, 0.8)
+          color: var(--c-white-a80)
           overflow: hidden
           text-overflow: ellipsis
           white-space: nowrap
@@ -800,7 +800,7 @@ function renderBlocks(blocks: any[]) {
           flex: 0 0 42%
           max-width: 280px
           min-height: 160px
-          background: #1a1a1a
+          background: var(--c-gray-900)
 
         :global(.bookmark-og-image)
           width: 100%

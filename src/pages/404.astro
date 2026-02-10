@@ -35,7 +35,7 @@ import Footer from '@/components/footer.astro';
 
 <style lang="sass">
   main
-    background-color: #000000
+    background-color: var(--c-black)
     min-height: 100vh
     display: flex
     align-items: center
@@ -49,7 +49,7 @@ import Footer from '@/components/footer.astro';
     align-items: center
 
   .error-code
-    color: #ffffff
+    color: var(--c-white)
     font-family: 'Zen Kaku Gothic New', sans-serif
     font-size: clamp(120px, 20vw, 240px)
     font-weight: 900
@@ -58,14 +58,14 @@ import Footer from '@/components/footer.astro';
     margin-bottom: 32px
 
   .not-found-message
-    color: #ffffff
+    color: var(--c-white)
     font-size: 18px
     font-weight: 500
     letter-spacing: 0.06em
     margin-bottom: 12px
 
   .not-found-sub
-    color: #666666
+    color: var(--c-gray-650)
     font-size: 14px
     letter-spacing: 0.04em
     line-height: 1.8
@@ -76,22 +76,22 @@ import Footer from '@/components/footer.astro';
     align-items: center
     gap: 10px
     padding: 14px 28px
-    background: rgba(255, 255, 255, 0.03)
-    border: 1px solid rgba(255, 255, 255, 0.08)
+    background: var(--c-white-a3)
+    border: 1px solid var(--c-white-a8)
     border-radius: 100px
     text-decoration: none
-    color: rgba(255, 255, 255, 0.7)
+    color: var(--c-white-a70)
     font-family: 'Zen Kaku Gothic New', sans-serif
     font-size: 14px
     font-weight: 500
     letter-spacing: 0.06em
     transition: all 0.3s ease
     &:hover
-      background: rgba(255, 255, 255, 0.06)
-      border-color: rgba(0, 212, 212, 0.3)
-      color: #ffffff
+      background: var(--c-white-a6)
+      border-color: var(--c-accent-a30)
+      color: var(--c-white)
       .back-arrow
-        color: #00d4d4
+        color: var(--c-accent)
         transform: translateX(-3px)
 
   .back-arrow
@@ -99,7 +99,7 @@ import Footer from '@/components/footer.astro';
     height: 18px
     display: flex
     align-items: center
-    color: rgba(255, 255, 255, 0.5)
+    color: var(--c-white-a50)
     transition: all 0.3s ease
     svg
       width: 100%
