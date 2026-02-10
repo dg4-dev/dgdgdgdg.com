@@ -18,6 +18,10 @@ export async function getStaticPaths() {
 // URLパラメータからidを取得
 const { id } = Astro.params;
 
+if (!id) {
+  return Astro.redirect('/works');
+}
+
 // UUID形式かどうかを判定（ハイフン付きUUID形式）
 const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
 
@@ -30,7 +34,7 @@ if (isUuid) {
   pageUuid = pageData.id;
 }
 
-// ページの詳細情報とブロックを取得（再帰的に子ブロックも含む）
+// ページの詳細情報とブロックを取得（再帰的に子ブロックも含む・ページネーション対応）
 const page: any = await getNotionPage(pageUuid);
 const blocks: any[] = await getNotionBlocksRecursive(pageUuid);
 
@@ -467,7 +471,14 @@ function renderBlocks(blocks: any[]) {
           </div>
         )
       }
-      <div class="work-content" set:html={renderBlocks(blocks)} />
+      <div
+        class="work-content"
+        set:html={
+          blocks.length > 0
+            ? renderBlocks(blocks)
+            : '<p class="work-content-empty">本文はまだありません。</p>'
+        }
+      ></div>
     </article>
   </main>
   <Footer />
@@ -543,6 +554,11 @@ function renderBlocks(blocks: any[]) {
   .work-content
     line-height: 1.8
     color: #333333
+
+    :global(.work-content-empty)
+      margin: 1rem 0
+      color: #666666
+      font-size: 0.95rem
 
     :global(h1),
     :global(h2),
