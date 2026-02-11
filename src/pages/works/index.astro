@@ -7,6 +7,7 @@ import { getNotionData, getNotionBlocksRecursive } from '@/lib/notion';
 import Footer from '@/components/footer.astro';
 import ContactCTA from '@/components/ContactCTA.astro';
 import WorkCard from '@/components/WorkCard.astro';
+import { downloadAndSaveImage, isNotionUrl } from '@/lib/notion-images';
 
 // Notionデータベースからデータを取得
 const notionData = await getNotionData();
@@ -118,7 +119,7 @@ function findTwitterUrlInBlocks(blocks: any[]): string | null {
 // SSGビルド時に実行されるため、エラーハンドリングを強化
 const worksWithCoverImages = await Promise.all(
   works.map(async (work: any) => {
-    const coverImage = work.properties?.Cover?.files?.[0]?.file?.url ?? '';
+    let coverImage = work.properties?.Cover?.files?.[0]?.file?.url ?? '';
 
     // カバー画像が設定されていない場合、Twitterの画像を取得
     if (!coverImage) {
@@ -130,6 +131,7 @@ const worksWithCoverImages = await Promise.all(
         if (twitterUrl) {
           const twitterImage = await getTwitterImageFromUrl(twitterUrl);
           if (twitterImage) {
+            coverImage = twitterImage;
             // カバー画像として使用
             work.properties = work.properties || {};
             work.properties.Cover = {
@@ -146,6 +148,21 @@ const worksWithCoverImages = await Promise.all(
       } catch {
         // エラーが発生してもビルドを続行
       }
+    }
+
+    // Notion画像の場合はダウンロードしてローカルパスに差し替え
+    if (coverImage && isNotionUrl(coverImage)) {
+      const localPath = await downloadAndSaveImage(coverImage);
+      work.properties = work.properties || {};
+      work.properties.Cover = {
+        files: [
+          {
+            file: {
+              url: localPath,
+            },
+          },
+        ],
+      };
     }
 
     return work;
