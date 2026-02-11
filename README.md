@@ -1,14 +1,19 @@
+<div align="center">
+
 # dgdgdgdg.com
 
-[dgdgdgdg.com](https://dgdgdgdg.com) のソースコードです。
+**https://dgdgdgdg.com**
 
-## Tech Stack
+![Astro](https://img.shields.io/badge/Astro-FF5D01?logo=astro&logoColor=fff)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff)
+![Sass](https://img.shields.io/badge/Sass-C69?logo=sass&logoColor=fff)
+![Notion](https://img.shields.io/badge/Notion_API-000?logo=notion&logoColor=fff)
+![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?logo=cloudflare&logoColor=fff)
+![Bun](https://img.shields.io/badge/Bun-000?logo=bun&logoColor=fff)
 
-- [Astro](https://astro.build/)
-- [Vue](https://vuejs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [SASS](https://sass-lang.com/)
-- [Notion API](https://developers.notion.com/)
+</div>
+
+---
 
 ## Getting Started
 
@@ -24,30 +29,22 @@ bun install
 
 ### Environment Variables
 
-`.env` ファイルをプロジェクトルートに作成し、以下の変数を設定してください。
+`.env` をプロジェクトルートに作成してください。
 
 ```env
 NOTION_API_KEY=<YOUR_NOTION_API_KEY>
 NOTION_DATASOURCE_ID=<YOUR_NOTION_DATASOURCE_ID>
 ```
 
-### Development
+### Commands
 
-```bash
-bun run dev
-```
+| コマンド | 説明 |
+| --- | --- |
+| `bun run dev` | 開発サーバーを起動 |
+| `bun run build` | プロダクションビルド |
+| `bun run preview` | ビルド結果をプレビュー |
 
-### Build
-
-```bash
-bun run build
-```
-
-### Preview
-
-```bash
-bun run preview
-```
+---
 
 ## Project Structure
 
@@ -55,7 +52,7 @@ bun run preview
 src/
 ├── components/    # 再利用可能なコンポーネント
 ├── layouts/       # ページレイアウト
-├── lib/           # ユーティリティ・API クライアント
+├── lib/           # ユーティリティ・Notion API クライアント
 ├── pages/         # ルーティング
 └── styles/        # グローバルスタイル
 ```
