@@ -16,6 +16,7 @@ interface Props {
 const { title = 'dgdgdgdg', description, ogImage, ogType = 'website', keywords, author, canonicalUrl } = Astro.props;
 
 const currentUrl = canonicalUrl || Astro.url.href;
+const effectiveOgImage = ogImage ?? new URL('/images/ogp.webp', Astro.url.origin).href;
 ---
 
 <!doctype html>
@@ -37,13 +38,13 @@ const currentUrl = canonicalUrl || Astro.url.href;
     {description && <meta property="og:description" content={description} />}
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={currentUrl} />
-    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:image" content={effectiveOgImage} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     {description && <meta name="twitter:description" content={description} />}
-    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    <meta name="twitter:image" content={effectiveOgImage} />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
