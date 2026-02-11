@@ -1,5 +1,5 @@
 import type { AstroIntegration } from 'astro';
-import { cpSync, existsSync } from 'fs';
+import { cpSync, existsSync, rmSync } from 'fs';
 import { join } from 'path';
 
 /**
@@ -13,6 +13,13 @@ export function notionImages(): AstroIntegration {
   return {
     name: 'notion-images',
     hooks: {
+      'astro:build:start': () => {
+        const dir = join(process.cwd(), 'public', 'notion-images');
+        if (existsSync(dir)) {
+          rmSync(dir, { recursive: true });
+          console.log('[notion-images] Cleaned public/notion-images/.');
+        }
+      },
       'astro:build:done': ({ dir }) => {
         const src = join(process.cwd(), 'public', 'notion-images');
         const dest = join(dir.pathname, 'notion-images');
