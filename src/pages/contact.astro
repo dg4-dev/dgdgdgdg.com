@@ -169,7 +169,9 @@ const socialLinks = [
       {
         socialLinks.map((link) => (
           <a href={link.url} target="_blank" rel="noopener noreferrer" class="social-link-card">
-            <span class="social-icon" set:html={link.icon} />
+            <span class="social-icon">
+              <Fragment set:html={link.icon} />
+            </span>
             <span class="social-name">{link.name}</span>
             <span class="social-arrow">
               <svg
