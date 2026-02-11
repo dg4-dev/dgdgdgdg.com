@@ -7,6 +7,7 @@ import Footer from '@/components/footer.astro';
 import ContactCTA from '@/components/ContactCTA.astro';
 import WorkCard from '@/components/WorkCard.astro';
 import { getNotionData } from '@/lib/notion';
+import { downloadAndSaveImage, isNotionUrl } from '@/lib/notion-images';
 
 // ロゴ周りに表示するテキストデータ
 const meaningRaw: {
@@ -53,8 +54,30 @@ const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
 // Worksデータ（FeaturedやPrivateの判定に利用）
 const notionData = await getNotionData();
 const works = notionData.results;
+
+// Notion画像をダウンロードしてローカルパスに差し替え
+const worksWithLocalImages = await Promise.all(
+  works.map(async (work: any) => {
+    const coverImage = work.properties?.Cover?.files?.[0]?.file?.url ?? '';
+    if (coverImage && isNotionUrl(coverImage)) {
+      const localPath = await downloadAndSaveImage(coverImage);
+      work.properties = work.properties || {};
+      work.properties.Cover = {
+        files: [
+          {
+            file: {
+              url: localPath,
+            },
+          },
+        ],
+      };
+    }
+    return work;
+  }),
+);
+
 // Featuredのworksを抽出（プライベートはFeaturedに含めない）、新しい順でソートして最大8件に制限
-const featuredWorks = works
+const featuredWorks = worksWithLocalImages
   .filter((item: any) => item.properties?.Featured?.checkbox && !item.properties?.Private?.checkbox)
   .sort((a: any, b: any) => {
     const dateA = a.properties?.['Created Date']?.date?.start || '';

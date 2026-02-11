@@ -48,3 +48,6 @@ wrangler.toml.backup
 
 # Bun
 bun.lockb
+
+# Downloaded Notion images
+public/notion-images/

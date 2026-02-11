@@ -6,6 +6,7 @@ import Header from '@/components/header.astro';
 import Footer from '@/components/footer.astro';
 import ContactCTA from '@/components/ContactCTA.astro';
 import { getNotionData, findPageByCustomId, getNotionPage, getNotionBlocksRecursive } from '@/lib/notion';
+import { downloadAndSaveImage, isNotionUrl } from '@/lib/notion-images';
 
 // 静的パス生成（空にして生成を停止）
 export async function getStaticPaths() {
@@ -40,6 +41,35 @@ if (isUuid) {
 // ページの詳細情報とブロックを取得（再帰的に子ブロックも含む・ページネーション対応）
 const page: any = await getNotionPage(pageUuid);
 const blocks: any[] = await getNotionBlocksRecursive(pageUuid);
+
+// ブロック内の画像・動画をダウンロードしてローカルパスに差し替え
+async function downloadBlockImages(blockList: any[]): Promise<void> {
+  for (const block of blockList) {
+    if (block.type === 'image') {
+      const imageUrl = block.image?.type === 'file' ? block.image.file.url : block.image?.external?.url;
+      if (imageUrl && isNotionUrl(imageUrl)) {
+        const localPath = await downloadAndSaveImage(imageUrl);
+        // ローカルパスを external として格納（renderBlock関数がexternal.urlを優先的に使用するため）
+        block.image.external = { url: localPath };
+        block.image.type = 'external';
+      }
+    }
+    if (block.type === 'video') {
+      const videoUrl = block.video?.type === 'file' ? block.video.file.url : block.video?.external?.url;
+      if (videoUrl && isNotionUrl(videoUrl)) {
+        const localPath = await downloadAndSaveImage(videoUrl);
+        // ローカルパスを external として格納
+        block.video.external = { url: localPath };
+        block.video.type = 'external';
+      }
+    }
+    if (block.children?.length) {
+      await downloadBlockImages(block.children);
+    }
+  }
+}
+
+await downloadBlockImages(blocks);
 
 // ブックマークブロックにOGメタデータ（タイトル・説明・画像・ファビコン）を付与
 async function getBookmarkMeta(
