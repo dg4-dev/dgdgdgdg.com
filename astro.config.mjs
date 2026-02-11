@@ -4,7 +4,7 @@ import { notionImages } from './src/integrations/notion-images';
 
 // https://astro.build/config
 export default defineConfig({
-  adapter: cloudflare({ imageService: 'compile' }),
+  adapter: cloudflare({ imageService: 'passthrough' }),
   output: 'server',
   integrations: [notionImages()],
 });
