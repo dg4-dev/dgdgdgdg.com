@@ -15,6 +15,10 @@
 ![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=cloudflare&logoColor=fff)
 ![Bun](https://img.shields.io/badge/Bun-000?style=for-the-badge&logo=bun&logoColor=fff)
 
+<br>
+
+**English** | [日本語](README.ja.md)
+
 </div>
 
 ---
