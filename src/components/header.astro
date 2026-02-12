@@ -127,7 +127,7 @@ const isWorksArticlePage = pathname.startsWith('/works/article/');
     pointer-events: none
 
   .header-inner
-    background: var(--c-white)
+    background: var(--c-white-a60)
     backdrop-filter: blur(32px)
     -webkit-backdrop-filter: blur(32px)
     border: 1px solid var(--c-black-a8)
@@ -275,7 +275,7 @@ const isWorksArticlePage = pathname.startsWith('/works/article/');
       border-radius: 1px
       transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease
     &:hover .hamburger-line
-      background: var(--c-black)
+      background: var(--c-accent)
     &[aria-expanded="true"]
       .hamburger-line:nth-child(1)
         transform: translateY(5.5px) rotate(45deg)
@@ -313,7 +313,6 @@ const isWorksArticlePage = pathname.startsWith('/works/article/');
           text-decoration: none
           font-weight: 500
           font-size: 16px
-          letter-spacing: 0.08em
           transition: color 0.3s ease
           position: relative
           display: inline-block
