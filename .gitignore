@@ -51,3 +51,5 @@ bun.lockb
 
 # Downloaded Notion images
 public/notion-images/
+
+.claude/
