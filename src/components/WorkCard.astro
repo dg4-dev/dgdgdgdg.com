@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+
 export interface Props {
   title: string;
   client?: string;
@@ -63,7 +65,7 @@ const hasDataAttrs = dataWorkTitle !== undefined;
     >
       {coverSrc ? (
         <div class="work-cover">
-          <img src={coverSrc} alt={isPrivate ? 'Private work sample' : title} loading="lazy" />
+          <Image src={coverSrc} alt={isPrivate ? 'Private work sample' : title} width={520} height={390} loading="lazy" />
         </div>
       ) : null}
       <div class="work-content">
@@ -92,7 +94,7 @@ const hasDataAttrs = dataWorkTitle !== undefined;
     >
       {coverSrc ? (
         <div class="work-cover">
-          <img src={coverSrc} alt={isPrivate ? 'Private work sample' : title} loading="lazy" />
+          <Image src={coverSrc} alt={isPrivate ? 'Private work sample' : title} width={520} height={390} loading="lazy" />
         </div>
       ) : null}
       <div class="work-content">
