@@ -29,12 +29,29 @@ bun install
 
 ### Environment Variables
 
-`.env` をプロジェクトルートに作成してください。
+環境変数は [dotenvx](https://dotenvx.com/) で暗号化管理しています。
 
-```env
-NOTION_API_KEY=<YOUR_NOTION_API_KEY>
-NOTION_DATASOURCE_ID=<YOUR_NOTION_DATASOURCE_ID>
+```bash
+# 1. .env.example をコピー
+cp .env.example .env
+
+# 2. .env に実際の値を記入
+vi .env
+
+# 3. 暗号化（.env.keys に復号鍵が生成される）
+npx dotenvx encrypt
+
+# 4. .env をコミット（暗号化済みなので安全）
+git add .env
 ```
+
+| ファイル | 用途 | コミット |
+| --- | --- | --- |
+| `.env` | 暗号化された環境変数 | する |
+| `.env.keys` | 復号用の秘密鍵 | **しない** |
+| `.env.example` | テンプレート | する |
+
+> `.env.keys` の `DOTENV_PRIVATE_KEY` をローカルの環境変数またはCI/CDのシークレットに設定してください。
 
 ### Commands
 
