@@ -700,11 +700,16 @@ const featuredWorks = worksWithLocalImages
 
 <script>
   let scrollController: AbortController | null = null;
+  let layerRafIdGlobal: number | null = null;
 
   document.addEventListener('astro:page-load', () => {
-    // 前のスクロールリスナーをクリーンアップ
+    // 前のスクロールリスナーとレイヤー更新をクリーンアップ
     scrollController?.abort();
     scrollController = null;
+    if (layerRafIdGlobal !== null) {
+      cancelAnimationFrame(layerRafIdGlobal);
+      layerRafIdGlobal = null;
+    }
 
     // 衛星アニメーションの動的設定
     const orbitItems = document.querySelectorAll('.orbit-item');
@@ -723,8 +728,34 @@ const featuredWorks = worksWithLocalImages
     // スクロールパララックス + ズームイン
     const hero = document.querySelector('.hero') as HTMLElement;
     const heroContent = document.querySelector('.hero-content') as HTMLElement;
+    const heroLogo = document.querySelector('.hero-logo') as HTMLElement;
     const scrollIndicator = document.querySelector('.scroll-indicator') as HTMLElement;
     if (!hero || !heroContent) return;
+
+    // レイヤー管理: orbit-itemのY中心位置に応じてz-indexを切り替え
+    // .orbiting-words から transform を外したので、
+    // 各 orbit-item の z-index が .hero-logo (z-index:10) と同じコンテキストで比較される
+    // ロゴ中心より上（手前）→ z-index:15、下（奥）→ z-index:5
+    const updateOrbitLayers = () => {
+      if (!heroLogo) return;
+      const logoRect = heroLogo.getBoundingClientRect();
+      const logoCenterY = logoRect.top + logoRect.height / 2;
+
+      orbitItems.forEach((item) => {
+        const el = item as HTMLElement;
+        const rect = el.getBoundingClientRect();
+        const itemCenterY = rect.top + rect.height / 2;
+        // 下半分（Y > ロゴ中心）が手前、上半分が奥
+        if (itemCenterY > logoCenterY) {
+          el.style.zIndex = '15';
+        } else {
+          el.style.zIndex = '5';
+        }
+      });
+
+      layerRafIdGlobal = requestAnimationFrame(updateOrbitLayers);
+    };
+    layerRafIdGlobal = requestAnimationFrame(updateOrbitLayers);
 
     scrollController = new AbortController();
     let ticking = false;
