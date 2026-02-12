@@ -132,22 +132,33 @@ const featuredWorks = worksWithLocalImages
       </div>
     </section>
     <section class="about">
-      <h2 class="about-title">dgdgdgdgとは</h2>
+      <h2 class="about-title">活動内容</h2>
       <div class="about-logo">
         <img src="/images/row.svg" alt="dgdgdgdg" />
       </div>
       <div class="about-text">
-        <p>
-          dgdgdgdgは私のハンドルネームであり、屋号でもあります。読み方は日本語の「駄菓子（だがし）」と同じ発音です。
-        </p>
-        <p>
-          駄菓子屋に並ぶお菓子のように、小さくても色とりどりで、手に取った人がちょっと嬉しくなるようなものづくりをしたい——そんな思いを込めています。
-        </p>
-        <p>
-          デザイン、コーディング、映像、音楽など、さまざまな領域を横断しながら、デジタルとアナログの境界を自由に行き来する制作活動を行っています。「深く掘り下げる（dig）」ことと「喜び（delight）」を届けることの両方を大切にしながら、四季のように移り変わる好奇心のままに、多方面のクリエイティブに取り組んでいます。
-        </p>
+        <ul class="activity-tree">
+          <li>
+            Create
+            <ul>
+              <li>
+                Design
+                <ul>
+                  <li>Typeface</li>
+                  <li>Graphic</li>
+                  <li>Motion</li>
+                </ul>
+              </li>
+              <li>3D Printed Product</li>
+              <li>Website</li>
+            </ul>
+          </li>
+          <li>Photography</li>
+          <li>Electrical Work</li>
+          <li>Other momentary interests...</li>
+        </ul>
         <p class="section-link-wrapper">
-          <a href="/about" class="section-link">Aboutページへ</a>
+          <a href="/about" class="section-link">dgdgdgdgとは</a>
         </p>
       </div>
     </section>
@@ -638,6 +649,22 @@ const featuredWorks = worksWithLocalImages
         line-height: 2.2
         text-align: justify
         letter-spacing: 0.04em
+
+    .activity-tree
+      margin: 0
+      padding: 0
+      padding-left: 1.5em
+      color: var(--c-gray-400)
+
+      ul
+        margin: 0
+        padding: 0
+        padding-left: 1.5em
+
+      li
+        font-size: 16px
+        letter-spacing: 0.04em
+        padding: 6px 0
 
     @media (max-width: 768px)
       display: flex
