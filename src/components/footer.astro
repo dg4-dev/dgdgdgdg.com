@@ -35,16 +35,17 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 </footer>
 
 <style lang="sass">
+  @use '../styles/spacing' as *
   footer
     background-color: var(--c-black)
-    padding: 64px 80px 40px
+    padding: space(16) space(16) space(8)
 
   .footer-inner
     max-width: 1200px
-    margin: 0 auto
+    margin: space(0) auto
     display: flex
     flex-direction: column
-    gap: 48px
+    gap: space(12)
 
   .footer-top
     display: flex
@@ -67,44 +68,45 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
   nav
     ul
       list-style: none
-      margin: 0
-      padding: 0
+      margin: space(0)
+      padding: space(0)
       display: flex
-      gap: 32px
+      gap: space(8)
       li
         a
           color: var(--c-white-a50)
           text-decoration: none
-          font-family: 'DG4 Atomic Dot', sans-serif
+          font-family: var(--font-display)
           font-variation-settings: "RNDS" 0, "slnt" 0
-          font-size: 16px
-          font-weight: 400
+          font-size: var(--type-body-size)
+          font-weight: var(--type-body-weight)
           transition: color 0.3s ease
           &:hover
             color: var(--c-white)
           &.current
             color: var(--c-accent)
-            font-weight: 900
+            font-weight: var(--type-display-weight)
 
   .footer-bottom
     border-top: 1px solid var(--c-white-a6)
-    padding-top: 24px
+    padding-top: space(6)
 
   .copyright
     color: var(--c-white-a30)
-    font-size: 12px
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
     letter-spacing: 0.06em
 
   @media (max-width: 768px)
     footer
-      padding: 48px 24px 32px
+      padding: space(12) space(6) space(8)
 
     .footer-inner
-      gap: 36px
+      gap: space(8)
 
     .footer-top
       flex-direction: column
-      gap: 28px
+      gap: space(6)
       align-items: flex-start
 
     .footer-logo
@@ -112,14 +114,14 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 
     nav
       ul
-        gap: 24px
+        gap: space(6)
         li
           a
-            font-size: 12px
+            font-size: var(--type-caption-size)
 
     .footer-bottom
-      padding-top: 20px
+      padding-top: space(5)
 
     .copyright
-      font-size: 11px
+      font-size: var(--type-caption-size)
 </style>

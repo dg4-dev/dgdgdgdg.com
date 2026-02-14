@@ -254,58 +254,59 @@ const uniqueCategories = Array.from(allCategories).sort();
 </BaseLayout>
 
 <style lang="sass">
+  @use '../../styles/spacing' as *
   main
-    margin: 0
-    padding: 0
+    background-color: var(--c-gray-50)
+    margin: space(0)
+    padding: space(0)
 
   .works-inner
     width: 100%
     max-width: 1200px
-    margin: 0 auto
-    padding: 120px 40px
+    margin: space(0) auto
 
   @media (max-width: 768px)
     .works-inner
-      padding: 190px 16px 120px
+      padding: space(0) space(4)
 
   .works-note
-    margin: 0 0 1rem 0
-    font-size: 0.9rem
-    color: var(--c-gray-600)
-    line-height: 1.6
+    margin: space(0) space(0) space(4) space(0)
+    font-size: var(--type-body-size)
+    color: var(--c-gray-650)
+    line-height: var(--type-body-line)
 
   @media (max-width: 768px)
     .works-note
-      margin-bottom: 0.75rem
-      font-size: 0.85rem
+      margin-bottom: space(3)
+      font-size: var(--type-caption-size)
 
   .works-grid
     display: grid
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))
-    gap: 40px 24px
+    gap: space(8) space(6)
     align-items: end
 
   @media (max-width: 768px)
     .works-grid
       grid-template-columns: repeat(2, 1fr)
-      gap: 24px 12px
+      gap: space(6) space(3)
 
   details
-    margin-top: 3rem
+    margin-top: space(12)
 
     summary
       cursor: pointer
-      padding: 0.5rem
+      padding: space(2)
       background: var(--c-gray-100)
       border-radius: 4px
 
     pre
-      margin-top: 1rem
-      padding: 1rem
+      margin-top: space(4)
+      padding: space(4)
       background: var(--c-gray-100)
       border-radius: 4px
       overflow-x: auto
-      font-size: 0.85rem
+      font-size: var(--type-caption-size)
 </style>
 
 <script is:inline>
