@@ -31,22 +31,6 @@ const {
   dataWorkCategories,
 } = Astro.props;
 
-function getNotionCategoryColor(colorName: string): string {
-  const colorMap: Record<string, string> = {
-    default: 'var(--c-notion-default)',
-    gray: 'var(--c-notion-gray)',
-    brown: 'var(--c-notion-brown)',
-    red: 'var(--c-notion-red)',
-    orange: 'var(--c-notion-orange)',
-    yellow: 'var(--c-notion-yellow)',
-    green: 'var(--c-notion-green)',
-    blue: 'var(--c-notion-blue)',
-    purple: 'var(--c-notion-purple)',
-    pink: 'var(--c-notion-pink)',
-  };
-  return colorMap[colorName] || colorMap.default;
-}
-
 const coverSrc = isPrivate ? '/images/private-sample.png' : coverImageUrl;
 const hasDataAttrs = dataWorkTitle !== undefined;
 ---
@@ -74,7 +58,7 @@ const hasDataAttrs = dataWorkTitle !== undefined;
         {categories.length > 0 ? (
           <div class="work-categories">
             {categories.map((cat) => (
-              <span class="work-category-tag" style={`background-color: ${getNotionCategoryColor(cat.color)}`}>
+              <span class="work-category-tag">
                 {cat.name}
               </span>
             ))}
@@ -103,7 +87,7 @@ const hasDataAttrs = dataWorkTitle !== undefined;
         {categories.length > 0 ? (
           <div class="work-categories">
             {categories.map((cat) => (
-              <span class="work-category-tag" style={`background-color: ${getNotionCategoryColor(cat.color)}`}>
+              <span class="work-category-tag">
                 {cat.name}
               </span>
             ))}
@@ -163,10 +147,11 @@ const hasDataAttrs = dataWorkTitle !== undefined;
 
   .work-category-tag
     padding: space(1) space(2) space(1) space(2)
+    border: 2px solid var(--c-gray-800)
     border-radius: 4px
     font-size: 16px
     font-family: 'Zen Kaku Gothic New', sans-serif
     font-weight: 700
-    color: var(--c-white)
-    opacity: 0.9
+    color: var(--c-gray-800)
+    background: transparent
 </style>

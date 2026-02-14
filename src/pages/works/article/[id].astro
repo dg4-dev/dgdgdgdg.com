@@ -119,23 +119,6 @@ function formatDateToYearMonth(dateString: string): string {
   return dateString.substring(0, 7);
 }
 
-// Notionのカテゴリー色をCSSのHEXカラーに変換する関数
-function getNotionCategoryColor(colorName: string): string {
-  const colorMap: Record<string, string> = {
-    default: 'var(--c-notion-default)',
-    gray: 'var(--c-notion-gray)',
-    brown: 'var(--c-notion-brown)',
-    red: 'var(--c-notion-red)',
-    orange: 'var(--c-notion-orange)',
-    yellow: 'var(--c-notion-yellow)',
-    green: 'var(--c-notion-green)',
-    blue: 'var(--c-notion-blue)',
-    purple: 'var(--c-notion-purple)',
-    pink: 'var(--c-notion-pink)',
-  };
-  return colorMap[colorName] || colorMap.default;
-}
-
 // プロパティからデータを抽出
 const title = page.properties?.Title?.title?.[0]?.plain_text ?? 'No title';
 const client = page.properties?.Client?.rich_text?.[0]?.plain_text ?? '';
@@ -480,7 +463,7 @@ function renderBlocks(blocks: any[]) {
                 <strong>Category:</strong>
                 <div class="categories">
                   {categories.map((cat: any) => (
-                    <span class="category-tag" style={`background-color: ${getNotionCategoryColor(cat.color)}`}>
+                    <span class="category-tag">
                       {cat.name}
                     </span>
                   ))}
@@ -544,12 +527,13 @@ function renderBlocks(blocks: any[]) {
 
         .category-tag
           padding: space(1) space(2) space(1) space(2)
+          border: 2px solid var(--c-gray-800)
           border-radius: 4px
           font-size: 16px
           font-family: 'Zen Kaku Gothic New', sans-serif
           font-weight: 700
-          color: var(--c-white)
-          opacity: 0.9
+          color: var(--c-gray-800)
+          background: transparent
 
   .work-cover
     width: 100%
