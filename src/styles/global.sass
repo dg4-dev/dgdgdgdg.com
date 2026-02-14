@@ -1,3 +1,5 @@
+@use 'spacing' as *
+
 // Color Variables (dg4-system/color: 729色パレット 0,4,d のみ。透明化は許可)
 :root
   // Core
@@ -53,17 +55,9 @@
   --c-notion-purple: #4d40d0
   --c-notion-pink: #d40d4d
 
-  // Spacing (dg4-system: 基準 0.25rem、トークンのみ使用)
-  --space-0: 0rem
-  --space-1: 0.25rem
-  --space-2: 0.5rem
-  --space-3: 0.75rem
-  --space-4: 1rem
-  --space-5: 1.25rem
-  --space-6: 1.5rem
-  --space-8: 2rem
-  --space-12: 3rem
-  --space-16: 4rem
+  // Spacing (dg4-system: トークンのみ使用)
+  @each $n in (0, 1, 2, 3, 4, 5, 6, 8, 12, 16)
+    --space-#{$n}: #{space($n)}
 
 // My Font
 @font-face

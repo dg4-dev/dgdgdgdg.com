@@ -254,54 +254,55 @@ const uniqueCategories = Array.from(allCategories).sort();
 </BaseLayout>
 
 <style lang="sass">
+  @use '../../styles/spacing' as *
   main
-    margin: var(--space-0)
-    padding: var(--space-0)
+    margin: space(0)
+    padding: space(0)
 
   .works-inner
     width: 100%
     max-width: 1200px
-    margin: var(--space-0) auto
-    padding: var(--space-16) var(--space-8)
+    margin: space(0) auto
+    padding: space(16) space(8)
 
   @media (max-width: 768px)
     .works-inner
-      padding: var(--space-16) var(--space-4) var(--space-16)
+      padding: space(16) space(4) space(16)
 
   .works-note
-    margin: var(--space-0) var(--space-0) var(--space-4) var(--space-0)
+    margin: space(0) space(0) space(4) space(0)
     font-size: 0.9rem
     color: var(--c-gray-650)
     line-height: 1.6
 
   @media (max-width: 768px)
     .works-note
-      margin-bottom: var(--space-3)
+      margin-bottom: space(3)
       font-size: 0.85rem
 
   .works-grid
     display: grid
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))
-    gap: var(--space-8) var(--space-6)
+    gap: space(8) space(6)
     align-items: end
 
   @media (max-width: 768px)
     .works-grid
       grid-template-columns: repeat(2, 1fr)
-      gap: var(--space-6) var(--space-3)
+      gap: space(6) space(3)
 
   details
-    margin-top: var(--space-12)
+    margin-top: space(12)
 
     summary
       cursor: pointer
-      padding: var(--space-2)
+      padding: space(2)
       background: var(--c-gray-100)
       border-radius: 4px
 
     pre
-      margin-top: var(--space-4)
-      padding: var(--space-4)
+      margin-top: space(4)
+      padding: space(4)
       background: var(--c-gray-100)
       border-radius: 4px
       overflow-x: auto
