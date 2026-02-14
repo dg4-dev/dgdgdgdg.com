@@ -509,40 +509,40 @@ function renderBlocks(blocks: any[]) {
 
 <style lang="sass">
   main
-    margin: 0
-    padding: 0
+    margin: var(--space-0)
+    padding: var(--space-0)
 
   .work-detail
     max-width: 900px
-    margin: 0 auto
-    padding: 120px 40px 80px
+    margin: var(--space-0) auto
+    padding: var(--space-16) var(--space-8) var(--space-16)
 
   .work-header
-    margin-bottom: 3rem
+    margin-bottom: var(--space-12)
 
     h1
       font-size: 2.5rem
-      margin-bottom: 1.5rem
+      margin-bottom: var(--space-6)
       color: var(--c-gray-925)
 
     .work-meta
       .meta-item
-        margin: 0.5rem 0
+        margin: var(--space-2) 0
         line-height: 1.6
         color: var(--c-gray-650)
 
         strong
           color: var(--c-gray-800)
-          margin-right: 0.5rem
+          margin-right: var(--space-2)
 
       .categories
         display: inline-flex
         flex-wrap: wrap
-        gap: 0.5rem
-        margin-left: 0.5rem
+        gap: var(--space-2)
+        margin-left: var(--space-2)
 
         .category-tag
-          padding: 0.125rem 0.5rem 0.25rem 0.5rem
+          padding: var(--space-1) var(--space-2) var(--space-1) var(--space-2)
           border-radius: 4px
           font-size: 16px
           font-family: 'Zen Kaku Gothic New', sans-serif
@@ -552,7 +552,7 @@ function renderBlocks(blocks: any[]) {
 
   .work-cover
     width: 100%
-    margin-bottom: 3rem
+    margin-bottom: var(--space-12)
     border-radius: 8px
     overflow: hidden
 
@@ -562,14 +562,14 @@ function renderBlocks(blocks: any[]) {
       display: block
 
   .work-summary
-    margin-bottom: 3rem
-    padding: 1.5rem
+    margin-bottom: var(--space-12)
+    padding: var(--space-6)
     background: var(--c-gray-50)
     border-radius: 8px
     border-left: 4px solid var(--c-link)
 
     p
-      margin: 0
+      margin: var(--space-0)
       font-size: 1.1rem
       line-height: 1.8
       color: var(--c-gray-800)
@@ -579,61 +579,61 @@ function renderBlocks(blocks: any[]) {
     color: var(--c-gray-800)
 
     :global(.work-content-empty)
-      margin: 1rem 0
+      margin: var(--space-4) 0
       color: var(--c-gray-650)
       font-size: 0.95rem
 
     :global(h1),
     :global(h2),
     :global(h3)
-      margin: 2rem 0 1rem
+      margin: var(--space-8) 0 var(--space-4)
       color: var(--c-gray-925)
 
     :global(p)
-      margin: 1rem 0
+      margin: var(--space-4) 0
 
     :global(ul),
     :global(ol)
-      margin: 1rem 0
-      padding-left: 2rem
+      margin: var(--space-4) 0
+      padding-left: var(--space-8)
 
       // ネストされたリスト
       :global(ul),
       :global(ol)
-        margin: 0.25rem 0
+        margin: var(--space-1) 0
 
     :global(li)
-      margin: 0.5rem 0
+      margin: var(--space-2) 0
 
       // リストアイテム内のネストされたリスト
       > :global(ul),
       > :global(ol)
-        margin-top: 0.25rem
+        margin-top: var(--space-1)
 
     :global(.todo-list)
       list-style: none
-      padding-left: 0
+      padding-left: var(--space-0)
 
       // ネストされたTODOリスト
       :global(.todo-list)
-        padding-left: 2rem
-        margin: 0.25rem 0
+        padding-left: var(--space-8)
+        margin: var(--space-1) 0
 
       :global(.todo-item)
         :global(input[type='checkbox'])
-          margin-right: 0.5rem
+          margin-right: var(--space-2)
           vertical-align: middle
 
         // TODOアイテム内のネストされたリスト
         > :global(ul),
         > :global(ol),
         > :global(.todo-list)
-          margin-top: 0.25rem
-          padding-left: 2rem
+          margin-top: var(--space-1)
+          padding-left: var(--space-8)
 
     :global(.toggle-block)
-      margin: 1rem 0
-      padding: 0.75rem
+      margin: var(--space-4) 0
+      padding: var(--space-3)
       border: 1px solid var(--c-gray-200)
       border-radius: 4px
 
@@ -646,12 +646,12 @@ function renderBlocks(blocks: any[]) {
           color: var(--c-link)
 
     :global(.toggle-content)
-      margin-top: 0.5rem
-      padding-left: 1rem
+      margin-top: var(--space-2)
+      padding-left: var(--space-4)
 
     :global(pre)
-      margin: 1.5rem 0
-      padding: 1rem
+      margin: var(--space-6) 0
+      padding: var(--space-4)
       background: var(--c-gray-100)
       border-radius: 4px
       overflow-x: auto
@@ -662,12 +662,12 @@ function renderBlocks(blocks: any[]) {
 
     :global(code)
       background: var(--c-gray-100)
-      padding: 0.2rem 0.4rem
+      padding: var(--space-1) var(--space-1)
       border-radius: 3px
       font-family: 'Courier New', monospace
 
     :global(figure)
-      margin: 2rem 0
+      margin: var(--space-8) 0
 
       :global(img)
         max-width: 100%
@@ -682,10 +682,10 @@ function renderBlocks(blocks: any[]) {
         text-align: center
         font-size: 0.9rem
         color: var(--c-gray-650)
-        margin-top: 0.5rem
+        margin-top: var(--space-2)
 
     :global(hr)
-      margin: 2rem 0
+      margin: var(--space-8) 0
       border: none
       border-top: 2px solid var(--c-gray-200)
 
@@ -699,7 +699,7 @@ function renderBlocks(blocks: any[]) {
     :global(.embed-container)
       position: relative
       width: 100%
-      margin: 2rem 0
+      margin: var(--space-8) 0
       padding-bottom: 56.25% // 16:9のアスペクト比
       height: 0
       overflow: hidden
@@ -725,13 +725,13 @@ function renderBlocks(blocks: any[]) {
         flex-direction: column
         align-items: center
         justify-content: center
-        padding: 2rem
+        padding: var(--space-8)
         text-align: center
         z-index: 0
         color: var(--c-gray-650)
 
         a
-          margin-top: 1rem
+          margin-top: var(--space-4)
           color: var(--c-link)
           text-decoration: none
 
@@ -745,28 +745,28 @@ function renderBlocks(blocks: any[]) {
 
     // Twitter埋め込み用のスタイル
     :global(.embed-twitter)
-      padding-bottom: 0
+      padding-bottom: var(--space-0)
       height: auto
       min-height: 200px
       background: transparent
 
       :global(blockquote.twitter-tweet)
-        margin: 0
-        padding: 1rem
+        margin: var(--space-0)
+        padding: var(--space-4)
         border: 1px solid var(--c-gray-200)
         border-radius: 4px
         background: var(--c-white)
 
     // Bookmarkブロック用のスタイル（タイトル・説明・ファビコン・URL・OG画像のカード）
     :global(.bookmark-container)
-      margin: 2rem 0
+      margin: var(--space-8) 0
 
       :global(.bookmark-link)
         display: flex
         flex-direction: row
         align-items: stretch
         min-height: 160px
-        padding: 0
+        padding: var(--space-0)
         border: none
         border-radius: 12px
         background: var(--c-gray-800)
@@ -781,11 +781,11 @@ function renderBlocks(blocks: any[]) {
         :global(.bookmark-left)
           flex: 1
           min-width: 0
-          padding: 1.25rem 1.5rem
+          padding: var(--space-5) var(--space-6)
           display: flex
           flex-direction: column
           justify-content: center
-          gap: 0.5rem
+          gap: var(--space-2)
 
         :global(.bookmark-title)
           font-size: 1.1rem
@@ -810,8 +810,8 @@ function renderBlocks(blocks: any[]) {
         :global(.bookmark-meta)
           display: flex
           align-items: center
-          gap: 0.5rem
-          margin-top: 0.25rem
+          gap: var(--space-2)
+          margin-top: var(--space-1)
 
         :global(.bookmark-favicon)
           flex-shrink: 0

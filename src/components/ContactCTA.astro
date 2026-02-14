@@ -9,16 +9,16 @@
 <style lang="sass">
   .contact-cta
     background-color: var(--c-black)
-    padding: 120px 80px
+    padding: var(--space-16) var(--space-16)
 
   .contact-cta-inner
     max-width: 1200px
-    margin: 0 auto
+    margin: var(--space-0) auto
     display: flex
     flex-direction: column
     align-items: center
     text-align: center
-    gap: 24px
+    gap: var(--space-6)
 
   .contact-cta-title
     color: var(--c-white)
@@ -34,9 +34,9 @@
   .contact-cta-button
     display: inline-flex
     align-items: center
-    gap: 8px
-    margin-top: 8px
-    padding: 14px 40px
+    gap: var(--space-2)
+    margin-top: var(--space-2)
+    padding: var(--space-3) var(--space-8)
     border: 1px solid var(--c-accent)
     border-radius: 999px
     color: var(--c-accent)
@@ -53,7 +53,7 @@
 
   @media (max-width: 768px)
     .contact-cta
-      padding: 80px 24px
+      padding: var(--space-16) var(--space-6)
 
     .contact-cta-title
       font-size: 32px
