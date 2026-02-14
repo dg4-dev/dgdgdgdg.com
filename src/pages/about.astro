@@ -80,17 +80,17 @@ import ContactCTA from '@/components/ContactCTA.astro';
     background-color: var(--c-black)
     color: var(--c-white)
     min-height: 100vh
-    padding: 160px 80px 120px
+    padding: var(--space-16) var(--space-16) var(--space-16)
     display: flex
     flex-direction: column
     align-items: center
-    gap: 100px
+    gap: var(--space-16)
 
   .section-title
     color: var(--c-white)
     font-size: 24px
     letter-spacing: 0.08em
-    margin-bottom: 32px
+    margin-bottom: var(--space-8)
 
   // Intro
   .about-intro
@@ -104,7 +104,7 @@ import ContactCTA from '@/components/ContactCTA.astro';
       text-align: justify
       letter-spacing: 0.04em
       &:not(:first-child)
-        margin-top: 24px
+        margin-top: var(--space-6)
 
   // Activities
   .about-activities
@@ -112,19 +112,19 @@ import ContactCTA from '@/components/ContactCTA.astro';
     max-width: 720px
 
   .activity-tree
-    margin: 0
-    padding: 0
-    padding-left: 1.5em
+    margin: var(--space-0)
+    padding: var(--space-0)
+    padding-left: var(--space-6)
 
     ul
-      margin: 0
-      padding: 0
-      padding-left: 1.5em
+      margin: var(--space-0)
+      padding: var(--space-0)
+      padding-left: var(--space-6)
 
     li
       font-size: 16px
       letter-spacing: 0.04em
-      padding: 6px 0
+      padding: var(--space-2) 0
 
   // Profile
   .about-profile
@@ -134,7 +134,7 @@ import ContactCTA from '@/components/ContactCTA.astro';
   .profile-content
     display: flex
     align-items: flex-start
-    gap: 40px
+    gap: var(--space-8)
 
   .profile-image
     display: block
@@ -145,14 +145,14 @@ import ContactCTA from '@/components/ContactCTA.astro';
     flex-shrink: 0
 
   .profile-list
-    margin: 0
+    margin: var(--space-0)
     flex: 1
 
   .profile-row
     display: flex
     align-items: baseline
-    gap: 40px
-    padding: 16px 0
+    gap: var(--space-8)
+    padding: var(--space-4) 0
     border-top: 1px solid var(--c-white-a8)
     &:last-child
       border-bottom: 1px solid var(--c-white-a8)
@@ -173,22 +173,22 @@ import ContactCTA from '@/components/ContactCTA.astro';
 
   @media (max-width: 768px)
     main
-      padding: 120px 24px 80px
-      gap: 80px
+      padding: var(--space-16) var(--space-6) var(--space-16)
+      gap: var(--space-16)
 
     .section-title
       font-size: 20px
-      margin-bottom: 24px
+      margin-bottom: var(--space-6)
 
     .intro-text
       p
         font-size: 15px
         line-height: 2
         &:not(:first-child)
-          margin-top: 20px
+          margin-top: var(--space-5)
 
     .profile-row
-      gap: 24px
+      gap: var(--space-6)
 
     dt
       font-size: 13px
