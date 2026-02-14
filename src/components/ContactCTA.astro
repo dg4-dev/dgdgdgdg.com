@@ -7,18 +7,19 @@
 </section>
 
 <style lang="sass">
+  @use '../styles/spacing' as *
   .contact-cta
     background-color: var(--c-black)
-    padding: var(--space-16) var(--space-16)
+    padding: space(16) space(16)
 
   .contact-cta-inner
     max-width: 1200px
-    margin: var(--space-0) auto
+    margin: space(0) auto
     display: flex
     flex-direction: column
     align-items: center
     text-align: center
-    gap: var(--space-6)
+    gap: space(6)
 
   .contact-cta-title
     color: var(--c-white)
@@ -34,9 +35,9 @@
   .contact-cta-button
     display: inline-flex
     align-items: center
-    gap: var(--space-2)
-    margin-top: var(--space-2)
-    padding: var(--space-3) var(--space-8)
+    gap: space(2)
+    margin-top: space(2)
+    padding: space(3) space(8)
     border: 1px solid var(--c-accent)
     border-radius: 999px
     color: var(--c-accent)
@@ -53,7 +54,7 @@
 
   @media (max-width: 768px)
     .contact-cta
-      padding: var(--space-16) var(--space-6)
+      padding: space(16) space(6)
 
     .contact-cta-title
       font-size: 32px

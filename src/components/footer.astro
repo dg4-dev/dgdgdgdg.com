@@ -35,16 +35,17 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 </footer>
 
 <style lang="sass">
+  @use '../styles/spacing' as *
   footer
     background-color: var(--c-black)
-    padding: var(--space-16) var(--space-16) var(--space-8)
+    padding: space(16) space(16) space(8)
 
   .footer-inner
     max-width: 1200px
-    margin: var(--space-0) auto
+    margin: space(0) auto
     display: flex
     flex-direction: column
-    gap: var(--space-12)
+    gap: space(12)
 
   .footer-top
     display: flex
@@ -67,10 +68,10 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
   nav
     ul
       list-style: none
-      margin: var(--space-0)
-      padding: var(--space-0)
+      margin: space(0)
+      padding: space(0)
       display: flex
-      gap: var(--space-8)
+      gap: space(8)
       li
         a
           color: var(--c-white-a50)
@@ -88,7 +89,7 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 
   .footer-bottom
     border-top: 1px solid var(--c-white-a6)
-    padding-top: var(--space-6)
+    padding-top: space(6)
 
   .copyright
     color: var(--c-white-a30)
@@ -97,14 +98,14 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 
   @media (max-width: 768px)
     footer
-      padding: var(--space-12) var(--space-6) var(--space-8)
+      padding: space(12) space(6) space(8)
 
     .footer-inner
-      gap: var(--space-8)
+      gap: space(8)
 
     .footer-top
       flex-direction: column
-      gap: var(--space-6)
+      gap: space(6)
       align-items: flex-start
 
     .footer-logo
@@ -112,13 +113,13 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 
     nav
       ul
-        gap: var(--space-6)
+        gap: space(6)
         li
           a
             font-size: 12px
 
     .footer-bottom
-      padding-top: var(--space-5)
+      padding-top: space(5)
 
     .copyright
       font-size: 11px

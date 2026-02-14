@@ -196,18 +196,19 @@ const featuredWorks = worksWithLocalImages
 </BaseLayout>
 
 <style lang="sass">
+  @use '../styles/spacing' as *
   main
-    margin: var(--space-0)
-    padding: var(--space-0)
+    margin: space(0)
+    padding: space(0)
 
   .section-link-wrapper
-    margin-top: var(--space-6)
+    margin-top: space(6)
 
   .section-link
     display: inline-flex
     align-items: center
-    gap: var(--space-2)
-    padding: var(--space-2) var(--space-4)
+    gap: space(2)
+    padding: space(2) space(4)
     border-radius: 999px
     border: 1px solid currentColor
     font-size: 14px
@@ -262,14 +263,14 @@ const featuredWorks = worksWithLocalImages
 
   .scroll-indicator
     position: absolute
-    bottom: var(--space-8)
+    bottom: space(8)
     left: 50%
     color: var(--c-white)
     transform: translateX(-50%)
     display: flex
     flex-direction: column
     align-items: center
-    gap: var(--space-3)
+    gap: space(3)
     z-index: 20
     transition: opacity 0.3s ease
 
@@ -614,8 +615,8 @@ const featuredWorks = worksWithLocalImages
     justify-items: start
     position: relative
     z-index: 1
-    padding: var(--space-16) var(--space-16)
-    gap: var(--space-4) var(--space-16)
+    padding: space(16) space(16)
+    gap: space(4) space(16)
     margin-top: -50vh
 
     .about-title
@@ -644,33 +645,33 @@ const featuredWorks = worksWithLocalImages
       p
         color: var(--c-gray-500)
         font-size: 16px
-        margin-top: var(--space-6)
+        margin-top: space(6)
         line-height: 2.2
         text-align: justify
         letter-spacing: 0.04em
 
     .activity-tree
-      margin: var(--space-0)
-      padding: var(--space-0)
-      padding-left: var(--space-6)
+      margin: space(0)
+      padding: space(0)
+      padding-left: space(6)
       color: var(--c-gray-500)
 
       ul
-        margin: var(--space-0)
-        padding: var(--space-0)
-        padding-left: var(--space-6)
+        margin: space(0)
+        padding: space(0)
+        padding-left: space(6)
 
       li
         font-size: 16px
         letter-spacing: 0.04em
-        padding: var(--space-2) 0
+        padding: space(2) 0
 
     @media (max-width: 768px)
       display: flex
       flex-direction: column
       align-items: center
-      padding: var(--space-16) var(--space-6)
-      gap: var(--space-12)
+      padding: space(16) space(6)
+      gap: space(12)
       .about-title
         font-size: 28px
         text-align: center
@@ -686,7 +687,7 @@ const featuredWorks = worksWithLocalImages
         max-width: 100%
         p
           font-size: 15px
-          margin-top: var(--space-5)
+          margin-top: space(5)
           line-height: 2
 
   .featured-works
@@ -696,7 +697,7 @@ const featuredWorks = worksWithLocalImages
     flex-direction: column
     align-items: center
     justify-content: center
-    padding: var(--space-16) var(--space-8)
+    padding: space(16) space(8)
 
     h2
       color: var(--c-black)
@@ -705,23 +706,23 @@ const featuredWorks = worksWithLocalImages
     p
       color: var(--c-gray-650)
       font-size: 18px
-      margin-top: var(--space-4)
-      margin-bottom: var(--space-8)
+      margin-top: space(4)
+      margin-bottom: space(8)
 
     .featured-grid
       width: 100%
       max-width: 1200px
       display: grid
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))
-      gap: var(--space-6)
+      gap: space(6)
       align-items: end
 
     @media (max-width: 768px)
-      padding: var(--space-16) var(--space-4)
+      padding: space(16) space(4)
 
       .featured-grid
         grid-template-columns: repeat(2, 1fr)
-        gap: var(--space-3)
+        gap: space(3)
 </style>
 
 <script>

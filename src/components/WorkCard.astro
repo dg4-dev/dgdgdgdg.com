@@ -115,6 +115,7 @@ const hasDataAttrs = dataWorkTitle !== undefined;
 }
 
 <style lang="sass">
+  @use '../styles/spacing' as *
   .work-card
     overflow: hidden
     background-color: var(--c-white)
@@ -136,32 +137,32 @@ const hasDataAttrs = dataWorkTitle !== undefined;
       object-fit: contain
 
   .work-card-title
-    margin: var(--space-0) var(--space-0) var(--space-2) var(--space-0)
+    margin: space(0) space(0) space(2) space(0)
     font-size: 16px
     color: var(--c-gray-800)
 
   .work-client
     color: var(--c-gray-650)
     font-size: 14px
-    margin: var(--space-1) 0
+    margin: space(1) 0
 
   .work-date
     color: var(--c-gray-650)
     font-size: 12px
-    margin-top: var(--space-1)
+    margin-top: space(1)
 
   .work-categories
     display: flex
     flex-wrap: wrap
-    gap: var(--space-2)
-    margin-top: var(--space-3)
+    gap: space(2)
+    margin-top: space(3)
 
   /* 画像以外（テキストなど）のエリアの高さをそろえる */
   .work-content
     min-height: 140px
 
   .work-category-tag
-    padding: var(--space-1) var(--space-2) var(--space-1) var(--space-2)
+    padding: space(1) space(2) space(1) space(2)
     border-radius: 4px
     font-size: 16px
     font-family: 'Zen Kaku Gothic New', sans-serif

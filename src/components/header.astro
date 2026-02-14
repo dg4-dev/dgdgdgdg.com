@@ -140,6 +140,7 @@ const isContactPage = pathname === '/contact';
 </header>
 
 <style lang="sass">
+  @use '../styles/spacing' as *
   header
     position: fixed
     top: 0
@@ -149,7 +150,7 @@ const isContactPage = pathname === '/contact';
     display: flex
     flex-direction: column
     align-items: center
-    padding: var(--space-4)
+    padding: space(4)
     pointer-events: none
 
   .header-inner
@@ -166,16 +167,16 @@ const isContactPage = pathname === '/contact';
     display: flex
     align-items: center
     justify-content: space-between
-    gap: var(--space-6)
-    padding: var(--space-3) var(--space-6)
+    gap: space(6)
+    padding: space(3) space(6)
 
   .header-left
     display: flex
     align-items: center
-    gap: var(--space-6)
+    gap: space(6)
 
   .back-to-list-row
-    padding: var(--space-3) var(--space-6)
+    padding: space(3) space(6)
     border-top: 1px solid var(--c-black-a8)
     transition: border-color 0.3s ease
 
@@ -190,26 +191,26 @@ const isContactPage = pathname === '/contact';
       color: var(--c-black)
 
   .works-controls-row, .status-row
-    padding: var(--space-3) var(--space-6)
+    padding: space(3) space(6)
     border-top: 1px solid var(--c-black-a8)
     transition: border-color 0.3s ease
 
   .works-controls
     display: flex
     flex-direction: row
-    gap: var(--space-3)
-    margin-left: var(--space-0)
+    gap: space(3)
+    margin-left: space(0)
 
   .works-control
     display: flex
     flex-direction: row
     align-items: center
-    gap: var(--space-2)
+    gap: space(2)
 
   .works-control-label
     display: flex
     align-items: center
-    gap: var(--space-1)
+    gap: space(1)
     font-size: 14px
     letter-spacing: 0.12em
     text-transform: uppercase
@@ -227,7 +228,7 @@ const isContactPage = pathname === '/contact';
     -moz-appearance: none
     font-family: 'Zen Kaku Gothic New', sans-serif
     font-size: 14px
-    padding: var(--space-1) var(--space-2)
+    padding: space(1) space(2)
     border-radius: 4px
     border: 1px solid var(--c-black-a8)
     background: linear-gradient(to bottom, var(--c-white), var(--c-gray-50))
@@ -246,7 +247,7 @@ const isContactPage = pathname === '/contact';
   .status-banner
     display: inline-flex
     align-items: center
-    padding: var(--space-2) var(--space-3)
+    padding: space(2) space(3)
     border-radius: 4px
     font-family: 'Zen Kaku Gothic New', sans-serif
 
@@ -279,10 +280,10 @@ const isContactPage = pathname === '/contact';
     &::before
       content: ''
       position: absolute
-      top: calc(var(--space-2) * -1)
-      left: calc(var(--space-2) * -1)
-      right: calc(var(--space-2) * -1)
-      bottom: calc(var(--space-2) * -1)
+      top: calc(space(2) * -1)
+      left: calc(space(2) * -1)
+      right: calc(space(2) * -1)
+      bottom: calc(space(2) * -1)
 
   .header-logo
     height: 18px
@@ -307,19 +308,19 @@ const isContactPage = pathname === '/contact';
     display: flex
     flex-direction: column
     justify-content: center
-    gap: var(--space-1)
+    gap: space(1)
     background: none
     border: none
     cursor: pointer
-    padding: var(--space-1)
+    padding: space(1)
     position: relative
     &::before
       content: ''
       position: absolute
-      top: calc(var(--space-2) * -1)
-      left: calc(var(--space-2) * -1)
-      right: calc(var(--space-2) * -1)
-      bottom: calc(var(--space-2) * -1)
+      top: calc(space(2) * -1)
+      left: calc(space(2) * -1)
+      right: calc(space(2) * -1)
+      bottom: calc(space(2) * -1)
     .hamburger-line
       display: block
       width: 18px
@@ -348,8 +349,8 @@ const isContactPage = pathname === '/contact';
     overflow: hidden
     ul
       list-style: none
-      margin: var(--space-0)
-      padding: var(--space-0) var(--space-6) var(--space-3)
+      margin: space(0)
+      padding: space(0) space(6) space(3)
       display: flex
       flex-direction: column
       font-family: 'DG4 Atomic Dot', sans-serif
@@ -357,9 +358,9 @@ const isContactPage = pathname === '/contact';
       font-weight: 400
       font-style: normal
       font-synthesis: none
-      gap: var(--space-4)
+      gap: space(4)
       border-top: 1px solid var(--c-black-a8)
-      padding-top: var(--space-3)
+      padding-top: space(3)
       li
         a
           color: var(--c-black-a60)
@@ -373,10 +374,10 @@ const isContactPage = pathname === '/contact';
           &::before
             content: ''
             position: absolute
-            top: calc(var(--space-2) * -1)
-            left: calc(var(--space-3) * -1)
-            right: calc(var(--space-3) * -1)
-            bottom: calc(var(--space-2) * -1)
+            top: calc(space(2) * -1)
+            left: calc(space(3) * -1)
+            right: calc(space(3) * -1)
+            bottom: calc(space(2) * -1)
           &:hover
             color: var(--c-black)
           &.current
@@ -386,11 +387,11 @@ const isContactPage = pathname === '/contact';
 
   @media (max-width: 768px)
     header
-      padding: var(--space-3)
+      padding: space(3)
 
     .header-bar
-      padding: var(--space-2) var(--space-5)
-      gap: var(--space-3)
+      padding: space(2) space(5)
+      gap: space(3)
 
     .header-logo
       height: 16px
@@ -402,7 +403,7 @@ const isContactPage = pathname === '/contact';
       font-style: normal
 
     .back-to-list-row
-      padding: var(--space-2) var(--space-5)
+      padding: space(2) space(5)
 
     .back-to-list
       font-size: 12px
@@ -413,8 +414,8 @@ const isContactPage = pathname === '/contact';
 
     .dropdown
       ul
-        padding: var(--space-2) var(--space-5) var(--space-3)
-        gap: var(--space-3)
+        padding: space(2) space(5) space(3)
+        gap: space(3)
         font-variation-settings: 'RNDS' 0, 'slnt' 0
         font-style: normal
         li
@@ -424,7 +425,7 @@ const isContactPage = pathname === '/contact';
             font-style: normal
 
     .works-controls-row, .status-row
-      padding: var(--space-2) var(--space-5)
+      padding: space(2) space(5)
 
     .works-controls
       flex-wrap: wrap
@@ -433,7 +434,7 @@ const isContactPage = pathname === '/contact';
 
     .works-control
       width: 100%
-      gap: var(--space-0)
+      gap: space(0)
       justify-content: space-between
 
     .works-control-label
