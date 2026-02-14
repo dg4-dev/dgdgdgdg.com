@@ -89,7 +89,10 @@ import ContactCTA from '@/components/ContactCTA.astro';
 
   .section-title
     color: var(--c-white)
-    font-size: 24px
+    font-size: var(--type-h2-size)
+    font-family: var(--font-heading)
+    font-weight: var(--type-h2-weight)
+    line-height: var(--type-h2-line)
     letter-spacing: 0.08em
     margin-bottom: space(8)
 
@@ -100,8 +103,8 @@ import ContactCTA from '@/components/ContactCTA.astro';
 
   .intro-text
     p
-      font-size: 16px
-      line-height: 2.2
+      font-size: var(--type-body-size)
+      line-height: var(--type-body-line)
       text-align: justify
       letter-spacing: 0.04em
       &:not(:first-child)
@@ -123,7 +126,8 @@ import ContactCTA from '@/components/ContactCTA.astro';
       padding-left: space(6)
 
     li
-      font-size: 16px
+      font-size: var(--type-body-size)
+      line-height: var(--type-body-line)
       letter-spacing: 0.04em
       padding: space(2) 0
 
@@ -160,16 +164,18 @@ import ContactCTA from '@/components/ContactCTA.astro';
 
   dt
     color: var(--c-gray-500)
-    font-size: 14px
-    font-family: 'Zen Kaku Gothic New', sans-serif
-    font-weight: 500
+    font-size: var(--type-caption-size)
+    font-family: var(--font-ui)
+    font-weight: var(--type-body-weight)
+    line-height: var(--type-caption-line)
     letter-spacing: 0.06em
     min-width: 72px
     flex-shrink: 0
 
   dd
     color: var(--c-white)
-    font-size: 16px
+    font-size: var(--type-body-size)
+    line-height: var(--type-body-line)
     letter-spacing: 0.04em
 
   @media (max-width: 768px)
@@ -178,13 +184,13 @@ import ContactCTA from '@/components/ContactCTA.astro';
       gap: space(16)
 
     .section-title
-      font-size: 20px
+      font-size: var(--type-h3-size)
       margin-bottom: space(6)
 
     .intro-text
       p
-        font-size: 15px
-        line-height: 2
+        font-size: var(--type-body-size)
+        line-height: var(--type-body-line)
         &:not(:first-child)
           margin-top: space(5)
 
@@ -192,7 +198,7 @@ import ContactCTA from '@/components/ContactCTA.astro';
       gap: space(6)
 
     dt
-      font-size: 13px
+      font-size: var(--type-caption-size)
       min-width: 64px
 
     .profile-content
@@ -203,5 +209,5 @@ import ContactCTA from '@/components/ContactCTA.astro';
       height: 120px
 
     dd
-      font-size: 15px
+      font-size: var(--type-body-size)
 </style>

@@ -183,15 +183,17 @@ const socialLinks = [
 
   .contact-title
     color: var(--c-white)
-    font-size: 48px
-    font-weight: 900
+    font-size: var(--type-display-size)
+    font-family: var(--font-heading)
+    font-weight: var(--type-display-weight)
+    line-height: var(--type-display-line)
     letter-spacing: 0.08em
     margin-bottom: space(6)
 
   .contact-description
     color: var(--c-white)
-    font-size: 16px
-    line-height: 2
+    font-size: var(--type-body-size)
+    line-height: var(--type-body-line)
     letter-spacing: 0.04em
 
   .primary-contacts
@@ -242,9 +244,10 @@ const socialLinks = [
       display: block
 
   .social-name
-    font-family: 'Zen Kaku Gothic New', sans-serif
-    font-size: 15px
-    font-weight: 500
+    font-family: var(--font-ui)
+    font-size: var(--type-body-size)
+    font-weight: var(--type-body-weight)
+    line-height: var(--type-body-line)
     letter-spacing: 0.06em
     flex: 1
 
@@ -267,10 +270,10 @@ const socialLinks = [
       margin-bottom: space(12)
 
     .contact-title
-      font-size: 36px
+      font-size: var(--type-h1-size)
 
     .contact-description
-      font-size: 15px
+      font-size: var(--type-body-size)
 
     .primary-contacts
       grid-template-columns: 1fr

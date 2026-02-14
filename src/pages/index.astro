@@ -211,14 +211,15 @@ const featuredWorks = worksWithLocalImages
     padding: space(2) space(4)
     border-radius: 999px
     border: 1px solid currentColor
-    font-size: 14px
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
     letter-spacing: 0.06em
     text-decoration: none
     transition: background-color 0.2s ease, color 0.2s ease
 
     &::after
       content: '→'
-      font-size: 12px
+      font-size: var(--type-caption-size)
 
   .about .section-link
     color: var(--c-white)
@@ -276,12 +277,13 @@ const featuredWorks = worksWithLocalImages
 
   .scroll-text
     color: var(--c-white)
-    font-family: 'DG4 Atomic Dot', sans-serif
+    font-family: var(--font-display)
     font-variation-settings: 'RNDS' 0, 'slnt' 0
-    font-weight: 400
+    font-weight: var(--type-body-weight)
     font-style: normal
     font-synthesis: none
-    font-size: 12px
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
     transform: translateY(1.2px)
 
   .scroll-line
@@ -307,9 +309,9 @@ const featuredWorks = worksWithLocalImages
     top: 0
     left: 0
     pointer-events: none
-    font-family: 'DG4 Atomic Dot', sans-serif
+    font-family: var(--font-display)
     font-variation-settings: 'RNDS' 0, 'slnt' 0
-    font-weight: 400
+    font-weight: var(--type-body-weight)
     font-style: normal
     font-synthesis: none
 
@@ -330,8 +332,8 @@ const featuredWorks = worksWithLocalImages
     transform: translateY(0.5vw)
 
   .orbit-item[data-orbit="3"] .phrase
-    font-family: 'Zen Kaku Gothic New', serif
-    font-weight: 900
+    font-family: var(--font-heading)
+    font-weight: var(--type-h1-weight)
     font-size: 2.56vw
     transform: translateY(0.256vw)
 
@@ -357,8 +359,9 @@ const featuredWorks = worksWithLocalImages
     top: 50%
     left: 50%
     color: var(--c-gray-500)
-    font-family: 'Zen Old Mincho', serif
-    font-size: 16px
+    font-family: var(--font-body)
+    font-size: var(--type-body-size)
+    line-height: var(--type-body-line)
     white-space: nowrap
     transform-origin: center
     animation: satellite-orbit 10s linear infinite
@@ -533,13 +536,13 @@ const featuredWorks = worksWithLocalImages
       font-variation-settings: 'RNDS' 0, 'slnt' 0
       font-style: normal
     .phrase
-      font-size: 24px
+      font-size: var(--type-display-size)
       transform: translateY(2.4px)
       font-variation-settings: 'RNDS' 0, 'slnt' 0
       font-style: normal
 
     .satellite
-      font-size: 14px
+      font-size: var(--type-caption-size)
       font-variation-settings: 'RNDS' 0, 'slnt' 0
       font-style: normal
 
@@ -623,7 +626,10 @@ const featuredWorks = worksWithLocalImages
       grid-column: 2
       grid-row: 1
       color: var(--c-white)
-      font-size: 40px
+      font-size: var(--type-h1-size)
+      font-family: var(--font-heading)
+      font-weight: var(--type-h1-weight)
+      line-height: var(--type-h1-line)
       letter-spacing: 0.08em
 
     .about-logo
@@ -644,9 +650,9 @@ const featuredWorks = worksWithLocalImages
       max-width: 560px
       p
         color: var(--c-gray-500)
-        font-size: 16px
+        font-size: var(--type-body-size)
         margin-top: space(6)
-        line-height: 2.2
+        line-height: var(--type-body-line)
         text-align: justify
         letter-spacing: 0.04em
 
@@ -662,7 +668,8 @@ const featuredWorks = worksWithLocalImages
         padding-left: space(6)
 
       li
-        font-size: 16px
+        font-size: var(--type-body-size)
+        line-height: var(--type-body-line)
         letter-spacing: 0.04em
         padding: space(2) 0
 
@@ -673,7 +680,7 @@ const featuredWorks = worksWithLocalImages
       padding: space(16) space(6)
       gap: space(12)
       .about-title
-        font-size: 28px
+        font-size: var(--type-h2-size)
         text-align: center
         order: 1
       .about-logo
@@ -686,9 +693,9 @@ const featuredWorks = worksWithLocalImages
         order: 3
         max-width: 100%
         p
-          font-size: 15px
+          font-size: var(--type-body-size)
           margin-top: space(5)
-          line-height: 2
+          line-height: var(--type-body-line)
 
   .featured-works
     background-color: var(--c-white)
@@ -701,11 +708,15 @@ const featuredWorks = worksWithLocalImages
 
     h2
       color: var(--c-black)
-      font-size: 48px
+      font-size: var(--type-display-size)
+      font-family: var(--font-heading)
+      font-weight: var(--type-display-weight)
+      line-height: var(--type-display-line)
 
     p
       color: var(--c-gray-650)
-      font-size: 18px
+      font-size: var(--type-h3-size)
+      line-height: var(--type-h3-line)
       margin-top: space(4)
       margin-bottom: space(8)
 

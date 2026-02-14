@@ -271,14 +271,14 @@ const uniqueCategories = Array.from(allCategories).sort();
 
   .works-note
     margin: space(0) space(0) space(4) space(0)
-    font-size: 0.9rem
+    font-size: var(--type-body-size)
     color: var(--c-gray-650)
-    line-height: 1.6
+    line-height: var(--type-body-line)
 
   @media (max-width: 768px)
     .works-note
       margin-bottom: space(3)
-      font-size: 0.85rem
+      font-size: var(--type-caption-size)
 
   .works-grid
     display: grid
@@ -306,7 +306,7 @@ const uniqueCategories = Array.from(allCategories).sort();
       background: var(--c-gray-100)
       border-radius: 4px
       overflow-x: auto
-      font-size: 0.85rem
+      font-size: var(--type-caption-size)
 </style>
 
 <script is:inline>

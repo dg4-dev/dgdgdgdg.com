@@ -56,25 +56,26 @@ import Footer from '@/components/footer.astro';
 
   .error-code
     color: var(--c-white)
-    font-family: 'Zen Kaku Gothic New', sans-serif
+    font-family: var(--font-heading)
     font-size: clamp(120px, 20vw, 240px)
-    font-weight: 900
+    font-weight: var(--type-h1-weight)
     letter-spacing: 0.08em
     line-height: 1
     margin-bottom: space(8)
 
   .not-found-message
     color: var(--c-white)
-    font-size: 18px
-    font-weight: 500
+    font-size: var(--type-h3-size)
+    font-family: var(--font-ui)
+    font-weight: var(--type-body-weight)
     letter-spacing: 0.06em
     margin-bottom: space(3)
 
   .not-found-sub
     color: var(--c-gray-650)
-    font-size: 14px
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
     letter-spacing: 0.04em
-    line-height: 1.8
     margin-bottom: space(12)
 
   .back-link
@@ -87,9 +88,10 @@ import Footer from '@/components/footer.astro';
     border-radius: 100px
     text-decoration: none
     color: var(--c-white-a70)
-    font-family: 'Zen Kaku Gothic New', sans-serif
-    font-size: 14px
-    font-weight: 500
+    font-family: var(--font-ui)
+    font-size: var(--type-caption-size)
+    font-weight: var(--type-body-weight)
+    line-height: var(--type-caption-line)
     letter-spacing: 0.06em
     transition: all 0.3s ease
     &:hover
@@ -117,13 +119,13 @@ import Footer from '@/components/footer.astro';
       padding: space(16) space(6) space(16)
 
     .not-found-message
-      font-size: 16px
+      font-size: var(--type-body-size)
 
     .not-found-sub
-      font-size: 13px
+      font-size: var(--type-caption-size)
       margin-bottom: space(8)
 
     .back-link
       padding: space(3) space(6)
-      font-size: 13px
+      font-size: var(--type-caption-size)
 </style>
