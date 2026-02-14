@@ -59,6 +59,9 @@
   @each $n in (0, 1, 2, 3, 4, 5, 6, 8, 12, 16)
     --space-#{$n}: #{space($n)}
 
+  // ヘッダー高さ（JSで動的更新）
+  --header-height: 0px
+
 // My Font
 @font-face
   font-family: 'DG4 Atomic Dot'
@@ -70,6 +73,7 @@
 // Global Styles
 
 body
+  background-color: var(--c-black)
   font-family: 'Zen Old Mincho', serif
 
   h1, h2, h3, h4, h5, h6, .title
@@ -87,6 +91,7 @@ body
 
 main
   min-height: 100vh
+  padding-top: var(--header-height, 0) !important
 
 // スマホで Variable Font (Atomic Dot) の SLNT が効かなくなるのを防ぐ
 // reset.css の all:unset や iOS の継承バグを上書きし、使用箇所と子要素に明示指定

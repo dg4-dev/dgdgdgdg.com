@@ -256,6 +256,7 @@ const uniqueCategories = Array.from(allCategories).sort();
 <style lang="sass">
   @use '../../styles/spacing' as *
   main
+    background-color: var(--c-gray-50)
     margin: space(0)
     padding: space(0)
 
@@ -263,7 +264,6 @@ const uniqueCategories = Array.from(allCategories).sort();
     width: 100%
     max-width: 1200px
     margin: space(0) auto
-    padding: space(16) space(8)
 
   @media (max-width: 768px)
     .works-inner
