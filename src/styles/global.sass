@@ -50,6 +50,30 @@
   // ヘッダー高さ（JSで動的更新）
   --header-height: 0px
 
+  // Typography (dg4-system/typography/docs/README.md)
+  --font-display: 'DG4 Atomic Dot', system-ui, sans-serif
+  --font-heading: 'Zen Kaku Gothic New', system-ui, sans-serif
+  --font-ui: 'Zen Kaku Gothic New', system-ui, sans-serif
+  --font-body: 'Zen Old Mincho', system-ui, serif
+  --type-display-size: 2.4rem
+  --type-display-weight: 900
+  --type-display-line: 1.4
+  --type-h1-size: 2rem
+  --type-h1-weight: 900
+  --type-h1-line: 1.4
+  --type-h2-size: 1.6rem
+  --type-h2-weight: 700
+  --type-h2-line: 1.4
+  --type-h3-size: 1.2rem
+  --type-h3-weight: 700
+  --type-h3-line: 1.4
+  --type-body-size: 1rem
+  --type-body-weight: 400
+  --type-body-line: 1.4
+  --type-caption-size: 0.8rem
+  --type-caption-weight: 400
+  --type-caption-line: 1.4
+
 // My Font
 @font-face
   font-family: 'DG4 Atomic Dot'
@@ -62,11 +86,26 @@
 
 body
   background-color: var(--c-black)
-  font-family: 'Zen Old Mincho', serif
+  font-family: var(--font-body)
+  font-size: var(--type-body-size)
+  font-weight: var(--type-body-weight)
+  line-height: var(--type-body-line)
 
-  h1, h2, h3, h4, h5, h6, .title
-    font-family: 'Zen Kaku Gothic New', sans-serif
-    font-weight: 900
+  h1
+    font-family: var(--font-heading)
+    font-size: var(--type-h1-size)
+    font-weight: var(--type-h1-weight)
+    line-height: var(--type-h1-line)
+  h2
+    font-family: var(--font-heading)
+    font-size: var(--type-h2-size)
+    font-weight: var(--type-h2-weight)
+    line-height: var(--type-h2-line)
+  h3, h4, h5, h6, .title
+    font-family: var(--font-heading)
+    font-size: var(--type-h3-size)
+    font-weight: var(--type-h3-weight)
+    line-height: var(--type-h3-line)
 
 // 本文エリアの ul/ol のみリストマークを復元（reset.css の list-style: none を上書き）
 .work-content

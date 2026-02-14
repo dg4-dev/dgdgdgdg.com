@@ -76,16 +76,16 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
         a
           color: var(--c-white-a50)
           text-decoration: none
-          font-family: 'DG4 Atomic Dot', sans-serif
+          font-family: var(--font-display)
           font-variation-settings: "RNDS" 0, "slnt" 0
-          font-size: 16px
-          font-weight: 400
+          font-size: var(--type-body-size)
+          font-weight: var(--type-body-weight)
           transition: color 0.3s ease
           &:hover
             color: var(--c-white)
           &.current
             color: var(--c-accent)
-            font-weight: 900
+            font-weight: var(--type-display-weight)
 
   .footer-bottom
     border-top: 1px solid var(--c-white-a6)
@@ -93,7 +93,8 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 
   .copyright
     color: var(--c-white-a30)
-    font-size: 12px
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
     letter-spacing: 0.06em
 
   @media (max-width: 768px)
@@ -116,11 +117,11 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
         gap: space(6)
         li
           a
-            font-size: 12px
+            font-size: var(--type-caption-size)
 
     .footer-bottom
       padding-top: space(5)
 
     .copyright
-      font-size: 11px
+      font-size: var(--type-caption-size)
 </style>
