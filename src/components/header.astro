@@ -3,9 +3,10 @@ import { ArrowUpDown, Filter, LayoutGrid } from '@lucide/astro';
 
 interface Props {
   pageName?: string;
+  status?: 'open' | 'limited' | 'closed' | 'unknown';
 }
 
-const { pageName } = Astro.props;
+const { pageName, status } = Astro.props;
 
 const navItems = [
   { label: 'Works', href: '/works' },
