@@ -30,6 +30,7 @@ This is the source code for **dgdgdgdg.com**, a personal website built with Astr
 ## ⚡ Quick Start
 
 ### Prerequisites
+
 - [Bun](https://bun.sh/) (latest version)
 
 ### Installation & Run
@@ -73,8 +74,8 @@ src/
 
 ## 📜 Scripts
 
-| Command | Description |
-| :--- | :--- |
-| `bun run dev` | Start development server |
-| `bun run build` | Build for production |
-| `bun run preview` | Preview build locally |
+| Command                         | Description                 |
+| :------------------------------ | :-------------------------- |
+| `bun run dev`                   | Start development server    |
+| `bun run build`                 | Build for production        |
+| `bunx wrangler pages dev dist/` | Preview build with Wrangler |

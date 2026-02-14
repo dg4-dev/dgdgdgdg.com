@@ -76,21 +76,25 @@ import ContactCTA from '@/components/ContactCTA.astro';
 </BaseLayout>
 
 <style lang="sass">
+  @use '../styles/spacing' as *
   main
     background-color: var(--c-black)
     color: var(--c-white)
     min-height: 100vh
-    padding: 160px 80px 120px
+    padding: space(16) space(16) space(16)
     display: flex
     flex-direction: column
     align-items: center
-    gap: 100px
+    gap: space(16)
 
   .section-title
     color: var(--c-white)
-    font-size: 24px
+    font-size: var(--type-h2-size)
+    font-family: var(--font-heading)
+    font-weight: var(--type-h2-weight)
+    line-height: var(--type-h2-line)
     letter-spacing: 0.08em
-    margin-bottom: 32px
+    margin-bottom: space(8)
 
   // Intro
   .about-intro
@@ -99,12 +103,12 @@ import ContactCTA from '@/components/ContactCTA.astro';
 
   .intro-text
     p
-      font-size: 16px
-      line-height: 2.2
+      font-size: var(--type-body-size)
+      line-height: var(--type-body-line)
       text-align: justify
       letter-spacing: 0.04em
       &:not(:first-child)
-        margin-top: 24px
+        margin-top: space(6)
 
   // Activities
   .about-activities
@@ -112,19 +116,20 @@ import ContactCTA from '@/components/ContactCTA.astro';
     max-width: 720px
 
   .activity-tree
-    margin: 0
-    padding: 0
-    padding-left: 1.5em
+    margin: space(0)
+    padding: space(0)
+    padding-left: space(6)
 
     ul
-      margin: 0
-      padding: 0
-      padding-left: 1.5em
+      margin: space(0)
+      padding: space(0)
+      padding-left: space(6)
 
     li
-      font-size: 16px
+      font-size: var(--type-body-size)
+      line-height: var(--type-body-line)
       letter-spacing: 0.04em
-      padding: 6px 0
+      padding: space(2) 0
 
   // Profile
   .about-profile
@@ -134,7 +139,7 @@ import ContactCTA from '@/components/ContactCTA.astro';
   .profile-content
     display: flex
     align-items: flex-start
-    gap: 40px
+    gap: space(8)
 
   .profile-image
     display: block
@@ -145,53 +150,55 @@ import ContactCTA from '@/components/ContactCTA.astro';
     flex-shrink: 0
 
   .profile-list
-    margin: 0
+    margin: space(0)
     flex: 1
 
   .profile-row
     display: flex
     align-items: baseline
-    gap: 40px
-    padding: 16px 0
+    gap: space(8)
+    padding: space(4) 0
     border-top: 1px solid var(--c-white-a8)
     &:last-child
       border-bottom: 1px solid var(--c-white-a8)
 
   dt
-    color: var(--c-gray-550)
-    font-size: 14px
-    font-family: 'Zen Kaku Gothic New', sans-serif
-    font-weight: 500
+    color: var(--c-gray-500)
+    font-size: var(--type-caption-size)
+    font-family: var(--font-ui)
+    font-weight: var(--type-body-weight)
+    line-height: var(--type-caption-line)
     letter-spacing: 0.06em
     min-width: 72px
     flex-shrink: 0
 
   dd
     color: var(--c-white)
-    font-size: 16px
+    font-size: var(--type-body-size)
+    line-height: var(--type-body-line)
     letter-spacing: 0.04em
 
   @media (max-width: 768px)
     main
-      padding: 120px 24px 80px
-      gap: 80px
+      padding: space(16) space(6) space(16)
+      gap: space(16)
 
     .section-title
-      font-size: 20px
-      margin-bottom: 24px
+      font-size: var(--type-h3-size)
+      margin-bottom: space(6)
 
     .intro-text
       p
-        font-size: 15px
-        line-height: 2
+        font-size: var(--type-body-size)
+        line-height: var(--type-body-line)
         &:not(:first-child)
-          margin-top: 20px
+          margin-top: space(5)
 
     .profile-row
-      gap: 24px
+      gap: space(6)
 
     dt
-      font-size: 13px
+      font-size: var(--type-caption-size)
       min-width: 64px
 
     .profile-content
@@ -202,5 +209,5 @@ import ContactCTA from '@/components/ContactCTA.astro';
       height: 120px
 
     dd
-      font-size: 15px
+      font-size: var(--type-body-size)
 </style>
