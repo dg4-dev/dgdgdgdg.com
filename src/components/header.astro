@@ -450,11 +450,26 @@ const isContactPage = pathname === '/contact';
 </style>
 
 <script>
+  function setHeaderHeight() {
+    const header = document.querySelector('header');
+    if (!header) return;
+    document.documentElement.style.setProperty('--header-height', `${header.getBoundingClientRect().height}px`);
+  }
+
   function initHeader() {
     const btn = document.querySelector('.hamburger');
     const wrapper = document.querySelector('.dropdown-wrapper');
     const inner = document.querySelector('.header-inner');
     if (!btn || !wrapper || !inner) return;
+
+    const DROPDOWN_DURATION_MS = 320;
+
+    function tickHeaderHeightUntil(endTime: number) {
+      setHeaderHeight();
+      if (performance.now() < endTime) {
+        requestAnimationFrame(() => tickHeaderHeightUntil(endTime));
+      }
+    }
 
     function close() {
       btn!.setAttribute('aria-expanded', 'false');
@@ -462,6 +477,7 @@ const isContactPage = pathname === '/contact';
       wrapper!.classList.remove('open');
       wrapper!.setAttribute('aria-hidden', 'true');
       inner!.classList.remove('open');
+      tickHeaderHeightUntil(performance.now() + DROPDOWN_DURATION_MS);
     }
 
     btn.addEventListener('click', () => {
@@ -471,6 +487,7 @@ const isContactPage = pathname === '/contact';
       wrapper.classList.toggle('open', !expanded);
       wrapper.setAttribute('aria-hidden', String(expanded));
       inner.classList.toggle('open', !expanded);
+      tickHeaderHeightUntil(performance.now() + DROPDOWN_DURATION_MS);
     });
 
     document.addEventListener('click', (e: Event) => {
@@ -524,10 +541,18 @@ const isContactPage = pathname === '/contact';
     }
   }
 
+  setHeaderHeight();
+  const headerEl = document.querySelector('header');
+  if (headerEl) {
+    new ResizeObserver(setHeaderHeight).observe(headerEl);
+  }
+  window.addEventListener('resize', setHeaderHeight);
+
   initHeader();
   initCategoryFilter();
 
   document.addEventListener('astro:after-swap', () => {
+    setHeaderHeight();
     resetHeaderVisibility();
     initHeader();
     initCategoryFilter();
