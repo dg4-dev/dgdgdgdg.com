@@ -111,7 +111,6 @@ const isContactPage = pathname === '/contact';
               },
             ]}
           >
-            <span class="status-indicator"></span>
             <span class="status-message">
               {status === 'open' && '現在、通常通りご依頼をお受けできます。'}
               {status === 'limited' && '現在、内容によってはお時間をいただく場合があります。'}
@@ -247,17 +246,10 @@ const isContactPage = pathname === '/contact';
   .status-banner
     display: inline-flex
     align-items: center
-    gap: 8px
     padding: 6px 12px
     border-radius: 999px
     letter-spacing: 0.08em
     font-family: 'Zen Kaku Gothic New', sans-serif
-
-  .status-indicator
-    width: 8px
-    height: 8px
-    border-radius: 50%
-    flex-shrink: 0
 
   .status-message
     font-weight: 400
@@ -266,26 +258,18 @@ const isContactPage = pathname === '/contact';
   .status-banner--open
     background: var(--c-status-open-bg)
     color: var(--c-status-open)
-    .status-indicator
-      background: var(--c-status-open)
 
   .status-banner--limited
     background: var(--c-status-limited-bg)
     color: var(--c-status-limited)
-    .status-indicator
-      background: var(--c-status-limited)
 
   .status-banner--closed
     background: var(--c-status-closed-bg)
     color: var(--c-status-closed)
-    .status-indicator
-      background: var(--c-status-closed)
 
   .status-banner--unknown
     background: var(--c-white-a6)
     color: var(--c-black-a80)
-    .status-indicator
-      background: var(--c-black-a80)
 
   .header-logo-link
     display: flex
