@@ -37,28 +37,6 @@ try {
   status = 'unknown';
 }
 
-let statusLabel = '';
-let statusMessage = '';
-let statusClass = '';
-
-if (status === 'open') {
-  statusLabel = 'STATUS: OPEN';
-  statusMessage = '現在、通常通りご依頼をお受けできます。';
-  statusClass = 'status-banner--open';
-} else if (status === 'limited') {
-  statusLabel = 'STATUS: LIMITED';
-  statusMessage = '現在、内容によってはお時間をいただく場合があります。';
-  statusClass = 'status-banner--limited';
-} else if (status === 'closed') {
-  statusLabel = 'STATUS: CLOSED';
-  statusMessage = '現在、新規のご依頼受付を停止しています。';
-  statusClass = 'status-banner--closed';
-} else {
-  statusLabel = 'STATUS: UNKNOWN';
-  statusMessage = 'ステータスを取得できませんでした（暫定: LIMITED）。';
-  statusClass = 'status-banner--limited';
-}
-
 const socialLinks = [
   {
     name: 'X',
@@ -104,16 +82,12 @@ const socialLinks = [
   keywords="contact, SNS, dgdgdgdg"
 >
   <Fragment slot="head"> </Fragment>
-  <Header />
+  <Header status={status} />
   <main>
     <section class="contact-hero">
       <p class="contact-description">
         お仕事のご依頼・ご相談は、Messenger・メール<br />または各SNSからお気軽にどうぞ。
       </p>
-      <div class={`status-banner ${statusClass}`}>
-        <span class="status-indicator" aria-label={statusLabel} title={statusLabel}></span>
-        <span class="status-message">{statusMessage}</span>
-      </div>
     </section>
 
     <section class="primary-contacts">
@@ -203,52 +177,8 @@ const socialLinks = [
 
   .contact-hero
     text-align: center
-    margin-bottom: 80px
+    margin-bottom: 64px
     max-width: 600px
-
-  .status-banner
-    display: inline-flex
-    align-items: center
-    gap: 8px
-    padding: 6px 12px
-    border-radius: 999px
-    letter-spacing: 0.08em
-    background: var(--c-white-a6)
-    color: var(--c-black)
-    font-family: 'Zen Kaku Gothic New', sans-serif
-
-  .status-indicator
-    width: 8px
-    height: 8px
-    border-radius: 50%
-    flex-shrink: 0
-
-  .status-message
-    font-weight: 400
-
-  .status-banner--open
-    background: var(--c-status-open-bg)
-    color: var(--c-status-open)
-    .status-indicator
-      background: var(--c-status-open)
-
-  .status-banner--limited
-    background: var(--c-status-limited-bg)
-    color: var(--c-status-limited)
-    .status-indicator
-      background: var(--c-status-limited)
-
-  .status-banner--closed
-    background: var(--c-status-closed-bg)
-    color: var(--c-status-closed)
-    .status-indicator
-      background: var(--c-status-closed)
-
-  .status-banner--unknown
-    background: var(--c-white-a6)
-    color: var(--c-white-a80)
-    .status-indicator
-      background: var(--c-white-a80)
 
   .contact-title
     color: var(--c-white)
@@ -262,7 +192,6 @@ const socialLinks = [
     font-size: 16px
     line-height: 2
     letter-spacing: 0.04em
-    margin-bottom: 20px
 
   .primary-contacts
     display: grid
