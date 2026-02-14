@@ -37,28 +37,6 @@ try {
   status = 'unknown';
 }
 
-let statusLabel = '';
-let statusMessage = '';
-let statusClass = '';
-
-if (status === 'open') {
-  statusLabel = 'STATUS: OPEN';
-  statusMessage = '現在、通常通りご依頼をお受けできます。';
-  statusClass = 'status-banner--open';
-} else if (status === 'limited') {
-  statusLabel = 'STATUS: LIMITED';
-  statusMessage = '現在、内容によってはお時間をいただく場合があります。';
-  statusClass = 'status-banner--limited';
-} else if (status === 'closed') {
-  statusLabel = 'STATUS: CLOSED';
-  statusMessage = '現在、新規のご依頼受付を停止しています。';
-  statusClass = 'status-banner--closed';
-} else {
-  statusLabel = 'STATUS: UNKNOWN';
-  statusMessage = 'ステータスを取得できませんでした（暫定: LIMITED）。';
-  statusClass = 'status-banner--limited';
-}
-
 const socialLinks = [
   {
     name: 'X',
@@ -104,16 +82,12 @@ const socialLinks = [
   keywords="contact, SNS, dgdgdgdg"
 >
   <Fragment slot="head"> </Fragment>
-  <Header />
+  <Header status={status} />
   <main>
     <section class="contact-hero">
       <p class="contact-description">
         お仕事のご依頼・ご相談は、Messenger・メール<br />または各SNSからお気軽にどうぞ。
       </p>
-      <div class={`status-banner ${statusClass}`}>
-        <span class="status-indicator" aria-label={statusLabel} title={statusLabel}></span>
-        <span class="status-message">{statusMessage}</span>
-      </div>
     </section>
 
     <section class="primary-contacts">
