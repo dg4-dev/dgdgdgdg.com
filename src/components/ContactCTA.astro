@@ -7,42 +7,47 @@
 </section>
 
 <style lang="sass">
+  @use '../styles/spacing' as *
   .contact-cta
     background-color: var(--c-black)
-    padding: 120px 80px
+    padding: space(16) space(16)
 
   .contact-cta-inner
     max-width: 1200px
-    margin: 0 auto
+    margin: space(0) auto
     display: flex
     flex-direction: column
     align-items: center
     text-align: center
-    gap: 24px
+    gap: space(6)
 
   .contact-cta-title
     color: var(--c-white)
-    font-size: 40px
+    font-size: var(--type-h1-size)
+    font-family: var(--font-heading)
+    font-weight: var(--type-h1-weight)
+    line-height: var(--type-h1-line)
     letter-spacing: 0.08em
 
   .contact-cta-description
     color: var(--c-gray-500)
-    font-size: 16px
-    line-height: 2
+    font-size: var(--type-body-size)
+    line-height: var(--type-body-line)
     letter-spacing: 0.04em
 
   .contact-cta-button
     display: inline-flex
     align-items: center
-    gap: 8px
-    margin-top: 8px
-    padding: 14px 40px
+    gap: space(2)
+    margin-top: space(2)
+    padding: space(3) space(8)
     border: 1px solid var(--c-accent)
     border-radius: 999px
     color: var(--c-accent)
-    font-family: 'Zen Kaku Gothic New', sans-serif
-    font-size: 15px
-    font-weight: 700
+    font-family: var(--font-ui)
+    font-size: var(--type-body-size)
+    font-weight: var(--type-h2-weight)
+    line-height: var(--type-body-line)
     letter-spacing: 0.08em
     text-decoration: none
     transition: background-color 0.3s ease, color 0.3s ease
@@ -53,11 +58,11 @@
 
   @media (max-width: 768px)
     .contact-cta
-      padding: 80px 24px
+      padding: space(16) space(6)
 
     .contact-cta-title
-      font-size: 32px
+      font-size: var(--type-h1-size)
 
     .contact-cta-description
-      font-size: 15px
+      font-size: var(--type-body-size)
 </style>

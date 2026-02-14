@@ -140,6 +140,7 @@ const isContactPage = pathname === '/contact';
 </header>
 
 <style lang="sass">
+  @use '../styles/spacing' as *
   header
     position: fixed
     top: 0
@@ -149,7 +150,7 @@ const isContactPage = pathname === '/contact';
     display: flex
     flex-direction: column
     align-items: center
-    padding: 16px
+    padding: space(4)
     pointer-events: none
 
   .header-inner
@@ -166,22 +167,23 @@ const isContactPage = pathname === '/contact';
     display: flex
     align-items: center
     justify-content: space-between
-    gap: 24px
-    padding: 10px 28px
+    gap: space(6)
+    padding: space(3) space(6)
 
   .header-left
     display: flex
     align-items: center
-    gap: 24px
+    gap: space(6)
 
   .back-to-list-row
-    padding: 10px 28px
+    padding: space(3) space(6)
     border-top: 1px solid var(--c-black-a8)
     transition: border-color 0.3s ease
 
   .back-to-list
     color: var(--c-black-a60)
-    font-size: 14px
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
     letter-spacing: 0.08em
     text-decoration: none
     transition: color 0.3s ease
@@ -190,27 +192,28 @@ const isContactPage = pathname === '/contact';
       color: var(--c-black)
 
   .works-controls-row, .status-row
-    padding: 10px 28px
+    padding: space(3) space(6)
     border-top: 1px solid var(--c-black-a8)
     transition: border-color 0.3s ease
 
   .works-controls
     display: flex
     flex-direction: row
-    gap: 12px
-    margin-left: 0
+    gap: space(3)
+    margin-left: space(0)
 
   .works-control
     display: flex
     flex-direction: row
     align-items: center
-    gap: 8px
+    gap: space(2)
 
   .works-control-label
     display: flex
     align-items: center
-    gap: 4px
-    font-size: 14px
+    gap: space(1)
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
     letter-spacing: 0.12em
     text-transform: uppercase
     color: var(--c-black-a60)
@@ -225,9 +228,10 @@ const isContactPage = pathname === '/contact';
     appearance: none
     -webkit-appearance: none
     -moz-appearance: none
-    font-family: 'Zen Kaku Gothic New', sans-serif
-    font-size: 14px
-    padding: 2px 6px
+    font-family: var(--font-ui)
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
+    padding: space(1) space(2)
     border-radius: 4px
     border: 1px solid var(--c-black-a8)
     background: linear-gradient(to bottom, var(--c-white), var(--c-gray-50))
@@ -246,13 +250,14 @@ const isContactPage = pathname === '/contact';
   .status-banner
     display: inline-flex
     align-items: center
-    padding: 6px 12px
+    padding: space(2) space(3)
     border-radius: 4px
-    font-family: 'Zen Kaku Gothic New', sans-serif
+    font-family: var(--font-ui)
 
   .status-message
-    font-weight: 400
-    font-size: 14px
+    font-weight: var(--type-body-weight)
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
 
   .status-banner--open
     background: var(--c-status-open-bg)
@@ -279,10 +284,10 @@ const isContactPage = pathname === '/contact';
     &::before
       content: ''
       position: absolute
-      top: -8px
-      left: -8px
-      right: -8px
-      bottom: -8px
+      top: calc(space(2) * -1)
+      left: calc(space(2) * -1)
+      right: calc(space(2) * -1)
+      bottom: calc(space(2) * -1)
 
   .header-logo
     height: 18px
@@ -294,10 +299,10 @@ const isContactPage = pathname === '/contact';
 
   .current-page
     color: var(--c-accent)
-    font-size: 16px
-    font-family: 'DG4 Atomic Dot', sans-serif
+    font-size: var(--type-body-size)
+    font-family: var(--font-display)
     font-variation-settings: 'RNDS' 0, 'slnt' 0
-    font-weight: 400
+    font-weight: var(--type-body-weight)
     font-style: normal
     font-synthesis: none
     white-space: nowrap
@@ -307,19 +312,19 @@ const isContactPage = pathname === '/contact';
     display: flex
     flex-direction: column
     justify-content: center
-    gap: 4px
+    gap: space(1)
     background: none
     border: none
     cursor: pointer
-    padding: 4px
+    padding: space(1)
     position: relative
     &::before
       content: ''
       position: absolute
-      top: -8px
-      left: -8px
-      right: -8px
-      bottom: -8px
+      top: calc(space(2) * -1)
+      left: calc(space(2) * -1)
+      right: calc(space(2) * -1)
+      bottom: calc(space(2) * -1)
     .hamburger-line
       display: block
       width: 18px
@@ -348,24 +353,24 @@ const isContactPage = pathname === '/contact';
     overflow: hidden
     ul
       list-style: none
-      margin: 0
-      padding: 0 28px 12px
+      margin: space(0)
+      padding: space(0) space(6) space(3)
       display: flex
       flex-direction: column
-      font-family: 'DG4 Atomic Dot', sans-serif
+      font-family: var(--font-display)
       font-variation-settings: 'RNDS' 0, 'slnt' 0
-      font-weight: 400
+      font-weight: var(--type-body-weight)
       font-style: normal
       font-synthesis: none
-      gap: 16px
+      gap: space(4)
       border-top: 1px solid var(--c-black-a8)
-      padding-top: 10px
+      padding-top: space(3)
       li
         a
           color: var(--c-black-a60)
           text-decoration: none
-          font-weight: 500
-          font-size: 16px
+          font-weight: var(--type-h2-weight)
+          font-size: var(--type-body-size)
           transition: color 0.3s ease
           position: relative
           display: inline-block
@@ -373,39 +378,39 @@ const isContactPage = pathname === '/contact';
           &::before
             content: ''
             position: absolute
-            top: -6px
-            left: -12px
-            right: -12px
-            bottom: -6px
+            top: calc(space(2) * -1)
+            left: calc(space(3) * -1)
+            right: calc(space(3) * -1)
+            bottom: calc(space(2) * -1)
           &:hover
             color: var(--c-black)
           &.current
             color: var(--c-accent)
-            font-weight: 700
+            font-weight: var(--type-h2-weight)
             pointer-events: none
 
   @media (max-width: 768px)
     header
-      padding: 12px
+      padding: space(3)
 
     .header-bar
-      padding: 8px 20px
-      gap: 12px
+      padding: space(2) space(5)
+      gap: space(3)
 
     .header-logo
       height: 16px
 
     .current-page
-      font-size: 14px
+      font-size: var(--type-caption-size)
       transform: translateY(1.1px)
       font-variation-settings: 'RNDS' 0, 'slnt' 0
       font-style: normal
 
     .back-to-list-row
-      padding: 8px 20px
+      padding: space(2) space(5)
 
     .back-to-list
-      font-size: 12px
+      font-size: var(--type-caption-size)
 
     .hamburger
       .hamburger-line
@@ -413,8 +418,8 @@ const isContactPage = pathname === '/contact';
 
     .dropdown
       ul
-        padding: 8px 20px 10px
-        gap: 12px
+        padding: space(2) space(5) space(3)
+        gap: space(3)
         font-variation-settings: 'RNDS' 0, 'slnt' 0
         font-style: normal
         li
@@ -424,7 +429,7 @@ const isContactPage = pathname === '/contact';
             font-style: normal
 
     .works-controls-row, .status-row
-      padding: 8px 20px
+      padding: space(2) space(5)
 
     .works-controls
       flex-wrap: wrap
@@ -433,7 +438,7 @@ const isContactPage = pathname === '/contact';
 
     .works-control
       width: 100%
-      gap: 0px
+      gap: space(0)
       justify-content: space-between
 
     .works-control-label
@@ -449,11 +454,26 @@ const isContactPage = pathname === '/contact';
 </style>
 
 <script>
+  function setHeaderHeight() {
+    const header = document.querySelector('header');
+    if (!header) return;
+    document.documentElement.style.setProperty('--header-height', `${header.getBoundingClientRect().height}px`);
+  }
+
   function initHeader() {
     const btn = document.querySelector('.hamburger');
     const wrapper = document.querySelector('.dropdown-wrapper');
     const inner = document.querySelector('.header-inner');
     if (!btn || !wrapper || !inner) return;
+
+    const DROPDOWN_DURATION_MS = 320;
+
+    function tickHeaderHeightUntil(endTime: number) {
+      setHeaderHeight();
+      if (performance.now() < endTime) {
+        requestAnimationFrame(() => tickHeaderHeightUntil(endTime));
+      }
+    }
 
     function close() {
       btn!.setAttribute('aria-expanded', 'false');
@@ -461,6 +481,7 @@ const isContactPage = pathname === '/contact';
       wrapper!.classList.remove('open');
       wrapper!.setAttribute('aria-hidden', 'true');
       inner!.classList.remove('open');
+      tickHeaderHeightUntil(performance.now() + DROPDOWN_DURATION_MS);
     }
 
     btn.addEventListener('click', () => {
@@ -470,6 +491,7 @@ const isContactPage = pathname === '/contact';
       wrapper.classList.toggle('open', !expanded);
       wrapper.setAttribute('aria-hidden', String(expanded));
       inner.classList.toggle('open', !expanded);
+      tickHeaderHeightUntil(performance.now() + DROPDOWN_DURATION_MS);
     });
 
     document.addEventListener('click', (e: Event) => {
@@ -523,10 +545,18 @@ const isContactPage = pathname === '/contact';
     }
   }
 
+  setHeaderHeight();
+  const headerEl = document.querySelector('header');
+  if (headerEl) {
+    new ResizeObserver(setHeaderHeight).observe(headerEl);
+  }
+  window.addEventListener('resize', setHeaderHeight);
+
   initHeader();
   initCategoryFilter();
 
   document.addEventListener('astro:after-swap', () => {
+    setHeaderHeight();
     resetHeaderVisibility();
     initHeader();
     initCategoryFilter();
