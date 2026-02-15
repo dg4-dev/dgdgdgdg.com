@@ -1,6 +1,6 @@
 @use 'spacing' as *
 
-// Color Variables (dg4-system/color: 729色パレット 0,4,d のみ。透明化は許可)
+// Color Variables (design-system/color: 729色パレット 0,4,d のみ。透明化は許可)
 :root
   // Core
   --c-black: #000000
@@ -43,14 +43,13 @@
   --c-status-closed: #dd4040
   --c-status-closed-bg: #4d0d0d
 
-  // Spacing (dg4-system: トークンのみ使用)
+  // Spacing (design-system: トークンのみ使用)
   @each $n in (0, 1, 2, 3, 4, 5, 6, 8, 12, 16)
     --space-#{$n}: #{space($n)}
 
   // ヘッダー高さ（JSで動的更新）
   --header-height: 0px
 
-  // Typography (dg4-system/typography/docs/README.md)
   --font-display: 'DG4 Atomic Dot', system-ui, sans-serif
   --font-heading: 'Zen Kaku Gothic New', system-ui, sans-serif
   --font-ui: 'Zen Kaku Gothic New', system-ui, sans-serif
