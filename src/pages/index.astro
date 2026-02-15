@@ -105,6 +105,17 @@ const featuredWorks = worksWithLocalImages
     <section class="hero">
       <div class="hero-content">
         <img src="/images/row.svg" alt="Logo" class="hero-logo" />
+        <div class="orbit-rings">
+          <div class="orbit-ring" data-ring="0"></div>
+          <div class="orbit-ring" data-ring="1"></div>
+          <div class="orbit-ring" data-ring="2"></div>
+          <div class="orbit-ring" data-ring="3"></div>
+          <div class="orbit-ring" data-ring="4"></div>
+          <div class="orbit-ring" data-ring="5"></div>
+          <div class="orbit-ring" data-ring="6"></div>
+          <div class="orbit-ring" data-ring="7"></div>
+          <div class="orbit-ring" data-ring="8"></div>
+        </div>
         <div class="orbiting-words">
           {
             meaningRaw.map((item, index) => (
@@ -200,6 +211,7 @@ const featuredWorks = worksWithLocalImages
   main
     margin: space(0)
     padding: space(0)
+    padding-top: space(0) !important
 
   .section-link-wrapper
     margin-top: space(6)
@@ -238,8 +250,8 @@ const featuredWorks = worksWithLocalImages
       color: var(--c-white)
 
   .hero
-    --orbit-scale-y: 0.15
-    --counter-scale-y: 6.667
+    --orbit-scale-y: -0.15
+    --counter-scale-y: -6.667
     background-color: var(--c-black)
     height: 300vh
     position: relative
@@ -261,6 +273,68 @@ const featuredWorks = worksWithLocalImages
     height: auto
     position: relative
     z-index: 10
+
+  .orbit-rings
+    position: absolute
+    width: 100%
+    height: 100%
+    top: 0
+    left: 0
+    pointer-events: none
+
+  .orbit-ring
+    position: absolute
+    top: 50%
+    left: 50%
+    border: 1px solid rgba(255, 255, 255, 0.16)
+    border-radius: 50%
+    // 各リングは width = height = radius * 2 で正円を描き、
+    // scaleY + rotate(tilt) で惑星と同じ楕円軌道になる
+
+  .orbit-ring[data-ring="0"]
+    width: 27vw
+    height: 27vw
+    transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(5deg)
+
+  .orbit-ring[data-ring="1"]
+    width: 72vw
+    height: 72vw
+    transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-2.67deg)
+
+  .orbit-ring[data-ring="2"]
+    width: 38vw
+    height: 38vw
+    transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(7.33deg)
+
+  .orbit-ring[data-ring="3"]
+    width: 120vw
+    height: 120vw
+    transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-4deg)
+
+  .orbit-ring[data-ring="4"]
+    width: 45vw
+    height: 45vw
+    transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(10deg)
+
+  .orbit-ring[data-ring="5"]
+    width: 72vw
+    height: 72vw
+    transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-6deg)
+
+  .orbit-ring[data-ring="6"]
+    width: 31vw
+    height: 31vw
+    transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(3.33deg)
+
+  .orbit-ring[data-ring="7"]
+    width: 140vw
+    height: 140vw
+    transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-8.33deg)
+
+  .orbit-ring[data-ring="8"]
+    width: 95vw
+    height: 95vw
+    transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(11.67deg)
 
   .scroll-indicator
     position: absolute
@@ -714,7 +788,7 @@ const featuredWorks = worksWithLocalImages
       line-height: var(--type-display-line)
 
     p
-      color: var(--c-gray-650)
+      color: var(--c-gray-500)
       font-size: var(--type-h3-size)
       line-height: var(--type-h3-line)
       margin-top: space(4)
@@ -738,19 +812,17 @@ const featuredWorks = worksWithLocalImages
 
 <script>
   let scrollController: AbortController | null = null;
-  let layerRafIdGlobal: number | null = null;
 
   document.addEventListener('astro:page-load', () => {
-    // 前のスクロールリスナーとレイヤー更新をクリーンアップ
+    // 前のスクロールリスナーをクリーンアップ
     scrollController?.abort();
     scrollController = null;
-    if (layerRafIdGlobal !== null) {
-      cancelAnimationFrame(layerRafIdGlobal);
-      layerRafIdGlobal = null;
-    }
 
     // 衛星アニメーションの動的設定
     const orbitItems = document.querySelectorAll('.orbit-item');
+    const orbitData = Array.from(orbitItems).map((item) => ({
+      el: item as HTMLElement,
+    }));
     orbitItems.forEach((item) => {
       const satellites = item.querySelectorAll('.satellite');
       const satelliteCount = satellites.length;
@@ -770,31 +842,6 @@ const featuredWorks = worksWithLocalImages
     const scrollIndicator = document.querySelector('.scroll-indicator') as HTMLElement;
     if (!hero || !heroContent) return;
 
-    // レイヤー管理: orbit-itemのY中心位置に応じてz-indexを切り替え
-    // .orbiting-words から transform を外したので、
-    // 各 orbit-item の z-index が .hero-logo (z-index:10) と同じコンテキストで比較される
-    // ロゴ中心より上（手前）→ z-index:15、下（奥）→ z-index:5
-    const updateOrbitLayers = () => {
-      if (!heroLogo) return;
-      const logoRect = heroLogo.getBoundingClientRect();
-      const logoCenterY = logoRect.top + logoRect.height / 2;
-
-      orbitItems.forEach((item) => {
-        const el = item as HTMLElement;
-        const rect = el.getBoundingClientRect();
-        const itemCenterY = rect.top + rect.height / 2;
-        // 下半分（Y > ロゴ中心）が手前、上半分が奥
-        if (itemCenterY > logoCenterY) {
-          el.style.zIndex = '15';
-        } else {
-          el.style.zIndex = '5';
-        }
-      });
-
-      layerRafIdGlobal = requestAnimationFrame(updateOrbitLayers);
-    };
-    layerRafIdGlobal = requestAnimationFrame(updateOrbitLayers);
-
     scrollController = new AbortController();
     let ticking = false;
 
@@ -812,8 +859,6 @@ const featuredWorks = worksWithLocalImages
         const progress = Math.min(1, scrolled / scrollableDistance);
 
         // ズームイン: 後半で指数的に加速
-        // 0-55%: scale 1 → 1.2（ゆるやか、パララックスが主役）
-        // 55-100%: scale 1.2 → 20（急加速、画面を埋め尽くす）
         let scale: number;
         if (progress < 0.55) {
           scale = 1 + (progress / 0.55) * 0.2;
@@ -825,14 +870,24 @@ const featuredWorks = worksWithLocalImages
 
         heroContent.style.transform = `scale(${scale})`;
 
-        // パララックス: scaleY 0.15 → 1.0（楕円→円の変化）
-        // 開始値を下げて変化幅を大きくすることで、
-        // ズーム加速中も十分なscaleY変化が残り、パララックスが継続して見える。
-        const scaleY = 0.15 + progress * 0.85;
+        // パララックス: scaleY -0.15 → 1.0（反転楕円→円の変化）
+        const scaleY = -0.15 + progress * 1.15;
         const counterScaleY = 1 / scaleY;
 
         hero.style.setProperty('--orbit-scale-y', String(scaleY));
         hero.style.setProperty('--counter-scale-y', String(counterScaleY));
+
+        // レイヤー管理: z-indexの前後切り替え
+        if (heroLogo) {
+          const logoRect = heroLogo.getBoundingClientRect();
+          const logoCenterY = logoRect.top + logoRect.height / 2;
+
+          orbitData.forEach(({ el }) => {
+            const itemCenterY = el.getBoundingClientRect().top + el.getBoundingClientRect().height / 2;
+            const isFront = scaleY < 0 ? itemCenterY > logoCenterY : itemCenterY < logoCenterY;
+            el.style.zIndex = isFront ? '15' : '5';
+          });
+        }
 
         // フェードアウト: 65%〜85%でopacity 1→0（黒背景だけ残す）
         let opacity: number;
