@@ -788,7 +788,7 @@ const featuredWorks = worksWithLocalImages
       line-height: var(--type-display-line)
 
     p
-      color: var(--c-gray-650)
+      color: var(--c-gray-500)
       font-size: var(--type-h3-size)
       line-height: var(--type-h3-line)
       margin-top: space(4)
@@ -884,9 +884,7 @@ const featuredWorks = worksWithLocalImages
 
           orbitData.forEach(({ el }) => {
             const itemCenterY = el.getBoundingClientRect().top + el.getBoundingClientRect().height / 2;
-            const isFront = scaleY < 0
-              ? itemCenterY > logoCenterY
-              : itemCenterY < logoCenterY;
+            const isFront = scaleY < 0 ? itemCenterY > logoCenterY : itemCenterY < logoCenterY;
             el.style.zIndex = isFront ? '15' : '5';
           });
         }

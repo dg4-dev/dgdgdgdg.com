@@ -491,7 +491,7 @@ function renderBlocks(blocks: any[]) {
 <style lang="sass">
   @use '../../../styles/spacing' as *
   main
-    background-color: var(--c-gray-50)
+    background-color: var(--c-white)
     margin: space(0)
     padding: space(0)
 
@@ -515,7 +515,7 @@ function renderBlocks(blocks: any[]) {
       .meta-item
         margin: space(2) 0
         line-height: var(--type-body-line)
-        color: var(--c-gray-650)
+        color: var(--c-gray-500)
 
         strong
           color: var(--c-gray-800)
@@ -551,9 +551,9 @@ function renderBlocks(blocks: any[]) {
   .work-summary
     margin-bottom: space(12)
     padding: space(6)
-    background: var(--c-gray-50)
+    background: var(--c-white)
     border-radius: 8px
-    border-left: 4px solid var(--c-link)
+    border-left: 4px solid var(--c-accent)
 
     p
       margin: space(0)
@@ -567,7 +567,7 @@ function renderBlocks(blocks: any[]) {
 
     :global(.work-content-empty)
       margin: space(4) 0
-      color: var(--c-gray-650)
+      color: var(--c-gray-500)
       font-size: var(--type-body-size)
 
     :global(h1),
@@ -630,7 +630,7 @@ function renderBlocks(blocks: any[]) {
         user-select: none
 
         &:hover
-          color: var(--c-link)
+          color: var(--c-accent)
 
     :global(.toggle-content)
       margin-top: space(2)
@@ -639,7 +639,7 @@ function renderBlocks(blocks: any[]) {
     :global(pre)
       margin: space(6) 0
       padding: space(4)
-      background: var(--c-gray-100)
+      background: var(--c-white)
       border-radius: 4px
       overflow-x: auto
 
@@ -648,7 +648,7 @@ function renderBlocks(blocks: any[]) {
         font-size: var(--type-body-size)
 
     :global(code)
-      background: var(--c-gray-100)
+      background: var(--c-white)
       padding: space(1) space(1)
       border-radius: 3px
       font-family: 'Courier New', monospace
@@ -669,7 +669,7 @@ function renderBlocks(blocks: any[]) {
         text-align: center
         font-size: var(--type-body-size)
         line-height: var(--type-body-line)
-        color: var(--c-gray-650)
+        color: var(--c-gray-500)
         margin-top: space(2)
 
     :global(hr)
@@ -678,7 +678,7 @@ function renderBlocks(blocks: any[]) {
       border-top: 2px solid var(--c-gray-200)
 
     :global(a)
-      color: var(--c-link)
+      color: var(--c-accent)
       text-decoration: none
 
       &:hover
@@ -692,7 +692,7 @@ function renderBlocks(blocks: any[]) {
       height: 0
       overflow: hidden
       border-radius: 4px
-      background: var(--c-gray-100)
+      background: var(--c-white)
 
       :global(iframe)
         position: absolute
@@ -716,11 +716,11 @@ function renderBlocks(blocks: any[]) {
         padding: space(8)
         text-align: center
         z-index: 0
-        color: var(--c-gray-650)
+        color: var(--c-gray-500)
 
         a
           margin-top: space(4)
-          color: var(--c-link)
+          color: var(--c-accent)
           text-decoration: none
 
           &:hover
