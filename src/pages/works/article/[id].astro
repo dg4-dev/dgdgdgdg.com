@@ -593,9 +593,6 @@ function renderBlocks(blocks: any[]) {
     color: var(--c-gray-800)
     transition: color 0.3s ease
 
-  :global([data-works-dark] .work-content)
-    color: var(--c-gray-200)
-
     :global(.work-content-empty)
       margin: space(4) 0
       color: var(--c-gray-400)
@@ -607,11 +604,6 @@ function renderBlocks(blocks: any[]) {
       margin: space(8) 0 space(4)
       color: var(--c-gray-925)
       transition: color 0.3s ease
-
-  :global([data-works-dark] .work-content) :global(h1),
-  :global([data-works-dark] .work-content) :global(h2),
-  :global([data-works-dark] .work-content) :global(h3)
-    color: var(--c-gray-200)
 
     :global(p)
       margin: space(4) 0
@@ -698,6 +690,7 @@ function renderBlocks(blocks: any[]) {
         border-radius: 4px
 
       :global(video)
+        width: 100%
         max-width: 100%
         border-radius: 4px
         display: block
@@ -863,4 +856,12 @@ function renderBlocks(blocks: any[]) {
           height: 100%
           object-fit: cover
           display: block
+
+  :global([data-works-dark] .work-content)
+    color: var(--c-gray-200)
+
+  :global([data-works-dark] .work-content) :global(h1),
+  :global([data-works-dark] .work-content) :global(h2),
+  :global([data-works-dark] .work-content) :global(h3)
+    color: var(--c-gray-200)
 </style>
