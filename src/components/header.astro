@@ -1,5 +1,5 @@
 ---
-import { ArrowUpDown, Filter, LayoutGrid } from '@lucide/astro';
+import { ArrowUpDown, Filter, LayoutGrid, Sun, Moon } from '@lucide/astro';
 
 interface Props {
   pageName?: string;
@@ -56,6 +56,16 @@ const isContactPage = pathname === '/contact';
           <a href="/works" class="back-to-list">
             作品一覧に戻る
           </a>
+          <button
+            class="works-theme-toggle"
+            type="button"
+            aria-label="テーマを切り替える"
+            data-works-theme-toggle
+          >
+            <Sun class="works-theme-icon works-theme-icon--light" size={10} />
+            <Moon class="works-theme-icon works-theme-icon--dark" size={10} />
+            <span class="works-theme-knob" />
+          </button>
         </div>
       )
     }
@@ -94,6 +104,16 @@ const isContactPage = pathname === '/contact';
               </select>
             </label>
           </div>
+          <button
+            class="works-theme-toggle"
+            type="button"
+            aria-label="テーマを切り替える"
+            data-works-theme-toggle
+          >
+            <Sun class="works-theme-icon works-theme-icon--light" size={10} />
+            <Moon class="works-theme-icon works-theme-icon--dark" size={10} />
+            <span class="works-theme-knob" />
+          </button>
         </div>
       )
     }
@@ -176,6 +196,9 @@ const isContactPage = pathname === '/contact';
     gap: space(6)
 
   .back-to-list-row
+    display: flex
+    align-items: center
+    justify-content: space-between
     padding: space(3) space(6)
     border-top: 1px solid var(--c-black-a8)
     transition: border-color 0.3s ease
@@ -196,11 +219,64 @@ const isContactPage = pathname === '/contact';
     border-top: 1px solid var(--c-black-a8)
     transition: border-color 0.3s ease
 
+  .works-controls-row
+    display: flex
+    align-items: center
+    justify-content: space-between
+
   .works-controls
     display: flex
     flex-direction: row
     gap: space(3)
     margin-left: space(0)
+
+  .works-theme-toggle
+    --toggle-h: 26px
+    --knob-size: 18px
+    --toggle-w: 46px
+    --knob-inset: calc((var(--toggle-h) - var(--knob-size)) / 2 - 1px)
+    position: relative
+    width: var(--toggle-w)
+    height: var(--toggle-h)
+    margin-left: space(4)
+    border: 1px solid var(--c-black-a8)
+    border-radius: 999px
+    background: var(--c-white)
+    cursor: pointer
+    flex-shrink: 0
+    color: var(--c-black-a60)
+    padding: 0
+
+  .works-theme-icon--light,
+  .works-theme-icon--dark
+    position: absolute
+    top: 50%
+    transform: translate(-50%, -50%)
+    z-index: 2
+    color: var(--c-black-a60)
+    &:global(.is-covered)
+      color: var(--c-white)
+
+  // ノブ中心X = knob-inset + knob-size/2
+  .works-theme-icon--light
+    left: calc(var(--knob-inset) + var(--knob-size) / 2)
+
+  // 右側ノブ中心X = toggle-w - border*2 - knob-inset - knob-size/2
+  .works-theme-icon--dark
+    left: calc(var(--toggle-w) - 2px - var(--knob-inset) - var(--knob-size) / 2)
+
+  .works-theme-knob
+    position: absolute
+    z-index: 1
+    top: var(--knob-inset)
+    left: var(--knob-inset)
+    width: var(--knob-size)
+    height: var(--knob-size)
+    border-radius: 50%
+    background: var(--c-black-a60)
+    &:global(.is-dark)
+      left: auto
+      right: var(--knob-inset)
 
   .works-control
     display: flex
@@ -431,10 +507,18 @@ const isContactPage = pathname === '/contact';
     .works-controls-row, .status-row
       padding: space(2) space(5)
 
+    .works-controls-row
+      align-items: flex-start
+
     .works-controls
       flex-wrap: wrap
       flex-direction: column
       width: 170px
+
+    .works-theme-toggle
+      --toggle-h: 24px
+      --knob-size: 16px
+      --toggle-w: 42px
 
     .works-control
       width: 100%
@@ -518,11 +602,54 @@ const isContactPage = pathname === '/contact';
   let savedInnerWidth = 0;
 
   document.addEventListener('astro:before-swap', () => {
+    document.documentElement.removeAttribute('data-works-dark');
     const inner = document.querySelector('.header-inner') as HTMLElement;
     if (inner && location.pathname !== '/') {
       savedInnerWidth = inner.getBoundingClientRect().width;
     }
   });
+
+  function setWorksDark(dark: boolean) {
+    if (dark) {
+      document.documentElement.setAttribute('data-works-dark', '');
+    } else {
+      document.documentElement.removeAttribute('data-works-dark');
+    }
+    // ノブ位置の切り替え + アイコン色
+    const knob = document.querySelector('.works-theme-knob');
+    const sunIcon = document.querySelector('.works-theme-icon--light');
+    const moonIcon = document.querySelector('.works-theme-icon--dark');
+    knob?.classList.toggle('is-dark', dark);
+    // ノブに覆われている側に is-covered を付ける（アイコン色だけを切り替える）
+    sunIcon?.classList.toggle('is-covered', !dark);
+    moonIcon?.classList.toggle('is-covered', dark);
+    // 旧クラスの取り残し対策（過去ビルドの状態が残るケースを避ける）
+    sunIcon?.classList.remove('is-uncovered');
+    moonIcon?.classList.remove('is-uncovered');
+    try { sessionStorage.setItem('works-dark', dark ? '1' : '0'); } catch {}
+  }
+
+  function initWorksThemeToggle() {
+    const toggle = document.querySelector('[data-works-theme-toggle]');
+    if (!toggle) return;
+
+    const path = location.pathname.replace(/\/$/, '');
+    const isWorksSection = path === '/works' || path.startsWith('/works/article/');
+    if (!isWorksSection) {
+      document.documentElement.removeAttribute('data-works-dark');
+      return;
+    }
+
+    // sessionStorage に保存された値があればそれを使い、なければ端末設定
+    const saved = sessionStorage.getItem('works-dark');
+    const dark = saved !== null ? saved === '1' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setWorksDark(dark);
+
+    toggle.addEventListener('click', () => {
+      const isDark = document.documentElement.hasAttribute('data-works-dark');
+      setWorksDark(!isDark);
+    });
+  }
 
   function initCategoryFilter() {
     const categorySelect = document.querySelector('[data-works-category]') as HTMLSelectElement;
@@ -554,12 +681,14 @@ const isContactPage = pathname === '/contact';
 
   initHeader();
   initCategoryFilter();
+  initWorksThemeToggle();
 
   document.addEventListener('astro:after-swap', () => {
     setHeaderHeight();
     resetHeaderVisibility();
     initHeader();
     initCategoryFilter();
+    initWorksThemeToggle();
 
     const inner = document.querySelector('.header-inner') as HTMLElement;
     if (!inner || !savedInnerWidth || location.pathname === '/') {
