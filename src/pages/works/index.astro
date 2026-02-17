@@ -259,6 +259,10 @@ const uniqueCategories = Array.from(allCategories).sort();
     background-color: var(--c-white)
     margin: space(0)
     padding: space(0)
+    transition: background-color 0.3s ease
+
+  :global([data-works-dark]) main
+    background-color: var(--c-black)
 
   .works-inner
     width: 100%
@@ -274,6 +278,10 @@ const uniqueCategories = Array.from(allCategories).sort();
     font-size: var(--type-body-size)
     color: var(--c-gray-400)
     line-height: var(--type-body-line)
+    transition: color 0.3s ease
+
+  :global([data-works-dark] .works-note)
+    color: var(--c-gray-200)
 
   @media (max-width: 768px)
     .works-note
