@@ -466,7 +466,7 @@ function renderBlocks(blocks: any[]) {
           }
           {
             categories.length > 0 && (
-              <div class="meta-item">
+              <div class="meta-item meta-item--category">
                 <strong>Category:</strong>
                 <div class="categories">
                   {categories.map((cat: any) => (
@@ -545,11 +545,19 @@ function renderBlocks(blocks: any[]) {
           margin-right: space(2)
           transition: color 0.3s ease
 
+      .meta-item--category
+        display: flex
+        flex-wrap: wrap
+        align-items: center
+        gap: space(2)
+
+        strong
+          margin-right: space(0)
+
       .categories
-        display: inline-flex
+        display: flex
         flex-wrap: wrap
         gap: space(2)
-        margin-left: space(2)
 
         .category-tag
           padding: space(1) space(2) space(1) space(2)
