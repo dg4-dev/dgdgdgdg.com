@@ -488,7 +488,7 @@ function renderBlocks(blocks: any[]) {
       {
         coverImage && (
           <div class="work-cover">
-            <img src={coverImage} alt={title} width="900" height="675" loading="eager" />
+            <img src={coverImage} alt={title} loading="eager" />
           </div>
         )
       }
@@ -572,15 +572,14 @@ function renderBlocks(blocks: any[]) {
     border-color: var(--c-gray-200)
 
   .work-cover
-    width: 100%
     margin-bottom: space(12)
-    border-radius: 8px
-    overflow: hidden
 
     img
-      width: 100%
+      max-width: 100%
+      max-height: 80vh
       height: auto
       display: block
+      border-radius: 8px
 
   .work-summary
     margin-bottom: space(12)
