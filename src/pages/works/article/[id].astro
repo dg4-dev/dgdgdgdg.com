@@ -127,6 +127,13 @@ const createdDate = formatDateToYearMonth(createdDateFull); // 表示用は年�
 const categories = page.properties?.Category?.multi_select ?? [];
 const summary = page.properties?.Summary?.rich_text?.[0]?.plain_text ?? '';
 
+// カバー画像を取得（Works一覧と同じロジック）
+let coverImage = page.properties?.Cover?.files?.[0]?.file?.url ?? '';
+if (coverImage && isNotionUrl(coverImage)) {
+  const localPath = await downloadAndSaveImage(coverImage);
+  if (localPath) coverImage = localPath;
+}
+
 // ブロックをレンダリングするヘルパー関数（子ブロックも再帰的に処理）
 function renderBlock(block: any): string {
   const { type, id, children } = block;
@@ -478,6 +485,13 @@ function renderBlocks(blocks: any[]) {
           </div>
         )
       }
+      {
+        coverImage && (
+          <div class="work-cover">
+            <img src={coverImage} alt={title} loading="eager" />
+          </div>
+        )
+      }
       <div
         class="work-content"
         set:html={blocks.length > 0 ? renderBlocks(blocks) : '<p class="work-content-empty">本文はまだありません。</p>'}
@@ -560,13 +574,15 @@ function renderBlocks(blocks: any[]) {
   .work-cover
     width: 100%
     margin-bottom: space(12)
-    border-radius: 8px
-    overflow: hidden
 
     img
       width: 100%
+      max-height: 80vh
       height: auto
+      object-fit: contain
+      object-position: left
       display: block
+      border-radius: 8px
 
   .work-summary
     margin-bottom: space(12)
