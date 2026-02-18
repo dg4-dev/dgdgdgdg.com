@@ -449,6 +449,13 @@ function renderBlocks(blocks: any[]) {
     <article class="work-detail">
       <header class="work-header">
         <h1>{title}</h1>
+        {
+          coverImage && (
+            <div class="work-cover">
+              <img src={coverImage} alt={title} loading="eager" />
+            </div>
+          )
+        }
         <div class="work-meta">
           {
             client && (
@@ -482,13 +489,6 @@ function renderBlocks(blocks: any[]) {
         summary && (
           <div class="work-summary">
             <p>{summary}</p>
-          </div>
-        )
-      }
-      {
-        coverImage && (
-          <div class="work-cover">
-            <img src={coverImage} alt={title} loading="eager" />
           </div>
         )
       }
