@@ -533,50 +533,49 @@ function renderBlocks(blocks: any[]) {
   :global([data-works-dark] .work-header) h1
     color: var(--c-white)
 
-  .work-meta
-    .meta-item
-      margin: space(2) 0
-      line-height: var(--type-body-line)
-      color: var(--c-gray-400)
+  .meta-item
+    margin: space(2) 0
+    line-height: var(--type-body-line)
+    color: var(--c-gray-400)
+    transition: color 0.3s ease
+
+    strong
+      color: var(--c-gray-800)
+      margin-right: space(2)
       transition: color 0.3s ease
 
-      strong
-        color: var(--c-gray-800)
-        margin-right: space(2)
-        transition: color 0.3s ease
-
-    .meta-item--category
-      display: flex
-      flex-wrap: wrap
-      align-items: center
-      gap: space(2)
-
-      strong
-        margin-right: space(0)
-
-    .categories
-      display: flex
-      flex-wrap: wrap
-      gap: space(2)
-
-      .category-tag
-        padding: space(1) space(2) space(1) space(2)
-        border: 2px solid var(--c-gray-800)
-        border-radius: 4px
-        font-size: var(--type-body-size)
-        font-family: var(--font-ui)
-        font-weight: var(--type-h2-weight)
-        color: var(--c-gray-800)
-        background: transparent
-        transition: color 0.3s ease, border-color 0.3s ease
-
-  :global([data-works-dark] .work-meta .meta-item)
+  :global([data-works-dark] .meta-item)
     color: var(--c-white)
 
-  :global([data-works-dark] .work-meta .meta-item strong)
+  :global([data-works-dark] .meta-item) strong
     color: var(--c-white)
 
-  :global([data-works-dark] .work-meta .category-tag)
+  .meta-item--category
+    display: flex
+    flex-wrap: wrap
+    align-items: center
+    gap: space(2)
+
+    strong
+      margin-right: space(0)
+
+  .categories
+    display: flex
+    flex-wrap: wrap
+    gap: space(2)
+
+  .category-tag
+    padding: space(1) space(2) space(1) space(2)
+    border: 2px solid var(--c-gray-800)
+    border-radius: 4px
+    font-size: var(--type-body-size)
+    font-family: var(--font-ui)
+    font-weight: var(--type-h2-weight)
+    color: var(--c-gray-800)
+    background: transparent
+    transition: color 0.3s ease, border-color 0.3s ease
+
+  :global([data-works-dark] .category-tag)
     color: var(--c-white)
     border-color: var(--c-white)
 
