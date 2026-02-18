@@ -570,10 +570,11 @@ function renderBlocks(blocks: any[]) {
         background: transparent
         transition: color 0.3s ease, border-color 0.3s ease
 
-  :global([data-works-dark]) .meta-item
+  :global([data-works-dark] .meta-item)
     color: var(--c-white)
-    strong
-      color: var(--c-white)
+
+  :global([data-works-dark] .meta-item strong)
+    color: var(--c-white)
 
   :global([data-works-dark] .category-tag)
     color: var(--c-white)
