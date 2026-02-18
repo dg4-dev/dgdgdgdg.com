@@ -466,7 +466,7 @@ function renderBlocks(blocks: any[]) {
           }
           {
             categories.length > 0 && (
-              <div class="meta-item">
+              <div class="meta-item meta-item--category">
                 <strong>Category:</strong>
                 <div class="categories">
                   {categories.map((cat: any) => (
@@ -531,45 +531,53 @@ function renderBlocks(blocks: any[]) {
       transition: color 0.3s ease
 
   :global([data-works-dark] .work-header) h1
-    color: var(--c-gray-200)
+    color: var(--c-white)
 
-    .work-meta
-      .meta-item
-        margin: space(2) 0
-        line-height: var(--type-body-line)
-        color: var(--c-gray-400)
-        transition: color 0.3s ease
+  .meta-item
+    margin: space(2) 0
+    line-height: var(--type-body-line)
+    color: var(--c-gray-400)
+    transition: color 0.3s ease
 
-        strong
-          color: var(--c-gray-800)
-          margin-right: space(2)
-          transition: color 0.3s ease
-
-      .categories
-        display: inline-flex
-        flex-wrap: wrap
-        gap: space(2)
-        margin-left: space(2)
-
-        .category-tag
-          padding: space(1) space(2) space(1) space(2)
-          border: 2px solid var(--c-gray-800)
-          border-radius: 4px
-          font-size: var(--type-body-size)
-          font-family: var(--font-ui)
-          font-weight: var(--type-h2-weight)
-          color: var(--c-gray-800)
-          background: transparent
-          transition: color 0.3s ease, border-color 0.3s ease
-
-  :global([data-works-dark] .work-meta) .meta-item
-    color: var(--c-gray-200)
     strong
-      color: var(--c-gray-200)
+      color: var(--c-gray-800)
+      margin-right: space(2)
+      transition: color 0.3s ease
 
-  :global([data-works-dark] .work-meta) .category-tag
-    color: var(--c-gray-200)
-    border-color: var(--c-gray-200)
+  :global([data-works-dark] .meta-item)
+    color: var(--c-white)
+
+  :global([data-works-dark] .meta-item) strong
+    color: var(--c-white)
+
+  .meta-item--category
+    display: flex
+    flex-wrap: wrap
+    align-items: center
+    gap: space(2)
+
+    strong
+      margin-right: space(0)
+
+  .categories
+    display: flex
+    flex-wrap: wrap
+    gap: space(2)
+
+  .category-tag
+    padding: space(1) space(2) space(1) space(2)
+    border: 2px solid var(--c-gray-800)
+    border-radius: 4px
+    font-size: var(--type-body-size)
+    font-family: var(--font-ui)
+    font-weight: var(--type-h2-weight)
+    color: var(--c-gray-800)
+    background: transparent
+    transition: color 0.3s ease, border-color 0.3s ease
+
+  :global([data-works-dark] .category-tag)
+    color: var(--c-white)
+    border-color: var(--c-white)
 
   .work-cover
     width: 100%
@@ -601,7 +609,7 @@ function renderBlocks(blocks: any[]) {
   :global([data-works-dark] .work-summary)
     background: var(--c-gray-900)
     p
-      color: var(--c-gray-200)
+      color: var(--c-white)
 
   .work-content
     line-height: var(--type-body-line)
@@ -877,10 +885,10 @@ function renderBlocks(blocks: any[]) {
           display: block
 
   :global([data-works-dark] .work-content)
-    color: var(--c-gray-200)
+    color: var(--c-white)
 
   :global([data-works-dark] .work-content) :global(h1),
   :global([data-works-dark] .work-content) :global(h2),
   :global([data-works-dark] .work-content) :global(h3)
-    color: var(--c-gray-200)
+    color: var(--c-white)
 </style>
