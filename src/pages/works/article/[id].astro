@@ -533,42 +533,42 @@ function renderBlocks(blocks: any[]) {
   :global([data-works-dark] .work-header) h1
     color: var(--c-gray-200)
 
-    .work-meta
-      .meta-item
-        margin: space(2) 0
-        line-height: var(--type-body-line)
-        color: var(--c-gray-400)
+  .work-meta
+    .meta-item
+      margin: space(2) 0
+      line-height: var(--type-body-line)
+      color: var(--c-gray-400)
+      transition: color 0.3s ease
+
+      strong
+        color: var(--c-gray-800)
+        margin-right: space(2)
         transition: color 0.3s ease
 
-        strong
-          color: var(--c-gray-800)
-          margin-right: space(2)
-          transition: color 0.3s ease
+    .meta-item--category
+      display: flex
+      flex-wrap: wrap
+      align-items: center
+      gap: space(2)
 
-      .meta-item--category
-        display: flex
-        flex-wrap: wrap
-        align-items: center
-        gap: space(2)
+      strong
+        margin-right: space(0)
 
-        strong
-          margin-right: space(0)
+    .categories
+      display: flex
+      flex-wrap: wrap
+      gap: space(2)
 
-      .categories
-        display: flex
-        flex-wrap: wrap
-        gap: space(2)
-
-        .category-tag
-          padding: space(1) space(2) space(1) space(2)
-          border: 2px solid var(--c-gray-800)
-          border-radius: 4px
-          font-size: var(--type-body-size)
-          font-family: var(--font-ui)
-          font-weight: var(--type-h2-weight)
-          color: var(--c-gray-800)
-          background: transparent
-          transition: color 0.3s ease, border-color 0.3s ease
+      .category-tag
+        padding: space(1) space(2) space(1) space(2)
+        border: 2px solid var(--c-gray-800)
+        border-radius: 4px
+        font-size: var(--type-body-size)
+        font-family: var(--font-ui)
+        font-weight: var(--type-h2-weight)
+        color: var(--c-gray-800)
+        background: transparent
+        transition: color 0.3s ease, border-color 0.3s ease
 
   :global([data-works-dark] .work-meta) .meta-item
     color: var(--c-gray-200)
