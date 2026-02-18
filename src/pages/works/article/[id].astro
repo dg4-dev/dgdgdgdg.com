@@ -582,7 +582,6 @@ function renderBlocks(blocks: any[]) {
       object-fit: contain
       object-position: left
       display: block
-      border-radius: 8px
 
   .work-summary
     margin-bottom: space(12)
@@ -702,8 +701,12 @@ function renderBlocks(blocks: any[]) {
       margin: space(8) 0
 
       :global(img)
-        max-width: 100%
-        border-radius: 4px
+        width: 100%
+        max-height: 80vh
+        height: auto
+        object-fit: contain
+        object-position: left
+        display: block
 
       :global(video)
         width: 100%
