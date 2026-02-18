@@ -485,6 +485,13 @@ function renderBlocks(blocks: any[]) {
           </div>
         )
       }
+      {
+        coverImage && (
+          <div class="work-cover">
+            <img src={coverImage} alt={title} width="900" height="675" loading="eager" />
+          </div>
+        )
+      }
       <div
         class="work-content"
         set:html={blocks.length > 0 ? renderBlocks(blocks) : '<p class="work-content-empty">本文はまだありません。</p>'}
