@@ -1,12 +1,59 @@
 import { createHash } from 'crypto';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { appendFileSync, existsSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'fs';
 import { join } from 'path';
+
+/** マニフェストファイルのパス（ビルド中に使われたファイル一覧） */
+const MANIFEST_PATH = join(process.cwd(), 'public', 'notion-images', '.manifest');
+
+/**
+ * ビルドで使われたファイル名をマニフェストに追記する。
+ * インテグレーション側と別プロセスでもファイル経由で共有できる。
+ */
+function recordUsedFile(filename: string): void {
+  const dir = join(process.cwd(), 'public', 'notion-images');
+  if (!existsSync(dir)) {
+    mkdirSync(dir, { recursive: true });
+  }
+  appendFileSync(MANIFEST_PATH, filename + '\n');
+}
+
+/**
+ * マニフェストから使用済みファイル一覧を読み取る。
+ */
+export function getUsedFiles(): Set<string> {
+  if (!existsSync(MANIFEST_PATH)) return new Set();
+  const content = readFileSync(MANIFEST_PATH, 'utf-8');
+  return new Set(content.split('\n').filter(Boolean));
+}
+
+/**
+ * マニフェストファイルを削除する（ビルド開始時にリセット用）。
+ */
+export function clearManifest(): void {
+  if (existsSync(MANIFEST_PATH)) {
+    unlinkSync(MANIFEST_PATH);
+  }
+}
+
+/**
+ * URLからクエリパラメータを除外し、origin + pathname だけ返す。
+ * Notion の署名付きURL（X-Amz-Signature 等）が変わっても同じハッシュになる。
+ */
+function stripQueryParams(url: string): string {
+  try {
+    const u = new URL(url);
+    return u.origin + u.pathname;
+  } catch {
+    return url;
+  }
+}
 
 /**
  * Notion画像URLをハッシュ化してローカルパスを生成
+ * クエリパラメータを除外してからハッシュするため、同じ画像には安定したファイル名がつく。
  */
 function getLocalImagePath(imageUrl: string): string {
-  const hash = createHash('md5').update(imageUrl).digest('hex');
+  const hash = createHash('md5').update(stripQueryParams(imageUrl)).digest('hex');
   const ext = getImageExtension(imageUrl);
   return `/notion-images/${hash}${ext}`;
 }
@@ -39,6 +86,9 @@ export async function downloadAndSaveImage(imageUrl: string): Promise<string> {
   const publicDir = join(process.cwd(), 'public', 'notion-images');
   const filename = localPath.replace('/notion-images/', '');
   const fullPath = join(publicDir, filename);
+
+  // ビルドで使われたファイルとして記録
+  recordUsedFile(filename);
 
   // すでに存在する場合はスキップ
   if (existsSync(fullPath)) {
