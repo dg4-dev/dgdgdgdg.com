@@ -51,4 +51,7 @@ bun.lockb
 # Downloaded Notion images
 public/notion-images/
 
+# Notion API cache
+.notion-cache/
+
 .claude/
