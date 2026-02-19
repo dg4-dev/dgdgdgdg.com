@@ -5,8 +5,8 @@ import { join } from 'path';
 /** キャッシュディレクトリのパス */
 const CACHE_DIR = join(process.cwd(), '.notion-cache');
 
-/** デフォルトTTL: 1時間 */
-const DEFAULT_TTL_MS = 60 * 60 * 1000;
+/** デフォルトTTL: 24時間 */
+const DEFAULT_TTL_MS = 24 * 60 * 60 * 1000;
 
 /** 環境変数 NOTION_CACHE_TTL_MS でTTLを上書き可能（ミリ秒） */
 function getTtlMs(): number {
