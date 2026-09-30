@@ -2,7 +2,7 @@
 
 export interface Env {
   STATUS_KV: KVNamespace;
-  API_TOKEN: '6e3311262a2446dbb8470ef11d7928e4'; // Cloudflare ダッシュボードで設定するシークレット
+  API_TOKEN: string; // Cloudflare ダッシュボードで設定するシークレット
 }
 
 type Status = 'open' | 'limited' | 'closed';
