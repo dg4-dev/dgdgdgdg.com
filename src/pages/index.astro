@@ -56,24 +56,27 @@ const notionData = await getNotionData();
 const works = notionData.results;
 
 // Notion画像をダウンロードしてローカルパスに差し替え
+// 表示するのは公開かつFeaturedの作品だけなので、それ以外の画像はダウンロードしない
 const worksWithLocalImages = await Promise.all(
-  works.map(async (work: any) => {
-    const coverImage = work.properties?.Cover?.files?.[0]?.file?.url ?? '';
-    if (coverImage && isNotionUrl(coverImage)) {
-      const localPath = await downloadAndSaveImage(coverImage);
-      work.properties = work.properties || {};
-      work.properties.Cover = {
-        files: [
-          {
-            file: {
-              url: localPath,
+  works
+    .filter((work: any) => work.properties?.Featured?.checkbox && !work.properties?.Private?.checkbox)
+    .map(async (work: any) => {
+      const coverImage = work.properties?.Cover?.files?.[0]?.file?.url ?? '';
+      if (coverImage && isNotionUrl(coverImage)) {
+        const localPath = await downloadAndSaveImage(coverImage);
+        work.properties = work.properties || {};
+        work.properties.Cover = {
+          files: [
+            {
+              file: {
+                url: localPath,
+              },
             },
-          },
-        ],
-      };
-    }
-    return work;
-  }),
+          ],
+        };
+      }
+      return work;
+    }),
 );
 
 // Featuredのworksを抽出（プライベートはFeaturedに含めない）、新しい順でソートして最大8件に制限

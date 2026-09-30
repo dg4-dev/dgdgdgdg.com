@@ -119,6 +119,12 @@ function findTwitterUrlInBlocks(blocks: any[]): string | null {
 // SSGビルド時に実行されるため、エラーハンドリングを強化
 const worksWithCoverImages = await Promise.all(
   works.map(async (work: any) => {
+    // プライベート作品はサンプル画像を表示するため、カバー画像を取得・ダウンロードしない
+    if (work.properties?.Private?.checkbox) {
+      work.properties.Cover = { files: [] };
+      return work;
+    }
+
     let coverImage = work.properties?.Cover?.files?.[0]?.file?.url ?? '';
 
     // カバー画像が設定されていない場合、Twitterの画像を取得
@@ -210,8 +216,7 @@ const uniqueCategories = Array.from(allCategories).sort();
   <Header />
   <main>
     <!-- Works data for client-side filtering/sorting -->
-    <script define:vars={{ worksData: works, categoriesData: uniqueCategories }}>
-      window.__WORKS_DATA__ = worksData;
+    <script define:vars={{ categoriesData: uniqueCategories }}>
       window.__CATEGORIES_DATA__ = categoriesData;
     </script>
     <div class="works-inner">
