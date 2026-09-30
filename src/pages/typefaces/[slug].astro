@@ -1,0 +1,551 @@
+---
+export const prerender = true;
+
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/header.astro';
+import Footer from '@/components/footer.astro';
+import ContactCTA from '@/components/ContactCTA.astro';
+import { fontFaceCss, getTypefaces, variationSettings, type Typeface } from '@/lib/typefaces';
+
+export async function getStaticPaths() {
+  const typefaces = await getTypefaces();
+  return typefaces.map((typeface) => ({
+    params: { slug: typeface.slug },
+    props: { typeface },
+  }));
+}
+
+const { typeface: t } = Astro.props as { typeface: Typeface };
+
+const defaults = Object.fromEntries(t.axes.map((axis) => [axis.tag, axis.default]));
+const fontFamily = `'${t.cssFamily}'`;
+const testerText = t.codepoints.some((c) => c >= 0x61 && c <= 0x7a)
+  ? 'The quick brown fox jumps over the lazy dog 0123456789'
+  : 'THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG 0123456789';
+
+function toHex(codepoint: number): string {
+  return `U+${codepoint.toString(16).toUpperCase().padStart(4, '0')}`;
+}
+---
+
+<BaseLayout
+  title={`${t.familyName} - Typefaces - dgdgdgdg`}
+  description={t.description}
+  keywords={`typefaces, fonts, ${t.familyName}`}
+>
+  <Fragment slot="head">
+    <link rel="preload" href={t.fontUrl} as="font" crossorigin />
+    <style is:inline set:html={fontFaceCss([t])}></style>
+  </Fragment>
+  <Header pageName="Typefaces" />
+  <main>
+    <section class="tf-hero">
+      <h2 class="tf-hero-name" style={{ fontFamily, fontVariationSettings: variationSettings(defaults) }}>
+        {t.familyName}
+      </h2>
+    </section>
+
+    <section class="tf-section tf-about">
+      <p class="tf-description">{t.description}</p>
+      <dl class="tf-info">
+        <div>
+          <dt>Designer</dt>
+          <dd>{t.designerUrl ? <a href={t.designerUrl}>{t.designer || t.designerUrl}</a> : t.designer || '—'}</dd>
+        </div>
+        <div>
+          <dt>Version</dt>
+          <dd>{t.version || '—'}</dd>
+        </div>
+        <div>
+          <dt>Released</dt>
+          <dd>{t.year}</dd>
+        </div>
+        <div>
+          <dt>Glyphs</dt>
+          <dd>{t.codepoints.length}</dd>
+        </div>
+        {
+          t.axes.length > 0 && (
+            <div>
+              <dt>Axes</dt>
+              <dd>{t.axes.map((axis) => `${axis.name} ${axis.min}–${axis.max}`).join(' / ')}</dd>
+            </div>
+          )
+        }
+      </dl>
+      <div class="tf-actions">
+        <a href={t.repoUrl} class="tf-button tf-button--primary" target="_blank" rel="noopener noreferrer">
+          GitHub で入手する
+        </a>
+        {
+          t.licenseText && (
+            <a href="#license" class="tf-button">
+              ライセンスを読む
+            </a>
+          )
+        }
+      </div>
+    </section>
+
+    <section class="tf-section tf-tester" data-type-tester>
+      <h3 class="tf-section-title">Type Tester</h3>
+      <div class="tf-controls">
+        <label class="tf-control">
+          <span class="tf-control-label">Size <output data-size-output>96</output>px</span>
+          <input type="range" min="16" max="240" step="1" value="96" data-size />
+        </label>
+        {
+          t.axes.map((axis) => (
+            <label class="tf-control">
+              <span class="tf-control-label">
+                {axis.name} <output data-axis-output={axis.tag}>{axis.default}</output>
+              </span>
+              <input type="range" min={axis.min} max={axis.max} step="1" value={axis.default} data-axis={axis.tag} />
+            </label>
+          ))
+        }
+      </div>
+      {
+        t.presets.length > 1 && (
+          <div class="tf-presets">
+            {t.presets.map((preset) => (
+              <button type="button" class="tf-preset" data-preset={JSON.stringify(preset.coordinates)}>
+                {preset.name}
+              </button>
+            ))}
+          </div>
+        )
+      }
+      <p
+        class="tf-tester-text"
+        contenteditable="plaintext-only"
+        spellcheck="false"
+        style={{ fontFamily, fontSize: '96px', fontVariationSettings: variationSettings(defaults) }}
+        data-tester-text
+      >
+        {testerText}
+      </p>
+    </section>
+
+    {
+      t.presets.length > 1 && (
+        <section class="tf-section">
+          <h3 class="tf-section-title">Styles</h3>
+          <ul class="tf-styles">
+            {t.presets.map((preset) => (
+              <li>
+                <span class="tf-style-name">{preset.name}</span>
+                <span
+                  class="tf-style-sample"
+                  style={{ fontFamily, fontVariationSettings: variationSettings(preset.coordinates) }}
+                >
+                  {t.sampleText}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <section class="tf-section">
+      <h3 class="tf-section-title">Glyphs</h3>
+      <ul class="tf-glyphs" style={{ fontFamily }}>
+        {
+          t.codepoints.map((codepoint) => (
+            <li title={toHex(codepoint)}>
+              <span class="tf-glyph">{String.fromCodePoint(codepoint)}</span>
+              <span class="tf-glyph-code">{toHex(codepoint)}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    {
+      t.licenseText && (
+        <section class="tf-section" id="license">
+          <h3 class="tf-section-title">License</h3>
+          <pre class="tf-license">{t.licenseText}</pre>
+          <p class="tf-license-link">
+            <a href={`${t.repoUrl}/blob/${t.ref}/${t.licensePath}`} target="_blank" rel="noopener noreferrer">
+              GitHub で最新のライセンスを見る
+            </a>
+          </p>
+        </section>
+      )
+    }
+  </main>
+  <ContactCTA />
+  <Footer />
+</BaseLayout>
+
+<style lang="sass">
+  @use '../../styles/spacing' as *
+  main
+    background-color: var(--c-black)
+    color: var(--c-white)
+    padding-bottom: space(16)
+
+  .tf-hero,
+  .tf-section
+    width: 100%
+    max-width: 1200px
+    margin: space(0) auto
+
+  @media (max-width: 1248px)
+    .tf-hero,
+    .tf-section
+      padding-left: space(6)
+      padding-right: space(6)
+
+  @media (max-width: 768px)
+    .tf-hero,
+    .tf-section
+      padding-left: space(4)
+      padding-right: space(4)
+
+  .tf-hero
+    padding-top: space(12)
+    padding-bottom: space(12)
+    border-bottom: 1px solid var(--c-white-a30)
+
+  .tf-hero-name
+    font-size: clamp(3rem, 11vw, 10rem) !important
+    font-weight: var(--type-body-weight) !important
+    line-height: 1.1 !important
+    font-synthesis: none
+    overflow-wrap: anywhere
+
+  .tf-section
+    padding-top: space(12)
+
+  .tf-section-title
+    margin-bottom: space(6)
+    font-family: var(--font-ui)
+    font-size: var(--type-caption-size) !important
+    letter-spacing: 0.12em
+    text-transform: uppercase
+    color: var(--c-white-a60)
+
+  // About
+  .tf-about
+    display: grid
+    grid-template-columns: 1fr 1fr
+    gap: space(8) space(12)
+
+  @media (max-width: 768px)
+    .tf-about
+      grid-template-columns: 1fr
+
+  .tf-description
+    font-size: var(--type-body-size)
+    line-height: 1.8
+    letter-spacing: 0.04em
+    text-align: justify
+
+  .tf-info
+    font-family: var(--font-ui)
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
+
+    div
+      display: grid
+      grid-template-columns: 6rem 1fr
+      gap: space(4)
+      padding: space(2) space(0)
+      border-bottom: 1px solid var(--c-white-a8)
+
+    dt
+      color: var(--c-white-a60)
+      letter-spacing: 0.06em
+
+    a
+      color: inherit
+      text-decoration: underline
+      text-underline-offset: 0.2em
+
+  .tf-actions
+    grid-column: 1 / -1
+    display: flex
+    flex-wrap: wrap
+    gap: space(3)
+
+  .tf-button
+    display: inline-flex
+    align-items: center
+    gap: space(2)
+    padding: space(2) space(5)
+    border: 1px solid var(--c-white)
+    border-radius: 999px
+    font-family: var(--font-ui)
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
+    letter-spacing: 0.06em
+    color: var(--c-white)
+    text-decoration: none
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease
+    &::after
+      content: '→'
+    &:hover
+      background-color: var(--c-white)
+      color: var(--c-black)
+
+  .tf-button--primary
+    border-color: var(--c-accent)
+    background-color: var(--c-accent)
+    color: var(--c-black)
+    &:hover
+      border-color: var(--c-white)
+
+  // Type Tester
+  .tf-controls
+    display: grid
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))
+    gap: space(4) space(8)
+    margin-bottom: space(6)
+
+  .tf-control
+    display: flex
+    flex-direction: column
+    gap: space(2)
+
+  .tf-control-label
+    display: flex
+    justify-content: space-between
+    font-family: var(--font-ui)
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
+    letter-spacing: 0.06em
+    color: var(--c-white-a60)
+
+    output
+      margin-left: auto
+      color: var(--c-white)
+      font-variant-numeric: tabular-nums
+
+  // reset.css で見た目が消えるため、range を一から描画する
+  .tf-control input[type='range']
+    -webkit-appearance: none
+    appearance: none
+    width: 100%
+    height: space(5)
+    background: transparent
+    cursor: pointer
+
+    &::-webkit-slider-runnable-track
+      height: 2px
+      background: var(--c-white-a30)
+    &::-moz-range-track
+      height: 2px
+      background: var(--c-white-a30)
+    &::-webkit-slider-thumb
+      -webkit-appearance: none
+      width: 14px
+      height: 14px
+      margin-top: -6px
+      border-radius: 50%
+      background: var(--c-accent)
+    &::-moz-range-thumb
+      width: 14px
+      height: 14px
+      border: none
+      border-radius: 50%
+      background: var(--c-accent)
+    &:focus-visible
+      outline: 1px solid var(--c-accent)
+      outline-offset: 4px
+
+  .tf-presets
+    display: flex
+    flex-wrap: wrap
+    gap: space(2)
+    margin-bottom: space(6)
+
+  .tf-preset
+    padding: space(1) space(3)
+    border: 1px solid var(--c-white-a30)
+    border-radius: 999px
+    font-family: var(--font-ui)
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
+    color: var(--c-white-a70)
+    cursor: pointer
+    transition: border-color 0.2s ease, color 0.2s ease
+    &:hover,
+    &.is-active
+      border-color: var(--c-accent)
+      color: var(--c-accent)
+
+  .tf-tester-text
+    min-height: 1.2em
+    padding: space(6) space(0)
+    border-top: 1px solid var(--c-white-a30)
+    border-bottom: 1px solid var(--c-white-a30)
+    line-height: 1.2
+    font-synthesis: none
+    overflow-wrap: anywhere
+    outline: none
+    cursor: text
+    user-select: text
+    -webkit-user-select: text
+
+  // Styles
+  .tf-styles
+    border-top: 1px solid var(--c-white-a30)
+
+    li
+      display: grid
+      grid-template-columns: 12rem 1fr
+      align-items: baseline
+      gap: space(6)
+      padding: space(4) space(0)
+      border-bottom: 1px solid var(--c-white-a30)
+
+  @media (max-width: 768px)
+    .tf-styles li
+      grid-template-columns: 1fr
+      gap: space(2)
+
+  .tf-style-name
+    font-family: var(--font-ui)
+    font-size: var(--type-caption-size)
+    color: var(--c-white-a60)
+    letter-spacing: 0.06em
+
+  .tf-style-sample
+    font-size: clamp(2rem, 6vw, 4rem)
+    line-height: 1.2
+    font-synthesis: none
+    white-space: nowrap
+    overflow: hidden
+
+  // Glyphs
+  .tf-glyphs
+    display: grid
+    grid-template-columns: repeat(auto-fill, minmax(88px, 1fr))
+    border-top: 1px solid var(--c-white-a30)
+    border-left: 1px solid var(--c-white-a30)
+
+    li
+      position: relative
+      display: flex
+      flex-direction: column
+      align-items: center
+      justify-content: center
+      aspect-ratio: 1
+      border-right: 1px solid var(--c-white-a30)
+      border-bottom: 1px solid var(--c-white-a30)
+      transition: background-color 0.2s ease, color 0.2s ease
+      &:hover
+        background-color: var(--c-white)
+        color: var(--c-black)
+
+  @media (max-width: 768px)
+    .tf-glyphs
+      grid-template-columns: repeat(auto-fill, minmax(64px, 1fr))
+
+  .tf-glyph
+    font-size: 2.4rem
+    line-height: 1
+    font-synthesis: none
+
+  .tf-glyph-code
+    position: absolute
+    bottom: space(1)
+    font-family: var(--font-ui)
+    font-size: 0.6rem
+    letter-spacing: 0.04em
+    opacity: 0.5
+
+  // License
+  .tf-license
+    padding: space(6)
+    border: 1px solid var(--c-white-a30)
+    border-radius: 4px
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace
+    font-size: var(--type-caption-size)
+    line-height: 1.7
+    white-space: pre-wrap
+    overflow-wrap: anywhere
+    color: var(--c-white-a90)
+
+  .tf-license-link
+    margin-top: space(4)
+    font-size: var(--type-caption-size)
+
+    a
+      color: var(--c-white-a70)
+      text-decoration: underline
+      text-underline-offset: 0.2em
+      &:hover
+        color: var(--c-accent)
+</style>
+
+<script is:inline data-astro-rerun>
+  (function () {
+    function initTypeTester() {
+      var root = document.querySelector('[data-type-tester]');
+      if (!root) return;
+
+      var text = root.querySelector('[data-tester-text]');
+      var sizeInput = root.querySelector('[data-size]');
+      var sizeOutput = root.querySelector('[data-size-output]');
+      var axisInputs = Array.from(root.querySelectorAll('[data-axis]'));
+      var presetButtons = Array.from(root.querySelectorAll('[data-preset]'));
+
+      function applyAxes() {
+        text.style.fontVariationSettings = axisInputs
+          .map(function (input) {
+            var tag = input.getAttribute('data-axis');
+            var output = root.querySelector('[data-axis-output="' + tag + '"]');
+            if (output) output.textContent = input.value;
+            return "'" + tag + "' " + input.value;
+          })
+          .join(', ');
+      }
+
+      function clearActivePreset() {
+        presetButtons.forEach(function (button) {
+          button.classList.remove('is-active');
+        });
+      }
+
+      function applySize() {
+        text.style.fontSize = sizeInput.value + 'px';
+        sizeOutput.textContent = sizeInput.value;
+      }
+
+      // スマホでは初期サイズを小さくする
+      if (window.matchMedia('(max-width: 768px)').matches) {
+        sizeInput.value = '48';
+        applySize();
+      }
+
+      sizeInput.addEventListener('input', applySize);
+
+      axisInputs.forEach(function (input) {
+        input.addEventListener('input', function () {
+          clearActivePreset();
+          applyAxes();
+        });
+      });
+
+      presetButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var coordinates = JSON.parse(button.getAttribute('data-preset'));
+          axisInputs.forEach(function (input) {
+            var tag = input.getAttribute('data-axis');
+            if (tag in coordinates) input.value = coordinates[tag];
+          });
+          clearActivePreset();
+          button.classList.add('is-active');
+          applyAxes();
+        });
+      });
+    }
+
+    // data-astro-rerun により、ページ遷移で開くたびにこのスクリプトが実行される
+    initTypeTester();
+  })();
+</script>

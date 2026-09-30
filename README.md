@@ -66,10 +66,30 @@ npx dotenvx encrypt
 ```bash
 src/
 ├── components/    # Reusable UI components
+├── data/          # Typeface list (source of the Typefaces page)
 ├── layouts/       # Page layouts
 ├── lib/           # Utilities & Notion API client
 ├── pages/         # File-based routing
 └── styles/        # Global styles (Sass)
+```
+
+## 🔤 Adding a Typeface
+
+The Typefaces page (`/typefaces`) fetches each font file and LICENSE from its public GitHub repository at build time.
+Family name, version, variable axes and glyphs are read from the font file itself, so adding a typeface only takes one entry in `src/data/typefaces.ts`.
+
+```ts
+{
+  slug: 'new-font',              // URL (/typefaces/new-font)
+  repo: 'dg4-dev/new-font',      // GitHub repository
+  ref: 'main',                   // branch or tag
+  fontPath: 'new-font.ttf',      // font file in the repository
+  licensePath: 'LICENSE',        // license file in the repository (optional)
+  year: 2026,
+  description: 'Introduction of the typeface',
+  sampleText: 'dgdgdgdg',
+  // presets: [...]              // style samples (optional; defaults to the font's named instances)
+},
 ```
 
 ## 📜 Scripts
