@@ -322,154 +322,83 @@ const uniqueCategories = Array.from(allCategories).sort();
       font-size: var(--type-caption-size)
 </style>
 
-<script is:inline>
-  (function () {
-    var sortHandler = null;
-    var filterHandler = null;
+<script>
+  function updateWorks(
+    sortSelect: HTMLSelectElement,
+    filterSelect: HTMLSelectElement,
+    categorySelect: HTMLSelectElement,
+    worksGrid: HTMLElement,
+  ) {
+    const sortValue = sortSelect.value;
+    const filterValue = filterSelect.value;
+    const categoryValue = categorySelect.value;
+    const cards = Array.from(worksGrid.querySelectorAll<HTMLElement>('.work-card'));
 
-    function updateWorks(sortSelect, filterSelect, categorySelect, worksGrid) {
-      var sortValue = sortSelect.value;
-      var filterValue = filterSelect.value;
-      var categoryValue = categorySelect.value;
-      var cards = Array.from(worksGrid.querySelectorAll('.work-card'));
+    // フィルタリング（表示/非表示を判定）
+    const visibleCards: HTMLElement[] = [];
+    const hiddenCards: HTMLElement[] = [];
 
-      // フィルタリング（表示/非表示を判定）
-      var visibleCards = [];
-      var hiddenCards = [];
+    cards.forEach((card) => {
+      const isPrivate = card.getAttribute('data-work-private') === 'true';
+      const categories = card.getAttribute('data-work-categories') || '';
+      const categoryList = categories ? categories.split(',').map((c) => c.trim()) : [];
 
-      cards.forEach(function (card) {
-        var isPrivate = card.getAttribute('data-work-private') === 'true';
-        var categories = card.getAttribute('data-work-categories') || '';
-        var categoryList = categories
-          ? categories.split(',').map(function (c) {
-              return c.trim();
-            })
-          : [];
-
-        // 公開/プライベートフィルター
-        var shouldShow = false;
-        if (filterValue === 'public') {
-          shouldShow = !isPrivate;
-        } else if (filterValue === 'private') {
-          shouldShow = isPrivate;
-        } else {
-          shouldShow = true; // 'all'
-        }
-
-        // カテゴリフィルター
-        if (shouldShow && categoryValue !== 'all') {
-          shouldShow = categoryList.includes(categoryValue);
-        }
-
-        if (shouldShow) {
-          card.style.display = '';
-          visibleCards.push(card);
-        } else {
-          card.style.display = 'none';
-          hiddenCards.push(card);
-        }
-      });
-
-      // 表示されているカードをソート
-      visibleCards.sort(function (a, b) {
-        if (sortValue === 'date_desc') {
-          var dateA = a.getAttribute('data-work-date') || '';
-          var dateB = b.getAttribute('data-work-date') || '';
-          return dateB.localeCompare(dateA);
-        } else if (sortValue === 'date_asc') {
-          var dateA = a.getAttribute('data-work-date') || '';
-          var dateB = b.getAttribute('data-work-date') || '';
-          return dateA.localeCompare(dateB);
-        }
-        return 0;
-      });
-
-      // DOMの順序を更新（表示カードをソート順に、その後非表示カードを追加）
-      visibleCards.forEach(function (card) {
-        worksGrid.appendChild(card);
-      });
-      hiddenCards.forEach(function (card) {
-        worksGrid.appendChild(card);
-      });
-    }
-
-    function initWorksSortAndFilter() {
-      var sortSelect = document.querySelector('[data-works-sort]');
-      var filterSelect = document.querySelector('[data-works-filter]');
-      var categorySelect = document.querySelector('[data-works-category]');
-      var worksGridElement = document.getElementById('works-grid');
-
-      if (!sortSelect || !filterSelect || !categorySelect || !worksGridElement) {
-        // 要素が見つからない場合は少し待って再試行
-        setTimeout(initWorksSortAndFilter, 100);
-        return;
-      }
-
-      var worksGrid = worksGridElement;
-
-      // 既存のイベントリスナーを削除
-      if (sortHandler) {
-        sortSelect.removeEventListener('change', sortHandler);
-      }
-      if (filterHandler) {
-        filterSelect.removeEventListener('change', filterHandler);
-      }
-
-      // 新しいイベントハンドラーを作成
-      var updateHandler = function () {
-        updateWorks(sortSelect, filterSelect, categorySelect, worksGrid);
-      };
-      sortHandler = updateHandler;
-      filterHandler = updateHandler;
-
-      // イベントリスナーを追加
-      sortSelect.addEventListener('change', sortHandler);
-      filterSelect.addEventListener('change', filterHandler);
-      categorySelect.addEventListener('change', updateHandler);
-    }
-
-    // 初期化関数
-    function init() {
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function () {
-          initWorksSortAndFilter();
-          // 初期表示時にソートを実行
-          setTimeout(function () {
-            var sortSelect = document.querySelector('[data-works-sort]');
-            var filterSelect = document.querySelector('[data-works-filter]');
-            var categorySelect = document.querySelector('[data-works-category]');
-            var worksGridElement = document.getElementById('works-grid');
-            if (sortSelect && filterSelect && categorySelect && worksGridElement) {
-              updateWorks(sortSelect, filterSelect, categorySelect, worksGridElement);
-            }
-          }, 100);
-        });
+      // 公開/プライベートフィルター
+      let shouldShow = false;
+      if (filterValue === 'public') {
+        shouldShow = !isPrivate;
+      } else if (filterValue === 'private') {
+        shouldShow = isPrivate;
       } else {
-        // DOMが既に読み込まれている場合は少し待ってから実行
-        setTimeout(function () {
-          initWorksSortAndFilter();
-          // 初期表示時にソートを実行
-          setTimeout(function () {
-            var sortSelect = document.querySelector('[data-works-sort]');
-            var filterSelect = document.querySelector('[data-works-filter]');
-            var categorySelect = document.querySelector('[data-works-category]');
-            var worksGridElement = document.getElementById('works-grid');
-            if (sortSelect && filterSelect && categorySelect && worksGridElement) {
-              updateWorks(sortSelect, filterSelect, categorySelect, worksGridElement);
-            }
-          }, 100);
-        }, 0);
+        shouldShow = true; // 'all'
       }
-    }
 
-    // 初期化実行
-    init();
+      // カテゴリフィルター
+      if (shouldShow && categoryValue !== 'all') {
+        shouldShow = categoryList.includes(categoryValue);
+      }
 
-    // Astro View Transitions対応
-    document.addEventListener('astro:after-swap', function () {
-      sortHandler = null;
-      filterHandler = null;
-      setTimeout(initWorksSortAndFilter, 0);
+      if (shouldShow) {
+        card.style.display = '';
+        visibleCards.push(card);
+      } else {
+        card.style.display = 'none';
+        hiddenCards.push(card);
+      }
     });
-  })();
+
+    // 表示されているカードをソート
+    visibleCards.sort((a, b) => {
+      const dateA = a.getAttribute('data-work-date') || '';
+      const dateB = b.getAttribute('data-work-date') || '';
+      if (sortValue === 'date_desc') return dateB.localeCompare(dateA);
+      if (sortValue === 'date_asc') return dateA.localeCompare(dateB);
+      return 0;
+    });
+
+    // DOMの順序を更新（表示カードをソート順に、その後非表示カードを追加）
+    visibleCards.forEach((card) => worksGrid.appendChild(card));
+    hiddenCards.forEach((card) => worksGrid.appendChild(card));
+  }
+
+  function initWorksSortAndFilter() {
+    // /works 以外のページでは何もしない
+    const worksGrid = document.getElementById('works-grid');
+    if (!worksGrid) return;
+
+    const sortSelect = document.querySelector<HTMLSelectElement>('[data-works-sort]');
+    const filterSelect = document.querySelector<HTMLSelectElement>('[data-works-filter]');
+    const categorySelect = document.querySelector<HTMLSelectElement>('[data-works-category]');
+    if (!sortSelect || !filterSelect || !categorySelect) return;
+
+    // 並べ替え欄はヘッダーにあり、ページを移動するたびに作り直されるので、リスナーは重ならない
+    const update = () => updateWorks(sortSelect, filterSelect, categorySelect, worksGrid);
+    [sortSelect, filterSelect, categorySelect].forEach((select) => select.addEventListener('change', update));
+
+    // 初期表示時にソートを実行
+    update();
+  }
+
+  // 最初の読み込みと、View Transitions でのページ移動のたびに 1 回呼ばれる
+  document.addEventListener('astro:page-load', initWorksSortAndFilter);
 </script>
