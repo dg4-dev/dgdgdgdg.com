@@ -33,9 +33,11 @@
   --type-caption-line: 1.4
 
 // My Font
+// GitHub（dg4-dev/atomic-dot）から build 時に取得した最新版を使う（src/pages/typefaces/files/[file].ts）。
+// 取得に失敗してファイルが書き出されなかったときは、リポジトリに置いてある版を使う
 @font-face
   font-family: 'DG4 Atomic Dot'
-  src: url('/fonts/DG4AtomicDot-SquareVF.ttf') format('truetype')
+  src: url('/typefaces/files/atomic-dot.ttf') format('truetype'), url('/fonts/DG4AtomicDot-SquareVF.ttf') format('truetype')
   font-weight: normal
   font-style: normal
   font-variation-settings: 'RNDS' 0, 'slnt' 0
