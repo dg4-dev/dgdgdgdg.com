@@ -86,7 +86,7 @@ const featuredWorks = await Promise.all(
   <main>
     <section class="hero">
       {/* 何のサイトかを最初の画面で伝える。ヘッダーを隠している間だけ、ヘッダーの位置に出す */}
-      <p class="hero-tagline"><Phrase text="デザイン・書体・Web をつくる、dgdgdgdg のポートフォリオ" /></p>
+      <p class="hero-tagline"><span>デザイン・書体・Web をつくる、</span><span>dgdgdgdg のポートフォリオ</span></p>
       <div class="hero-content">
         <img src="/images/row.svg" alt="Logo" class="hero-logo" />
         <div class="orbit-rings">
@@ -217,6 +217,10 @@ const featuredWorks = await Promise.all(
     letter-spacing: 0.04em
     text-align: center
     pointer-events: none
+
+    // 幅が足りないときは「、」のあとで改行し、それ以外の場所では改行しない
+    span
+      display: inline-block
 
   .hero-content
     position: sticky
