@@ -56,7 +56,7 @@ const ogImage = coverImage.startsWith('/') ? new URL(coverImage, Astro.site ?? A
 
 <BaseLayout
   title={`${title} - Works - dgdgdgdg`}
-  description={summary || 'dgdgdgdgの制作実績記事です。'}
+  description={summary || `dgdgdgdgの作品「${title}」の紹介です。`}
   keywords="works, portfolio, projects"
   ogImage={ogImage}
   ogType="article"
@@ -85,7 +85,7 @@ const ogImage = coverImage.startsWith('/') ? new URL(coverImage, Astro.site ?? A
           {
             createdDate && (
               <div class="meta-item">
-                <strong>Created Date:</strong> {createdDate}
+                <strong>Date:</strong> {createdDate}
               </div>
             )
           }
@@ -114,7 +114,9 @@ const ogImage = coverImage.startsWith('/') ? new URL(coverImage, Astro.site ?? A
       }
       <div
         class="work-content"
-        set:html={blocks.length > 0 ? renderBlocks(blocks) : '<p class="work-content-empty">本文はまだありません。</p>'}
+        set:html={blocks.length > 0
+          ? renderBlocks(blocks)
+          : '<p class="work-content-empty">詳しい紹介は準備中です。</p>'}
       />
     </article>
   </main>
