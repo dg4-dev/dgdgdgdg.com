@@ -1,6 +1,7 @@
 ---
 import { ArrowUpDown, Filter, LayoutGrid } from '@lucide/astro';
 import WorksThemeToggle from './WorksThemeToggle.astro';
+import Phrase from './Phrase.astro';
 import { navItems } from '@/data/navigation';
 
 interface Props {
@@ -9,6 +10,13 @@ interface Props {
 }
 
 const { pageName, status } = Astro.props;
+
+// Contact ページに出す受付状況。limited は Worker から取得できなかったときにも出るので、どちらでも合う書き方にする
+const statusMessages = {
+  open: 'ご依頼を受け付けています。',
+  limited: '立て込んでいるため、お返事や制作の開始までにお時間をいただくことがあります。',
+  closed: '新しいご依頼の受付を一時的に止めています。ご相談だけでしたらお送りください。',
+} as const;
 
 const pageNameMap: Record<string, string> = {
   '/': 'Top',
@@ -95,8 +103,8 @@ const PageNameTag = isWorksArticlePage ? 'p' : 'h1';
               </span>
               <select class="works-control-select" data-works-filter>
                 <option value="all">すべて</option>
-                <option value="public">公開のみ</option>
-                <option value="private">プライベートのみ</option>
+                <option value="public">詳細あり</option>
+                <option value="private">非公開</option>
               </select>
             </label>
             <label class="works-control">
@@ -127,9 +135,7 @@ const PageNameTag = isWorksArticlePage ? 'p' : 'h1';
             ]}
           >
             <span class="status-message">
-              {status === 'open' && '現在、通常通りご依頼をお受けできます。'}
-              {status === 'limited' && '現在、内容によってはお時間をいただく場合があります。'}
-              {status === 'closed' && '現在、新規のご依頼受付を停止しています。'}
+              <Phrase text={statusMessages[status]} />
             </span>
           </div>
         </div>
@@ -591,6 +597,8 @@ const PageNameTag = isWorksArticlePage ? 'p' : 'h1';
       document.documentElement.removeAttribute('data-works-dark');
     }
     // ノブ位置の切り替え + アイコン色
+    // 読み上げでは「ダークテーマ」のボタンが押されているかどうかで、今のテーマを伝える
+    document.querySelector('[data-works-theme-toggle]')?.setAttribute('aria-pressed', String(dark));
     const knob = document.querySelector('.works-theme-knob');
     const sunIcon = document.querySelector('.works-theme-icon--light');
     const moonIcon = document.querySelector('.works-theme-icon--dark');
