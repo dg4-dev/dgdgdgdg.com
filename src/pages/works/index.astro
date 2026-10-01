@@ -37,7 +37,7 @@ const uniqueCategories = [...new Set(results.flatMap((work) => getCategories(wor
 
 <BaseLayout
   title="Works - dgdgdgdg"
-  description="dgdgdgdgの制作実績一覧。デザイン・Web・映像・その他クリエイティブ作品をカテゴリ別に掲載。随時追加・更新しています。"
+  description="dgdgdgdgの作品一覧です。デザイン・Web・映像などの作品を、カテゴリで絞り込んで見られます。"
   keywords="works, portfolio, projects"
 >
   <Fragment slot="head"> </Fragment>
@@ -48,7 +48,7 @@ const uniqueCategories = [...new Set(results.flatMap((work) => getCategories(wor
       window.__CATEGORIES_DATA__ = categoriesData;
     </script>
     <div class="works-inner">
-      <p class="works-note title">まだ掲載しきれていない作品もございます。随時、追加・更新してまいります。</p>
+      <p class="works-note title">掲載していない作品もあります。少しずつ追加しています。</p>
       <div class="works-grid" id="works-grid">
         {
           sortedWorks.map(({ work, cover }) => {
@@ -74,6 +74,7 @@ const uniqueCategories = [...new Set(results.flatMap((work) => getCategories(wor
           })
         }
       </div>
+      <p class="works-empty" id="works-empty" role="status" hidden>条件に合う作品はありません。</p>
     </div>
   </main>
   <ContactCTA />
@@ -124,6 +125,17 @@ const uniqueCategories = [...new Set(results.flatMap((work) => getCategories(wor
     .works-grid
       grid-template-columns: repeat(2, 1fr)
       gap: space(6) space(3)
+
+  .works-empty
+    padding: space(16) space(0)
+    text-align: center
+    font-size: var(--type-body-size)
+    line-height: var(--type-body-line)
+    color: var(--c-gray-400)
+    transition: color 0.3s ease
+
+  :global([data-works-dark] .works-empty)
+    color: var(--c-gray-200)
 
   details
     margin-top: space(12)
@@ -200,6 +212,10 @@ const uniqueCategories = [...new Set(results.flatMap((work) => getCategories(wor
     // DOMの順序を更新（表示カードをソート順に、その後非表示カードを追加）
     visibleCards.forEach((card) => worksGrid.appendChild(card));
     hiddenCards.forEach((card) => worksGrid.appendChild(card));
+
+    // 絞り込みで 1 件も残らないときは、壊れて見えないよう案内を出す
+    const empty = document.getElementById('works-empty');
+    if (empty) empty.hidden = visibleCards.length > 0;
   }
 
   function initWorksSortAndFilter() {
