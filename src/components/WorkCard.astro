@@ -49,13 +49,14 @@ const dataAttrs = hasDataAttrs
 ---
 
 <Tag class:list={['work-card', { 'work-card--link': href }]} {...linkAttrs} {...dataAttrs}>
-  {
-    coverSrc ? (
-      <div class="work-cover">
+  {/* 画像がないときも空の .work-cover を置き、文字の段の位置をほかのカードとそろえる */}
+  <div class="work-cover">
+    {
+      coverSrc && (
         <Image src={coverSrc} alt={isPrivate ? 'Private work sample' : title} width={520} height={390} loading="lazy" />
-      </div>
-    ) : null
-  }
+      )
+    }
+  </div>
   <div class="work-content">
     <h2 class="work-card-title">
       <Phrase text={title} />
@@ -83,11 +84,15 @@ const dataAttrs = hasDataAttrs
 
 <style lang="sass">
   @use '../styles/spacing' as *
+  // 一覧のグリッドの 2 行分（画像の段・文字の段）を使い、subgrid で同じ行のカードと段の高さをそろえる。
+  // 画像は段の下端に置くので、縦横比やタイトルの行数が違っても、同じ行のカードで画像の下端がそろう
   .work-card
     overflow: hidden
     background-color: var(--c-white)
-    display: flex
-    flex-direction: column
+    display: grid
+    grid-row: span 2
+    grid-template-rows: subgrid
+    row-gap: 0
     transition: background-color 0.3s ease
 
   :global([data-works-dark] .work-card)
@@ -96,11 +101,10 @@ const dataAttrs = hasDataAttrs
   .work-card--link
     text-decoration: none
     color: inherit
-    display: flex
-    flex-direction: column
 
   .work-cover
     width: 100%
+    align-self: end
 
     img
       width: 100%
@@ -152,7 +156,7 @@ const dataAttrs = hasDataAttrs
 
   /* 画像以外（テキストなど）のエリアの高さをそろえる */
   .work-content
-    min-height: 140px
+    align-self: start
 
   .work-category-tag
     // 「Business Card」などがタグの中で改行されないようにする
