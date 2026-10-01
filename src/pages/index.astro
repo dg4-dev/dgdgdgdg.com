@@ -7,6 +7,7 @@ import Footer from '@/components/footer.astro';
 import ContactCTA from '@/components/ContactCTA.astro';
 import WorkCard from '@/components/WorkCard.astro';
 import { getNotionData } from '@/lib/notion';
+import { getWorkLink } from '@/lib/works';
 import { downloadAndSaveImage, isNotionUrl } from '@/lib/notion-images';
 
 // ロゴ周りに表示するテキストデータ
@@ -156,6 +157,7 @@ const featuredWorks = worksWithLocalImages
           <div class="featured-grid">
             {featuredWorks.map((item: any) => {
               const workId = item.properties?.id?.rich_text?.[0]?.plain_text ?? item.id;
+              const link = getWorkLink(item);
               return (
                 <WorkCard
                   title={item.properties?.Title?.title?.[0]?.plain_text ?? 'No title'}
@@ -165,7 +167,8 @@ const featuredWorks = worksWithLocalImages
                   coverImageUrl={item.properties?.Cover?.files?.[0]?.file?.url ?? ''}
                   workId={workId}
                   isPrivate={false}
-                  href={`/works/article/${workId}`}
+                  href={link?.href}
+                  external={link?.external}
                 />
               );
             })}
