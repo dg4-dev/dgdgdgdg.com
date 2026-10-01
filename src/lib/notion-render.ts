@@ -1,7 +1,7 @@
 // Notion のブロックを記事本文の HTML に変換する
 // 記事ページ（src/pages/works/article/[id].astro）から使う
 
-import { wrapPhrases } from './budoux';
+import { keepSentenceEnds } from './budoux';
 import { escapeHtml } from './html';
 
 export { escapeHtml };
@@ -59,7 +59,7 @@ function renderBlock(block: any): string {
       // 同期ブロックは見た目を持たないので、中身だけを出す
       return childrenHtml;
     case 'code':
-      return `<pre><code class="language-${escapeHtml(value.language)}">${renderRichText(value.rich_text, { phrases: false })}</code></pre>`;
+      return `<pre><code class="language-${escapeHtml(value.language)}">${renderRichText(value.rich_text, { keepEnds: false })}</code></pre>`;
     case 'image':
       const imageUrl = value.type === 'file' ? value.file.url : value.external.url;
       const caption = value.caption ? renderRichText(value.caption) : '';
@@ -297,11 +297,13 @@ function renderTable(value: any, rows: any[]): string {
 // 文中の URL（http:// / https:// に続く ASCII の文字）は文節に分けない
 const URL_PATTERN = /(https?:\/\/[!-~]+)/;
 
-// 文を文節に分けて <wbr> を入れる（URL の部分はエスケープだけ）
-function wrapText(text: string): string {
-  return text
-    .split(URL_PATTERN)
-    .map((part, i) => (i % 2 === 1 ? escapeHtml(part) : wrapPhrases(part)))
+// 文末の文節を途中で改行しないようにする（URL の部分はエスケープだけ）
+function wrapText(text: string, endsBlock: boolean): string {
+  const parts = text.split(URL_PATTERN);
+  return parts
+    .map((part, i) =>
+      i % 2 === 1 ? escapeHtml(part) : keepSentenceEnds(part, { endsBlock: endsBlock && i === parts.length - 1 }),
+    )
     .join('');
 }
 
@@ -311,15 +313,16 @@ function plainText(richTextArray: any[] | undefined): string {
 }
 
 // リッチテキストをHTMLに変換
-function renderRichText(richTextArray: any[], { phrases = true }: { phrases?: boolean } = {}) {
+function renderRichText(richTextArray: any[], { keepEnds = true }: { keepEnds?: boolean } = {}) {
   if (!richTextArray || richTextArray.length === 0) return '';
 
   return richTextArray
-    .map((text) => {
+    .map((text, index) => {
       // 文字をエスケープしてから装飾タグで囲む（コードに書いた <div> などをそのまま表示するため）
-      // 文には文節の間に <wbr> を入れる。コードには入れない
+      // 文末の文節は途中で改行しないようにする。コードはそのまま
       const plain = text.plain_text ?? '';
-      let content = phrases && !text.annotations.code ? wrapText(plain) : escapeHtml(plain);
+      const endsBlock = index === richTextArray.length - 1;
+      let content = keepEnds && !text.annotations.code ? wrapText(plain, endsBlock) : escapeHtml(plain);
 
       if (text.annotations.bold) content = `<strong>${content}</strong>`;
       if (text.annotations.italic) content = `<em>${content}</em>`;

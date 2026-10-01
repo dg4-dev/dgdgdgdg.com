@@ -7,10 +7,21 @@ import { escapeHtml } from './html';
 
 const parser = new Parser(jaModel);
 
+/** 文末とみなす文節（。！？ のあとに閉じかっこが続いてもよい） */
+const SENTENCE_END = /[。．！？!?][」』）)\]】"”]*\s*$/;
+
 /**
- * 日本語の文を文節に分け、エスケープしてから <wbr> でつないだ HTML を返す。
- * 使う要素には .phrases（word-break: keep-all）を付け、文節の途中で改行しないようにする。
+ * 文字をエスケープし、文末の文節だけを <span class="phrase-end"> で囲んだ HTML を返す。
+ * 文の途中はどこで改行してもよく、文末の文節だけは途中で改行しない
+ * （「た。」など 1〜2 文字だけの行ができないようにする）。
+ * @param endsBlock true なら、記号がなくても最後の文節を文末として扱う（見出しや段落の終わり）
  */
-export function wrapPhrases(text: string): string {
-  return parser.parse(text).map(escapeHtml).join('<wbr>');
+export function keepSentenceEnds(text: string, { endsBlock = true }: { endsBlock?: boolean } = {}): string {
+  const phrases = parser.parse(text);
+  return phrases
+    .map((phrase, i) => {
+      const isEnd = SENTENCE_END.test(phrase) || (endsBlock && i === phrases.length - 1);
+      return isEnd && phrase.trim() ? `<span class="phrase-end">${escapeHtml(phrase)}</span>` : escapeHtml(phrase);
+    })
+    .join('');
 }
