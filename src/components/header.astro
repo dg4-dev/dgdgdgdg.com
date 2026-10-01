@@ -3,7 +3,7 @@ import { ArrowUpDown, Filter, LayoutGrid, Sun, Moon } from '@lucide/astro';
 
 interface Props {
   pageName?: string;
-  status?: 'open' | 'limited' | 'closed' | 'unknown';
+  status?: 'open' | 'limited' | 'closed';
 }
 
 const { pageName, status } = Astro.props;
@@ -143,7 +143,6 @@ const isContactPage = pathname === '/contact';
                 'status-banner--open': status === 'open',
                 'status-banner--limited': status === 'limited',
                 'status-banner--closed': status === 'closed',
-                'status-banner--unknown': status === 'unknown',
               },
             ]}
           >
@@ -151,7 +150,6 @@ const isContactPage = pathname === '/contact';
               {status === 'open' && '現在、通常通りご依頼をお受けできます。'}
               {status === 'limited' && '現在、内容によってはお時間をいただく場合があります。'}
               {status === 'closed' && '現在、新規のご依頼受付を停止しています。'}
-              {status === 'unknown' && 'ステータスを取得できませんでした（暫定: LIMITED）。'}
             </span>
           </div>
         </div>
@@ -362,10 +360,6 @@ const isContactPage = pathname === '/contact';
   .status-banner--closed
     background: var(--c-status-closed-bg)
     color: var(--c-status-closed)
-
-  .status-banner--unknown
-    background: var(--c-white-a8)
-    color: var(--c-black-a80)
 
   .header-logo-link
     display: flex
