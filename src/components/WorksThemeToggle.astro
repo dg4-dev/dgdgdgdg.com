@@ -1,0 +1,69 @@
+---
+// Works の一覧と記事ページのヘッダーに置く、ライト / ダークの切り替え
+// 動きは src/components/header.astro のスクリプト（initWorksThemeToggle）で付ける
+import { Sun, Moon } from '@lucide/astro';
+---
+
+<button class="works-theme-toggle" type="button" aria-label="テーマを切り替える" data-works-theme-toggle>
+  <Sun class="works-theme-icon works-theme-icon--light" size={10} />
+  <Moon class="works-theme-icon works-theme-icon--dark" size={10} />
+  <span class="works-theme-knob"></span>
+</button>
+
+<style lang="sass">
+  @use '../styles/spacing' as *
+
+  .works-theme-toggle
+    --toggle-h: 26px
+    --knob-size: 18px
+    --toggle-w: 46px
+    --knob-inset: calc((var(--toggle-h) - var(--knob-size)) / 2 - 1px)
+    position: relative
+    width: var(--toggle-w)
+    height: var(--toggle-h)
+    margin-left: space(4)
+    border: 1px solid var(--c-black-a8)
+    border-radius: 999px
+    background: var(--c-white)
+    cursor: pointer
+    flex-shrink: 0
+    color: var(--c-black-a60)
+    padding: 0
+
+  .works-theme-icon--light,
+  .works-theme-icon--dark
+    position: absolute
+    top: 50%
+    transform: translate(-50%, -50%)
+    z-index: 2
+    color: var(--c-black-a60)
+    &:global(.is-covered)
+      color: var(--c-white)
+
+  // ノブ中心X = knob-inset + knob-size/2
+  .works-theme-icon--light
+    left: calc(var(--knob-inset) + var(--knob-size) / 2)
+
+  // 右側ノブ中心X = toggle-w - border*2 - knob-inset - knob-size/2
+  .works-theme-icon--dark
+    left: calc(var(--toggle-w) - 2px - var(--knob-inset) - var(--knob-size) / 2)
+
+  .works-theme-knob
+    position: absolute
+    z-index: 1
+    top: var(--knob-inset)
+    left: var(--knob-inset)
+    width: var(--knob-size)
+    height: var(--knob-size)
+    border-radius: 50%
+    background: var(--c-black-a60)
+    &:global(.is-dark)
+      left: auto
+      right: var(--knob-inset)
+
+  @media (max-width: 768px)
+    .works-theme-toggle
+      --toggle-h: 24px
+      --knob-size: 16px
+      --toggle-w: 42px
+</style>
