@@ -30,6 +30,7 @@ Astro と Cloudflare Pages で構築された個人サイト **dgdgdgdg.com** �
 ## ⚡ クイックスタート
 
 ### 前提条件
+
 - [Bun](https://bun.sh/) (最新版)
 
 ### インストールと実行
@@ -95,8 +96,30 @@ GitHub API は未認証だと 1 時間 60 回までなので、build 環境で�
 
 ## 📜 スクリプト
 
-| コマンド | 説明 |
-| :--- | :--- |
-| `bun run dev` | 開発サーバーを起動 |
-| `bun run build` | プロダクションビルド |
-| `bun run preview` | ビルド結果をローカルでプレビュー |
+| コマンド               | 説明                                            |
+| :--------------------- | :---------------------------------------------- |
+| `bun run dev`          | 開発サーバーを起動                              |
+| `bun run build`        | プロダクションビルド                            |
+| `bun run preview`      | ビルド結果をローカルでプレビュー                |
+| `bun run check`        | 型チェック（`astro check`）                     |
+| `bun run format`       | Prettier で整える                               |
+| `bun run format:check` | 整っているか確かめる（GitHub Actions でも動く） |
+
+## 📮 受付状況の Worker
+
+Contact ページに出す受付状況（`open` / `limited` / `closed`）は、別の Cloudflare Worker（`workers/status-worker.ts`）から取得します。
+`GET /status` で今の受付状況を返し、`Authorization: Bearer <API_TOKEN>` を付けて `{"status": "open"}` を `POST /status` すると更新します。
+
+```bash
+# 1. KV を作り（初回だけ）、表示された id を workers/wrangler.toml に書く
+bunx wrangler kv namespace create STATUS_KV
+
+# 2. 更新に使うトークンを設定する（初回だけ）
+bunx wrangler secret put API_TOKEN --config workers/wrangler.toml
+
+# 3. デプロイする
+bunx wrangler deploy --config workers/wrangler.toml
+```
+
+デプロイした URL（`https://<worker>.workers.dev/status`）を `PUBLIC_STATUS_ENDPOINT` に設定します。
+設定していないときや Worker に接続できないときは、Contact ページは `limited` と表示します。

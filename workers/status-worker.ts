@@ -1,4 +1,5 @@
-// src/status-worker.ts
+// workers/status-worker.ts
+// Contact ページの受付状況（open / limited / closed）を返す Worker。デプロイ手順は README を参照
 
 export interface Env {
   STATUS_KV: KVNamespace;
