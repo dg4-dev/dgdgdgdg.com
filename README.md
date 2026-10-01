@@ -75,7 +75,7 @@ src/
 
 ## 🔤 Adding a Typeface
 
-The Typefaces page (`/typefaces`) fetches each font file and LICENSE from its public GitHub repository at build time.
+The Typefaces page (`/typefaces`) fetches each font file and LICENSE from the latest release of its public GitHub repository at build time. The site-wide atomic dot font uses the same fetched file.
 Family name, version, variable axes and glyphs are read from the font file itself, so adding a typeface only takes one entry in `src/data/typefaces.ts`.
 
 The version shown prefers the latest GitHub release, then the newest version tag (e.g. `v1.2.3`), then the version written in the font file.
@@ -85,7 +85,7 @@ Unauthenticated GitHub API calls are limited to 60 per hour, so setting `GITHUB_
 {
   slug: 'new-font',              // URL (/typefaces/new-font)
   repo: 'dg4-dev/new-font',      // GitHub repository
-  ref: 'main',                   // branch or tag
+  ref: 'main',                   // branch used when the latest release can't be found
   fontPath: 'new-font.ttf',      // font file in the repository
   licensePath: 'LICENSE',        // license file in the repository (optional)
   year: 2026,
