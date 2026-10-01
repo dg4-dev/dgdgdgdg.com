@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
 import Footer from '@/components/footer.astro';
 import { fetchContactStatus } from '@/lib/contact-status';
+import Phrase from '@/components/Phrase.astro';
 
 export const prerender = false;
 
@@ -58,7 +59,7 @@ const socialLinks = [
   <main>
     <section class="contact-hero">
       <p class="contact-description">
-        お仕事のご依頼・ご相談は、Messenger・メール<br />または各SNSからお気軽にどうぞ。
+        <Phrase text="お仕事のご依頼・ご相談は、Messenger・メールまたは各SNSからお気軽にどうぞ。" />
       </p>
     </section>
 

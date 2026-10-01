@@ -1,0 +1,12 @@
+---
+import { keepSentenceEnds } from '@/lib/budoux';
+
+interface Props {
+  text: string;
+}
+
+// 文末の文節だけを途中で改行しないようにした文字を出す（文の途中はどこで改行してもよい）
+const { text } = Astro.props;
+---
+
+<Fragment set:html={keepSentenceEnds(text)} />

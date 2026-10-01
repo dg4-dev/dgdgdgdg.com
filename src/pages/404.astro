@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
 import Footer from '@/components/footer.astro';
+import Phrase from '@/components/Phrase.astro';
 ---
 
 <BaseLayout
@@ -15,8 +16,8 @@ import Footer from '@/components/footer.astro';
   <main>
     <section class="not-found">
       <h2 class="error-code">404</h2>
-      <p class="not-found-message">お探しのページは見つかりませんでした</p>
-      <p class="not-found-sub">ページが移動・削除されたか、URLが間違っている可能性があります。</p>
+      <p class="not-found-message"><Phrase text="お探しのページは見つかりませんでした" /></p>
+      <p class="not-found-sub"><Phrase text="ページが移動・削除されたか、URLが間違っている可能性があります。" /></p>
       <a href="/" class="back-link">
         <span class="back-arrow">
           <svg
