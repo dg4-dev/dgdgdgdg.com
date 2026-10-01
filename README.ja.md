@@ -88,7 +88,7 @@ GitHub API は未認証だと 1 時間 60 回までなので、build 環境で�
   fontPath: 'new-font.ttf',      // リポジトリ内のフォントファイル
   licensePath: 'LICENSE',        // リポジトリ内のライセンス（任意）
   year: 2026,
-  description: '書体の紹介文',
+  description: ['書体の紹介文（1 要素が 1 段落）'],
   // presets: [...]              // スタイル見本（任意。省略時はフォントの名前付きインスタンス）
 },
 ```
