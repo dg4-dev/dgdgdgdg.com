@@ -910,13 +910,16 @@ const featuredWorks = worksWithLocalImages
         }
 
         // ヘッダー表示制御: トランジション完了（progress >= 0.85）で表示
+        // 隠している間は inert を付け、見えないリンクやボタンに Tab で移動できないようにする
         if (headerInner) {
           if (progress >= 0.85) {
             headerInner.style.removeProperty('opacity');
             headerInner.style.removeProperty('pointer-events');
+            headerInner.inert = false;
           } else {
             headerInner.style.opacity = '0';
             headerInner.style.pointerEvents = 'none';
+            headerInner.inert = true;
           }
         }
 
