@@ -134,12 +134,17 @@ if (coverImage && isNotionUrl(coverImage)) {
   const localPath = await downloadAndSaveImage(coverImage);
   if (localPath) coverImage = localPath;
 }
+
+// OGP 画像にはサイト内に保存したカバー画像を使う（Notion の URL は期限が切れるので使わない）
+const ogImage = coverImage.startsWith('/') ? new URL(coverImage, Astro.site ?? Astro.url).href : undefined;
 ---
 
 <BaseLayout
   title={`${title} - Works - dgdgdgdg`}
   description={summary || 'dgdgdgdgの制作実績記事です。'}
   keywords="works, portfolio, projects"
+  ogImage={ogImage}
+  ogType="article"
 >
   <Fragment slot="head"> </Fragment>
   <Header />
