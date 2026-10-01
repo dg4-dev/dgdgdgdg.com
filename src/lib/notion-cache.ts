@@ -59,15 +59,23 @@ export function setCache<T>(key: string, data: T): void {
   writeFileSync(cacheFilePath(key), JSON.stringify(entry));
 }
 
+interface CacheOptions<T> {
+  /** false を返すと、TTL 内でもキャッシュを捨てて取り直す */
+  isValid?: (data: NoInfer<T>) => boolean;
+}
+
 /**
  * キャッシュ付き非同期関数ラッパー。
  * キャッシュが有効ならそれを返し、なければ fetcher を実行してキャッシュに保存する。
  */
-export async function withCache<T>(key: string, fetcher: () => Promise<T>): Promise<T> {
+export async function withCache<T>(key: string, fetcher: () => Promise<T>, options: CacheOptions<T> = {}): Promise<T> {
   const cached = getCached<T>(key);
   if (cached !== null) {
-    console.log(`[notion-cache] HIT: ${key}`);
-    return cached;
+    if (!options.isValid || options.isValid(cached)) {
+      console.log(`[notion-cache] HIT: ${key}`);
+      return cached;
+    }
+    console.log(`[notion-cache] STALE: ${key}`);
   }
 
   console.log(`[notion-cache] MISS: ${key}`);
