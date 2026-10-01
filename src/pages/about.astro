@@ -15,6 +15,10 @@ import ContactCTA from '@/components/ContactCTA.astro';
   <Fragment slot="head"> </Fragment>
   <Header />
   <main>
+    <section class="about-logo">
+      <img src="/images/row.svg" alt="dgdgdgdg" width="566" height="151" />
+    </section>
+
     <section class="about-intro">
       <h2 class="section-title">dgdgdgdgとは</h2>
       <div class="intro-text">
@@ -95,6 +99,15 @@ import ContactCTA from '@/components/ContactCTA.astro';
     line-height: var(--type-h2-line)
     letter-spacing: 0.08em
     margin-bottom: space(8)
+
+  // Logo
+  .about-logo
+    padding-block: space(16)
+
+    img
+      display: block
+      width: min(600px, 80vw)
+      height: auto
 
   // Intro
   .about-intro
