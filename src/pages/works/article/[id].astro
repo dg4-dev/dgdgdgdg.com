@@ -9,6 +9,7 @@ import { getNotionData, findPageByCustomId, getNotionPage, getNotionBlocksRecurs
 import { downloadAndSaveImage, isNotionUrl } from '@/lib/notion-images';
 import { renderBlocks } from '@/lib/notion-render';
 import { getExternalUrl } from '@/lib/works';
+import Phrase from '@/components/Phrase.astro';
 
 // 静的パス生成（空にして生成を停止）
 export async function getStaticPaths() {
@@ -154,7 +155,7 @@ const ogImage = coverImage.startsWith('/') ? new URL(coverImage, Astro.site ?? A
   <main>
     <article class="work-detail">
       <header class="work-header">
-        <h1>{title}</h1>
+        <h1><Phrase text={title} /></h1>
         {
           coverImage && (
             <div class="work-cover">
@@ -194,12 +195,14 @@ const ogImage = coverImage.startsWith('/') ? new URL(coverImage, Astro.site ?? A
       {
         summary && (
           <div class="work-summary">
-            <p>{summary}</p>
+            <p>
+              <Phrase text={summary} />
+            </p>
           </div>
         )
       }
       <div
-        class="work-content"
+        class="work-content phrases"
         set:html={blocks.length > 0 ? renderBlocks(blocks) : '<p class="work-content-empty">本文はまだありません。</p>'}
       />
     </article>

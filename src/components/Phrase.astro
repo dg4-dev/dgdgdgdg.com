@@ -1,0 +1,12 @@
+---
+import { wrapPhrases } from '@/lib/budoux';
+
+interface Props {
+  text: string;
+}
+
+// 文節の間でだけ改行するように、<wbr> を入れた文字を出す
+const { text } = Astro.props;
+---
+
+<span class="phrases" set:html={wrapPhrases(text)} />

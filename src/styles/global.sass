@@ -67,6 +67,23 @@ body
     font-weight: var(--type-h3-weight)
     line-height: var(--type-h3-line)
 
+// 改行の位置
+// 行頭に来てはいけない記号（小さい「っ」や「ー」など）を厳しく扱う
+html
+  line-break: strict
+
+// 見出しは行の長さをそろえ、段落は最後の行が 1 文字だけにならないようにする
+h1, h2, h3, h4, h5, h6
+  text-wrap: balance
+
+p
+  text-wrap: pretty
+
+// BudouX で文節の間に <wbr> を入れた文字（src/components/Phrase.astro）。文節の途中では改行しない
+.phrases
+  word-break: keep-all
+  overflow-wrap: anywhere
+
 // 本文エリアの ul/ol のみリストマークを復元（reset.css の list-style: none を上書き）
 .work-content
   ul

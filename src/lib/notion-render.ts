@@ -1,6 +1,11 @@
 // Notion のブロックを記事本文の HTML に変換する
 // 記事ページ（src/pages/works/article/[id].astro）から使う
 
+import { wrapPhrases } from './budoux';
+import { escapeHtml } from './html';
+
+export { escapeHtml };
+
 // ブロックをレンダリングするヘルパー関数（子ブロックも再帰的に処理）
 function renderBlock(block: any): string {
   const { type, id, children } = block;
@@ -54,7 +59,7 @@ function renderBlock(block: any): string {
       // 同期ブロックは見た目を持たないので、中身だけを出す
       return childrenHtml;
     case 'code':
-      return `<pre><code class="language-${escapeHtml(value.language)}">${renderRichText(value.rich_text)}</code></pre>`;
+      return `<pre><code class="language-${escapeHtml(value.language)}">${renderRichText(value.rich_text, { phrases: false })}</code></pre>`;
     case 'image':
       const imageUrl = value.type === 'file' ? value.file.url : value.external.url;
       const caption = value.caption ? renderRichText(value.caption) : '';
@@ -289,14 +294,15 @@ function renderTable(value: any, rows: any[]): string {
   return `<div class="table-container"><table>${thead}${tbody}</table></div>`;
 }
 
-// HTML の本文・属性に入れる文字列をエスケープする
-export function escapeHtml(value: string): string {
-  return String(value ?? '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+// 文中の URL（http:// / https:// に続く ASCII の文字）は文節に分けない
+const URL_PATTERN = /(https?:\/\/[!-~]+)/;
+
+// 文を文節に分けて <wbr> を入れる（URL の部分はエスケープだけ）
+function wrapText(text: string): string {
+  return text
+    .split(URL_PATTERN)
+    .map((part, i) => (i % 2 === 1 ? escapeHtml(part) : wrapPhrases(part)))
+    .join('');
 }
 
 // リッチテキストを装飾なしの文字列にする
@@ -305,13 +311,15 @@ function plainText(richTextArray: any[] | undefined): string {
 }
 
 // リッチテキストをHTMLに変換
-function renderRichText(richTextArray: any[]) {
+function renderRichText(richTextArray: any[], { phrases = true }: { phrases?: boolean } = {}) {
   if (!richTextArray || richTextArray.length === 0) return '';
 
   return richTextArray
     .map((text) => {
       // 文字をエスケープしてから装飾タグで囲む（コードに書いた <div> などをそのまま表示するため）
-      let content = escapeHtml(text.plain_text ?? '');
+      // 文には文節の間に <wbr> を入れる。コードには入れない
+      const plain = text.plain_text ?? '';
+      let content = phrases && !text.annotations.code ? wrapText(plain) : escapeHtml(plain);
 
       if (text.annotations.bold) content = `<strong>${content}</strong>`;
       if (text.annotations.italic) content = `<em>${content}</em>`;
