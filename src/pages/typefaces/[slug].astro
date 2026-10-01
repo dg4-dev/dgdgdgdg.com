@@ -54,7 +54,17 @@ function toHex(codepoint: number): string {
         </div>
         <div>
           <dt>Version</dt>
-          <dd>{t.version || '—'}</dd>
+          <dd>
+            {
+              t.versionUrl ? (
+                <a href={t.versionUrl} target="_blank" rel="noopener noreferrer">
+                  {t.version}
+                </a>
+              ) : (
+                t.version || '—'
+              )
+            }
+          </dd>
         </div>
         <div>
           <dt>Released</dt>
