@@ -1,6 +1,7 @@
-import { Client } from '@notionhq/client';
+import { Client, isFullBlock, isFullPage, type BlockObjectResponse } from '@notionhq/client';
 import { withCache } from './notion-cache';
 import { hasExpiredUnsavedFile } from './notion-images';
+import type { Work } from './works';
 
 // Notion クライアントの初期化
 export const notion = new Client({
@@ -10,31 +11,56 @@ export const notion = new Client({
 // データソースIDの取得
 export const dataSourceId = import.meta.env.NOTION_DATASOURCE_ID;
 
+/** 子ブロックを children に入れたブロック */
+export type NotionBlock = BlockObjectResponse & { children?: NotionBlock[] };
+
 // キャッシュに期限切れのファイルURLがあり、その画像がまだ保存されていなければ取り直す
 const cacheOptions = { isValid: (data: unknown) => !hasExpiredUnsavedFile(data) };
 
+// Notion API の回数制限（平均で毎秒 3 回ほど）に当たらないよう、同時に送るリクエストを絞る
+const MAX_CONCURRENT_REQUESTS = 3;
+let activeRequests = 0;
+const waitingRequests: (() => void)[] = [];
+
+async function withRequestLimit<T>(request: () => Promise<T>): Promise<T> {
+  if (activeRequests < MAX_CONCURRENT_REQUESTS) {
+    activeRequests++;
+  } else {
+    // 前のリクエストが終わると、その枠をそのまま受け取る
+    await new Promise<void>((resolve) => waitingRequests.push(resolve));
+  }
+  try {
+    return await request();
+  } finally {
+    const next = waitingRequests.shift();
+    if (next) next();
+    else activeRequests--;
+  }
+}
+
 // Notionデータベースからデータを取得（全件・キャッシュ付き）
 // 1回の取得は最大100件なので、has_more / next_cursor でページ送りする
-export async function getNotionData() {
+export async function getNotionData(): Promise<{ results: Work[] }> {
   return withCache(
     'notionData',
     async () => {
       try {
-        const results: any[] = [];
+        const results: Work[] = [];
         let startCursor: string | undefined;
-        let response: any;
 
         do {
-          response = await notion.dataSources.query({
-            data_source_id: dataSourceId,
-            page_size: 100,
-            ...(startCursor ? { start_cursor: startCursor } : {}),
-          });
-          results.push(...(response.results ?? []));
-          startCursor = response.has_more ? response.next_cursor : undefined;
+          const response = await withRequestLimit(() =>
+            notion.dataSources.query({
+              data_source_id: dataSourceId,
+              page_size: 100,
+              ...(startCursor ? { start_cursor: startCursor } : {}),
+            }),
+          );
+          results.push(...response.results.filter(isFullPage));
+          startCursor = response.has_more ? (response.next_cursor ?? undefined) : undefined;
         } while (startCursor);
 
-        return { ...response, results, has_more: false, next_cursor: null };
+        return { results };
       } catch (error) {
         console.error('Notion API Error:', error);
         throw error;
@@ -44,62 +70,32 @@ export async function getNotionData() {
   );
 }
 
-// 個別ページの詳細を取得（キャッシュ付き）
-export async function getNotionPage(pageId: string) {
-  return withCache(
-    `notionPage:${pageId}`,
-    async () => {
-      try {
-        const page = await notion.pages.retrieve({ page_id: pageId });
-        return page;
-      } catch (error) {
-        console.error('Notion Page Retrieve Error:', error);
-        throw error;
-      }
-    },
-    cacheOptions,
-  );
-}
-
-// ページのブロック（コンテンツ）を取得（キャッシュ付き）
-export async function getNotionBlocks(pageId: string) {
-  return withCache(`notionBlocks:${pageId}`, async () => {
-    try {
-      const blocks = await notion.blocks.children.list({
-        block_id: pageId,
-      });
-      return blocks;
-    } catch (error) {
-      console.error('Notion Blocks List Error:', error);
-      throw error;
-    }
-  });
-}
-
 // ブロックを再帰的に取得（子ブロックを含む・ページネーション対応・キャッシュ付き）
-export async function getNotionBlocksRecursive(blockId: string): Promise<any[]> {
+export async function getNotionBlocksRecursive(blockId: string): Promise<NotionBlock[]> {
   return withCache(
     `notionBlocksRecursive:${blockId}`,
     async () => {
       try {
-        const results: any[] = [];
+        const results: BlockObjectResponse[] = [];
         let startCursor: string | undefined;
 
         do {
-          const response: any = await notion.blocks.children.list({
-            block_id: blockId,
-            page_size: 100,
-            ...(startCursor ? { start_cursor: startCursor } : {}),
-          });
-          results.push(...(response.results ?? []));
-          startCursor = response.has_more ? response.next_cursor : undefined;
+          const response = await withRequestLimit(() =>
+            notion.blocks.children.list({
+              block_id: blockId,
+              page_size: 100,
+              ...(startCursor ? { start_cursor: startCursor } : {}),
+            }),
+          );
+          results.push(...response.results.filter(isFullBlock));
+          startCursor = response.has_more ? (response.next_cursor ?? undefined) : undefined;
         } while (startCursor);
 
         // 各ブロックに対して、子ブロックがある場合は再帰的に取得
         const blocksWithChildren = await Promise.all(
-          results.map(async (block: any) => {
+          results.map(async (block): Promise<NotionBlock> => {
             // 同期ブロックの複製は、中身を元のブロックから取る（元のページに権限がなければ複製側から取る）
-            const syncedFromId = block.type === 'synced_block' ? block.synced_block?.synced_from?.block_id : undefined;
+            const syncedFromId = block.type === 'synced_block' ? block.synced_block.synced_from?.block_id : undefined;
             if (syncedFromId) {
               const children = await getNotionBlocksRecursive(syncedFromId).catch(() =>
                 block.has_children ? getNotionBlocksRecursive(block.id) : [],
@@ -122,27 +118,4 @@ export async function getNotionBlocksRecursive(blockId: string): Promise<any[]> 
     },
     cacheOptions,
   );
-}
-
-// カスタムIDからページを検索する関数
-export async function findPageByCustomId(customId: string) {
-  try {
-    // データソースから全データを取得（getNotionData内でキャッシュされる）
-    const response = await getNotionData();
-
-    // カスタムIDがマッチするページを検索
-    const page = response.results.find((item: any) => {
-      const pageCustomId = item.properties?.id?.rich_text?.[0]?.plain_text;
-      return pageCustomId === customId;
-    });
-
-    if (!page) {
-      throw new Error(`Page with custom id "${customId}" not found`);
-    }
-
-    return page;
-  } catch (error) {
-    console.error('Find Page By Custom ID Error:', error);
-    throw error;
-  }
 }

@@ -5,11 +5,9 @@ import Phrase from './Phrase.astro';
 
 export interface Props {
   title: string;
-  client?: string;
   createdDate?: string;
   categories?: { name: string; color: string }[];
   coverImageUrl?: string;
-  workId: string;
   isPrivate: boolean;
   /** 指定時は <a> でラップ、未指定時は <article> */
   href?: string;
@@ -23,11 +21,9 @@ export interface Props {
 
 const {
   title,
-  client = '',
   createdDate = '',
   categories = [],
   coverImageUrl = '',
-  workId,
   isPrivate,
   href,
   external = false,
@@ -137,12 +133,6 @@ const dataAttrs = hasDataAttrs
     clip: rect(0 0 0 0)
     white-space: nowrap
     border: 0
-
-  .work-client
-    color: var(--c-gray-400)
-    font-size: var(--type-caption-size)
-    line-height: var(--type-caption-line)
-    margin: space(1) 0
 
   .work-date
     color: var(--c-gray-400)

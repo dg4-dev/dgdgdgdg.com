@@ -3,209 +3,36 @@ export const prerender = true;
 
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
-import { getNotionData, getNotionBlocksRecursive } from '@/lib/notion';
 import Footer from '@/components/footer.astro';
 import ContactCTA from '@/components/ContactCTA.astro';
 import WorkCard from '@/components/WorkCard.astro';
-import { downloadAndSaveImage, isNotionUrl } from '@/lib/notion-images';
-import { getWorkLink } from '@/lib/works';
+import { getNotionData } from '@/lib/notion';
+import {
+  compareByCreatedDateDesc,
+  formatYearMonth,
+  getCategories,
+  getCreatedDate,
+  getTitle,
+  getWorkLink,
+  isPrivate,
+  localizeCover,
+} from '@/lib/works';
 
-// Notionデータベースからデータを取得
-const notionData = await getNotionData();
+// すべての作品を新しい順に並べる（Private も含めて表示する）
+const { results } = await getNotionData();
 
-// すべてのデータを取得（Privateも含めて表示する）
-const works = notionData.results;
-
-// Twitterのツイートから画像を取得する関数（SSG対応）
-async function getTwitterImageFromUrl(twitterUrl: string): Promise<string | null> {
-  try {
-    const oembedUrl = `https://publish.twitter.com/oembed?url=${encodeURIComponent(twitterUrl)}&omit_script=true`;
-
-    // タイムアウト設定（10秒）
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
-
-    try {
-      const response = await fetch(oembedUrl, {
-        signal: controller.signal,
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (compatible; dgdgdgdg.com/1.0)',
-        },
-      });
-
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        return null;
-      }
-
-      const data = await response.json();
-      const html = data.html || '';
-
-      // HTMLから画像URLを抽出
-      // Twitterの埋め込みHTMLには通常、画像のURLが含まれています
-      // パターン1: <img>タグのsrc属性
-      const imgMatch = html.match(/<img[^>]+src="([^"]+)"[^>]*>/i);
-      if (imgMatch && imgMatch[1]) {
-        const imgUrl = imgMatch[1];
-        // Twitterの画像URLのパターンをチェック（pbs.twimg.comなど）
-        if (imgUrl.includes('pbs.twimg.com') || imgUrl.includes('twimg.com')) {
-          return imgUrl;
-        }
-      }
-
-      // パターン2: data-src属性
-      const dataSrcMatch = html.match(/data-src="([^"]+)"/i);
-      if (dataSrcMatch && dataSrcMatch[1]) {
-        const imgUrl = dataSrcMatch[1];
-        if (imgUrl.includes('pbs.twimg.com') || imgUrl.includes('twimg.com')) {
-          return imgUrl;
-        }
-      }
-
-      // パターン3: background-imageのURL
-      const bgMatch = html.match(/background-image:\s*url\(['"]?([^'"]+)['"]?\)/i);
-      if (bgMatch && bgMatch[1]) {
-        const imgUrl = bgMatch[1];
-        if (imgUrl.includes('pbs.twimg.com') || imgUrl.includes('twimg.com')) {
-          return imgUrl;
-        }
-      }
-
-      // パターン4: TwitterのメディアURLを直接構築（ツイートIDから）
-      try {
-        const urlObj = new URL(twitterUrl);
-        const pathParts = urlObj.pathname.split('/').filter(Boolean);
-        const statusIndex = pathParts.indexOf('status');
-        if (statusIndex !== -1 && pathParts[statusIndex + 1]) {
-          const tweetId = pathParts[statusIndex + 1];
-          // ツイートIDから画像URLを推測（これは確実ではないため、最後の手段）
-          // 実際にはoEmbed APIのレスポンスから取得する方が確実
-        }
-      } catch (e) {
-        // URL解析に失敗
-      }
-
-      return null;
-    } catch (fetchError: any) {
-      clearTimeout(timeoutId);
-      return null;
-    }
-  } catch {
-    return null;
-  }
-}
-
-// ブロックからTwitterのURLを検出する関数
-function findTwitterUrlInBlocks(blocks: any[]): string | null {
-  for (const block of blocks) {
-    // embedブロックをチェック
-    if (block.type === 'embed' && block.embed?.url) {
-      const url = block.embed.url;
-      if (url.includes('twitter.com') || url.includes('x.com')) {
-        return url;
-      }
-    }
-
-    // 子ブロックを再帰的にチェック
-    if (block.children && block.children.length > 0) {
-      const found = findTwitterUrlInBlocks(block.children);
-      if (found) return found;
-    }
-  }
-  return null;
-}
-
-// 各ワークのカバー画像を取得（Twitterから画像を取得する場合も含む）
-// SSGビルド時に実行されるため、エラーハンドリングを強化
-const worksWithCoverImages = await Promise.all(
-  works.map(async (work: any) => {
-    // プライベート作品はサンプル画像を表示するため、カバー画像を取得・ダウンロードしない
-    if (work.properties?.Private?.checkbox) {
-      work.properties.Cover = { files: [] };
-      return work;
-    }
-
-    let coverImage = work.properties?.Cover?.files?.[0]?.file?.url ?? '';
-
-    // カバー画像が設定されていない場合、Twitterの画像を取得
-    if (!coverImage) {
-      try {
-        // ブロック取得（SSGビルド時に実行）
-        const blocks = await getNotionBlocksRecursive(work.id);
-        const twitterUrl = findTwitterUrlInBlocks(blocks);
-
-        if (twitterUrl) {
-          const twitterImage = await getTwitterImageFromUrl(twitterUrl);
-          if (twitterImage) {
-            coverImage = twitterImage;
-            // カバー画像として使用
-            work.properties = work.properties || {};
-            work.properties.Cover = {
-              files: [
-                {
-                  file: {
-                    url: twitterImage,
-                  },
-                },
-              ],
-            };
-          }
-        }
-      } catch {
-        // エラーが発生してもビルドを続行
-      }
-    }
-
-    // Notion画像の場合はダウンロードしてローカルパスに差し替え
-    if (coverImage && isNotionUrl(coverImage)) {
-      const localPath = await downloadAndSaveImage(coverImage);
-      work.properties = work.properties || {};
-      work.properties.Cover = {
-        files: [
-          {
-            file: {
-              url: localPath,
-            },
-          },
-        ],
-      };
-    }
-
-    return work;
-  }),
+// カバー画像を保存してサイト内のパスにする
+// プライベート作品はサンプル画像を表示するため、カバー画像を取得・保存しない
+const sortedWorks = await Promise.all(
+  [...results]
+    .sort(compareByCreatedDateDesc)
+    .map(async (work) => ({ work, cover: isPrivate(work) ? '' : await localizeCover(work) })),
 );
 
-// 日付を年月のみにフォーマットする関数（表示用）
-function formatDateToYearMonth(dateString: string): string {
-  if (!dateString) return '';
-  // YYYY-MM-DD形式からYYYY-MMに変換
-  return dateString.substring(0, 7);
-}
-
-// 作成日で降順にソート（新しい順）
-const sortedWorks = worksWithCoverImages.sort((a: any, b: any) => {
-  const dateA = a.properties?.['Created Date']?.date?.start || '';
-  const dateB = b.properties?.['Created Date']?.date?.start || '';
-  // 日付が空の場合は最後に配置
-  if (!dateA && !dateB) return 0;
-  if (!dateA) return 1;
-  if (!dateB) return -1;
-  // 降順（新しい順）
-  return dateB.localeCompare(dateA);
-});
-
-// 全カテゴリを取得（重複を除去）
-const allCategories = new Set<string>();
-worksWithCoverImages.forEach((work: any) => {
-  const categories = work.properties?.Category?.multi_select ?? [];
-  categories.forEach((cat: any) => {
-    if (cat.name) {
-      allCategories.add(cat.name);
-    }
-  });
-});
-const uniqueCategories = Array.from(allCategories).sort();
+// 絞り込み用の全カテゴリ（重複を除いて名前順）
+const uniqueCategories = [...new Set(results.flatMap((work) => getCategories(work).map((cat) => cat.name)))]
+  .filter(Boolean)
+  .sort();
 ---
 
 <BaseLayout
@@ -224,32 +51,24 @@ const uniqueCategories = Array.from(allCategories).sort();
       <p class="works-note title">まだ掲載しきれていない作品もございます。随時、追加・更新してまいります。</p>
       <div class="works-grid" id="works-grid">
         {
-          sortedWorks.map((item: any) => {
-            const title = item.properties?.Title?.title?.[0]?.plain_text ?? 'No title';
-            const client = item.properties?.Client?.rich_text?.[0]?.plain_text ?? '';
-            const createdDateFull = item.properties?.['Created Date']?.date?.start ?? '';
-            const createdDate = formatDateToYearMonth(createdDateFull);
-            const categories = item.properties?.Category?.multi_select ?? [];
-            const coverImage = item.properties?.Cover?.files?.[0]?.file?.url ?? '';
-            const workId = item.properties?.id?.rich_text?.[0]?.plain_text ?? item.id;
-            const isPrivate = item.properties?.Private?.checkbox ?? false;
-            const categoryNames = categories.map((cat: any) => cat.name).join(',');
-            const link = getWorkLink(item);
+          sortedWorks.map(({ work, cover }) => {
+            const title = getTitle(work);
+            const createdDate = getCreatedDate(work);
+            const categories = getCategories(work);
+            const link = getWorkLink(work);
 
             return (
               <WorkCard
                 title={title}
-                client={client}
-                createdDate={createdDate}
+                createdDate={formatYearMonth(createdDate)}
                 categories={categories}
-                coverImageUrl={coverImage}
-                workId={workId}
-                isPrivate={isPrivate}
+                coverImageUrl={cover}
+                isPrivate={isPrivate(work)}
                 href={link?.href}
                 external={link?.external}
                 dataWorkTitle={title}
-                dataWorkDate={createdDateFull || ''}
-                dataWorkCategories={categoryNames}
+                dataWorkDate={createdDate}
+                dataWorkCategories={categories.map((cat) => cat.name).join(',')}
               />
             );
           })
