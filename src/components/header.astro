@@ -1,5 +1,7 @@
 ---
-import { ArrowUpDown, Filter, LayoutGrid, Sun, Moon } from '@lucide/astro';
+import { ArrowUpDown, Filter, LayoutGrid } from '@lucide/astro';
+import WorksThemeToggle from './WorksThemeToggle.astro';
+import { navItems } from '@/data/navigation';
 
 interface Props {
   pageName?: string;
@@ -7,13 +9,6 @@ interface Props {
 }
 
 const { pageName, status } = Astro.props;
-
-const navItems = [
-  { label: 'Works', href: '/works' },
-  { label: 'Typefaces', href: '/typefaces' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
-];
 
 const pageNameMap: Record<string, string> = {
   '/': 'Top',
@@ -29,6 +24,9 @@ const isWorksPage = pathname === '/works';
 const isWorksArticlePage = pathname.startsWith('/works/article/');
 const isTypefaceDetailPage = pathname.startsWith('/typefaces/');
 const isContactPage = pathname === '/contact';
+
+// ページ名はそのページの見出し（h1）として出す。記事ページは記事のタイトルが h1 なので p にする
+const PageNameTag = isWorksArticlePage ? 'p' : 'h1';
 ---
 
 <header>
@@ -42,7 +40,7 @@ const isContactPage = pathname === '/contact';
         <a href="/" class="header-logo-link" transition:persist="header-logo">
           <img src="/images/row.svg" alt="Logo" class="header-logo" />
         </a>
-        <h1 class="current-page" transition:name="current-page">{currentPageName}</h1>
+        <PageNameTag class="current-page" transition:name="current-page">{currentPageName}</PageNameTag>
       </div>
       <button
         class="hamburger"
@@ -63,16 +61,7 @@ const isContactPage = pathname === '/contact';
           <a href="/works" class="back-to-list">
             作品一覧に戻る
           </a>
-          <button
-            class="works-theme-toggle"
-            type="button"
-            aria-label="テーマを切り替える"
-            data-works-theme-toggle
-          >
-            <Sun class="works-theme-icon works-theme-icon--light" size={10} />
-            <Moon class="works-theme-icon works-theme-icon--dark" size={10} />
-            <span class="works-theme-knob" />
-          </button>
+          <WorksThemeToggle />
         </div>
       )
     }
@@ -120,16 +109,7 @@ const isContactPage = pathname === '/contact';
               </select>
             </label>
           </div>
-          <button
-            class="works-theme-toggle"
-            type="button"
-            aria-label="テーマを切り替える"
-            data-works-theme-toggle
-          >
-            <Sun class="works-theme-icon works-theme-icon--light" size={10} />
-            <Moon class="works-theme-icon works-theme-icon--dark" size={10} />
-            <span class="works-theme-knob" />
-          </button>
+          <WorksThemeToggle />
         </div>
       )
     }
@@ -244,54 +224,6 @@ const isContactPage = pathname === '/contact';
     gap: space(3)
     margin-left: space(0)
 
-  .works-theme-toggle
-    --toggle-h: 26px
-    --knob-size: 18px
-    --toggle-w: 46px
-    --knob-inset: calc((var(--toggle-h) - var(--knob-size)) / 2 - 1px)
-    position: relative
-    width: var(--toggle-w)
-    height: var(--toggle-h)
-    margin-left: space(4)
-    border: 1px solid var(--c-black-a8)
-    border-radius: 999px
-    background: var(--c-white)
-    cursor: pointer
-    flex-shrink: 0
-    color: var(--c-black-a60)
-    padding: 0
-
-  .works-theme-icon--light,
-  .works-theme-icon--dark
-    position: absolute
-    top: 50%
-    transform: translate(-50%, -50%)
-    z-index: 2
-    color: var(--c-black-a60)
-    &:global(.is-covered)
-      color: var(--c-white)
-
-  // ノブ中心X = knob-inset + knob-size/2
-  .works-theme-icon--light
-    left: calc(var(--knob-inset) + var(--knob-size) / 2)
-
-  // 右側ノブ中心X = toggle-w - border*2 - knob-inset - knob-size/2
-  .works-theme-icon--dark
-    left: calc(var(--toggle-w) - 2px - var(--knob-inset) - var(--knob-size) / 2)
-
-  .works-theme-knob
-    position: absolute
-    z-index: 1
-    top: var(--knob-inset)
-    left: var(--knob-inset)
-    width: var(--knob-size)
-    height: var(--knob-size)
-    border-radius: 50%
-    background: var(--c-black-a60)
-    &:global(.is-dark)
-      left: auto
-      right: var(--knob-inset)
-
   .works-control
     display: flex
     flex-direction: row
@@ -383,6 +315,7 @@ const isContactPage = pathname === '/contact';
     &:hover
       opacity: 1
 
+  // ページ名（記事ページだけ p、それ以外は h1。どちらでも同じ見た目にする）
   .current-page
     color: var(--c-accent)
     font-size: var(--type-body-size)
@@ -524,11 +457,6 @@ const isContactPage = pathname === '/contact';
       flex-wrap: wrap
       flex-direction: column
       width: 170px
-
-    .works-theme-toggle
-      --toggle-h: 24px
-      --knob-size: 16px
-      --toggle-w: 42px
 
     .works-control
       width: 100%
@@ -673,7 +601,9 @@ const isContactPage = pathname === '/contact';
     // 旧クラスの取り残し対策（過去ビルドの状態が残るケースを避ける）
     sunIcon?.classList.remove('is-uncovered');
     moonIcon?.classList.remove('is-uncovered');
-    try { sessionStorage.setItem('works-dark', dark ? '1' : '0'); } catch {}
+    try {
+      sessionStorage.setItem('works-dark', dark ? '1' : '0');
+    } catch {}
   }
 
   function initWorksThemeToggle() {
@@ -708,7 +638,7 @@ const isContactPage = pathname === '/contact';
     }
 
     // カテゴリデータを取得
-    const categories = (window as any).__CATEGORIES_DATA__;
+    const categories = window.__CATEGORIES_DATA__;
     if (categories && Array.isArray(categories)) {
       categories.forEach((category: string) => {
         const option = document.createElement('option');
