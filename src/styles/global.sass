@@ -79,8 +79,9 @@ h1, h2, h3, h4, h5, h6
 p
   text-wrap: pretty
 
-// BudouX で文節の間に <wbr> を入れた文字（src/components/Phrase.astro）。文節の途中では改行しない
-.phrases
+// 文末の文節（src/lib/budoux.ts の keepSentenceEnds）。1〜2 文字だけの行ができないよう、途中では改行しない
+// 入りきらないほど長いときだけ、はみ出さないように途中で改行する
+.phrase-end
   word-break: keep-all
   overflow-wrap: anywhere
 

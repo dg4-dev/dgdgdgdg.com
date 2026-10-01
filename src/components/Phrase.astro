@@ -1,12 +1,12 @@
 ---
-import { wrapPhrases } from '@/lib/budoux';
+import { keepSentenceEnds } from '@/lib/budoux';
 
 interface Props {
   text: string;
 }
 
-// 文節の間でだけ改行するように、<wbr> を入れた文字を出す
+// 文末の文節だけを途中で改行しないようにした文字を出す（文の途中はどこで改行してもよい）
 const { text } = Astro.props;
 ---
 
-<span class="phrases" set:html={wrapPhrases(text)} />
+<Fragment set:html={keepSentenceEnds(text)} />
