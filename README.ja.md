@@ -74,7 +74,7 @@ src/
 
 ## 🔤 書体の追加
 
-Typefaces ページ（`/typefaces`）は、GitHub のパブリックリポジトリからフォントファイルと LICENSE を build 時に取得して作っています。
+Typefaces ページ（`/typefaces`）は、GitHub のパブリックリポジトリの最新リリースからフォントファイルと LICENSE を build 時に取得して作っています。サイト全体で使っている atomic dot も、ここで取得したファイルを使います。
 書体名・バージョン・可変軸・収録文字はフォントファイルから読み取るため、新しい書体は `src/data/typefaces.ts` に 1 件足すだけで掲載できます。
 
 バージョンは GitHub の Latest リリースを優先し、リリースがなければ最新のバージョンタグ（`v1.2.3` など）、それもなければフォントファイルに書かれたバージョンを表示します。
@@ -84,7 +84,7 @@ GitHub API は未認証だと 1 時間 60 回までなので、build 環境で�
 {
   slug: 'new-font',              // URL（/typefaces/new-font）
   repo: 'dg4-dev/new-font',      // GitHub リポジトリ
-  ref: 'main',                   // ブランチ・タグ
+  ref: 'main',                   // 最新リリースが取れないときに使うブランチ
   fontPath: 'new-font.ttf',      // リポジトリ内のフォントファイル
   licensePath: 'LICENSE',        // リポジトリ内のライセンス（任意）
   year: 2026,

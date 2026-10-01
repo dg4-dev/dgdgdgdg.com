@@ -13,8 +13,14 @@ export interface Typeface extends TypefaceSource, FontInfo {
   presets: { name: string; coordinates: Record<string, number> }[];
 }
 
-function rawUrl(source: TypefaceSource, path: string): string {
-  return `https://raw.githubusercontent.com/${source.repo}/${source.ref}/${path}`;
+function rawUrl(repo: string, ref: string, path: string): string {
+  return `https://raw.githubusercontent.com/${repo}/${ref}/${path}`;
+}
+
+/** ファイルを取得する ref。最新リリース（なければ最新のバージョンタグ）を使い、取れなければ設定のブランチを使う */
+async function resolveRef(source: TypefaceSource): Promise<string> {
+  const latest = await getLatestVersion(source.repo);
+  return latest?.version ?? source.ref;
 }
 
 export function fontFileName(source: TypefaceSource): string {
@@ -33,11 +39,13 @@ async function fetchFromGitHub(url: string): Promise<Response> {
 // build 中は同じフォントを何度も取得しないよう、プロセス内で結果を使い回す
 const fontCache = new Map<string, Promise<ArrayBuffer>>();
 
-/** GitHub からフォントファイルを取得する */
+/** GitHub の最新リリースからフォントファイルを取得する */
 export function fetchFontFile(source: TypefaceSource): Promise<ArrayBuffer> {
   let pending = fontCache.get(source.slug);
   if (!pending) {
-    pending = fetchFromGitHub(rawUrl(source, source.fontPath)).then((res) => res.arrayBuffer());
+    pending = resolveRef(source)
+      .then((ref) => fetchFromGitHub(rawUrl(source.repo, ref, source.fontPath)))
+      .then((res) => res.arrayBuffer());
     pending.catch(() => fontCache.delete(source.slug));
     fontCache.set(source.slug, pending);
   }
@@ -128,7 +136,8 @@ async function loadTypeface(source: TypefaceSource): Promise<Typeface | null> {
       fetchFontFile(source),
       getLatestVersion(source.repo),
       source.licensePath
-        ? fetchFromGitHub(rawUrl(source, source.licensePath))
+        ? resolveRef(source)
+            .then((ref) => fetchFromGitHub(rawUrl(source.repo, ref, source.licensePath!)))
             .then((res) => res.text())
             .catch(() => '')
         : Promise.resolve(''),
