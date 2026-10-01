@@ -12,7 +12,7 @@ const typefaces = await getTypefaces();
 
 <BaseLayout
   title="Typefaces - dgdgdgdg"
-  description="dgdgdgdgが制作した書体の一覧。可変軸を持つドット書体などを公開しています。"
+  description="dgdgdgdgが制作した書体の一覧。フォントファイルはGitHubで公開しています。"
   keywords="typefaces, fonts, variable font, dgdgdgdg"
 >
   <Fragment slot="head">
@@ -32,15 +32,7 @@ const typefaces = await getTypefaces();
               return (
                 <li>
                   <a href={`/typefaces/${t.slug}`} class="typeface-row">
-                    <div class="typeface-meta">
-                      <h2 class="typeface-name">{t.familyName}</h2>
-                      <p class="typeface-spec">
-                        <span>{t.year}</span>
-                        {t.axes.length > 0 && <span>Variable · {t.axes.length} axes</span>}
-                        <span>{t.codepoints.length} glyphs</span>
-                      </p>
-                    </div>
-                    <p
+                    <h2
                       class="typeface-sample"
                       style={{
                         fontFamily: `'${t.cssFamily}'`,
@@ -48,7 +40,12 @@ const typefaces = await getTypefaces();
                         '--sample-to': variationSettings(last),
                       }}
                     >
-                      {t.sampleText}
+                      {t.familyName}
+                    </h2>
+                    <p class="typeface-spec">
+                      <span>{t.year}</span>
+                      {t.axes.length > 0 && <span>Variable · {t.axes.length} axes</span>}
+                      <span>{t.codepoints.length} glyphs</span>
                     </p>
                   </a>
                 </li>
@@ -108,21 +105,9 @@ const typefaces = await getTypefaces();
     color: inherit
     text-decoration: none
 
-  .typeface-meta
-    display: flex
-    align-items: baseline
-    justify-content: space-between
-    gap: space(4)
-    flex-wrap: wrap
-
-  .typeface-name
-    font-family: var(--font-ui)
-    font-size: var(--type-body-size) !important
-    font-weight: var(--type-h2-weight)
-    letter-spacing: 0.04em
-
   .typeface-spec
     display: flex
+    flex-wrap: wrap
     gap: space(4)
     font-family: var(--font-ui)
     font-size: var(--type-caption-size)
@@ -130,14 +115,14 @@ const typefaces = await getTypefaces();
     color: var(--c-white-a60)
     letter-spacing: 0.06em
 
+  // h2 の共通スタイルを上書きし、書体そのもので書体名を見せる
   .typeface-sample
-    font-size: clamp(4rem, 14vw, 12rem)
-    line-height: 1.1
+    font-size: clamp(3rem, 9vw, 8rem) !important
+    font-weight: normal !important
+    line-height: 1.1 !important
     font-variation-settings: var(--sample-from)
     font-synthesis: none
-    white-space: nowrap
-    overflow: hidden
-    text-overflow: clip
+    overflow-wrap: anywhere
     transition: font-variation-settings 0.6s ease, color 0.3s ease
 
   .typeface-row:hover .typeface-sample,
