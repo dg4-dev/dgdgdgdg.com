@@ -52,8 +52,7 @@ export function fetchFontFile(source: TypefaceSource): Promise<ArrayBuffer> {
   return pending;
 }
 
-function githubApi(path: string): Promise<Response> {
-  const token = import.meta.env.GITHUB_TOKEN;
+function githubApi(path: string, token?: string): Promise<Response> {
   return fetch(`https://api.github.com/repos/${path}`, {
     signal: AbortSignal.timeout(15000),
     headers: {
@@ -63,6 +62,30 @@ function githubApi(path: string): Promise<Response> {
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
   });
+}
+
+let warnedInvalidToken = false;
+
+/** GitHub API を呼ぶ。トークンが無効（期限切れなど）で 401 になったときは、トークンなしで呼び直す */
+async function callGithubApi(path: string): Promise<Response> {
+  const token = import.meta.env.GITHUB_TOKEN;
+  const response = await githubApi(path, token);
+  if (response.status !== 401 || !token) return response;
+
+  if (!warnedInvalidToken) {
+    warnedInvalidToken = true;
+    console.warn('[typefaces] GITHUB_TOKEN が無効なため（401）、トークンなしで GitHub API を呼び直します');
+  }
+  return githubApi(path);
+}
+
+/** 失敗したときのログに、GitHub が返した理由（回数制限など）も出す */
+async function apiError(name: string, response: Response): Promise<Error> {
+  const message = await response
+    .json()
+    .then((data) => (typeof data?.message === 'string' ? data.message : ''))
+    .catch(() => '');
+  return new Error(`GitHub API failed: ${name} (${response.status}${message ? `: ${message}` : ''})`);
 }
 
 /** v1.2.10 > v1.2.9 となるよう、数字の部分を数値として比べる */
@@ -81,29 +104,63 @@ interface LatestVersion {
   url: string;
 }
 
+/** バージョン番号の形をしたタグ（v1.2.3 など）のうち、最も新しいもの */
+function latestVersionTag(names: string[]): string | undefined {
+  return names
+    .filter((name) => /^v?\d+(\.\d+)*$/.test(name))
+    .sort(compareVersionTags)
+    .pop();
+}
+
+function tagVersion(repo: string, tag: string): LatestVersion {
+  return { version: tag, url: `https://github.com/${repo}/releases/tag/${tag}` };
+}
+
 /**
- * GitHub の最新バージョンを取得する。
+ * GitHub API で最新バージョンを取得する。
  * Latest リリースを優先し、リリースがなければバージョン番号の形をしたタグのうち最も新しいものを使う。
  */
-async function fetchLatestVersion(repo: string): Promise<LatestVersion | null> {
-  const release = await githubApi(`${repo}/releases/latest`);
+async function fetchLatestVersionFromApi(repo: string): Promise<LatestVersion | null> {
+  const release = await callGithubApi(`${repo}/releases/latest`);
   if (release.ok) {
     const data = await release.json();
     if (data.tag_name) return { version: data.tag_name, url: data.html_url };
   } else if (release.status !== 404) {
-    throw new Error(`GitHub API failed: releases/latest (${release.status})`);
+    throw await apiError('releases/latest', release);
   }
 
-  const tags = await githubApi(`${repo}/tags?per_page=100`);
+  const tags = await callGithubApi(`${repo}/tags?per_page=100`);
   if (!tags.ok) {
-    throw new Error(`GitHub API failed: tags (${tags.status})`);
+    throw await apiError('tags', tags);
   }
-  const names: string[] = (await tags.json()).map((tag: { name: string }) => tag.name);
-  const latest = names
-    .filter((name) => /^v?\d+(\.\d+)*$/.test(name))
-    .sort(compareVersionTags)
-    .pop();
-  return latest ? { version: latest, url: `https://github.com/${repo}/releases/tag/${latest}` } : null;
+  const latest = latestVersionTag((await tags.json()).map((tag: { name: string }) => tag.name));
+  return latest ? tagVersion(repo, latest) : null;
+}
+
+/**
+ * git の取得に使う URL（info/refs）からタグの一覧を読み、最も新しいバージョンのタグを返す。
+ * GitHub API の回数制限を受けないので、API で取得できなかったときに使う。
+ */
+async function fetchLatestTagFromGit(repo: string): Promise<LatestVersion | null> {
+  const response = await fetchFromGitHub(`https://github.com/${repo}.git/info/refs?service=git-upload-pack`);
+  // 1 行に「<コミット> refs/tags/<タグ名>」が並ぶ。注釈付きタグは「<タグ名>^{}」の行もあるので、^ の手前までを名前にして重なりを除く
+  // 最初の行は名前の後ろに NUL と機能の一覧が続くので、NUL でも区切る
+  const names = [...(await response.text()).matchAll(/refs\/tags\/([^\s^\0]+)/g)].map((match) => match[1]);
+  const latest = latestVersionTag([...new Set(names)]);
+  return latest ? tagVersion(repo, latest) : null;
+}
+
+/** GitHub の最新バージョンを取得する。API で取得できなければ、git のタグの一覧から探す */
+async function fetchLatestVersion(repo: string): Promise<LatestVersion | null> {
+  try {
+    return await fetchLatestVersionFromApi(repo);
+  } catch (error) {
+    console.warn(
+      `[typefaces] GitHub API で ${repo} の最新バージョンを取得できなかったため、タグの一覧から探します:`,
+      error,
+    );
+    return fetchLatestTagFromGit(repo);
+  }
 }
 
 // 一覧・詳細・フォント配信の各ページで呼ばれるため、API の呼び出しはリポジトリごとに 1 回にする
