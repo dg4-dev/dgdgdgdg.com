@@ -8,6 +8,7 @@ import Footer from '@/components/footer.astro';
 import ContactCTA from '@/components/ContactCTA.astro';
 import WorkCard from '@/components/WorkCard.astro';
 import { downloadAndSaveImage, isNotionUrl } from '@/lib/notion-images';
+import { getWorkLink } from '@/lib/works';
 
 // Notionデータベースからデータを取得
 const notionData = await getNotionData();
@@ -233,6 +234,7 @@ const uniqueCategories = Array.from(allCategories).sort();
             const workId = item.properties?.id?.rich_text?.[0]?.plain_text ?? item.id;
             const isPrivate = item.properties?.Private?.checkbox ?? false;
             const categoryNames = categories.map((cat: any) => cat.name).join(',');
+            const link = getWorkLink(item);
 
             return (
               <WorkCard
@@ -243,7 +245,8 @@ const uniqueCategories = Array.from(allCategories).sort();
                 coverImageUrl={coverImage}
                 workId={workId}
                 isPrivate={isPrivate}
-                href={isPrivate ? undefined : `/works/article/${workId}`}
+                href={link?.href}
+                external={link?.external}
                 dataWorkTitle={title}
                 dataWorkDate={createdDateFull || ''}
                 dataWorkCategories={categoryNames}

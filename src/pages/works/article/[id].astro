@@ -8,12 +8,15 @@ import ContactCTA from '@/components/ContactCTA.astro';
 import { getNotionData, findPageByCustomId, getNotionPage, getNotionBlocksRecursive } from '@/lib/notion';
 import { downloadAndSaveImage, isNotionUrl } from '@/lib/notion-images';
 import { renderBlocks } from '@/lib/notion-render';
+import { getExternalUrl } from '@/lib/works';
 
 // 静的パス生成（空にして生成を停止）
 export async function getStaticPaths() {
   const notionData = await getNotionData();
-  // Privateがtrueのものは詳細ページを生成しない
-  const publicPages = notionData.results.filter((page: any) => !page.properties?.Private?.checkbox);
+  // Privateがtrueのものと、外部リンクがある（カードから外部ページを開く）ものは詳細ページを生成しない
+  const publicPages = notionData.results.filter(
+    (page: any) => !page.properties?.Private?.checkbox && !getExternalUrl(page),
+  );
 
   return publicPages.map((page: any) => ({
     params: { id: page.properties?.id?.rich_text?.[0]?.plain_text ?? page.id },
