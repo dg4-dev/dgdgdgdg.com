@@ -145,37 +145,6 @@ const featuredWorks = worksWithLocalImages
         </div>
       </div>
     </section>
-    <section class="about">
-      <h2 class="about-title">活動内容</h2>
-      <div class="about-logo">
-        <img src="/images/row.svg" alt="dgdgdgdg" />
-      </div>
-      <div class="about-text">
-        <ul class="activity-tree">
-          <li>
-            Create
-            <ul>
-              <li>
-                Design
-                <ul>
-                  <li>Typeface</li>
-                  <li>Graphic</li>
-                  <li>Motion</li>
-                </ul>
-              </li>
-              <li>3D Printed Product</li>
-              <li>Website</li>
-            </ul>
-          </li>
-          <li>Photography</li>
-          <li>Electrical Work</li>
-          <li>Other momentary interests...</li>
-        </ul>
-        <p class="section-link-wrapper">
-          <a href="/about" class="section-link">dgdgdgdgとは</a>
-        </p>
-      </div>
-    </section>
     <section class="featured-works">
       <h2>Featured Works</h2>
       <p>ピックアップした制作実績</p>
@@ -235,14 +204,6 @@ const featuredWorks = worksWithLocalImages
     &::after
       content: '→'
       font-size: var(--type-caption-size)
-
-  .about .section-link
-    color: var(--c-white)
-    border-color: var(--c-white)
-
-    &:hover
-      background-color: var(--c-white)
-      color: var(--c-black)
 
   .featured-works .section-link
     color: var(--c-black)
@@ -683,100 +644,13 @@ const featuredWorks = worksWithLocalImages
       to
         transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(360deg) translateX(80px) rotate(-360deg) scaleY(var(--counter-scale-y))
 
-  .about
-    background-color: var(--c-black)
-    min-height: 100vh
-    display: grid
-    grid-template-columns: auto auto
-    grid-template-rows: auto auto
-    align-items: center
-    align-content: center
-    justify-content: center
-    justify-items: start
-    position: relative
-    z-index: 1
-    padding: space(16) space(16)
-    gap: space(4) space(16)
-    margin-top: -50vh
-
-    .about-title
-      grid-column: 2
-      grid-row: 1
-      color: var(--c-white)
-      font-size: var(--type-h1-size)
-      font-family: var(--font-heading)
-      font-weight: var(--type-h1-weight)
-      line-height: var(--type-h1-line)
-      letter-spacing: 0.08em
-
-    .about-logo
-      grid-column: 1
-      grid-row: 1 / -1
-      display: flex
-      align-items: center
-      justify-content: center
-      img
-        width: 40vw
-        min-width: 400px
-        max-width: 600px
-        height: auto
-
-    .about-text
-      grid-column: 2
-      grid-row: 2
-      max-width: 560px
-      p
-        color: var(--c-gray-200)
-        font-size: var(--type-body-size)
-        margin-top: space(6)
-        line-height: var(--type-body-line)
-        text-align: justify
-        letter-spacing: 0.04em
-
-    .activity-tree
-      margin: space(0)
-      padding: space(0)
-      padding-left: space(6)
-      color: var(--c-gray-200)
-
-      ul
-        margin: space(0)
-        padding: space(0)
-        padding-left: space(6)
-
-      li
-        font-size: var(--type-body-size)
-        line-height: var(--type-body-line)
-        letter-spacing: 0.04em
-        padding: space(2) 0
-
-    @media (max-width: 768px)
-      display: flex
-      flex-direction: column
-      align-items: center
-      padding: space(16) space(6)
-      gap: space(12)
-      .about-title
-        font-size: var(--type-h2-size)
-        text-align: center
-        order: 1
-      .about-logo
-        order: 2
-        img
-          width: 48vw
-          min-width: 300px
-          max-width: 720px
-      .about-text
-        order: 3
-        max-width: 100%
-        p
-          font-size: var(--type-body-size)
-          margin-top: space(5)
-          line-height: var(--type-body-line)
-
   .featured-works
     background-color: var(--c-white)
     min-height: 100vh
+    // ヒーローの文字が消えてヘッダーが出る位置（進み具合 0.85 = 残り 30vh）で、白いセクションが入ってくるようにする
+    position: relative
+    z-index: 1
+    margin-top: -30vh
     display: flex
     flex-direction: column
     align-items: center
