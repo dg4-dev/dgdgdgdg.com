@@ -5,7 +5,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
 import Footer from '@/components/footer.astro';
 import ContactCTA from '@/components/ContactCTA.astro';
-import { fontFaceCss, getTypefaces, variationSettings, type Typeface } from '@/lib/typefaces';
+import type { FeatureGlyph } from '@/lib/font-info';
+import { fontFaceCss, getTypefaces, glyphCount, variationSettings, type Typeface } from '@/lib/typefaces';
 
 export async function getStaticPaths() {
   const typefaces = await getTypefaces();
@@ -19,18 +20,25 @@ const { typeface: t } = Astro.props as { typeface: Typeface };
 
 const defaults = Object.fromEntries(t.axes.map((axis) => [axis.tag, axis.default]));
 const fontFamily = `'${t.cssFamily}'`;
-const testerText = t.codepoints.some((c) => c >= 0x61 && c <= 0x7a)
-  ? 'The quick brown fox jumps over the lazy dog 0123456789'
-  : 'THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG 0123456789';
 
 function toHex(codepoint: number): string {
   return `U+${codepoint.toString(16).toUpperCase().padStart(4, '0')}`;
+}
+
+function escapeHtml(text: string): string {
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// 前後の文字と同じ並びで組まないと形が変わらないため、要素の間に空白が入らないよう 1 つの HTML にする
+function featureGlyphHtml(glyph: FeatureGlyph): string {
+  const context = (text: string) => (text ? `<span class="tf-glyph-context">${escapeHtml(text)}</span>` : '');
+  return `${context(glyph.before)}${escapeHtml(glyph.text)}${context(glyph.after)}`;
 }
 ---
 
 <BaseLayout
   title={`${t.familyName} - Typefaces - dgdgdgdg`}
-  description={t.description}
+  description={t.description.join('')}
   keywords={`typefaces, fonts, ${t.familyName}`}
 >
   <Fragment slot="head">
@@ -39,70 +47,22 @@ function toHex(codepoint: number): string {
   </Fragment>
   <Header pageName="Typefaces" />
   <main>
-    <section class="tf-hero">
-      <h2 class="tf-hero-name" style={{ fontFamily, fontVariationSettings: variationSettings(defaults) }}>
+    <section class="tf-hero" data-type-tester>
+      <h2
+        class="tf-tester-text"
+        contenteditable="plaintext-only"
+        spellcheck="false"
+        aria-label={`${t.familyName}（文字を書き換えて試せます）`}
+        style={{ fontFamily, fontVariationSettings: variationSettings(defaults) }}
+        data-tester-text
+      >
         {t.familyName}
       </h2>
-    </section>
-
-    <section class="tf-section tf-about">
-      <p class="tf-description">{t.description}</p>
-      <dl class="tf-info">
-        <div>
-          <dt>Designer</dt>
-          <dd>{t.designerUrl ? <a href={t.designerUrl}>{t.designer || t.designerUrl}</a> : t.designer || '—'}</dd>
-        </div>
-        <div>
-          <dt>Version</dt>
-          <dd>
-            {
-              t.versionUrl ? (
-                <a href={t.versionUrl} target="_blank" rel="noopener noreferrer">
-                  {t.version}
-                </a>
-              ) : (
-                t.version || '—'
-              )
-            }
-          </dd>
-        </div>
-        <div>
-          <dt>Released</dt>
-          <dd>{t.year}</dd>
-        </div>
-        <div>
-          <dt>Glyphs</dt>
-          <dd>{t.codepoints.length}</dd>
-        </div>
-        {
-          t.axes.length > 0 && (
-            <div>
-              <dt>Axes</dt>
-              <dd>{t.axes.map((axis) => `${axis.name} ${axis.min}–${axis.max}`).join(' / ')}</dd>
-            </div>
-          )
-        }
-      </dl>
-      <div class="tf-actions">
-        <a href={t.repoUrl} class="tf-button tf-button--primary" target="_blank" rel="noopener noreferrer">
-          GitHub で入手する
-        </a>
-        {
-          t.licenseText && (
-            <a href="#license" class="tf-button">
-              ライセンスを読む
-            </a>
-          )
-        }
-      </div>
-    </section>
-
-    <section class="tf-section tf-tester" data-type-tester>
-      <h3 class="tf-section-title">Type Tester</h3>
+      <p class="tf-hint">文字をクリックして書き換えると、好きな文字で試せます。</p>
       <div class="tf-controls">
         <label class="tf-control">
-          <span class="tf-control-label">Size <output data-size-output>96</output>px</span>
-          <input type="range" min="16" max="240" step="1" value="96" data-size />
+          <span class="tf-control-label">Size <output data-size-output></output>px</span>
+          <input type="range" min="24" max="320" step="1" value="160" data-size />
         </label>
         {
           t.axes.map((axis) => (
@@ -126,15 +86,56 @@ function toHex(codepoint: number): string {
           </div>
         )
       }
-      <p
-        class="tf-tester-text"
-        contenteditable="plaintext-only"
-        spellcheck="false"
-        style={{ fontFamily, fontSize: '96px', fontVariationSettings: variationSettings(defaults) }}
-        data-tester-text
-      >
-        {testerText}
-      </p>
+    </section>
+
+    <section class="tf-section tf-about">
+      <div class="tf-description">
+        {t.description.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+      <dl class="tf-info">
+        <div>
+          <dt>Version</dt>
+          <dd>
+            {
+              t.versionUrl ? (
+                <a href={t.versionUrl} target="_blank" rel="noopener noreferrer">
+                  {t.version}
+                </a>
+              ) : (
+                t.version || '—'
+              )
+            }
+          </dd>
+        </div>
+        <div>
+          <dt>Released</dt>
+          <dd>{t.year}</dd>
+        </div>
+        <div>
+          <dt>Glyphs</dt>
+          <dd>{glyphCount(t)}</dd>
+        </div>
+        {
+          t.axes.length > 0 && (
+            <div>
+              <dt>Axes</dt>
+              <dd>{t.axes.map((axis) => `${axis.name} ${axis.min}–${axis.max}`).join(' / ')}</dd>
+            </div>
+          )
+        }
+      </dl>
+      <div class="tf-actions">
+        <a href={t.repoUrl} class="tf-button tf-button--primary" target="_blank" rel="noopener noreferrer">
+          GitHub で入手する
+        </a>
+        {
+          t.licenseText && (
+            <a href="#license" class="tf-button">
+              ライセンスを読む
+            </a>
+          )
+        }
+      </div>
     </section>
 
     {
@@ -166,6 +167,18 @@ function toHex(codepoint: number): string {
             <li title={toHex(codepoint)}>
               <span class="tf-glyph">{String.fromCodePoint(codepoint)}</span>
               <span class="tf-glyph-code">{toHex(codepoint)}</span>
+            </li>
+          ))
+        }
+        {
+          t.featureGlyphs.map((glyph) => (
+            <li title={`${glyph.feature}: ${glyph.before}${glyph.text}${glyph.after}`}>
+              <span
+                class="tf-glyph"
+                style={{ fontFeatureSettings: `'${glyph.feature}' 1` }}
+                set:html={featureGlyphHtml(glyph)}
+              />
+              <span class="tf-glyph-code">{glyph.feature}</span>
             </li>
           ))
         }
@@ -220,12 +233,31 @@ function toHex(codepoint: number): string {
     padding-bottom: space(12)
     border-bottom: 1px solid var(--c-white-a30)
 
-  .tf-hero-name
-    font-size: clamp(3rem, 11vw, 10rem) !important
-    font-weight: var(--type-body-weight) !important
-    line-height: 1.1 !important
+  // 書体名の見本がそのままタイプテスターになる
+  // （Size を動かしたときに style 属性の font-size が勝つよう、!important は使わない）
+  .tf-hero .tf-tester-text
+    font-size: clamp(3rem, 11vw, 10rem)
+    font-weight: normal
+    line-height: 1.1
     font-synthesis: none
     overflow-wrap: anywhere
+    outline: none
+    cursor: text
+    user-select: text
+    -webkit-user-select: text
+    border-radius: 4px
+    transition: box-shadow 0.2s ease
+    &:hover,
+    &:focus
+      box-shadow: 0 0 0 1px var(--c-white-a30)
+
+  .tf-hint
+    margin: space(4) space(0) space(8)
+    font-family: var(--font-ui)
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
+    color: var(--c-white-a60)
+    letter-spacing: 0.04em
 
   .tf-section
     padding-top: space(12)
@@ -253,6 +285,9 @@ function toHex(codepoint: number): string {
     line-height: 1.8
     letter-spacing: 0.04em
     text-align: justify
+
+    p:not(:first-child)
+      margin-top: space(4)
 
   .tf-info
     font-family: var(--font-ui)
@@ -387,19 +422,6 @@ function toHex(codepoint: number): string {
       border-color: var(--c-accent)
       color: var(--c-accent)
 
-  .tf-tester-text
-    min-height: 1.2em
-    padding: space(6) space(0)
-    border-top: 1px solid var(--c-white-a30)
-    border-bottom: 1px solid var(--c-white-a30)
-    line-height: 1.2
-    font-synthesis: none
-    overflow-wrap: anywhere
-    outline: none
-    cursor: text
-    user-select: text
-    -webkit-user-select: text
-
   // Styles
   .tf-styles
     border-top: 1px solid var(--c-white-a30)
@@ -459,6 +481,10 @@ function toHex(codepoint: number): string {
     font-size: 2.4rem
     line-height: 1
     font-synthesis: none
+
+  // 文脈で形が変わる字形の、条件になる前後の文字
+  :global(.tf-glyph-context)
+    opacity: 0.3
 
   .tf-glyph-code
     position: absolute
@@ -526,11 +552,9 @@ function toHex(codepoint: number): string {
         sizeOutput.textContent = sizeInput.value;
       }
 
-      // スマホでは初期サイズを小さくする
-      if (window.matchMedia('(max-width: 768px)').matches) {
-        sizeInput.value = '48';
-        applySize();
-      }
+      // 初期の大きさは画面幅に合わせて CSS で決まるので、スライダーをその値に合わせる
+      sizeInput.value = String(Math.round(parseFloat(getComputedStyle(text).fontSize)));
+      sizeOutput.textContent = sizeInput.value;
 
       sizeInput.addEventListener('input', applySize);
 

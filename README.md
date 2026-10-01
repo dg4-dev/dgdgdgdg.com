@@ -89,7 +89,7 @@ Unauthenticated GitHub API calls are limited to 60 per hour, so setting `GITHUB_
   fontPath: 'new-font.ttf',      // font file in the repository
   licensePath: 'LICENSE',        // license file in the repository (optional)
   year: 2026,
-  description: 'Introduction of the typeface',
+  description: ['Introduction of the typeface (one paragraph per item)'],
   // presets: [...]              // style samples (optional; defaults to the font's named instances)
 },
 ```

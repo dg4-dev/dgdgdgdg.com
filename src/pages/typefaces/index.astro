@@ -5,7 +5,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
 import Footer from '@/components/footer.astro';
 import ContactCTA from '@/components/ContactCTA.astro';
-import { fontFaceCss, getTypefaces, variationSettings } from '@/lib/typefaces';
+import { fontFaceCss, getTypefaces, glyphCount, variationSettings } from '@/lib/typefaces';
 
 const typefaces = await getTypefaces();
 ---
@@ -43,9 +43,10 @@ const typefaces = await getTypefaces();
                       {t.familyName}
                     </h2>
                     <p class="typeface-spec">
+                      <span>{t.version}</span>
                       <span>{t.year}</span>
                       {t.axes.length > 0 && <span>Variable · {t.axes.length} axes</span>}
-                      <span>{t.codepoints.length} glyphs</span>
+                      <span>{glyphCount(t)} glyphs</span>
                     </p>
                   </a>
                 </li>

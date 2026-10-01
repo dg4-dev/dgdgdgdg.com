@@ -114,6 +114,14 @@ function getLatestVersion(repo: string): Promise<LatestVersion | null> {
   return pending;
 }
 
+// 字形一覧では、よく使う合字から順に並べる
+const FEATURE_ORDER = ['liga', 'dlig', 'calt'];
+
+function featureOrder(feature: string): number {
+  const index = FEATURE_ORDER.indexOf(feature);
+  return index === -1 ? FEATURE_ORDER.length : index;
+}
+
 async function loadTypeface(source: TypefaceSource): Promise<Typeface | null> {
   try {
     const [font, latest, licenseText] = await Promise.all([
@@ -138,6 +146,7 @@ async function loadTypeface(source: TypefaceSource): Promise<Typeface | null> {
       repoUrl: `https://github.com/${source.repo}`,
       licenseText: licenseText.trim(),
       presets: source.presets ?? info.instances,
+      featureGlyphs: [...info.featureGlyphs].sort((a, b) => featureOrder(a.feature) - featureOrder(b.feature)),
     };
   } catch (error) {
     // 取得に失敗した書体は掲載せず、build は続行する
@@ -161,6 +170,11 @@ export function fontFaceCss(list: Typeface[]): string {
       return `@font-face { font-family: '${t.cssFamily}'; src: url('${t.fontUrl}'); font-weight: ${weight}; font-display: block; }`;
     })
     .join('\n');
+}
+
+/** 字形一覧に並ぶ字形の数（収録文字と合字などの合計） */
+export function glyphCount(typeface: Typeface): number {
+  return typeface.codepoints.length + typeface.featureGlyphs.length;
 }
 
 /** 軸の値を font-variation-settings の書式にする */
