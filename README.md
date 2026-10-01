@@ -80,6 +80,7 @@ Family name, version, variable axes and glyphs are read from the font file itsel
 
 The version shown prefers the latest GitHub release, then the newest version tag (e.g. `v1.2.3`), then the version written in the font file.
 Unauthenticated GitHub API calls are limited to 60 per hour, so setting `GITHUB_TOKEN` (read-only access to public repositories) in the build environment is recommended.
+If the token is invalid (401), the API is called again without it. If the API still fails (for example, because of the rate limit), the version is taken from the repository's tag list via git (`info/refs`), which the API rate limit does not apply to. The reason for each failure is printed in the build log as `[typefaces] ...`.
 
 ```ts
 {

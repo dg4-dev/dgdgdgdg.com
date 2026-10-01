@@ -51,7 +51,7 @@ const socialLinks = [
 
 <BaseLayout
   title="Contact - dgdgdgdg"
-  description="dgdgdgdgへのお問い合わせは、Messenger・メールまたは各SNSからお気軽にどうぞ。お仕事のご依頼・ご相談を受け付けています。リアルタイムで現在の受付状況も掲載。"
+  description="dgdgdgdgへのお問い合わせ方法です。お仕事のご依頼・ご相談は、Messenger・メール・各SNSからどうぞ。いまの受付状況も載せています。"
   keywords="contact, SNS, dgdgdgdg"
 >
   <Fragment slot="head"> </Fragment>
@@ -60,6 +60,9 @@ const socialLinks = [
     <section class="contact-hero">
       <p class="contact-description">
         <Phrase text="お仕事のご依頼・ご相談は、Messenger・メールまたは各SNSからお気軽にどうぞ。" />
+      </p>
+      <p class="contact-note">
+        <Phrase text="ご依頼の際は、依頼の内容・ご予算・ご希望の納期をお書きいただけると、やりとりが少なく済みます。" />
       </p>
     </section>
 
@@ -167,6 +170,13 @@ const socialLinks = [
     color: var(--c-white)
     font-size: var(--type-body-size)
     line-height: var(--type-body-line)
+    letter-spacing: 0.04em
+
+  .contact-note
+    margin-top: space(4)
+    color: var(--c-gray-200)
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
     letter-spacing: 0.04em
 
   .primary-contacts
