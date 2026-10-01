@@ -11,7 +11,8 @@
     "@astrojs/cloudflare": "^12.6.12",
     "@lucide/astro": "^0.563.0",
     "@notionhq/client": "^5.6.0",
-    "astro": "5.17.1"
+    "astro": "5.17.1",
+    "budoux": "^0.9.3"
   },
   "devDependencies": {
     "@dotenvx/dotenvx": "^1.52.0",
