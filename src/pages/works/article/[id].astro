@@ -5,139 +5,50 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
 import Footer from '@/components/footer.astro';
 import ContactCTA from '@/components/ContactCTA.astro';
-import { getNotionData, findPageByCustomId, getNotionPage, getNotionBlocksRecursive } from '@/lib/notion';
-import { downloadAndSaveImage, isNotionUrl } from '@/lib/notion-images';
-import { renderBlocks } from '@/lib/notion-render';
-import { getExternalUrl } from '@/lib/works';
 import Phrase from '@/components/Phrase.astro';
+import { getNotionData, getNotionBlocksRecursive } from '@/lib/notion';
+import { attachBookmarkMeta, localizeBlockMedia, type ArticleBlock } from '@/lib/article-blocks';
+import { renderBlocks } from '@/lib/notion-render';
+import {
+  formatYearMonth,
+  getCategories,
+  getClient,
+  getCreatedDate,
+  getExternalUrl,
+  getSummary,
+  getTitle,
+  getWorkId,
+  isPrivate,
+  localizeCover,
+  type Work,
+} from '@/lib/works';
 
-// 静的パス生成（空にして生成を停止）
+// プライベート作品と、外部リンクがある（カードから外部ページを開く）作品は詳細ページを作らない
+// 取得済みの作品を props で渡し、ページごとに Notion から取り直さないようにする
 export async function getStaticPaths() {
-  const notionData = await getNotionData();
-  // Privateがtrueのものと、外部リンクがある（カードから外部ページを開く）ものは詳細ページを生成しない
-  const publicPages = notionData.results.filter(
-    (page: any) => !page.properties?.Private?.checkbox && !getExternalUrl(page),
-  );
-
-  return publicPages.map((page: any) => ({
-    params: { id: page.properties?.id?.rich_text?.[0]?.plain_text ?? page.id },
-  }));
+  const { results } = await getNotionData();
+  return results
+    .filter((work) => !isPrivate(work) && !getExternalUrl(work))
+    .map((work) => ({ params: { id: getWorkId(work) }, props: { work } }));
 }
 
-// URLパラメータからidを取得
-const { id } = Astro.params;
-
-if (!id) {
-  return Astro.redirect('/works');
+interface Props {
+  work: Work;
 }
 
-// UUID形式かどうかを判定（ハイフン付きUUID形式）
-const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+const { work } = Astro.props;
 
-// UUIDの場合はそのまま使用、カスタムIDの場合は検索してUUIDを取得
-let pageUuid: string;
-if (isUuid) {
-  pageUuid = id;
-} else {
-  const pageData: any = await findPageByCustomId(id);
-  pageUuid = pageData.id;
-}
+// 本文のブロック（子ブロックも含む）を取得し、画像・動画の保存とブックマークの OG 情報の取得をする
+const blocks: ArticleBlock[] = await getNotionBlocksRecursive(work.id);
+await localizeBlockMedia(blocks);
+await attachBookmarkMeta(blocks);
 
-// ページの詳細情報とブロックを取得（再帰的に子ブロックも含む・ページネーション対応）
-const page: any = await getNotionPage(pageUuid);
-const blocks: any[] = await getNotionBlocksRecursive(pageUuid);
-
-// ブロック内の画像・動画をダウンロードしてローカルパスに差し替え
-async function downloadBlockImages(blockList: any[]): Promise<void> {
-  for (const block of blockList) {
-    if (block.type === 'image') {
-      const imageUrl = block.image?.type === 'file' ? block.image.file.url : block.image?.external?.url;
-      if (imageUrl && isNotionUrl(imageUrl)) {
-        const localPath = await downloadAndSaveImage(imageUrl);
-        // ローカルパスを external として格納（renderBlock関数がexternal.urlを優先的に使用するため）
-        block.image.external = { url: localPath };
-        block.image.type = 'external';
-      }
-    }
-    if (block.type === 'video') {
-      const videoUrl = block.video?.type === 'file' ? block.video.file.url : block.video?.external?.url;
-      if (videoUrl && isNotionUrl(videoUrl)) {
-        const localPath = await downloadAndSaveImage(videoUrl);
-        // ローカルパスを external として格納
-        block.video.external = { url: localPath };
-        block.video.type = 'external';
-      }
-    }
-    if (block.children?.length) {
-      await downloadBlockImages(block.children);
-    }
-  }
-}
-
-await downloadBlockImages(blocks);
-
-// ブックマークブロックにOGメタデータ（タイトル・説明・画像・ファビコン）を付与
-async function getBookmarkMeta(
-  url: string,
-): Promise<{ title?: string; description?: string; image?: string; logo?: string } | null> {
-  try {
-    const res = await fetch(`https://api.microlink.io?url=${encodeURIComponent(url)}`, {
-      signal: AbortSignal.timeout(8000),
-      headers: { Accept: 'application/json' },
-    });
-    if (!res.ok) return null;
-    const json = await res.json();
-    const d = json?.data;
-    if (!d) return null;
-    return {
-      title: typeof d.title === 'string' ? d.title : undefined,
-      description: typeof d.description === 'string' ? d.description : undefined,
-      image: typeof d.image?.url === 'string' ? d.image.url : undefined,
-      logo: typeof d.logo?.url === 'string' ? d.logo.url : undefined,
-    };
-  } catch {
-    return null;
-  }
-}
-
-async function enrichBlocksWithBookmarkMeta(blockList: any[]): Promise<void> {
-  for (const block of blockList) {
-    if (block.type === 'bookmark' && block.bookmark?.url) {
-      block._og = await getBookmarkMeta(block.bookmark.url);
-      try {
-        const u = new URL(block.bookmark.url);
-        block._favicon = block._og?.logo ?? `https://www.google.com/s2/favicons?domain=${u.hostname}&sz=64`;
-      } catch {
-        block._favicon = '';
-      }
-    }
-    if (block.children?.length) await enrichBlocksWithBookmarkMeta(block.children);
-  }
-}
-
-await enrichBlocksWithBookmarkMeta(blocks);
-
-// 日付を年月のみにフォーマットする関数（表示用）
-function formatDateToYearMonth(dateString: string): string {
-  if (!dateString) return '';
-  // YYYY-MM-DD形式からYYYY-MMに変換
-  return dateString.substring(0, 7);
-}
-
-// プロパティからデータを抽出
-const title = page.properties?.Title?.title?.[0]?.plain_text ?? 'No title';
-const client = page.properties?.Client?.rich_text?.[0]?.plain_text ?? '';
-const createdDateFull = page.properties?.['Created Date']?.date?.start ?? '';
-const createdDate = formatDateToYearMonth(createdDateFull); // 表示用は年月のみ
-const categories = page.properties?.Category?.multi_select ?? [];
-const summary = page.properties?.Summary?.rich_text?.[0]?.plain_text ?? '';
-
-// カバー画像を取得（Works一覧と同じロジック）
-let coverImage = page.properties?.Cover?.files?.[0]?.file?.url ?? '';
-if (coverImage && isNotionUrl(coverImage)) {
-  const localPath = await downloadAndSaveImage(coverImage);
-  if (localPath) coverImage = localPath;
-}
+const title = getTitle(work);
+const client = getClient(work);
+const createdDate = formatYearMonth(getCreatedDate(work)); // 表示用は年月のみ
+const categories = getCategories(work);
+const summary = getSummary(work);
+const coverImage = await localizeCover(work);
 
 // OGP 画像にはサイト内に保存したカバー画像を使う（Notion の URL は期限が切れるので使わない）
 const ogImage = coverImage.startsWith('/') ? new URL(coverImage, Astro.site ?? Astro.url).href : undefined;
@@ -183,7 +94,7 @@ const ogImage = coverImage.startsWith('/') ? new URL(coverImage, Astro.site ?? A
               <div class="meta-item meta-item--category">
                 <strong>Category:</strong>
                 <div class="categories">
-                  {categories.map((cat: any) => (
+                  {categories.map((cat) => (
                     <span class="category-tag">{cat.name}</span>
                   ))}
                 </div>
