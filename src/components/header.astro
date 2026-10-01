@@ -32,7 +32,11 @@ const isContactPage = pathname === '/contact';
 ---
 
 <header>
-  <div class="header-inner" style={pathname === '/' ? 'opacity: 0; pointer-events: none;' : undefined}>
+  <div
+    class="header-inner"
+    style={pathname === '/' ? 'opacity: 0; pointer-events: none;' : undefined}
+    inert={pathname === '/'}
+  >
     <div class="header-bar">
       <div class="header-left">
         <a href="/" class="header-logo-link" transition:persist="header-logo">
@@ -153,7 +157,7 @@ const isContactPage = pathname === '/contact';
         </div>
       )
     }
-    <div class="dropdown-wrapper" aria-hidden="true">
+    <div class="dropdown-wrapper" inert>
       <nav class="dropdown">
         <ul>
           {
@@ -556,11 +560,29 @@ const isContactPage = pathname === '/contact';
     document.documentElement.style.setProperty('--header-height', `${header.getBoundingClientRect().height}px`);
   }
 
+  // ページを移動するたびに、前のページで document に付けたリスナーを外す
+  let headerController: AbortController | null = null;
+
+  // 高さの監視は、ページを移動するたびに新しい header に付け直す
+  const headerResizeObserver = new ResizeObserver(setHeaderHeight);
+
+  function observeHeader() {
+    headerResizeObserver.disconnect();
+    const header = document.querySelector('header');
+    if (header) headerResizeObserver.observe(header);
+  }
+
   function initHeader() {
-    const btn = document.querySelector('.hamburger');
-    const wrapper = document.querySelector('.dropdown-wrapper');
+    headerController?.abort();
+    headerController = null;
+
+    const btn = document.querySelector<HTMLButtonElement>('.hamburger');
+    const wrapper = document.querySelector<HTMLElement>('.dropdown-wrapper');
     const inner = document.querySelector('.header-inner');
     if (!btn || !wrapper || !inner) return;
+
+    headerController = new AbortController();
+    const { signal } = headerController;
 
     const DROPDOWN_DURATION_MS = 320;
 
@@ -575,7 +597,8 @@ const isContactPage = pathname === '/contact';
       btn!.setAttribute('aria-expanded', 'false');
       btn!.setAttribute('aria-label', 'メニューを開く');
       wrapper!.classList.remove('open');
-      wrapper!.setAttribute('aria-hidden', 'true');
+      // 閉じたメニューのリンクに Tab で移動できないようにする
+      wrapper!.inert = true;
       inner!.classList.remove('open');
       tickHeaderHeightUntil(performance.now() + DROPDOWN_DURATION_MS);
     }
@@ -585,28 +608,46 @@ const isContactPage = pathname === '/contact';
       btn.setAttribute('aria-expanded', String(!expanded));
       btn.setAttribute('aria-label', expanded ? 'メニューを開く' : 'メニューを閉じる');
       wrapper.classList.toggle('open', !expanded);
-      wrapper.setAttribute('aria-hidden', String(expanded));
+      wrapper.inert = expanded;
       inner.classList.toggle('open', !expanded);
       tickHeaderHeightUntil(performance.now() + DROPDOWN_DURATION_MS);
     });
 
-    document.addEventListener('click', (e: Event) => {
-      const target = e.target as Node;
-      if (!inner.contains(target)) {
+    document.addEventListener(
+      'click',
+      (e: Event) => {
+        const target = e.target as Node;
+        if (!inner.contains(target)) {
+          close();
+        }
+      },
+      { signal },
+    );
+
+    // Esc キーでメニューを閉じ、メニューボタンにフォーカスを戻す
+    document.addEventListener(
+      'keydown',
+      (e: KeyboardEvent) => {
+        if (e.key !== 'Escape' || btn.getAttribute('aria-expanded') !== 'true') return;
         close();
-      }
-    });
+        btn.focus();
+      },
+      { signal },
+    );
   }
 
   function resetHeaderVisibility() {
     const inner = document.querySelector('.header-inner') as HTMLElement;
     if (!inner) return;
+    // 隠している間は inert を付け、見えないリンクやボタンに Tab で移動できないようにする
     if (location.pathname === '/') {
       inner.style.opacity = '0';
       inner.style.pointerEvents = 'none';
+      inner.inert = true;
     } else {
       inner.style.removeProperty('opacity');
       inner.style.removeProperty('pointer-events');
+      inner.inert = false;
     }
   }
 
@@ -685,10 +726,7 @@ const isContactPage = pathname === '/contact';
   }
 
   setHeaderHeight();
-  const headerEl = document.querySelector('header');
-  if (headerEl) {
-    new ResizeObserver(setHeaderHeight).observe(headerEl);
-  }
+  observeHeader();
   window.addEventListener('resize', setHeaderHeight);
 
   initHeader();
@@ -697,6 +735,7 @@ const isContactPage = pathname === '/contact';
 
   document.addEventListener('astro:after-swap', () => {
     setHeaderHeight();
+    observeHeader();
     resetHeaderVisibility();
     initHeader();
     initCategoryFilter();
