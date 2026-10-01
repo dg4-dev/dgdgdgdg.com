@@ -8,7 +8,7 @@ export interface TypefaceSource {
   slug: string;
   /** GitHub リポジトリ（owner/name） */
   repo: string;
-  /** 取得するブランチ・タグ */
+  /** 最新リリース（なければ最新のバージョンタグ）が取れないときに、ファイルを取得するブランチ */
   ref: string;
   /** リポジトリ内のフォントファイルのパス */
   fontPath: string;
