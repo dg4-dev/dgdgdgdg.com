@@ -4,7 +4,7 @@
 
 **https://dgdgdgdg.com**
 
-<img src="public/images/ogp.webp" alt="dgdgdgdg.com Banner" width="100%">
+<img src="public/images/ogp.jpg" alt="dgdgdgdg.com Banner" width="100%">
 
 <br>
 

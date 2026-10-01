@@ -16,7 +16,7 @@ interface Props {
 const { title = 'dgdgdgdg', description, ogImage, ogType = 'website', keywords, author, canonicalUrl } = Astro.props;
 
 const currentUrl = canonicalUrl || Astro.url.href;
-const effectiveOgImage = ogImage ?? new URL('/images/ogp.webp', Astro.url.origin).href;
+const effectiveOgImage = ogImage ?? new URL('/images/ogp.jpg', Astro.url.origin).href;
 ---
 
 <!doctype html>
@@ -45,6 +45,9 @@ const effectiveOgImage = ogImage ?? new URL('/images/ogp.webp', Astro.url.origin
     <meta name="twitter:title" content={title} />
     {description && <meta name="twitter:description" content={description} />}
     <meta name="twitter:image" content={effectiveOgImage} />
+
+    <!-- サイト全体の書体（ヘッダーのページ名で最初から使うので先に読み込む） -->
+    <link rel="preload" href="/typefaces/files/atomic-dot.ttf" as="font" type="font/ttf" crossorigin />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
