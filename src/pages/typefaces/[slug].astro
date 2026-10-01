@@ -7,6 +7,7 @@ import Footer from '@/components/footer.astro';
 import ContactCTA from '@/components/ContactCTA.astro';
 import type { FeatureGlyph } from '@/lib/font-info';
 import { fontFaceCss, getTypefaces, glyphCount, variationSettings, type Typeface } from '@/lib/typefaces';
+import Phrase from '@/components/Phrase.astro';
 
 export async function getStaticPaths() {
   const typefaces = await getTypefaces();
@@ -90,7 +91,13 @@ function featureGlyphHtml(glyph: FeatureGlyph): string {
 
     <section class="tf-section tf-about">
       <div class="tf-description">
-        {t.description.map((paragraph) => <p>{paragraph}</p>)}
+        {
+          t.description.map((paragraph) => (
+            <p>
+              <Phrase text={paragraph} />
+            </p>
+          ))
+        }
       </div>
       <dl class="tf-info">
         <div>
@@ -241,6 +248,8 @@ function featureGlyphHtml(glyph: FeatureGlyph): string {
   // 書体名の見本がそのままタイプテスターになる
   // （Size を動かしたときに style 属性の font-size が勝つよう、!important は使わない）
   .tf-hero .tf-tester-text
+    // 書き換えた文字の折り返しを変えないよう、見出し全体の text-wrap: balance を外す
+    text-wrap: wrap
     font-size: clamp(3rem, 11vw, 10rem)
     font-weight: normal
     line-height: 1.1
@@ -293,6 +302,10 @@ function featureGlyphHtml(glyph: FeatureGlyph): string {
 
     p:not(:first-child)
       margin-top: space(4)
+
+    // 幅が狭いと両端そろえで文字の間が空きすぎるので、左そろえにする
+    @media (max-width: 768px)
+      text-align: start
 
   .tf-info
     font-family: var(--font-ui)

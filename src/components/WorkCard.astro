@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { ArrowUpRight } from '@lucide/astro';
+import Phrase from './Phrase.astro';
 
 export interface Props {
   title: string;
@@ -61,7 +62,7 @@ const dataAttrs = hasDataAttrs
   }
   <div class="work-content">
     <h2 class="work-card-title">
-      {title}
+      <Phrase text={title} />
       {
         external && (
           <>
@@ -164,6 +165,8 @@ const dataAttrs = hasDataAttrs
     min-height: 140px
 
   .work-category-tag
+    // 「Business Card」などがタグの中で改行されないようにする
+    white-space: nowrap
     padding: space(1) space(2) space(1) space(2)
     border: 2px solid var(--c-gray-800)
     border-radius: 4px

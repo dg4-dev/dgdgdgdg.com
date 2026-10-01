@@ -9,6 +9,7 @@ import { getNotionData, findPageByCustomId, getNotionPage, getNotionBlocksRecurs
 import { downloadAndSaveImage, isNotionUrl } from '@/lib/notion-images';
 import { renderBlocks } from '@/lib/notion-render';
 import { getExternalUrl } from '@/lib/works';
+import Phrase from '@/components/Phrase.astro';
 
 // 静的パス生成（空にして生成を停止）
 export async function getStaticPaths() {
@@ -154,7 +155,7 @@ const ogImage = coverImage.startsWith('/') ? new URL(coverImage, Astro.site ?? A
   <main>
     <article class="work-detail">
       <header class="work-header">
-        <h1>{title}</h1>
+        <h1><Phrase text={title} /></h1>
         {
           coverImage && (
             <div class="work-cover">
@@ -194,7 +195,9 @@ const ogImage = coverImage.startsWith('/') ? new URL(coverImage, Astro.site ?? A
       {
         summary && (
           <div class="work-summary">
-            <p>{summary}</p>
+            <p>
+              <Phrase text={summary} />
+            </p>
           </div>
         )
       }
@@ -320,6 +323,8 @@ const ogImage = coverImage.startsWith('/') ? new URL(coverImage, Astro.site ?? A
   .work-content
     line-height: var(--type-body-line)
     color: var(--c-gray-800)
+    // 長い URL などが画面からはみ出さないよう、入りきらないときは途中で改行する
+    overflow-wrap: break-word
     transition: color 0.3s ease
 
     :global(.work-content-empty)
