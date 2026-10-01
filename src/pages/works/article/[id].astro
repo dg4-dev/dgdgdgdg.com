@@ -5,450 +5,68 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
 import Footer from '@/components/footer.astro';
 import ContactCTA from '@/components/ContactCTA.astro';
-import { getNotionData, findPageByCustomId, getNotionPage, getNotionBlocksRecursive } from '@/lib/notion';
-import { downloadAndSaveImage, isNotionUrl } from '@/lib/notion-images';
+import Phrase from '@/components/Phrase.astro';
+import { getNotionData, getNotionBlocksRecursive } from '@/lib/notion';
+import { attachBookmarkMeta, localizeBlockMedia, type ArticleBlock } from '@/lib/article-blocks';
+import { renderBlocks } from '@/lib/notion-render';
+import {
+  formatYearMonth,
+  getCategories,
+  getClient,
+  getCreatedDate,
+  getExternalUrl,
+  getSummary,
+  getTitle,
+  getWorkId,
+  isPrivate,
+  localizeCover,
+  type Work,
+} from '@/lib/works';
 
-// 静的パス生成（空にして生成を停止）
+// プライベート作品と、外部リンクがある（カードから外部ページを開く）作品は詳細ページを作らない
+// 取得済みの作品を props で渡し、ページごとに Notion から取り直さないようにする
 export async function getStaticPaths() {
-  const notionData = await getNotionData();
-  // Privateがtrueのものは詳細ページを生成しない
-  const publicPages = notionData.results.filter((page: any) => !page.properties?.Private?.checkbox);
-
-  return publicPages.map((page: any) => ({
-    params: { id: page.properties?.id?.rich_text?.[0]?.plain_text ?? page.id },
-  }));
+  const { results } = await getNotionData();
+  return results
+    .filter((work) => !isPrivate(work) && !getExternalUrl(work))
+    .map((work) => ({ params: { id: getWorkId(work) }, props: { work } }));
 }
 
-// URLパラメータからidを取得
-const { id } = Astro.params;
-
-if (!id) {
-  return Astro.redirect('/works');
+interface Props {
+  work: Work;
 }
 
-// UUID形式かどうかを判定（ハイフン付きUUID形式）
-const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+const { work } = Astro.props;
 
-// UUIDの場合はそのまま使用、カスタムIDの場合は検索してUUIDを取得
-let pageUuid: string;
-if (isUuid) {
-  pageUuid = id;
-} else {
-  const pageData: any = await findPageByCustomId(id);
-  pageUuid = pageData.id;
-}
+// 本文のブロック（子ブロックも含む）を取得し、画像・動画の保存とブックマークの OG 情報の取得をする
+const blocks: ArticleBlock[] = await getNotionBlocksRecursive(work.id);
+await localizeBlockMedia(blocks);
+await attachBookmarkMeta(blocks);
 
-// ページの詳細情報とブロックを取得（再帰的に子ブロックも含む・ページネーション対応）
-const page: any = await getNotionPage(pageUuid);
-const blocks: any[] = await getNotionBlocksRecursive(pageUuid);
+const title = getTitle(work);
+const client = getClient(work);
+const createdDate = formatYearMonth(getCreatedDate(work)); // 表示用は年月のみ
+const categories = getCategories(work);
+const summary = getSummary(work);
+const coverImage = await localizeCover(work);
 
-// ブロック内の画像・動画をダウンロードしてローカルパスに差し替え
-async function downloadBlockImages(blockList: any[]): Promise<void> {
-  for (const block of blockList) {
-    if (block.type === 'image') {
-      const imageUrl = block.image?.type === 'file' ? block.image.file.url : block.image?.external?.url;
-      if (imageUrl && isNotionUrl(imageUrl)) {
-        const localPath = await downloadAndSaveImage(imageUrl);
-        // ローカルパスを external として格納（renderBlock関数がexternal.urlを優先的に使用するため）
-        block.image.external = { url: localPath };
-        block.image.type = 'external';
-      }
-    }
-    if (block.type === 'video') {
-      const videoUrl = block.video?.type === 'file' ? block.video.file.url : block.video?.external?.url;
-      if (videoUrl && isNotionUrl(videoUrl)) {
-        const localPath = await downloadAndSaveImage(videoUrl);
-        // ローカルパスを external として格納
-        block.video.external = { url: localPath };
-        block.video.type = 'external';
-      }
-    }
-    if (block.children?.length) {
-      await downloadBlockImages(block.children);
-    }
-  }
-}
-
-await downloadBlockImages(blocks);
-
-// ブックマークブロックにOGメタデータ（タイトル・説明・画像・ファビコン）を付与
-async function getBookmarkMeta(
-  url: string,
-): Promise<{ title?: string; description?: string; image?: string; logo?: string } | null> {
-  try {
-    const res = await fetch(`https://api.microlink.io?url=${encodeURIComponent(url)}`, {
-      signal: AbortSignal.timeout(8000),
-      headers: { Accept: 'application/json' },
-    });
-    if (!res.ok) return null;
-    const json = await res.json();
-    const d = json?.data;
-    if (!d) return null;
-    return {
-      title: typeof d.title === 'string' ? d.title : undefined,
-      description: typeof d.description === 'string' ? d.description : undefined,
-      image: typeof d.image?.url === 'string' ? d.image.url : undefined,
-      logo: typeof d.logo?.url === 'string' ? d.logo.url : undefined,
-    };
-  } catch {
-    return null;
-  }
-}
-
-async function enrichBlocksWithBookmarkMeta(blockList: any[]): Promise<void> {
-  for (const block of blockList) {
-    if (block.type === 'bookmark' && block.bookmark?.url) {
-      block._og = await getBookmarkMeta(block.bookmark.url);
-      try {
-        const u = new URL(block.bookmark.url);
-        block._favicon = block._og?.logo ?? `https://www.google.com/s2/favicons?domain=${u.hostname}&sz=64`;
-      } catch {
-        block._favicon = '';
-      }
-    }
-    if (block.children?.length) await enrichBlocksWithBookmarkMeta(block.children);
-  }
-}
-
-await enrichBlocksWithBookmarkMeta(blocks);
-
-// 日付を年月のみにフォーマットする関数（表示用）
-function formatDateToYearMonth(dateString: string): string {
-  if (!dateString) return '';
-  // YYYY-MM-DD形式からYYYY-MMに変換
-  return dateString.substring(0, 7);
-}
-
-// プロパティからデータを抽出
-const title = page.properties?.Title?.title?.[0]?.plain_text ?? 'No title';
-const client = page.properties?.Client?.rich_text?.[0]?.plain_text ?? '';
-const createdDateFull = page.properties?.['Created Date']?.date?.start ?? '';
-const createdDate = formatDateToYearMonth(createdDateFull); // 表示用は年月のみ
-const categories = page.properties?.Category?.multi_select ?? [];
-const summary = page.properties?.Summary?.rich_text?.[0]?.plain_text ?? '';
-
-// カバー画像を取得（Works一覧と同じロジック）
-let coverImage = page.properties?.Cover?.files?.[0]?.file?.url ?? '';
-if (coverImage && isNotionUrl(coverImage)) {
-  const localPath = await downloadAndSaveImage(coverImage);
-  if (localPath) coverImage = localPath;
-}
-
-// ブロックをレンダリングするヘルパー関数（子ブロックも再帰的に処理）
-function renderBlock(block: any): string {
-  const { type, id, children } = block;
-  const value = block[type];
-
-  // 子ブロックのレンダリング
-  const childrenHtml = children && children.length > 0 ? renderBlocks(children) : '';
-
-  switch (type) {
-    case 'paragraph':
-      return `<p>${renderRichText(value.rich_text)}</p>`;
-    case 'heading_1':
-      return `<h1>${renderRichText(value.rich_text)}</h1>`;
-    case 'heading_2':
-      return `<h2>${renderRichText(value.rich_text)}</h2>`;
-    case 'heading_3':
-      return `<h3>${renderRichText(value.rich_text)}</h3>`;
-    case 'bulleted_list_item':
-      return `<li>${renderRichText(value.rich_text)}${childrenHtml}</li>`;
-    case 'numbered_list_item':
-      return `<li>${renderRichText(value.rich_text)}${childrenHtml}</li>`;
-    case 'to_do':
-      const checked = value.checked ? 'checked' : '';
-      return `<li class="todo-item"><input type="checkbox" ${checked} disabled /> <span>${renderRichText(value.rich_text)}</span>${childrenHtml}</li>`;
-    case 'toggle':
-      return `<details class="toggle-block"><summary>${renderRichText(value.rich_text)}</summary><div class="toggle-content">${childrenHtml}</div></details>`;
-    case 'child_page':
-      // 子ページは表示しない
-      return '';
-    case 'callout':
-      // コールアウトは表示しない
-      return '';
-    case 'quote':
-      // 引用は表示しない
-      return '';
-    case 'code':
-      return `<pre><code class="language-${value.language}">${renderRichText(value.rich_text)}</code></pre>`;
-    case 'image':
-      const imageUrl = value.type === 'file' ? value.file.url : value.external.url;
-      const caption = value.caption ? renderRichText(value.caption) : '';
-      return `<figure><img src="${imageUrl}" alt="${caption}" />${caption ? `<figcaption>${caption}</figcaption>` : ''}</figure>`;
-    case 'video':
-      const videoUrl = value.type === 'file' ? value.file.url : value.external.url;
-      const videoCaption = value.caption ? renderRichText(value.caption) : '';
-
-      // YouTube/VimeoのURLを検出してiframeに変換
-      function convertVideoUrl(url: string): { url: string; isEmbed: boolean } {
-        try {
-          const urlObj = new URL(url);
-
-          // YouTube
-          if (urlObj.hostname.includes('youtube.com') || urlObj.hostname.includes('youtu.be')) {
-            let videoId = '';
-            if (urlObj.hostname.includes('youtu.be')) {
-              videoId = urlObj.pathname.slice(1);
-            } else {
-              videoId = urlObj.searchParams.get('v') || urlObj.pathname.split('/').pop() || '';
-            }
-            if (videoId) {
-              return { url: `https://www.youtube.com/embed/${videoId}`, isEmbed: true };
-            }
-          }
-
-          // Vimeo
-          if (urlObj.hostname.includes('vimeo.com')) {
-            const videoId = urlObj.pathname.split('/').filter(Boolean).pop();
-            if (videoId) {
-              return { url: `https://player.vimeo.com/video/${videoId}`, isEmbed: true };
-            }
-          }
-
-          // その他のURLはvideoタグで表示
-          return { url, isEmbed: false };
-        } catch (e) {
-          // URL解析に失敗した場合はvideoタグで表示
-          return { url, isEmbed: false };
-        }
-      }
-
-      const videoInfo = convertVideoUrl(videoUrl);
-      const videoEscapedUrl = videoInfo.url.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-
-      // YouTube/Vimeoの場合はiframeで表示
-      if (videoInfo.isEmbed) {
-        return `<figure class="video-container">
-          <div class="embed-container">
-            <iframe 
-              src="${videoEscapedUrl}" 
-              loading="lazy" 
-              allowfullscreen
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            ></iframe>
-          </div>
-          ${videoCaption ? `<figcaption>${videoCaption}</figcaption>` : ''}
-        </figure>`;
-      }
-
-      // その他の場合はvideoタグで表示
-      return `<figure class="video-container"><video src="${videoEscapedUrl}" controls preload="metadata"></video>${videoCaption ? `<figcaption>${videoCaption}</figcaption>` : ''}</figure>`;
-    case 'divider':
-      return '<hr />';
-    case 'embed':
-      // Notionのembedブロックをiframeで表示
-      if (!value.url) return '';
-
-      // URLをembed用に変換する関数
-      function convertToEmbedUrl(url: string): { url: string; isTwitter: boolean } {
-        try {
-          const urlObj = new URL(url);
-
-          // X (Twitter)
-          if (urlObj.hostname.includes('twitter.com') || urlObj.hostname.includes('x.com')) {
-            // TwitterのツイートURLを検出
-            const pathParts = urlObj.pathname.split('/').filter(Boolean);
-            const statusIndex = pathParts.indexOf('status');
-            if (statusIndex !== -1 && pathParts[statusIndex + 1]) {
-              return { url, isTwitter: true };
-            }
-          }
-
-          // YouTube
-          if (urlObj.hostname.includes('youtube.com') || urlObj.hostname.includes('youtu.be')) {
-            let videoId = '';
-
-            // youtu.be形式: https://youtu.be/VIDEO_ID
-            if (urlObj.hostname.includes('youtu.be')) {
-              videoId = urlObj.pathname.split('/').filter(Boolean)[0] || '';
-            }
-            // youtube.com形式
-            else if (urlObj.hostname.includes('youtube.com')) {
-              // クエリパラメータから取得: ?v=VIDEO_ID
-              videoId = urlObj.searchParams.get('v') || '';
-
-              // クエリパラメータにない場合はパスから取得
-              if (!videoId) {
-                const pathParts = urlObj.pathname.split('/').filter(Boolean);
-                // /embed/VIDEO_ID または /v/VIDEO_ID の形式
-                const embedIndex = pathParts.indexOf('embed');
-                const vIndex = pathParts.indexOf('v');
-
-                if (embedIndex !== -1 && pathParts[embedIndex + 1]) {
-                  videoId = pathParts[embedIndex + 1];
-                } else if (vIndex !== -1 && pathParts[vIndex + 1]) {
-                  videoId = pathParts[vIndex + 1];
-                } else if (pathParts.length > 0) {
-                  // 最後のパスセグメントを試す
-                  videoId = pathParts[pathParts.length - 1];
-                }
-              }
-            }
-
-            // videoIdが見つかった場合、クエリパラメータ（時間指定など）を保持
-            if (videoId) {
-              const timeParam = urlObj.searchParams.get('t');
-              const embedUrl = timeParam
-                ? `https://www.youtube.com/embed/${videoId}?start=${timeParam.replace(/[^0-9]/g, '')}`
-                : `https://www.youtube.com/embed/${videoId}`;
-              return { url: embedUrl, isTwitter: false };
-            }
-          }
-
-          // Vimeo
-          if (urlObj.hostname.includes('vimeo.com')) {
-            const videoId = urlObj.pathname.split('/').filter(Boolean).pop();
-            if (videoId) {
-              return { url: `https://player.vimeo.com/video/${videoId}`, isTwitter: false };
-            }
-          }
-
-          // その他のURLはそのまま使用
-          return { url, isTwitter: false };
-        } catch (e) {
-          // URL解析に失敗した場合はそのまま返す
-          return { url, isTwitter: false };
-        }
-      }
-
-      const embedInfo = convertToEmbedUrl(value.url);
-      const escapedUrl = embedInfo.url.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-
-      // Twitterの場合は特別な処理
-      if (embedInfo.isTwitter) {
-        const twitterEscapedUrl = value.url.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-        return `<div class="embed-container embed-twitter" data-embed-url="${twitterEscapedUrl}">
-          <blockquote class="twitter-tweet" data-theme="light">
-            <a href="${twitterEscapedUrl}"></a>
-          </blockquote>
-          <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-        </div>`;
-      }
-
-      // その他のサービスはiframeで表示
-      return `<div class="embed-container" data-embed-url="${escapedUrl}">
-        <iframe 
-          src="${escapedUrl}" 
-          loading="lazy" 
-          allowfullscreen
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        ></iframe>
-        <div class="embed-fallback">
-          <p>埋め込みコンテンツを表示できませんでした。</p>
-          <a href="${escapedUrl}" target="_blank" rel="noopener noreferrer">元のページを開く</a>
-        </div>
-      </div>`;
-    case 'table':
-      // テーブルは表示しない
-      return '';
-    case 'table_row':
-      // table_rowは親のtableブロック内で処理されるためここでは処理しない
-      return '';
-    case 'bookmark': {
-      // Notionのbookmarkブロックをリンクカードとして表示（タイトル・説明・ファビコン・OG画像付き）
-      if (!value.url) return '';
-      const bookmarkUrl = value.url.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-      const bookmarkCaption = value.caption && value.caption.length > 0 ? renderRichText(value.caption) : '';
-      const og = block._og;
-      const favicon = block._favicon ?? '';
-      const escapeHtml = (s: string) =>
-        String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-      const titleText = og?.title ? escapeHtml(og.title) : bookmarkCaption || bookmarkUrl;
-      const descText = og?.description ? escapeHtml(og.description) : '';
-      const rawDisplay = value.url.replace(/^https?:\/\//, '');
-      const displayUrl = rawDisplay.length > 50 ? rawDisplay.slice(0, 50) + '...' : rawDisplay;
-      const imgUrl = og?.image ? og.image.replace(/"/g, '&quot;').replace(/'/g, '&#39;') : '';
-      return `<div class="bookmark-container">
-        <a href="${bookmarkUrl}" target="_blank" rel="noopener noreferrer" class="bookmark-link">
-          <div class="bookmark-left">
-            <div class="bookmark-title">${titleText}</div>
-            ${descText ? `<div class="bookmark-description">${descText}</div>` : ''}
-            <div class="bookmark-meta">
-              ${favicon ? `<img class="bookmark-favicon" src="${favicon.replace(/"/g, '&quot;')}" alt="" width="16" height="16" />` : ''}
-              <span class="bookmark-url">${escapeHtml(displayUrl)}</span>
-            </div>
-          </div>
-          ${imgUrl ? `<div class="bookmark-right"><img class="bookmark-og-image" src="${imgUrl}" alt="" loading="lazy" /></div>` : ''}
-        </a>
-      </div>`;
-    }
-    default:
-      return `<p><em>Unsupported block type: ${type}</em></p>`;
-  }
-}
-
-// リッチテキストをHTMLに変換
-function renderRichText(richTextArray: any[]) {
-  if (!richTextArray || richTextArray.length === 0) return '';
-
-  return richTextArray
-    .map((text) => {
-      let content = text.plain_text;
-
-      if (text.annotations.bold) content = `<strong>${content}</strong>`;
-      if (text.annotations.italic) content = `<em>${content}</em>`;
-      if (text.annotations.strikethrough) content = `<s>${content}</s>`;
-      if (text.annotations.underline) content = `<u>${content}</u>`;
-      if (text.annotations.code) content = `<code>${content}</code>`;
-      if (text.href) content = `<a href="${text.href}">${content}</a>`;
-
-      return content;
-    })
-    .join('');
-}
-
-// ブロックをグループ化してレンダリング（リストを適切に処理）
-function renderBlocks(blocks: any[]) {
-  const result: string[] = [];
-  let i = 0;
-
-  while (i < blocks.length) {
-    const block = blocks[i];
-    const type = block.type;
-
-    // 連続するリストアイテムをグループ化
-    if (type === 'bulleted_list_item') {
-      const items: string[] = [];
-      while (i < blocks.length && blocks[i].type === 'bulleted_list_item') {
-        items.push(renderBlock(blocks[i]));
-        i++;
-      }
-      result.push(`<ul>${items.join('')}</ul>`);
-    } else if (type === 'numbered_list_item') {
-      const items: string[] = [];
-      while (i < blocks.length && blocks[i].type === 'numbered_list_item') {
-        items.push(renderBlock(blocks[i]));
-        i++;
-      }
-      result.push(`<ol>${items.join('')}</ol>`);
-    } else if (type === 'to_do') {
-      const items: string[] = [];
-      while (i < blocks.length && blocks[i].type === 'to_do') {
-        items.push(renderBlock(blocks[i]));
-        i++;
-      }
-      result.push(`<ul class="todo-list">${items.join('')}</ul>`);
-    } else {
-      result.push(renderBlock(block));
-      i++;
-    }
-  }
-
-  return result.join('');
-}
+// OGP 画像にはサイト内に保存したカバー画像を使う（Notion の URL は期限が切れるので使わない）
+const ogImage = coverImage.startsWith('/') ? new URL(coverImage, Astro.site ?? Astro.url).href : undefined;
 ---
 
 <BaseLayout
   title={`${title} - Works - dgdgdgdg`}
   description={summary || 'dgdgdgdgの制作実績記事です。'}
   keywords="works, portfolio, projects"
+  ogImage={ogImage}
+  ogType="article"
 >
   <Fragment slot="head"> </Fragment>
   <Header />
   <main>
     <article class="work-detail">
       <header class="work-header">
-        <h1>{title}</h1>
+        <h1><Phrase text={title} /></h1>
         {
           coverImage && (
             <div class="work-cover">
@@ -476,7 +94,7 @@ function renderBlocks(blocks: any[]) {
               <div class="meta-item meta-item--category">
                 <strong>Category:</strong>
                 <div class="categories">
-                  {categories.map((cat: any) => (
+                  {categories.map((cat) => (
                     <span class="category-tag">{cat.name}</span>
                   ))}
                 </div>
@@ -488,7 +106,9 @@ function renderBlocks(blocks: any[]) {
       {
         summary && (
           <div class="work-summary">
-            <p>{summary}</p>
+            <p>
+              <Phrase text={summary} />
+            </p>
           </div>
         )
       }
@@ -614,6 +234,8 @@ function renderBlocks(blocks: any[]) {
   .work-content
     line-height: var(--type-body-line)
     color: var(--c-gray-800)
+    // 長い URL などが画面からはみ出さないよう、入りきらないときは途中で改行する
+    overflow-wrap: break-word
     transition: color 0.3s ease
 
     :global(.work-content-empty)
@@ -687,6 +309,69 @@ function renderBlocks(blocks: any[]) {
     :global(.toggle-content)
       margin-top: space(2)
       padding-left: space(4)
+
+    // 段落の下にインデントした子ブロック
+    :global(.block-children)
+      padding-left: space(6)
+
+    // 段組み（スマホでは縦に並べる）
+    :global(.columns)
+      display: flex
+      gap: space(8)
+      margin: space(4) 0
+
+      @media (max-width: 768px)
+        flex-direction: column
+        gap: space(0)
+
+    :global(.column)
+      flex-basis: 0
+      min-width: 0
+
+      @media (max-width: 768px)
+        flex-basis: auto
+
+    :global(blockquote)
+      margin: space(6) 0
+      padding: space(1) 0 space(1) space(4)
+      border-left: 4px solid var(--c-gray-200)
+
+    :global(.callout)
+      display: flex
+      gap: space(3)
+      margin: space(6) 0
+      padding: space(4)
+      border: 1px solid var(--c-gray-200)
+      border-radius: 4px
+
+      :global(.callout-body)
+        flex: 1
+        min-width: 0
+
+        > :global(:first-child)
+          margin-top: space(0)
+
+        > :global(:last-child)
+          margin-bottom: space(0)
+
+    // 表（幅が足りないときは横にスクロール）
+    :global(.table-container)
+      margin: space(6) 0
+      overflow-x: auto
+
+    :global(table)
+      min-width: 100%
+      border-collapse: collapse
+
+    :global(th),
+    :global(td)
+      padding: space(2) space(3)
+      border: 1px solid var(--c-gray-200)
+      text-align: left
+      vertical-align: top
+
+    :global(th)
+      font-weight: var(--type-h2-weight)
 
     :global(pre)
       margin: space(6) 0

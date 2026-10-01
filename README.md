@@ -4,7 +4,7 @@
 
 **https://dgdgdgdg.com**
 
-<img src="public/images/ogp.webp" alt="dgdgdgdg.com Banner" width="100%">
+<img src="public/images/ogp.jpg" alt="dgdgdgdg.com Banner" width="100%">
 
 <br>
 
@@ -96,8 +96,30 @@ Unauthenticated GitHub API calls are limited to 60 per hour, so setting `GITHUB_
 
 ## 📜 Scripts
 
-| Command                         | Description                 |
-| :------------------------------ | :-------------------------- |
-| `bun run dev`                   | Start development server    |
-| `bun run build`                 | Build for production        |
-| `bunx wrangler pages dev dist/` | Preview build with Wrangler |
+| Command                         | Description                                    |
+| :------------------------------ | :--------------------------------------------- |
+| `bun run dev`                   | Start development server                       |
+| `bun run build`                 | Build for production                           |
+| `bunx wrangler pages dev dist/` | Preview build with Wrangler                    |
+| `bun run check`                 | Type check (`astro check`)                     |
+| `bun run format`                | Format with Prettier                           |
+| `bun run format:check`          | Check formatting (also runs on GitHub Actions) |
+
+## 📮 Status Worker
+
+The availability shown on the Contact page (`open` / `limited` / `closed`) comes from a separate Cloudflare Worker, `workers/status-worker.ts`.
+`GET /status` returns the current status, and `POST /status` with `Authorization: Bearer <API_TOKEN>` and `{"status": "open"}` updates it.
+
+```bash
+# 1. Create the KV namespace (first time only) and put its id in workers/wrangler.toml
+bunx wrangler kv namespace create STATUS_KV
+
+# 2. Set the token used for updates (first time only)
+bunx wrangler secret put API_TOKEN --config workers/wrangler.toml
+
+# 3. Deploy
+bunx wrangler deploy --config workers/wrangler.toml
+```
+
+Set the deployed URL (`https://<worker>.workers.dev/status`) as `PUBLIC_STATUS_ENDPOINT`.
+If it is not set or the Worker can't be reached, the Contact page shows `limited`.
