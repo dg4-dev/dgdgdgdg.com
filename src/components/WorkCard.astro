@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { ArrowUpRight } from '@lucide/astro';
 
 export interface Props {
   title: string;
@@ -11,6 +12,8 @@ export interface Props {
   isPrivate: boolean;
   /** 指定時は <a> でラップ、未指定時は <article> */
   href?: string;
+  /** true のとき、href を新しいタブで開く（外部リンク） */
+  external?: boolean;
   /** works ページのフィルタ/ソート用。指定時のみ data-work-* を付与 */
   dataWorkTitle?: string;
   dataWorkDate?: string;
@@ -26,6 +29,7 @@ const {
   workId,
   isPrivate,
   href,
+  external = false,
   dataWorkTitle,
   dataWorkDate,
   dataWorkCategories,
@@ -33,78 +37,52 @@ const {
 
 const coverSrc = isPrivate ? '/images/private-sample.png' : coverImageUrl;
 const hasDataAttrs = dataWorkTitle !== undefined;
+
+// リンクのときは <a>、リンクなし（プライベート作品）のときは <article> で中身は共通
+const Tag = href ? 'a' : 'article';
+const linkAttrs = href ? { href, ...(external && { target: '_blank', rel: 'noopener noreferrer' }) } : {};
+const dataAttrs = hasDataAttrs
+  ? {
+      'data-work-title': dataWorkTitle,
+      'data-work-date': dataWorkDate ?? '',
+      'data-work-private': String(!href),
+      'data-work-categories': dataWorkCategories ?? '',
+    }
+  : {};
 ---
 
-{
-  href ? (
-    <a
-      href={href}
-      class="work-card work-card--link"
-      {...(hasDataAttrs && {
-        'data-work-title': dataWorkTitle,
-        'data-work-date': dataWorkDate ?? '',
-        'data-work-private': 'false',
-        'data-work-categories': dataWorkCategories ?? '',
-      })}
-    >
-      {coverSrc ? (
-        <div class="work-cover">
-          <Image
-            src={coverSrc}
-            alt={isPrivate ? 'Private work sample' : title}
-            width={520}
-            height={390}
-            loading="lazy"
-          />
-        </div>
-      ) : null}
-      <div class="work-content">
-        <h2 class="work-card-title">{title}</h2>
-        {createdDate ? <p class="work-date">{createdDate}</p> : null}
-        {categories.length > 0 ? (
-          <div class="work-categories">
-            {categories.map((cat) => (
-              <span class="work-category-tag">{cat.name}</span>
-            ))}
-          </div>
-        ) : null}
+<Tag class:list={['work-card', { 'work-card--link': href }]} {...linkAttrs} {...dataAttrs}>
+  {
+    coverSrc ? (
+      <div class="work-cover">
+        <Image src={coverSrc} alt={isPrivate ? 'Private work sample' : title} width={520} height={390} loading="lazy" />
       </div>
-    </a>
-  ) : (
-    <article
-      class="work-card"
-      {...(hasDataAttrs && {
-        'data-work-title': dataWorkTitle,
-        'data-work-date': dataWorkDate ?? '',
-        'data-work-private': 'true',
-        'data-work-categories': dataWorkCategories ?? '',
-      })}
-    >
-      {coverSrc ? (
-        <div class="work-cover">
-          <Image
-            src={coverSrc}
-            alt={isPrivate ? 'Private work sample' : title}
-            width={520}
-            height={390}
-            loading="lazy"
-          />
+    ) : null
+  }
+  <div class="work-content">
+    <h2 class="work-card-title">
+      {title}
+      {
+        external && (
+          <>
+            <ArrowUpRight class="work-external-icon" size={14} />
+            <span class="visually-hidden">（新しいタブで開きます）</span>
+          </>
+        )
+      }
+    </h2>
+    {createdDate ? <p class="work-date">{createdDate}</p> : null}
+    {
+      categories.length > 0 ? (
+        <div class="work-categories">
+          {categories.map((cat) => (
+            <span class="work-category-tag">{cat.name}</span>
+          ))}
         </div>
-      ) : null}
-      <div class="work-content">
-        <h2 class="work-card-title">{title}</h2>
-        {createdDate ? <p class="work-date">{createdDate}</p> : null}
-        {categories.length > 0 ? (
-          <div class="work-categories">
-            {categories.map((cat) => (
-              <span class="work-category-tag">{cat.name}</span>
-            ))}
-          </div>
-        ) : null}
-      </div>
-    </article>
-  )
-}
+      ) : null
+    }
+  </div>
+</Tag>
 
 <style lang="sass">
   @use '../styles/spacing' as *
@@ -142,6 +120,22 @@ const hasDataAttrs = dataWorkTitle !== undefined;
 
   :global([data-works-dark] .work-card-title)
     color: var(--c-gray-200)
+
+  // 外部リンクの印（タイトルの横に小さく出す）
+  .work-card-title :global(.work-external-icon)
+    display: inline-block
+    vertical-align: -0.1em
+
+  .visually-hidden
+    position: absolute
+    width: 1px
+    height: 1px
+    margin: -1px
+    padding: 0
+    overflow: hidden
+    clip: rect(0 0 0 0)
+    white-space: nowrap
+    border: 0
 
   .work-client
     color: var(--c-gray-400)
