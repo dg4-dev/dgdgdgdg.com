@@ -298,14 +298,9 @@ function featureGlyphHtml(glyph: FeatureGlyph): string {
     font-size: var(--type-body-size)
     line-height: 1.8
     letter-spacing: 0.04em
-    text-align: justify
 
     p:not(:first-child)
       margin-top: space(4)
-
-    // 幅が狭いと両端そろえで文字の間が空きすぎるので、左そろえにする
-    @media (max-width: 768px)
-      text-align: start
 
   .tf-info
     font-family: var(--font-ui)
