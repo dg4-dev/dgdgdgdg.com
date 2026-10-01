@@ -1,0 +1,17 @@
+name: Check
+
+on:
+  pull_request:
+  push:
+    branches: [main, develop]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      # 型チェック（astro check）と Prettier のチェック。build は Notion の鍵が要るのでここではしない
+      - run: bun run check
+      - run: bun run format:check
