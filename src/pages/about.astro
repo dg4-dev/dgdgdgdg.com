@@ -10,7 +10,7 @@ import ContactCTA from '@/components/ContactCTA.astro';
 
 <BaseLayout
   title="About - dgdgdgdg"
-  description="dgdgdgdg（だがし）の紹介ページ。屋号の由来、活動内容、プロフィールを掲載しています。"
+  description="dgdgdgdg（だがし）の紹介です。屋号の由来、活動内容、プロフィールを載せています。"
   keywords="about, dgdgdgdg"
 >
   <Fragment slot="head"> </Fragment>
@@ -21,12 +21,11 @@ import ContactCTA from '@/components/ContactCTA.astro';
     </section>
 
     <section class="about-intro">
-      <h2 class="section-title">dgdgdgdgとは</h2>
+      <h2 class="section-title">Concept</h2>
+      <p class="section-subtitle">dgdgdgdgとは</p>
       <div class="intro-text">
         <p>
-          <Phrase
-            text="dgdgdgdgは私のハンドルネームであり、屋号でもあります。読み方は日本語の「駄菓子（だがし）」と同じ発音です。"
-          />
+          <Phrase text="dgdgdgdgは私のハンドルネームであり、屋号でもあります。読み方は「だがし」です。" />
         </p>
         <p>
           <Phrase
@@ -35,14 +34,15 @@ import ContactCTA from '@/components/ContactCTA.astro';
         </p>
         <p>
           <Phrase
-            text="デザイン、コーディング、映像、音楽など、さまざまな領域を横断しながら、デジタルとアナログの境界を自由に行き来する制作活動を行っています。「深く掘り下げる（dig）」ことと「喜び（delight）」を届けることの両方を大切にしながら、四季のように移り変わる好奇心のままに、多方面のクリエイティブに取り組んでいます。"
+            text="書体やグラフィックのデザイン、Webサイトのコーディング、映像、音楽、3Dプリンターでつくる製品など、デジタルとアナログの両方でものづくりをしています。「深く掘り下げる（dig）」ことと「喜び（delight）」を届けることを大切にしながら、四季のように移り変わる好奇心のままに手を広げています。"
           />
         </p>
       </div>
     </section>
 
     <section class="about-activities">
-      <h2 class="section-title">活動内容</h2>
+      <h2 class="section-title">Activities</h2>
+      <p class="section-subtitle">活動内容</p>
       <ul class="activity-tree">
         <li>
           Create
@@ -61,17 +61,18 @@ import ContactCTA from '@/components/ContactCTA.astro';
         </li>
         <li>Photography</li>
         <li>Electrical Work</li>
-        <li>Other momentary interests...</li>
+        <li>Other passing interests...</li>
       </ul>
     </section>
 
     <section class="about-profile">
       <h2 class="section-title">Profile</h2>
+      <p class="section-subtitle">プロフィール</p>
       <div class="profile-content">
         <img src="/images/profile.webp" alt="dgdgdgdg" class="profile-image" width="160" height="160" />
         <dl class="profile-list">
           <div class="profile-row">
-            <dt>活動者</dt>
+            <dt>名前</dt>
             <dd>Ren Yaegashi</dd>
           </div>
           <div class="profile-row">
@@ -105,7 +106,15 @@ import ContactCTA from '@/components/ContactCTA.astro';
     font-weight: var(--type-h2-weight)
     line-height: var(--type-h2-line)
     letter-spacing: 0.08em
+
+  // 見出しは英語、補足の日本語をその下に小さく出す（トップの Featured Works と同じ形）
+  .section-subtitle
+    margin-top: space(1)
     margin-bottom: space(8)
+    color: var(--c-gray-200)
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
+    letter-spacing: 0.04em
 
   // Logo
   .about-logo
@@ -204,6 +213,8 @@ import ContactCTA from '@/components/ContactCTA.astro';
 
     .section-title
       font-size: var(--type-h3-size)
+
+    .section-subtitle
       margin-bottom: space(6)
 
     .intro-text

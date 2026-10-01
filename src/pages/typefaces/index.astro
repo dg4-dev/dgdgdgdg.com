@@ -5,6 +5,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
 import Footer from '@/components/footer.astro';
 import ContactCTA from '@/components/ContactCTA.astro';
+import { typefaces as typefaceSources } from '@/data/typefaces';
 import { fontFaceCss, getTypefaces, glyphCount, variationSettings } from '@/lib/typefaces';
 
 const typefaces = await getTypefaces();
@@ -12,7 +13,7 @@ const typefaces = await getTypefaces();
 
 <BaseLayout
   title="Typefaces - dgdgdgdg"
-  description="dgdgdgdgが制作した書体の一覧。フォントファイルはGitHubで公開しています。"
+  description="dgdgdgdgがつくった書体の一覧です。フォントファイルはGitHubで公開しています。"
   keywords="typefaces, fonts, variable font, dgdgdgdg"
 >
   <Fragment slot="head">
@@ -53,7 +54,19 @@ const typefaces = await getTypefaces();
             })}
           </ul>
         ) : (
-          <p class="typefaces-empty">書体を読み込めませんでした。時間をおいて再度お試しください。</p>
+          <div class="typefaces-empty">
+            {/* build 時に GitHub から取得できなかったとき。開き直しても変わらないので、GitHub のリポジトリを案内する */}
+            <p>書体の情報を表示できませんでした。GitHub のリポジトリから直接ご覧いただけます。</p>
+            <ul>
+              {typefaceSources.map((source) => (
+                <li>
+                  <a href={`https://github.com/${source.repo}`} target="_blank" rel="noopener noreferrer">
+                    {source.repo}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         )
       }
     </div>
@@ -89,6 +102,13 @@ const typefaces = await getTypefaces();
     line-height: var(--type-caption-line)
     color: var(--c-white-a60)
     letter-spacing: 0.04em
+
+    ul
+      margin-top: space(2)
+
+    a
+      color: var(--c-white)
+      text-decoration: underline
 
   .typeface-list
     border-top: 1px solid var(--c-white-a30)

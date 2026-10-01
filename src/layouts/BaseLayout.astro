@@ -17,6 +17,8 @@ const { title = 'dgdgdgdg', description, ogImage, ogType = 'website', keywords, 
 
 const currentUrl = canonicalUrl || Astro.url.href;
 const effectiveOgImage = ogImage ?? new URL('/images/ogp.jpg', Astro.url.origin).href;
+// 大きさがわかるのはサイト共通の画像（1200×630）だけなので、そのときだけ width / height を付ける
+const isDefaultOgImage = ogImage === undefined;
 ---
 
 <!doctype html>
@@ -35,11 +37,21 @@ const effectiveOgImage = ogImage ?? new URL('/images/ogp.jpg', Astro.url.origin)
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
 
     <!-- Open Graph -->
+    <meta property="og:site_name" content="dgdgdgdg" />
+    <meta property="og:locale" content="ja_JP" />
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={currentUrl} />
     <meta property="og:image" content={effectiveOgImage} />
+    {
+      isDefaultOgImage && (
+        <>
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+        </>
+      )
+    }
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />

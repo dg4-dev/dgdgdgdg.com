@@ -76,7 +76,7 @@ const featuredWorks = await Promise.all(
 
 <BaseLayout
   title="dgdgdgdg"
-  description="dgdgdgdg（だがし）は屋号兼ハンドルネーム。駄菓子のように色とりどりで、手に取った人が嬉しくなるものづくりを目指しています。デザイン・コーディング・映像・音楽など、デジタルとアナログを横断した制作のポートフォリオサイトです。"
+  description="dgdgdgdg（だがし）のポートフォリオです。書体やグラフィックのデザイン、Webサイト、映像、音楽など、駄菓子のように色とりどりで、手に取った人がちょっと嬉しくなるものをつくっています。"
   keywords="portfolio, design, web"
 >
   <Fragment slot="head">
@@ -85,6 +85,8 @@ const featuredWorks = await Promise.all(
   <Header />
   <main>
     <section class="hero">
+      {/* 何のサイトかを最初の画面で伝える。ヘッダーを隠している間だけ、ヘッダーの位置に出す */}
+      <p class="hero-tagline"><Phrase text="デザイン・書体・Web をつくる、dgdgdgdg のポートフォリオ" /></p>
       <div class="hero-content">
         <img src="/images/row.svg" alt="Logo" class="hero-logo" />
         <div class="orbit-rings">
@@ -126,9 +128,9 @@ const featuredWorks = await Promise.all(
     </section>
     <section class="featured-works">
       <h2>Featured Works</h2>
-      <p><Phrase text="ピックアップした制作実績" /></p>
+      <p><Phrase text="ピックアップした作品" /></p>
       <p class="section-link-wrapper">
-        <a href="/works" class="section-link">Works一覧ページへ</a>
+        <a href="/works" class="section-link">作品一覧を見る</a>
       </p>
       {
         featuredWorks.length > 0 && (
@@ -180,7 +182,8 @@ const featuredWorks = await Promise.all(
     transition: background-color 0.2s ease, color 0.2s ease
 
     &::after
-      content: '→'
+      // 矢印は飾りなので、読み上げでは読まない
+      content: '→' / ''
       font-size: var(--type-caption-size)
 
   .featured-works .section-link
@@ -198,6 +201,22 @@ const featuredWorks = await Promise.all(
     height: 300vh
     position: relative
     overflow: clip
+
+  // ヘッダーの位置（header の padding・枠線・header-bar の padding の分だけ下）にそろえる
+  // 拡大する .hero-content の外に置き、文字の大きさは変えない
+  .hero-tagline
+    position: fixed
+    top: calc(#{space(4)} + 1px + #{space(3)})
+    left: space(4)
+    right: space(4)
+    z-index: 20
+    color: var(--c-gray-200)
+    font-family: var(--font-ui)
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
+    letter-spacing: 0.04em
+    text-align: center
+    pointer-events: none
 
   .hero-content
     position: sticky
@@ -694,6 +713,7 @@ const featuredWorks = await Promise.all(
     const heroContent = document.querySelector('.hero-content') as HTMLElement;
     const heroLogo = document.querySelector('.hero-logo') as HTMLElement;
     const scrollIndicator = document.querySelector('.scroll-indicator') as HTMLElement;
+    const heroTagline = document.querySelector<HTMLElement>('.hero-tagline');
     if (!hero || !heroContent) return;
 
     scrollController = new AbortController();
@@ -753,6 +773,8 @@ const featuredWorks = await Promise.all(
           opacity = 0;
         }
         heroContent.style.opacity = String(opacity);
+        // ヘッダーの位置に出している紹介文も同じように消し、ヘッダーと入れ替える
+        if (heroTagline) heroTagline.style.opacity = String(opacity);
 
         // スクロールインジケーターのフェードアウト
         if (scrollIndicator) {
