@@ -2,40 +2,12 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
 import Footer from '@/components/footer.astro';
+import { fetchContactStatus } from '@/lib/contact-status';
 
 export const prerender = false;
 
-type Status = 'open' | 'limited' | 'closed';
-
-const STATUS_ENDPOINT =
-  import.meta.env.PUBLIC_STATUS_ENDPOINT ?? 'https://<your-status-worker-subdomain>.workers.dev/status';
-
-interface StatusResponse {
-  status?: string;
-}
-
-let status: Status | 'unknown' = 'open';
-
-try {
-  const res = await fetch(STATUS_ENDPOINT, {
-    headers: {
-      Accept: 'application/json',
-    },
-  });
-
-  if (res.ok) {
-    const data = (await res.json()) as StatusResponse;
-    if (data && (data.status === 'open' || data.status === 'limited' || data.status === 'closed')) {
-      status = data.status;
-    } else {
-      status = 'unknown';
-    }
-  } else {
-    status = 'unknown';
-  }
-} catch {
-  status = 'unknown';
-}
+// 取得できなかったとき・未設定（空文字を含む）のときは limited と同じ表示にする
+const status = await fetchContactStatus(import.meta.env.PUBLIC_STATUS_ENDPOINT);
 
 const socialLinks = [
   {
