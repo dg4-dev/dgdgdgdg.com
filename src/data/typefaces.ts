@@ -53,7 +53,7 @@ export const typefaces: TypefaceSource[] = [
     licensePath: 'LICENSE',
     year: 2026,
     description: [
-      '手元に PC がなかった時期に、iPad だけで書体を作れるか試したのがはじまりです。基本の字形は iPad で描き、合字とカーニングは PC に戻ってから進めています。',
+      '手元に PC がなかった時期に、iPad だけで書体を作れるか試したのがはじまりです。基本の字形は iPad で描き、PC に戻ってからは合字やカーニングなど、仕上げの作業を続けています。',
       'ff / fi / fl などの合字のほか、「dg」をロゴの形にする任意の合字（dlig）と、数字にはさまれたコロンの位置を整える字形（calt）を入れています。',
     ],
   },

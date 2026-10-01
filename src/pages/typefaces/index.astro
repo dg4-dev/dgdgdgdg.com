@@ -22,7 +22,6 @@ const typefaces = await getTypefaces();
   <Header />
   <main>
     <div class="typefaces-inner">
-      <p class="typefaces-note">自作の書体です。フォントファイルは GitHub で公開しています。</p>
       {
         typefaces.length > 0 ? (
           <ul class="typeface-list">
@@ -84,7 +83,6 @@ const typefaces = await getTypefaces();
     .typefaces-inner
       padding: space(6) space(4) space(12)
 
-  .typefaces-note,
   .typefaces-empty
     margin-bottom: space(8)
     font-size: var(--type-caption-size)

@@ -125,7 +125,12 @@ function featureGlyphHtml(glyph: FeatureGlyph): string {
         }
       </dl>
       <div class="tf-actions">
-        <a href={t.repoUrl} class="tf-button tf-button--primary" target="_blank" rel="noopener noreferrer">
+        <a
+          href={`${t.repoUrl}/releases/latest`}
+          class="tf-button tf-button--primary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           GitHub で入手する
         </a>
         {
