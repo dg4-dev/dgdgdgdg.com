@@ -18,8 +18,6 @@ export interface TypefaceSource {
   year: number;
   /** 書体の紹介文 */
   description: string;
-  /** 一覧・見本に使う文字列 */
-  sampleText: string;
   /** スタイル見本。未指定ならフォントの名前付きインスタンスを使う */
   presets?: { name: string; coordinates: Record<string, number> }[];
 }
@@ -34,7 +32,6 @@ export const typefaces: TypefaceSource[] = [
     year: 2023,
     description:
       '点の集まりで組み立てたドット書体。点の形（四角〜丸）、太さ、傾きを可変軸で連続的に調整できます。このサイトのナビゲーションや見出しにも使っています。',
-    sampleText: 'dgdgdgdg',
     presets: [
       { name: 'Square', coordinates: { RNDS: 0, wght: 400, slnt: 0 } },
       { name: 'Square Light', coordinates: { RNDS: 0, wght: 200, slnt: 0 } },
@@ -45,5 +42,14 @@ export const typefaces: TypefaceSource[] = [
       { name: 'Circle Italic', coordinates: { RNDS: 100, wght: 400, slnt: 40 } },
       { name: 'Circle Light Italic', coordinates: { RNDS: 100, wght: 200, slnt: 40 } },
     ],
+  },
+  {
+    slug: 'wave-live',
+    repo: 'dg4-dev/wave-live',
+    ref: 'main',
+    fontPath: 'dg4-wave_live.ttf',
+    licensePath: 'LICENSE',
+    year: 2026,
+    description: '均一な太さの線で描いた欧文書体。合字（ff / fi / fl など）とカーニングを備えています。',
   },
 ];

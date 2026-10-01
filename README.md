@@ -87,7 +87,6 @@ Family name, version, variable axes and glyphs are read from the font file itsel
   licensePath: 'LICENSE',        // license file in the repository (optional)
   year: 2026,
   description: 'Introduction of the typeface',
-  sampleText: 'dgdgdgdg',
   // presets: [...]              // style samples (optional; defaults to the font's named instances)
 },
 ```

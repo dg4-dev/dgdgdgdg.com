@@ -86,7 +86,6 @@ Typefaces ページ（`/typefaces`）は、GitHub のパブリックリポジト
   licensePath: 'LICENSE',        // リポジトリ内のライセンス（任意）
   year: 2026,
   description: '書体の紹介文',
-  sampleText: 'dgdgdgdg',
   // presets: [...]              // スタイル見本（任意。省略時はフォントの名前付きインスタンス）
 },
 ```
