@@ -1,0 +1,19 @@
+# Cloudflare Pages の HTTP ヘッダー（build 時に作るページと public/ のファイルに付く）
+# /contact など、Worker が返すページには付かない
+
+/*
+  Content-Security-Policy: frame-ancestors 'self'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# ファイル名にハッシュが入っていて、中身が変わると名前も変わるもの
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Notion の画像（ファイル名は Notion 上のファイルごとに決まる）
+/notion-images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# 書体ファイル（ファイル名は同じまま、リリースごとに中身が変わる）
+/typefaces/files/*
+  Cache-Control: public, max-age=86400
