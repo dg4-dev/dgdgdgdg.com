@@ -9,3 +9,8 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+interface Window {
+  /** Works 一覧の絞り込みに使うカテゴリ（src/pages/works/index.astro で入れ、ヘッダーで読む） */
+  __CATEGORIES_DATA__?: string[];
+}

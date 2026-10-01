@@ -4,6 +4,7 @@ export const prerender = true;
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
 import Footer from '@/components/footer.astro';
+import Phrase from '@/components/Phrase.astro';
 import ContactCTA from '@/components/ContactCTA.astro';
 ---
 
@@ -15,17 +16,27 @@ import ContactCTA from '@/components/ContactCTA.astro';
   <Fragment slot="head"> </Fragment>
   <Header />
   <main>
+    <section class="about-logo">
+      <img src="/images/row.svg" alt="dgdgdgdg" width="566" height="151" />
+    </section>
+
     <section class="about-intro">
       <h2 class="section-title">dgdgdgdgとは</h2>
       <div class="intro-text">
         <p>
-          dgdgdgdgは私のハンドルネームであり、屋号でもあります。読み方は日本語の「駄菓子（だがし）」と同じ発音です。
+          <Phrase
+            text="dgdgdgdgは私のハンドルネームであり、屋号でもあります。読み方は日本語の「駄菓子（だがし）」と同じ発音です。"
+          />
         </p>
         <p>
-          駄菓子屋に並ぶお菓子のように、小さくても色とりどりで、手に取った人がちょっと嬉しくなるようなものづくりをしたい——そんな思いを込めています。
+          <Phrase
+            text="駄菓子屋に並ぶお菓子のように、小さくても色とりどりで、手に取った人がちょっと嬉しくなるようなものづくりをしたい——そんな思いを込めています。"
+          />
         </p>
         <p>
-          デザイン、コーディング、映像、音楽など、さまざまな領域を横断しながら、デジタルとアナログの境界を自由に行き来する制作活動を行っています。「深く掘り下げる（dig）」ことと「喜び（delight）」を届けることの両方を大切にしながら、四季のように移り変わる好奇心のままに、多方面のクリエイティブに取り組んでいます。
+          <Phrase
+            text="デザイン、コーディング、映像、音楽など、さまざまな領域を横断しながら、デジタルとアナログの境界を自由に行き来する制作活動を行っています。「深く掘り下げる（dig）」ことと「喜び（delight）」を届けることの両方を大切にしながら、四季のように移り変わる好奇心のままに、多方面のクリエイティブに取り組んでいます。"
+          />
         </p>
       </div>
     </section>
@@ -57,7 +68,7 @@ import ContactCTA from '@/components/ContactCTA.astro';
     <section class="about-profile">
       <h2 class="section-title">Profile</h2>
       <div class="profile-content">
-        <img src="/images/profile.png" alt="dgdgdgdg" class="profile-image" />
+        <img src="/images/profile.webp" alt="dgdgdgdg" class="profile-image" width="160" height="160" />
         <dl class="profile-list">
           <div class="profile-row">
             <dt>活動者</dt>
@@ -96,6 +107,15 @@ import ContactCTA from '@/components/ContactCTA.astro';
     letter-spacing: 0.08em
     margin-bottom: space(8)
 
+  // Logo
+  .about-logo
+    padding-block: space(16)
+
+    img
+      display: block
+      width: min(600px, 80vw)
+      height: auto
+
   // Intro
   .about-intro
     width: 100%
@@ -105,7 +125,6 @@ import ContactCTA from '@/components/ContactCTA.astro';
     p
       font-size: var(--type-body-size)
       line-height: var(--type-body-line)
-      text-align: justify
       letter-spacing: 0.04em
       &:not(:first-child)
         margin-top: space(6)

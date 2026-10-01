@@ -107,7 +107,7 @@ export async function downloadAndSaveImage(imageUrl: string): Promise<string> {
     });
 
     if (!response.ok) {
-      console.warn(`Failed to download image: ${imageUrl} (${response.status})`);
+      warnDownloadFailed(imageUrl, `HTTP ${response.status}`);
       return imageUrl; // ダウンロード失敗時は元URLを返す
     }
 
@@ -120,9 +120,50 @@ export async function downloadAndSaveImage(imageUrl: string): Promise<string> {
 
     return localPath;
   } catch (error) {
-    console.error(`Error downloading image ${imageUrl}:`, error);
+    warnDownloadFailed(imageUrl, error instanceof Error ? error.message : String(error));
     return imageUrl; // エラー時は元URLを返す
   }
+}
+
+/**
+ * ダウンロードの失敗をビルドのログで目立つように出す。
+ * 元URLのままページに出るため、Notion の URL なら期限が切れると本番で表示されなくなる。
+ */
+function warnDownloadFailed(imageUrl: string, reason: string): void {
+  console.warn(
+    `\n[notion-images] ⚠ 画像をダウンロードできませんでした（${reason}）。元のURLのままページに出ます。\n  ${imageUrl}\n`,
+  );
+}
+
+/** 期限切れとみなす余裕（ビルド中に期限が切れないよう、5分前から期限切れ扱いにする） */
+const EXPIRY_MARGIN_MS = 5 * 60 * 1000;
+
+/**
+ * Notion API のレスポンスに、期限切れの署名付きファイルURL（{ url, expiry_time }）があり、
+ * その画像がまだ public/notion-images/ に保存されていなければ true を返す。
+ * 保存済みの画像は URL を使わずにローカルのファイルを使うので、期限が切れていても問題ない。
+ */
+export function hasExpiredUnsavedFile(data: unknown): boolean {
+  const publicDir = join(process.cwd(), 'public', 'notion-images');
+  const deadline = Date.now() + EXPIRY_MARGIN_MS;
+
+  const visit = (value: unknown): boolean => {
+    if (Array.isArray(value)) return value.some(visit);
+    if (!value || typeof value !== 'object') return false;
+
+    const obj = value as Record<string, unknown>;
+    if (typeof obj.url === 'string' && typeof obj.expiry_time === 'string') {
+      const expiry = Date.parse(obj.expiry_time);
+      if (!Number.isNaN(expiry) && expiry <= deadline) {
+        const filename = getLocalImagePath(obj.url).replace('/notion-images/', '');
+        if (!existsSync(join(publicDir, filename))) return true;
+      }
+    }
+
+    return Object.values(obj).some(visit);
+  };
+
+  return visit(data);
 }
 
 /**

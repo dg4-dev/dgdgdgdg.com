@@ -1,0 +1,13 @@
+# 受付状況の Worker（workers/status-worker.ts）の設定
+# デプロイ: bunx wrangler deploy --config workers/wrangler.toml
+name = "dgdgdgdg-status"
+main = "status-worker.ts"
+compatibility_date = "2026-02-11"
+
+# 受付状況を保存する KV。id は Cloudflare のダッシュボード（または bunx wrangler kv namespace list）で確かめて書き換える
+[[kv_namespaces]]
+binding = "STATUS_KV"
+id = "<STATUS_KV の namespace id>"
+
+# API_TOKEN（POST で受付状況を変えるときのトークン）はシークレットとして設定する
+# bunx wrangler secret put API_TOKEN --config workers/wrangler.toml

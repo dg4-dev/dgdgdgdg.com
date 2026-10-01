@@ -39,6 +39,7 @@
   src: url('/typefaces/files/atomic-dot.ttf') format('truetype')
   font-weight: normal
   font-style: normal
+  font-display: swap
   font-variation-settings: 'RNDS' 0, 'slnt' 0
 
 // Global Styles
@@ -65,6 +66,24 @@ body
     font-size: var(--type-h3-size)
     font-weight: var(--type-h3-weight)
     line-height: var(--type-h3-line)
+
+// 改行の位置
+// 行頭に来てはいけない記号（小さい「っ」や「ー」など）を厳しく扱う
+html
+  line-break: strict
+
+// 見出しは行の長さをそろえ、段落は最後の行が 1 文字だけにならないようにする
+h1, h2, h3, h4, h5, h6
+  text-wrap: balance
+
+p
+  text-wrap: pretty
+
+// 文末の文節（src/lib/budoux.ts の keepSentenceEnds）。1〜2 文字だけの行ができないよう、途中では改行しない
+// 入りきらないほど長いときだけ、はみ出さないように途中で改行する
+.phrase-end
+  word-break: keep-all
+  overflow-wrap: anywhere
 
 // 本文エリアの ul/ol のみリストマークを復元（reset.css の list-style: none を上書き）
 .work-content
