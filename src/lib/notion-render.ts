@@ -8,11 +8,11 @@ export { escapeHtml };
 
 // ブロックをレンダリングするヘルパー関数（子ブロックも再帰的に処理）
 function renderBlock(block: any): string {
-  const { type, id, children } = block;
+  const { type, children } = block;
   const value = block[type];
 
   // 子ブロックのレンダリング
-  const childrenHtml = children && children.length > 0 ? renderBlocks(children) : '';
+  const childrenHtml = children && children.length > 0 ? renderBlockList(children) : '';
 
   switch (type) {
     case 'paragraph':
@@ -66,169 +66,42 @@ function renderBlock(block: any): string {
       // alt には装飾タグを含めず、文字だけを入れる
       const alt = escapeHtml(plainText(value.caption));
       return `<figure><img src="${escapeHtml(imageUrl)}" alt="${alt}" />${caption ? `<figcaption>${caption}</figcaption>` : ''}</figure>`;
-    case 'video':
+    case 'video': {
       const videoUrl = value.type === 'file' ? value.file.url : value.external.url;
       const videoCaption = value.caption ? renderRichText(value.caption) : '';
-
-      // YouTube/VimeoのURLを検出してiframeに変換
-      function convertVideoUrl(url: string): { url: string; isEmbed: boolean } {
-        try {
-          const urlObj = new URL(url);
-
-          // YouTube
-          if (urlObj.hostname.includes('youtube.com') || urlObj.hostname.includes('youtu.be')) {
-            let videoId = '';
-            if (urlObj.hostname.includes('youtu.be')) {
-              videoId = urlObj.pathname.slice(1);
-            } else {
-              videoId = urlObj.searchParams.get('v') || urlObj.pathname.split('/').pop() || '';
-            }
-            if (videoId) {
-              return { url: `https://www.youtube.com/embed/${videoId}`, isEmbed: true };
-            }
-          }
-
-          // Vimeo
-          if (urlObj.hostname.includes('vimeo.com')) {
-            const videoId = urlObj.pathname.split('/').filter(Boolean).pop();
-            if (videoId) {
-              return { url: `https://player.vimeo.com/video/${videoId}`, isEmbed: true };
-            }
-          }
-
-          // その他のURLはvideoタグで表示
-          return { url, isEmbed: false };
-        } catch (e) {
-          // URL解析に失敗した場合はvideoタグで表示
-          return { url, isEmbed: false };
-        }
-      }
-
-      const videoInfo = convertVideoUrl(videoUrl);
-      const videoEscapedUrl = videoInfo.url.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      const figcaption = videoCaption ? `<figcaption>${videoCaption}</figcaption>` : '';
+      const embedUrl = toVideoEmbedUrl(videoUrl);
 
       // YouTube/Vimeoの場合はiframeで表示
-      if (videoInfo.isEmbed) {
-        return `<figure class="video-container">
-          <div class="embed-container">
-            <iframe 
-              src="${videoEscapedUrl}" 
-              loading="lazy" 
-              allowfullscreen
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            ></iframe>
-          </div>
-          ${videoCaption ? `<figcaption>${videoCaption}</figcaption>` : ''}
-        </figure>`;
+      if (embedUrl) {
+        return `<figure class="video-container"><div class="embed-container">${iframe(embedUrl)}</div>${figcaption}</figure>`;
       }
 
       // その他の場合はvideoタグで表示
-      return `<figure class="video-container"><video src="${videoEscapedUrl}" controls preload="metadata"></video>${videoCaption ? `<figcaption>${videoCaption}</figcaption>` : ''}</figure>`;
+      return `<figure class="video-container"><video src="${escapeHtml(videoUrl)}" controls preload="metadata"></video>${figcaption}</figure>`;
+    }
     case 'divider':
       return '<hr />';
-    case 'embed':
+    case 'embed': {
       // Notionのembedブロックをiframeで表示
       if (!value.url) return '';
 
-      // URLをembed用に変換する関数
-      function convertToEmbedUrl(url: string): { url: string; isTwitter: boolean } {
-        try {
-          const urlObj = new URL(url);
-
-          // X (Twitter)
-          if (urlObj.hostname.includes('twitter.com') || urlObj.hostname.includes('x.com')) {
-            // TwitterのツイートURLを検出
-            const pathParts = urlObj.pathname.split('/').filter(Boolean);
-            const statusIndex = pathParts.indexOf('status');
-            if (statusIndex !== -1 && pathParts[statusIndex + 1]) {
-              return { url, isTwitter: true };
-            }
-          }
-
-          // YouTube
-          if (urlObj.hostname.includes('youtube.com') || urlObj.hostname.includes('youtu.be')) {
-            let videoId = '';
-
-            // youtu.be形式: https://youtu.be/VIDEO_ID
-            if (urlObj.hostname.includes('youtu.be')) {
-              videoId = urlObj.pathname.split('/').filter(Boolean)[0] || '';
-            }
-            // youtube.com形式
-            else if (urlObj.hostname.includes('youtube.com')) {
-              // クエリパラメータから取得: ?v=VIDEO_ID
-              videoId = urlObj.searchParams.get('v') || '';
-
-              // クエリパラメータにない場合はパスから取得
-              if (!videoId) {
-                const pathParts = urlObj.pathname.split('/').filter(Boolean);
-                // /embed/VIDEO_ID または /v/VIDEO_ID の形式
-                const embedIndex = pathParts.indexOf('embed');
-                const vIndex = pathParts.indexOf('v');
-
-                if (embedIndex !== -1 && pathParts[embedIndex + 1]) {
-                  videoId = pathParts[embedIndex + 1];
-                } else if (vIndex !== -1 && pathParts[vIndex + 1]) {
-                  videoId = pathParts[vIndex + 1];
-                } else if (pathParts.length > 0) {
-                  // 最後のパスセグメントを試す
-                  videoId = pathParts[pathParts.length - 1];
-                }
-              }
-            }
-
-            // videoIdが見つかった場合、クエリパラメータ（時間指定など）を保持
-            if (videoId) {
-              const timeParam = urlObj.searchParams.get('t');
-              const embedUrl = timeParam
-                ? `https://www.youtube.com/embed/${videoId}?start=${timeParam.replace(/[^0-9]/g, '')}`
-                : `https://www.youtube.com/embed/${videoId}`;
-              return { url: embedUrl, isTwitter: false };
-            }
-          }
-
-          // Vimeo
-          if (urlObj.hostname.includes('vimeo.com')) {
-            const videoId = urlObj.pathname.split('/').filter(Boolean).pop();
-            if (videoId) {
-              return { url: `https://player.vimeo.com/video/${videoId}`, isTwitter: false };
-            }
-          }
-
-          // その他のURLはそのまま使用
-          return { url, isTwitter: false };
-        } catch (e) {
-          // URL解析に失敗した場合はそのまま返す
-          return { url, isTwitter: false };
-        }
+      // X (Twitter) の投稿は blockquote にし、widgets.js で埋め込みに変える（読み込みは renderBlocks で 1 回だけ）
+      if (isTweetUrl(value.url)) {
+        const tweetUrl = escapeHtml(value.url);
+        return `<div class="embed-container embed-twitter" data-embed-url="${tweetUrl}"><blockquote class="twitter-tweet"><a href="${tweetUrl}"></a></blockquote></div>`;
       }
 
-      const embedInfo = convertToEmbedUrl(value.url);
-      const escapedUrl = embedInfo.url.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-
-      // Twitterの場合は特別な処理
-      if (embedInfo.isTwitter) {
-        const twitterEscapedUrl = value.url.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-        return `<div class="embed-container embed-twitter" data-embed-url="${twitterEscapedUrl}">
-          <blockquote class="twitter-tweet" data-theme="light">
-            <a href="${twitterEscapedUrl}"></a>
-          </blockquote>
-          <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-        </div>`;
-      }
-
-      // その他のサービスはiframeで表示
-      return `<div class="embed-container" data-embed-url="${escapedUrl}">
-        <iframe 
-          src="${escapedUrl}" 
-          loading="lazy" 
-          allowfullscreen
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        ></iframe>
+      // YouTube/Vimeo は埋め込み用の URL に変え、その他のサービスはそのまま iframe で表示
+      const embedUrl = escapeHtml(toVideoEmbedUrl(value.url) ?? value.url);
+      return `<div class="embed-container" data-embed-url="${embedUrl}">
+        ${iframe(embedUrl)}
         <div class="embed-fallback">
           <p>埋め込みコンテンツを表示できませんでした。</p>
-          <a href="${escapedUrl}" target="_blank" rel="noopener noreferrer">元のページを開く</a>
+          <a href="${embedUrl}" target="_blank" rel="noopener noreferrer">元のページを開く</a>
         </div>
       </div>`;
+    }
     case 'table':
       return renderTable(value, children ?? []);
     case 'table_row':
@@ -262,9 +135,92 @@ function renderBlock(block: any): string {
     }
     default:
       // 未対応のブロックでも、子ブロックの中身は消さずに出す
-      return `<p><em>Unsupported block type: ${escapeHtml(type)}</em></p>${childrenHtml}`;
+      // 「Unsupported block type」は開発時だけ表示し、本番では出さない
+      return `${import.meta.env?.DEV ? `<p><em>Unsupported block type: ${escapeHtml(type)}</em></p>` : ''}${childrenHtml}`;
   }
 }
+
+// 埋め込み用の iframe（src はエスケープ済みの URL を渡す）
+function iframe(escapedSrc: string): string {
+  return `<iframe src="${escapedSrc}" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>`;
+}
+
+/**
+ * YouTube・Vimeo の URL を埋め込み用の URL にする。それ以外は null。
+ * YouTube は youtu.be/ID・watch?v=ID・/embed/ID・/v/ID・/shorts/ID などに対応し、t（秒）は start にする。
+ */
+function toVideoEmbedUrl(url: string): string | null {
+  let urlObj: URL;
+  try {
+    urlObj = new URL(url);
+  } catch {
+    return null;
+  }
+  const { hostname, pathname, searchParams } = urlObj;
+  const pathParts = pathname.split('/').filter(Boolean);
+
+  if (hostname.includes('youtube.com') || hostname.includes('youtu.be')) {
+    let videoId = '';
+    if (hostname.includes('youtu.be')) {
+      videoId = pathParts[0] ?? '';
+    } else {
+      const markerIndex = pathParts.findIndex((part) => part === 'embed' || part === 'v');
+      videoId =
+        searchParams.get('v') ||
+        (markerIndex !== -1 ? (pathParts[markerIndex + 1] ?? '') : (pathParts[pathParts.length - 1] ?? ''));
+    }
+    if (!videoId) return null;
+    const start = searchParams.get('t')?.replace(/[^0-9]/g, '');
+    return `https://www.youtube.com/embed/${encodeURIComponent(videoId)}${start ? `?start=${start}` : ''}`;
+  }
+
+  if (hostname.includes('vimeo.com')) {
+    const videoId = pathParts[pathParts.length - 1];
+    return videoId ? `https://player.vimeo.com/video/${encodeURIComponent(videoId)}` : null;
+  }
+
+  return null;
+}
+
+// X (Twitter) の投稿の URL か（/ユーザー名/status/ID の形）
+function isTweetUrl(url: string): boolean {
+  try {
+    const { hostname, pathname } = new URL(url);
+    const isTwitter = hostname.includes('twitter.com') || hostname.includes('x.com');
+    const pathParts = pathname.split('/').filter(Boolean);
+    const statusIndex = pathParts.indexOf('status');
+    return isTwitter && statusIndex !== -1 && Boolean(pathParts[statusIndex + 1]);
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * ツイートの埋め込みを、ページのテーマに合わせて widgets.js で表示するスクリプト。
+ * テーマはヘッダーの切り替え（src/components/header.astro の initWorksThemeToggle）と同じく、
+ * sessionStorage の works-dark、なければ端末の設定で決める。
+ * View Transitions でページを移動したときは、読み込み済みの widgets.js で埋め込みだけを作り直す。
+ * 同じ記事に戻ったときも実行されるよう、data-astro-rerun を付ける（Astro は一度実行したスクリプトを実行し直さない）。
+ */
+const TWEET_SCRIPT = `<script data-astro-rerun>
+(() => {
+  let dark = false;
+  try {
+    const saved = sessionStorage.getItem('works-dark');
+    dark = saved !== null ? saved === '1' : matchMedia('(prefers-color-scheme: dark)').matches;
+  } catch {}
+  document.querySelectorAll('blockquote.twitter-tweet').forEach((el) => el.setAttribute('data-theme', dark ? 'dark' : 'light'));
+  if (window.twttr && window.twttr.widgets) {
+    window.twttr.widgets.load();
+    return;
+  }
+  const script = document.createElement('script');
+  script.src = 'https://platform.twitter.com/widgets.js';
+  script.async = true;
+  script.charset = 'utf-8';
+  document.head.appendChild(script);
+})();
+</script>`;
 
 // テーブルを table_row の子ブロックから組み立てる
 function renderTable(value: any, rows: any[]): string {
@@ -336,8 +292,14 @@ function renderRichText(richTextArray: any[], { keepEnds = true }: { keepEnds?: 
     .join('');
 }
 
+/** 記事本文のブロックを HTML にする。ツイートの埋め込みがあれば、widgets.js を読み込むスクリプトを 1 回だけ付ける */
+export function renderBlocks(blocks: any[]): string {
+  const html = renderBlockList(blocks);
+  return html.includes('class="twitter-tweet"') ? html + TWEET_SCRIPT : html;
+}
+
 // ブロックをグループ化してレンダリング（リストを適切に処理）
-export function renderBlocks(blocks: any[]) {
+function renderBlockList(blocks: any[]): string {
   const result: string[] = [];
   let i = 0;
 
