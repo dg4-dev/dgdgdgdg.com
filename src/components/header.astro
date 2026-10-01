@@ -10,6 +10,7 @@ const { pageName, status } = Astro.props;
 
 const navItems = [
   { label: 'Works', href: '/works' },
+  { label: 'Typefaces', href: '/typefaces' },
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ];
@@ -17,6 +18,7 @@ const navItems = [
 const pageNameMap: Record<string, string> = {
   '/': 'Top',
   '/works': 'Works',
+  '/typefaces': 'Typefaces',
   '/about': 'About',
   '/contact': 'Contact',
 };
@@ -25,6 +27,7 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 const currentPageName = pageName ?? pageNameMap[pathname] ?? pathname.split('/').pop() ?? 'Top';
 const isWorksPage = pathname === '/works';
 const isWorksArticlePage = pathname.startsWith('/works/article/');
+const isTypefaceDetailPage = pathname.startsWith('/typefaces/');
 const isContactPage = pathname === '/contact';
 ---
 
@@ -66,6 +69,15 @@ const isContactPage = pathname === '/contact';
             <Moon class="works-theme-icon works-theme-icon--dark" size={10} />
             <span class="works-theme-knob" />
           </button>
+        </div>
+      )
+    }
+    {
+      isTypefaceDetailPage && (
+        <div class="back-to-list-row">
+          <a href="/typefaces" class="back-to-list">
+            書体一覧に戻る
+          </a>
         </div>
       )
     }

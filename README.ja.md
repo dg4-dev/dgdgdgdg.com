@@ -65,10 +65,32 @@ npx dotenvx encrypt
 ```bash
 src/
 ├── components/    # 再利用可能な UI コンポーネント
+├── data/          # 書体一覧（Typefaces ページの掲載元）
 ├── layouts/       # ページレイアウト
 ├── lib/           # ユーティリティ・Notion API クライアント
 ├── pages/         # ファイルベースルーティング
 └── styles/        # グローバルスタイル (Sass)
+```
+
+## 🔤 書体の追加
+
+Typefaces ページ（`/typefaces`）は、GitHub のパブリックリポジトリからフォントファイルと LICENSE を build 時に取得して作っています。
+書体名・バージョン・可変軸・収録文字はフォントファイルから読み取るため、新しい書体は `src/data/typefaces.ts` に 1 件足すだけで掲載できます。
+
+バージョンは GitHub の Latest リリースを優先し、リリースがなければ最新のバージョンタグ（`v1.2.3` など）、それもなければフォントファイルに書かれたバージョンを表示します。
+GitHub API は未認証だと 1 時間 60 回までなので、build 環境では `GITHUB_TOKEN`（public リポジトリの読み取りのみ）を設定しておくと安心です。
+
+```ts
+{
+  slug: 'new-font',              // URL（/typefaces/new-font）
+  repo: 'dg4-dev/new-font',      // GitHub リポジトリ
+  ref: 'main',                   // ブランチ・タグ
+  fontPath: 'new-font.ttf',      // リポジトリ内のフォントファイル
+  licensePath: 'LICENSE',        // リポジトリ内のライセンス（任意）
+  year: 2026,
+  description: ['書体の紹介文（1 要素が 1 段落）'],
+  // presets: [...]              // スタイル見本（任意。省略時はフォントの名前付きインスタンス）
+},
 ```
 
 ## 📜 スクリプト

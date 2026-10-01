@@ -1,0 +1,131 @@
+---
+export const prerender = true;
+
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/header.astro';
+import Footer from '@/components/footer.astro';
+import ContactCTA from '@/components/ContactCTA.astro';
+import { fontFaceCss, getTypefaces, glyphCount, variationSettings } from '@/lib/typefaces';
+
+const typefaces = await getTypefaces();
+---
+
+<BaseLayout
+  title="Typefaces - dgdgdgdg"
+  description="dgdgdgdgが制作した書体の一覧。フォントファイルはGitHubで公開しています。"
+  keywords="typefaces, fonts, variable font, dgdgdgdg"
+>
+  <Fragment slot="head">
+    {typefaces.map((t) => <link rel="preload" href={t.fontUrl} as="font" crossorigin />)}
+    <style is:inline set:html={fontFaceCss(typefaces)}></style>
+  </Fragment>
+  <Header />
+  <main>
+    <div class="typefaces-inner">
+      {
+        typefaces.length > 0 ? (
+          <ul class="typeface-list">
+            {typefaces.map((t) => {
+              const first = t.presets[0]?.coordinates ?? {};
+              const last = t.presets[t.presets.length - 1]?.coordinates ?? first;
+              return (
+                <li>
+                  <a href={`/typefaces/${t.slug}`} class="typeface-row">
+                    <h2
+                      class="typeface-sample"
+                      style={{
+                        fontFamily: `'${t.cssFamily}'`,
+                        '--sample-from': variationSettings(first),
+                        '--sample-to': variationSettings(last),
+                      }}
+                    >
+                      {t.familyName}
+                    </h2>
+                    <p class="typeface-spec">
+                      <span>{t.version}</span>
+                      <span>{t.year}</span>
+                      {t.axes.length > 0 && <span>Variable · {t.axes.length} axes</span>}
+                      <span>{glyphCount(t)} glyphs</span>
+                    </p>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <p class="typefaces-empty">書体を読み込めませんでした。時間をおいて再度お試しください。</p>
+        )
+      }
+    </div>
+  </main>
+  <ContactCTA />
+  <Footer />
+</BaseLayout>
+
+<style lang="sass">
+  @use '../../styles/spacing' as *
+  main
+    background-color: var(--c-black)
+    color: var(--c-white)
+
+  .typefaces-inner
+    width: 100%
+    max-width: 1200px
+    margin: space(0) auto
+    padding: space(8) space(0) space(16)
+
+  @media (max-width: 1248px)
+    .typefaces-inner
+      padding-left: space(6)
+      padding-right: space(6)
+
+  @media (max-width: 768px)
+    .typefaces-inner
+      padding: space(6) space(4) space(12)
+
+  .typefaces-empty
+    margin-bottom: space(8)
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
+    color: var(--c-white-a60)
+    letter-spacing: 0.04em
+
+  .typeface-list
+    border-top: 1px solid var(--c-white-a30)
+
+    li
+      border-bottom: 1px solid var(--c-white-a30)
+
+  .typeface-row
+    display: flex
+    flex-direction: column
+    gap: space(6)
+    padding: space(8) space(0) space(12)
+    color: inherit
+    text-decoration: none
+
+  .typeface-spec
+    display: flex
+    flex-wrap: wrap
+    gap: space(4)
+    font-family: var(--font-ui)
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
+    color: var(--c-white-a60)
+    letter-spacing: 0.06em
+
+  // h2 の共通スタイルを上書きし、書体そのもので書体名を見せる
+  .typeface-sample
+    font-size: clamp(3rem, 9vw, 8rem) !important
+    font-weight: normal !important
+    line-height: 1.1 !important
+    font-variation-settings: var(--sample-from)
+    font-synthesis: none
+    overflow-wrap: anywhere
+    transition: font-variation-settings 0.6s ease, color 0.3s ease
+
+  .typeface-row:hover .typeface-sample,
+  .typeface-row:focus-visible .typeface-sample
+    color: var(--c-accent)
+    font-variation-settings: var(--sample-to)
+</style>

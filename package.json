@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "dotenvx run -- astro dev",
     "build": "dotenvx run -- astro build",
-    "preview": "dotenvx run -- astro preview"
+    "preview": "wrangler pages dev"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",
