@@ -78,6 +78,9 @@ src/
 The Typefaces page (`/typefaces`) fetches each font file and LICENSE from its public GitHub repository at build time.
 Family name, version, variable axes and glyphs are read from the font file itself, so adding a typeface only takes one entry in `src/data/typefaces.ts`.
 
+The version shown prefers the latest GitHub release, then the newest version tag (e.g. `v1.2.3`), then the version written in the font file.
+Unauthenticated GitHub API calls are limited to 60 per hour, so setting `GITHUB_TOKEN` (read-only access to public repositories) in the build environment is recommended.
+
 ```ts
 {
   slug: 'new-font',              // URL (/typefaces/new-font)

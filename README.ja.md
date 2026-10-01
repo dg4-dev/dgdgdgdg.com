@@ -77,6 +77,9 @@ src/
 Typefaces ページ（`/typefaces`）は、GitHub のパブリックリポジトリからフォントファイルと LICENSE を build 時に取得して作っています。
 書体名・バージョン・可変軸・収録文字はフォントファイルから読み取るため、新しい書体は `src/data/typefaces.ts` に 1 件足すだけで掲載できます。
 
+バージョンは GitHub の Latest リリースを優先し、リリースがなければ最新のバージョンタグ（`v1.2.3` など）、それもなければフォントファイルに書かれたバージョンを表示します。
+GitHub API は未認証だと 1 時間 60 回までなので、build 環境では `GITHUB_TOKEN`（public リポジトリの読み取りのみ）を設定しておくと安心です。
+
 ```ts
 {
   slug: 'new-font',              // URL（/typefaces/new-font）
