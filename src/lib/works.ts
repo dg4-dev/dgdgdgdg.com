@@ -1,4 +1,5 @@
 import type { PageObjectResponse } from '@notionhq/client';
+import { getNotionBlocksRecursive } from './notion';
 import { downloadAndSaveImage, isNotionUrl } from './notion-images';
 
 /** Notion の Works データベースの 1 行（作品） */
@@ -104,16 +105,27 @@ export function getExternalUrl(work: Work): string | null {
 }
 
 /**
- * 作品カードのリンク先を返す。
- * - プライベート作品: リンクなし（null）
- * - 外部リンクがある作品: 外部リンク（新しいタブで開く）
- * - それ以外: 詳細ページ
+ * 詳細ページを作るかを返す。
+ * プライベート作品・外部リンクがある作品・Notion のページに本文がない作品は作らない。
+ * 本文はキャッシュに残るので、詳細ページを作るときに Notion へ問い合わせ直すことはない
  */
-export function getWorkLink(work: Work): WorkLink | null {
+export async function hasArticle(work: Work): Promise<boolean> {
+  if (isPrivate(work) || getExternalUrl(work)) return false;
+  const blocks = await getNotionBlocksRecursive(work.id);
+  return blocks.length > 0;
+}
+
+/**
+ * 作品カードのリンク先を返す。
+ * - 外部リンクがある作品: 外部リンク（新しいタブで開く）
+ * - 詳細ページがある作品: 詳細ページ
+ * - それ以外（プライベート作品・本文がない作品）: リンクなし（null）
+ */
+export async function getWorkLink(work: Work): Promise<WorkLink | null> {
   if (isPrivate(work)) return null;
 
   const externalUrl = getExternalUrl(work);
   if (externalUrl) return { href: externalUrl, external: true };
 
-  return { href: `/works/article/${getWorkId(work)}`, external: false };
+  return (await hasArticle(work)) ? { href: `/works/article/${getWorkId(work)}`, external: false } : null;
 }

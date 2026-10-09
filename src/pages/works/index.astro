@@ -22,12 +22,14 @@ import {
 // すべての作品を新しい順に並べる（Private も含めて表示する）
 const { results } = await getNotionData();
 
-// カバー画像を保存してサイト内のパスにする
+// カバー画像を保存してサイト内のパスにし、カードのリンク先（詳細ページがあるか）を調べる
 // プライベート作品はサンプル画像を表示するため、カバー画像を取得・保存しない
 const sortedWorks = await Promise.all(
-  [...results]
-    .sort(compareByCreatedDateDesc)
-    .map(async (work) => ({ work, cover: isPrivate(work) ? '' : await localizeCover(work) })),
+  [...results].sort(compareByCreatedDateDesc).map(async (work) => ({
+    work,
+    cover: isPrivate(work) ? '' : await localizeCover(work),
+    link: await getWorkLink(work),
+  })),
 );
 
 // 絞り込み用の全カテゴリ（重複を除いて名前順）
@@ -52,11 +54,10 @@ const uniqueCategories = [...new Set(results.flatMap((work) => getCategories(wor
       <p class="works-note title">掲載していない作品もあります。少しずつ追加しています。</p>
       <div class="works-grid" id="works-grid">
         {
-          sortedWorks.map(({ work, cover }) => {
+          sortedWorks.map(({ work, cover, link }) => {
             const title = getTitle(work);
             const createdDate = getCreatedDate(work);
             const categories = getCategories(work);
-            const link = getWorkLink(work);
 
             return (
               <WorkCard
