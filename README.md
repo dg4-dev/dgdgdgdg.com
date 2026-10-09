@@ -124,3 +124,12 @@ bunx wrangler deploy --config workers/wrangler.toml
 
 Set the deployed URL (`https://<worker>.workers.dev/status`) as `PUBLIC_STATUS_ENDPOINT`.
 If it is not set or the Worker can't be reached, the Contact page shows `limited`.
+
+## 🔀 Pull Requests
+
+Pull requests that change how the site looks include verification images in the description.
+
+- For each changed spot, capture the same page and area before (`develop`) and after the change, and stack them in one image, labeled inside the image
+- Above each image, write one line on what changed and where
+- Say in the description which spots could not be checked (e.g. pages that need a Notion connection)
+- Put the images under `<PR number>/` on the `pr-assets` branch and reference them as `https://github.com/dg4-dev/dgdgdgdg.com/blob/pr-assets/<PR number>/<file>?raw=true`. Do not add them to `develop` or `main`
