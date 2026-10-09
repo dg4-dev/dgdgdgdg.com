@@ -2,8 +2,11 @@ import { createHash } from 'crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
-/** キャッシュディレクトリのパス */
-const CACHE_DIR = join(process.cwd(), '.notion-cache');
+/**
+ * キャッシュディレクトリのパス。
+ * Cloudflare Pages のビルドキャッシュは Astro なら node_modules/.astro だけを次のビルドに残すので、その中に置く
+ */
+const CACHE_DIR = join(process.cwd(), 'node_modules', '.astro', 'notion-cache');
 
 /** デフォルトTTL: 24時間 */
 const DEFAULT_TTL_MS = 24 * 60 * 60 * 1000;

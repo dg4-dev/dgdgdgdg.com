@@ -51,7 +51,7 @@ bun.lockb
 # Downloaded Notion images
 public/notion-images/
 
-# Notion API cache
+# Notion API cache（今は node_modules/.astro/notion-cache/ に置く。古い置き場所も無視しておく）
 .notion-cache/
 
 .claude/
