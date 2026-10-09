@@ -459,26 +459,22 @@ const PageNameTag = isWorksArticlePage ? 'p' : 'h1';
     .works-controls-row
       align-items: flex-start
 
+    // 見出しと選ぶ欄を 2 列に並べ、どちらも中の字に合わせた幅にする（字が折り返したり、欄からはみ出したりしないように）
     .works-controls
-      flex-wrap: wrap
-      flex-direction: column
-      width: 170px
+      display: grid
+      grid-template-columns: auto auto
 
     .works-control
-      width: 100%
-      gap: space(0)
-      justify-content: space-between
+      display: grid
+      grid-column: 1 / -1
+      grid-template-columns: subgrid
 
     .works-control-label
-      font-size: 12px
+      white-space: nowrap
 
     .works-control-select
       min-width: unset
-      width: 90px
-      font-size: 12px
-
-    .status-message
-      font-size: 12px
+      width: 100%
 </style>
 
 <script>
