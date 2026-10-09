@@ -6,7 +6,7 @@ import Header from '@/components/header.astro';
 import Footer from '@/components/footer.astro';
 import ContactCTA from '@/components/ContactCTA.astro';
 import Phrase from '@/components/Phrase.astro';
-import { getNotionData, getNotionBlocksRecursive } from '@/lib/notion';
+import { getNotionData, getArticleBlocks } from '@/lib/notion';
 import { attachBookmarkMeta, localizeBlockMedia, type ArticleBlock } from '@/lib/article-blocks';
 import { renderBlocks } from '@/lib/notion-render';
 import {
@@ -39,7 +39,7 @@ interface Props {
 const { work } = Astro.props;
 
 // 本文のブロック（子ブロックも含む）を取得し、画像・動画の保存とブックマークの OG 情報の取得をする
-const blocks: ArticleBlock[] = await getNotionBlocksRecursive(work.id);
+const blocks: ArticleBlock[] = await getArticleBlocks(work);
 await localizeBlockMedia(blocks);
 await attachBookmarkMeta(blocks);
 
