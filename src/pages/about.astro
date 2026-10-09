@@ -116,13 +116,14 @@ import ContactCTA from '@/components/ContactCTA.astro';
     line-height: var(--type-caption-line)
     letter-spacing: 0.04em
 
-  // Logo
+  // Logo（下の本文と同じ幅にそろえる）
   .about-logo
-    padding-block: space(16)
+    width: 100%
+    max-width: 720px
 
     img
       display: block
-      width: min(600px, 80vw)
+      width: 100%
       height: auto
 
   // Intro
