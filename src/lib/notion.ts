@@ -1,4 +1,11 @@
-import { Client, isFullBlock, isFullPage, type BlockObjectResponse } from '@notionhq/client';
+import {
+  Client,
+  ClientErrorCode,
+  isFullBlock,
+  isFullPage,
+  isNotionClientError,
+  type BlockObjectResponse,
+} from '@notionhq/client';
 import { withCache } from './notion-cache';
 import { hasExpiredUnsavedFile } from './notion-images';
 import type { Work } from './works';
@@ -22,6 +29,39 @@ const MAX_CONCURRENT_REQUESTS = 3;
 let activeRequests = 0;
 const waitingRequests: (() => void)[] = [];
 
+// 時間切れ・回数制限・Notion 側の不具合は一時的なことが多いので、間をあけて送り直す
+// （@notionhq/client は自分では送り直さず、1 回失敗するとビルド全体が止まるため）
+const RETRY_DELAYS_MS = [1000, 2000, 4000];
+
+/** 送り直す失敗なら、その理由を返す。送り直しても変わらない失敗（401・404 など）なら null */
+function retryReason(error: unknown): string | null {
+  if (!isNotionClientError(error)) return null;
+  if (error.code === ClientErrorCode.RequestTimeout) return '時間切れ';
+  if ('status' in error && (error.status === 429 || error.status >= 500)) return `HTTP ${error.status}`;
+  return null;
+}
+
+/** 429 の Retry-After（秒）をミリ秒にする。なければ null */
+function retryAfterMs(error: unknown): number | null {
+  if (!isNotionClientError(error) || !('headers' in error) || !(error.headers instanceof Headers)) return null;
+  const seconds = Number(error.headers.get('retry-after'));
+  return seconds > 0 ? seconds * 1000 : null;
+}
+
+async function withRetry<T>(request: () => Promise<T>): Promise<T> {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await request();
+    } catch (error) {
+      const reason = retryReason(error);
+      if (!reason || attempt >= RETRY_DELAYS_MS.length) throw error;
+      const delay = retryAfterMs(error) ?? RETRY_DELAYS_MS[attempt];
+      console.warn(`[notion] ${delay / 1000} 秒後に送り直します（${attempt + 1} 回目。理由: ${reason}）`);
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+  }
+}
+
 async function withRequestLimit<T>(request: () => Promise<T>): Promise<T> {
   if (activeRequests < MAX_CONCURRENT_REQUESTS) {
     activeRequests++;
@@ -30,7 +70,8 @@ async function withRequestLimit<T>(request: () => Promise<T>): Promise<T> {
     await new Promise<void>((resolve) => waitingRequests.push(resolve));
   }
   try {
-    return await request();
+    // 送り直しを待つ間も枠を持ったままにし、回数制限のときにほかのリクエストも控える
+    return await withRetry(request);
   } finally {
     const next = waitingRequests.shift();
     if (next) next();
