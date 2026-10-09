@@ -1,5 +1,5 @@
 import type { PageObjectResponse } from '@notionhq/client';
-import { getNotionBlocksRecursive } from './notion';
+import { getArticleBlocks } from './notion';
 import { downloadAndSaveImage, isNotionUrl } from './notion-images';
 
 /** Notion の Works データベースの 1 行（作品） */
@@ -111,7 +111,7 @@ export function getExternalUrl(work: Work): string | null {
  */
 export async function hasArticle(work: Work): Promise<boolean> {
   if (isPrivate(work) || getExternalUrl(work)) return false;
-  const blocks = await getNotionBlocksRecursive(work.id);
+  const blocks = await getArticleBlocks(work);
   return blocks.length > 0;
 }
 
