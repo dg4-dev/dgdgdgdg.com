@@ -75,7 +75,7 @@ src/
 
 ## 🔤 Adding a Typeface
 
-The Typefaces page (`/typefaces`) fetches each font file and LICENSE from the latest release of its public GitHub repository at build time. The site-wide atomic dot font uses the same fetched file.
+The Typefaces page (`/typefaces`) fetches each font file and LICENSE from the latest release of its public GitHub repository at build time. The site-wide atomic dot and wave live fonts use the same fetched files.
 Family name, version, variable axes and glyphs are read from the font file itself, so adding a typeface only takes one entry in `src/data/typefaces.ts`.
 
 The version shown prefers the latest GitHub release, then the newest version tag (e.g. `v1.2.3`), then the version written in the font file.
@@ -124,3 +124,12 @@ bunx wrangler deploy --config workers/wrangler.toml
 
 Set the deployed URL (`https://<worker>.workers.dev/status`) as `PUBLIC_STATUS_ENDPOINT`.
 If it is not set or the Worker can't be reached, the Contact page shows `limited`.
+
+## 🔀 Pull Requests
+
+Pull requests that change how the site looks include verification images in the description.
+
+- For each changed spot, capture the same page and area before (`develop`) and after the change, and stack them in one image, labeled inside the image
+- Above each image, write one line on what changed and where
+- Say in the description which spots could not be checked (e.g. pages that need a Notion connection)
+- Put the images under `<PR number>/` on the `pr-assets` branch and reference them as `https://github.com/dg4-dev/dgdgdgdg.com/blob/pr-assets/<PR number>/<file>?raw=true`. Do not add them to `develop` or `main`

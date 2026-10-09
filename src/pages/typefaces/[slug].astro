@@ -278,7 +278,9 @@ function featureGlyphHtml(glyph: FeatureGlyph): string {
 
   .tf-section-title
     margin-bottom: space(6)
-    font-family: var(--font-ui)
+    font-family: var(--font-latin)
+    // Wave Live には太字がないので、h3 の太字を外す
+    font-weight: var(--type-body-weight)
     font-size: var(--type-caption-size) !important
     letter-spacing: 0.12em
     text-transform: uppercase
@@ -303,7 +305,7 @@ function featureGlyphHtml(glyph: FeatureGlyph): string {
       margin-top: space(4)
 
   .tf-info
-    font-family: var(--font-ui)
+    font-family: var(--font-latin)
     font-size: var(--type-caption-size)
     line-height: var(--type-caption-line)
 
@@ -371,7 +373,7 @@ function featureGlyphHtml(glyph: FeatureGlyph): string {
   .tf-control-label
     display: flex
     justify-content: space-between
-    font-family: var(--font-ui)
+    font-family: var(--font-latin)
     font-size: var(--type-caption-size)
     line-height: var(--type-caption-line)
     letter-spacing: 0.06em
@@ -424,7 +426,7 @@ function featureGlyphHtml(glyph: FeatureGlyph): string {
     padding: space(1) space(3)
     border: 1px solid var(--c-white-a30)
     border-radius: 999px
-    font-family: var(--font-ui)
+    font-family: var(--font-latin)
     font-size: var(--type-caption-size)
     line-height: var(--type-caption-line)
     color: var(--c-white-a70)
@@ -453,7 +455,7 @@ function featureGlyphHtml(glyph: FeatureGlyph): string {
       gap: space(2)
 
   .tf-style-name
-    font-family: var(--font-ui)
+    font-family: var(--font-latin)
     font-size: var(--type-caption-size)
     color: var(--c-white-a60)
     letter-spacing: 0.06em
@@ -502,7 +504,7 @@ function featureGlyphHtml(glyph: FeatureGlyph): string {
   .tf-glyph-code
     position: absolute
     bottom: space(1)
-    font-family: var(--font-ui)
+    font-family: var(--font-latin)
     font-size: 0.6rem
     letter-spacing: 0.04em
     opacity: 0.5

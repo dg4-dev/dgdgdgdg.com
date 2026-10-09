@@ -75,7 +75,7 @@ src/
 
 ## 🔤 書体の追加
 
-Typefaces ページ（`/typefaces`）は、GitHub のパブリックリポジトリの最新リリースからフォントファイルと LICENSE を build 時に取得して作っています。サイト全体で使っている atomic dot も、ここで取得したファイルを使います。
+Typefaces ページ（`/typefaces`）は、GitHub のパブリックリポジトリの最新リリースからフォントファイルと LICENSE を build 時に取得して作っています。サイト全体で使っている atomic dot と wave live も、ここで取得したファイルを使います。
 書体名・バージョン・可変軸・収録文字はフォントファイルから読み取るため、新しい書体は `src/data/typefaces.ts` に 1 件足すだけで掲載できます。
 
 バージョンは GitHub の Latest リリースを優先し、リリースがなければ最新のバージョンタグ（`v1.2.3` など）、それもなければフォントファイルに書かれたバージョンを表示します。
@@ -124,3 +124,12 @@ bunx wrangler deploy --config workers/wrangler.toml
 
 デプロイした URL（`https://<worker>.workers.dev/status`）を `PUBLIC_STATUS_ENDPOINT` に設定します。
 設定していないときや Worker に接続できないときは、Contact ページは `limited` と表示します。
+
+## 🔀 プルリクエスト
+
+見た目が変わるプルリクエストには、検証画像を本文に載せます。
+
+- 変わった場所ごとに、変更前（`develop`）と変更後を同じページ・同じ範囲で撮り、上下に並べた 1 枚の画像にする。どちらが変更前かは画像の中に書く
+- 画像の上に、どこの何がどう変わったかを 1 行で書く
+- 確かめられなかった場所（Notion への接続が要るページなど）は、そのことを本文に書く
+- 画像は `pr-assets` ブランチの `<PR 番号>/` に置き、`https://github.com/dg4-dev/dgdgdgdg.com/blob/pr-assets/<PR 番号>/<ファイル名>?raw=true` で参照する。`develop`・`main` には入れない
