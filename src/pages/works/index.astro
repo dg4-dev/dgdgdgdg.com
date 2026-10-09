@@ -12,6 +12,7 @@ import {
   formatYearMonth,
   getCategories,
   getCreatedDate,
+  getSummary,
   getTitle,
   getWorkLink,
   isPrivate,
@@ -61,6 +62,7 @@ const uniqueCategories = [...new Set(results.flatMap((work) => getCategories(wor
               <WorkCard
                 title={title}
                 createdDate={formatYearMonth(createdDate)}
+                summary={getSummary(work)}
                 categories={categories}
                 coverImageUrl={cover}
                 isPrivate={isPrivate(work)}
