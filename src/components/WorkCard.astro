@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import { ArrowUpRight } from '@lucide/astro';
+import { ArrowRight, ArrowUpRight } from '@lucide/astro';
 import Phrase from './Phrase.astro';
 
 export interface Props {
@@ -11,7 +11,7 @@ export interface Props {
   categories?: { name: string; color: string }[];
   coverImageUrl?: string;
   isPrivate: boolean;
-  /** 指定時は <a> でラップ、未指定時は <article> */
+  /** 指定時は <a> でラップ、未指定時は <article>（プライベート作品・詳細ページがない作品） */
   href?: string;
   /** true のとき、href を新しいタブで開く（外部リンク） */
   external?: boolean;
@@ -47,7 +47,7 @@ const dataAttrs = hasDataAttrs
   ? {
       'data-work-title': dataWorkTitle,
       'data-work-date': dataWorkDate ?? '',
-      'data-work-private': String(!href),
+      'data-work-private': String(isPrivate),
       'data-work-categories': dataWorkCategories ?? '',
     }
   : {};
@@ -61,13 +61,17 @@ const dataAttrs = hasDataAttrs
   <div class="work-content">
     <h2 class="work-card-title">
       <Phrase text={title} />
+      {/* リンク先の印。詳細ページは右向き、外部リンクは右上向き。リンクのないカードには出さない */}
       {
-        external && (
-          <>
-            <ArrowUpRight class="work-external-icon" size={14} />
-            <span class="visually-hidden">（新しいタブで開きます）</span>
-          </>
-        )
+        href &&
+          (external ? (
+            <>
+              <ArrowUpRight class="work-link-icon" size={14} />
+              <span class="visually-hidden">（新しいタブで開きます）</span>
+            </>
+          ) : (
+            <ArrowRight class="work-link-icon" size={14} />
+          ))
       }
     </h2>
     {createdDate ? <p class="work-date">{createdDate}</p> : null}
@@ -111,6 +115,17 @@ const dataAttrs = hasDataAttrs
     text-decoration: none
     color: inherit
 
+  // リンクのあるカードだけ、マウスを載せたときに画像を薄くしてタイトルに下線を引く
+  .work-card--link .work-cover img
+    transition: opacity 0.3s ease
+
+  .work-card--link:hover .work-cover img
+    opacity: 0.8
+
+  .work-card--link:hover .work-card-title
+    text-decoration: underline
+    text-underline-offset: 0.2em
+
   .work-cover
     width: 100%
     align-self: end
@@ -131,8 +146,8 @@ const dataAttrs = hasDataAttrs
   :global([data-works-dark] .work-card-title)
     color: var(--c-gray-200)
 
-  // 外部リンクの印（タイトルの横に小さく出す）
-  .work-card-title :global(.work-external-icon)
+  // リンク先の印（タイトルの横に小さく出す）
+  .work-card-title :global(.work-link-icon)
     display: inline-block
     vertical-align: -0.1em
 
