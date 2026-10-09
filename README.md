@@ -75,7 +75,7 @@ src/
 
 ## 🔤 Adding a Typeface
 
-The Typefaces page (`/typefaces`) fetches each font file and LICENSE from the latest release of its public GitHub repository at build time. The site-wide atomic dot font uses the same fetched file.
+The Typefaces page (`/typefaces`) fetches each font file and LICENSE from the latest release of its public GitHub repository at build time. The site-wide atomic dot and wave live fonts use the same fetched files.
 Family name, version, variable axes and glyphs are read from the font file itself, so adding a typeface only takes one entry in `src/data/typefaces.ts`.
 
 The version shown prefers the latest GitHub release, then the newest version tag (e.g. `v1.2.3`), then the version written in the font file.

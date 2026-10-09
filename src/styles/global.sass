@@ -10,6 +10,9 @@
   --header-height: 0px
 
   --font-display: 'DG4 Atomic Dot', system-ui, sans-serif
+  // 欧文と数字だけの短い情報（英語のラベル・日付・バージョン・数）に使う
+  // Wave Live は ASCII だけで Regular しかないので、日本語や収録外の記号は Zen Kaku Gothic New で出し、太字では使わない
+  --font-latin: 'DG4 Wave Live', 'Zen Kaku Gothic New', system-ui, sans-serif
   --font-heading: 'Zen Kaku Gothic New', system-ui, sans-serif
   --font-ui: 'Zen Kaku Gothic New', system-ui, sans-serif
   --font-body: 'Zen Old Mincho', system-ui, serif
@@ -33,7 +36,7 @@
   --type-caption-line: 1.4
 
 // My Font
-// GitHub（dg4-dev/atomic-dot）の最新リリースから build 時に取得したものを使う（src/pages/typefaces/files/[file].ts）
+// GitHub（dg4-dev/atomic-dot・dg4-dev/wave-live）の最新リリースから build 時に取得したものを使う（src/pages/typefaces/files/[file].ts）
 @font-face
   font-family: 'DG4 Atomic Dot'
   src: url('/typefaces/files/atomic-dot.ttf') format('truetype')
@@ -41,6 +44,13 @@
   font-style: normal
   font-display: swap
   font-variation-settings: 'RNDS' 0, 'slnt' 0
+
+@font-face
+  font-family: 'DG4 Wave Live'
+  src: url('/typefaces/files/wave-live.ttf') format('truetype')
+  font-weight: normal
+  font-style: normal
+  font-display: swap
 
 // Global Styles
 
