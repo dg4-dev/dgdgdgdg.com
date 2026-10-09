@@ -14,21 +14,21 @@ import {
   getCategories,
   getClient,
   getCreatedDate,
-  getExternalUrl,
   getSummary,
   getTitle,
   getWorkId,
-  isPrivate,
+  hasArticle,
   localizeCover,
   type Work,
 } from '@/lib/works';
 
-// プライベート作品と、外部リンクがある（カードから外部ページを開く）作品は詳細ページを作らない
+// プライベート作品・外部リンクがある（カードから外部ページを開く）作品・本文がない作品は詳細ページを作らない
 // 取得済みの作品を props で渡し、ページごとに Notion から取り直さないようにする
 export async function getStaticPaths() {
   const { results } = await getNotionData();
-  return results
-    .filter((work) => !isPrivate(work) && !getExternalUrl(work))
+  const withArticle = await Promise.all(results.map(async (work) => ((await hasArticle(work)) ? work : null)));
+  return withArticle
+    .filter((work): work is Work => work !== null)
     .map((work) => ({ params: { id: getWorkId(work) }, props: { work } }));
 }
 
@@ -112,12 +112,7 @@ const ogImage = coverImage.startsWith('/') ? new URL(coverImage, Astro.site ?? A
           </div>
         )
       }
-      <div
-        class="work-content"
-        set:html={blocks.length > 0
-          ? renderBlocks(blocks)
-          : '<p class="work-content-empty">詳しい紹介は準備中です。</p>'}
-      />
+      <div class="work-content" set:html={renderBlocks(blocks)} />
     </article>
   </main>
   <ContactCTA />
@@ -240,11 +235,6 @@ const ogImage = coverImage.startsWith('/') ? new URL(coverImage, Astro.site ?? A
     // 長い URL などが画面からはみ出さないよう、入りきらないときは途中で改行する
     overflow-wrap: break-word
     transition: color 0.3s ease
-
-    :global(.work-content-empty)
-      margin: space(4) 0
-      color: var(--c-gray-400)
-      font-size: var(--type-body-size)
 
     :global(h1),
     :global(h2),
