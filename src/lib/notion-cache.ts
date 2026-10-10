@@ -1,5 +1,5 @@
 import { createHash } from 'crypto';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
+import { appendFileSync, existsSync, mkdirSync, readFileSync, readdirSync, unlinkSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 /**
@@ -7,6 +7,9 @@ import { join } from 'path';
  * Cloudflare Pages のビルドキャッシュは Astro なら node_modules/.astro だけを次のビルドに残すので、その中に置く
  */
 const CACHE_DIR = join(process.cwd(), 'node_modules', '.astro', 'notion-cache');
+
+/** ビルドで使ったキャッシュのファイル名の記録（ビルドの終わりに、ここにないファイルを消す） */
+const MANIFEST_PATH = join(CACHE_DIR, '.manifest');
 
 /** デフォルトTTL: 24時間 */
 const DEFAULT_TTL_MS = 24 * 60 * 60 * 1000;
@@ -26,10 +29,47 @@ interface CacheEntry<T> {
   data: T;
 }
 
+/** キャッシュキーからファイル名を生成 */
+function cacheFileName(key: string): string {
+  return `${createHash('md5').update(key).digest('hex')}.json`;
+}
+
 /** キャッシュキーからファイルパスを生成 */
 function cacheFilePath(key: string): string {
-  const hash = createHash('md5').update(key).digest('hex');
-  return join(CACHE_DIR, `${hash}.json`);
+  return join(CACHE_DIR, cacheFileName(key));
+}
+
+/**
+ * ビルドで使ったキャッシュとして記録する。
+ * インテグレーション側と別プロセスでもファイル経由で共有できる。
+ */
+function recordUsedKey(key: string): void {
+  if (!existsSync(CACHE_DIR)) {
+    mkdirSync(CACHE_DIR, { recursive: true });
+  }
+  appendFileSync(MANIFEST_PATH, cacheFileName(key) + '\n');
+}
+
+/** 記録を削除する（ビルド開始時にリセット用。キャッシュのファイルは消さない） */
+export function clearCacheManifest(): void {
+  if (existsSync(MANIFEST_PATH)) {
+    unlinkSync(MANIFEST_PATH);
+  }
+}
+
+/**
+ * 今回のビルドで使わなかったキャッシュのファイルを削除し、消したファイル名を返す。
+ * 記録がないとき（キャッシュを一度も使わなかったときなど）は何も消さない。
+ */
+export function removeUnusedCache(): string[] {
+  if (!existsSync(MANIFEST_PATH)) return [];
+
+  const used = new Set(readFileSync(MANIFEST_PATH, 'utf-8').split('\n').filter(Boolean));
+  const unused = readdirSync(CACHE_DIR).filter((f) => f.endsWith('.json') && !used.has(f));
+  for (const file of unused) {
+    unlinkSync(join(CACHE_DIR, file));
+  }
+  return unused;
 }
 
 /** キャッシュから読み取り。期限切れまたは存在しない場合は null */
@@ -76,6 +116,7 @@ export async function withCache<T>(key: string, fetcher: () => Promise<T>, optio
   if (cached !== null) {
     if (!options.isValid || options.isValid(cached)) {
       console.log(`[notion-cache] HIT: ${key}`);
+      recordUsedKey(key);
       return cached;
     }
     console.log(`[notion-cache] STALE: ${key}`);
@@ -84,5 +125,6 @@ export async function withCache<T>(key: string, fetcher: () => Promise<T>, optio
   console.log(`[notion-cache] MISS: ${key}`);
   const data = await fetcher();
   setCache(key, data);
+  recordUsedKey(key);
   return data;
 }

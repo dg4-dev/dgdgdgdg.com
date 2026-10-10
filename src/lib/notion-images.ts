@@ -3,14 +3,14 @@ import { appendFileSync, existsSync, mkdirSync, readFileSync, unlinkSync, writeF
 import { join } from 'path';
 
 /** マニフェストファイルのパス（ビルド中に使われたファイル一覧） */
-const MANIFEST_PATH = join(process.cwd(), 'public', 'notion-images', '.manifest');
+const MANIFEST_PATH = join(process.cwd(), 'public', 'images', 'works', '.manifest');
 
 /**
  * ビルドで使われたファイル名をマニフェストに追記する。
  * インテグレーション側と別プロセスでもファイル経由で共有できる。
  */
 function recordUsedFile(filename: string): void {
-  const dir = join(process.cwd(), 'public', 'notion-images');
+  const dir = join(process.cwd(), 'public', 'images', 'works');
   if (!existsSync(dir)) {
     mkdirSync(dir, { recursive: true });
   }
@@ -55,7 +55,7 @@ function stripQueryParams(url: string): string {
 function getLocalImagePath(imageUrl: string): string {
   const hash = createHash('md5').update(stripQueryParams(imageUrl)).digest('hex');
   const ext = getImageExtension(imageUrl);
-  return `/notion-images/${hash}${ext}`;
+  return `/images/works/${hash}${ext}`;
 }
 
 /**
@@ -75,16 +75,16 @@ function getImageExtension(url: string): string {
 }
 
 /**
- * 画像をダウンロードしてpublic/notion-images/に保存
+ * 画像をダウンロードしてpublic/images/works/に保存
  * すでに存在する場合はスキップ
- * @returns ローカルパス（/notion-images/xxx.jpg）
+ * @returns ローカルパス（/images/works/xxx.jpg）
  */
 export async function downloadAndSaveImage(imageUrl: string): Promise<string> {
   if (!imageUrl) return '';
 
   const localPath = getLocalImagePath(imageUrl);
-  const publicDir = join(process.cwd(), 'public', 'notion-images');
-  const filename = localPath.replace('/notion-images/', '');
+  const publicDir = join(process.cwd(), 'public', 'images', 'works');
+  const filename = localPath.replace('/images/works/', '');
   const fullPath = join(publicDir, filename);
 
   // ビルドで使われたファイルとして記録
@@ -140,11 +140,11 @@ const EXPIRY_MARGIN_MS = 5 * 60 * 1000;
 
 /**
  * Notion API のレスポンスに、期限切れの署名付きファイルURL（{ url, expiry_time }）があり、
- * その画像がまだ public/notion-images/ に保存されていなければ true を返す。
+ * その画像がまだ public/images/works/ に保存されていなければ true を返す。
  * 保存済みの画像は URL を使わずにローカルのファイルを使うので、期限が切れていても問題ない。
  */
 export function hasExpiredUnsavedFile(data: unknown): boolean {
-  const publicDir = join(process.cwd(), 'public', 'notion-images');
+  const publicDir = join(process.cwd(), 'public', 'images', 'works');
   const deadline = Date.now() + EXPIRY_MARGIN_MS;
 
   const visit = (value: unknown): boolean => {
@@ -155,7 +155,7 @@ export function hasExpiredUnsavedFile(data: unknown): boolean {
     if (typeof obj.url === 'string' && typeof obj.expiry_time === 'string') {
       const expiry = Date.parse(obj.expiry_time);
       if (!Number.isNaN(expiry) && expiry <= deadline) {
-        const filename = getLocalImagePath(obj.url).replace('/notion-images/', '');
+        const filename = getLocalImagePath(obj.url).replace('/images/works/', '');
         if (!existsSync(join(publicDir, filename))) return true;
       }
     }

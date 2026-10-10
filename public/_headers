@@ -11,7 +11,7 @@
   Cache-Control: public, max-age=31536000, immutable
 
 # Notion の画像（ファイル名は Notion 上のファイルごとに決まる）
-/notion-images/*
+/images/works/*
   Cache-Control: public, max-age=31536000, immutable
 
 # 書体ファイル（ファイル名は同じまま、リリースごとに中身が変わる）
