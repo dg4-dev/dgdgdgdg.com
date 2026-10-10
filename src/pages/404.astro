@@ -1,4 +1,7 @@
 ---
+// ビルドのときに dist/404.html を作る（Cloudflare Pages は 404.html がないと、ないパスにトップページを 200 で返す）
+export const prerender = true;
+
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/header.astro';
 import Footer from '@/components/footer.astro';
