@@ -131,7 +131,8 @@ bunx wrangler deploy --config workers/wrangler.toml
 
 - 作品の一覧は、Notion で変えた内容を反映するため、ビルドのたびに取り直します
 - 作品の本文は `node_modules/.astro/notion-cache/` に残します。キャッシュのキーにページの最終更新日時を入れているので、Notion で本文を変えた作品だけ取り直します。ほかのページにある同期ブロックの元を変えた場合は最終更新日時が変わらないため、有効期限（既定 24 時間。`NOTION_CACHE_TTL_MS` で変えられます）が切れたときに取り直します
-- 画像は `public/notion-images/` に保存し、`node_modules/.astro/notion-images/` にも控えを置きます。ビルドの始めに控えを戻すので、同じ画像はダウンロードし直しません
+- 画像は `public/works-images/` に保存し、`node_modules/.astro/works-images/` にも控えを置きます。ビルドの始めに控えを戻すので、同じ画像はダウンロードし直しません
+- ビルドで使わなかった本文・画像は、ビルドの終わりに消します。Notion で本文を直したときの古いキャッシュや、消した作品の画像がたまらないようにするためです
 
 Cloudflare Pages では、ビルドキャッシュを有効にしたときだけ `node_modules/.astro` が次のビルドに残ります（Settings → Build → Build cache）。有効にしていないと、毎回すべて取り直します。
 

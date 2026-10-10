@@ -48,7 +48,8 @@ wrangler.toml.backup
 # Bun
 bun.lockb
 
-# Downloaded Notion images
+# Downloaded Notion images（今は public/works-images/ に置く。古い置き場所も無視しておく）
+public/works-images/
 public/notion-images/
 
 # Notion API cache（今は node_modules/.astro/notion-cache/ に置く。古い置き場所も無視しておく）
