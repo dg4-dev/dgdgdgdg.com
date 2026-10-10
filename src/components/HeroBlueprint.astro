@@ -2,8 +2,10 @@
 // トップページのファーストビューに出す、ロゴの設計図（dgdgdgdg_logo_blueprint.svg のロゴのまわり）
 // 座標は設計図のまま。方眼の 1 目盛（14.173）が A/2、2 目盛が A
 // 設計図の方眼は図面の枠から始まっていて、縦の向きがロゴとずれているので、ロゴに合わせて敷き直す
-// 段階（data-stage）は親の .hero に付け、スクリプトはトップページ側に置く
-//   0: 方眼だけ / 1: 補助線とラベル / 2: ロゴの輪郭と斜線 / 3: 寸法と比 / 4: べた塗り
+// 段階は親の .hero に付けた is-s1〜is-s8（その段階まで進んだら付く）で切り替え、スクリプトはトップページ側に置く
+//   0: 方眼だけ / 1: 横の補助線 / 2: 縦の補助線 / 3: 45° の補助線 / 4: ロゴの輪郭 / 5: 斜線
+//   6: 寸法（A・A/2・45°） / 7: 比（5A） / 8: べた塗り
+// 同時に動くものを減らすため、1 つの段階では 1 種類だけを動かす
 
 /** 線（始点と終点） */
 type Line = [x1: number, y1: number, x2: number, y2: number];
@@ -21,82 +23,149 @@ interface Label {
   size?: number;
 }
 
-// 補助線（縦 X1〜X21、横 Y1〜Y7）
+/** 寸法（線・矢印と文字を一緒に出す） */
+interface Dimension {
+  d: string;
+  arrow?: string;
+  label: Label;
+  /** どの dg の寸法か（左から 0〜3） */
+  dg: number;
+  /** 4 つの dg で同じ寸法（上の A・A/2・A）。スマホでは右の dg の分だけ出す */
+  repeated?: boolean;
+}
+
+const lineD = ([x1, y1, x2, y2]: Line) => `M${x1},${y1}L${x2},${y2}`;
+
+// 補助線（横 Y1〜Y7、縦 X1〜X21）
+const ys = [827.7, 787.6, 749, 727.5, 720.6, 627.3, 613.1];
 const xs = [
   197.4, 255.1, 283.5, 297.6, 326, 397.9, 455.6, 483.9, 498.1, 526.4, 598.3, 656, 684.3, 698.5, 726.9, 798.7, 856.4,
   884.8, 899, 927.3, 999.2,
 ];
-const ys = [827.7, 787.6, 749, 727.5, 720.6, 627.3, 613.1];
-const verticals: Line[] = xs.map((x) => [x, 570.6, x, 870.2]);
-const horizontals: Line[] = ys.map((y) => [154.9, y, 1041.7, y]);
+const horizontals = ys.map((y, i) => ({
+  d: lineD([154.9, y, 1041.7, y]),
+  label: { text: `Y${i + 1}`, x: 152.6, y: y + 2.2, anchor: 'end' } as Label,
+}));
+const verticals = xs.map((x, i) => ({
+  d: lineD([x, 570.6, x, 870.2]),
+  label: { text: `X${i + 1}`, x, y: 567.2, anchor: 'middle' } as Label,
+}));
 
-// 45° の補助線（一点鎖線）。U は左下から右上へ、V は左上から右下へ引く
-const diagonalsU: Line[] = [
-  [154.9, 770, 354.3, 570.6],
-  [255.1, 870.2, 554.8, 570.5],
-  [455.6, 870.2, 755.3, 570.5],
-  [656, 870.2, 955.7, 570.5],
-  [856.4, 870.2, 1041.7, 684.9],
-];
-const diagonalsV: Line[] = [
-  [154.9, 685, 340.2, 870.3],
-  [240.9, 570.6, 540.6, 870.3],
-  [441.4, 570.6, 741.1, 870.3],
-  [641.8, 570.6, 941.5, 870.3],
-  [842.3, 570.6, 1041.7, 770],
-];
+// 45° の補助線（一点鎖線）。U は左下から右上へ、V は左上から右下へ引く。左から順に並べる
+const diagonals = [
+  { up: false, line: [154.9, 685, 340.2, 870.3], label: { text: 'V1', x: 152.6, y: 687.2, anchor: 'end' } },
+  { up: true, line: [154.9, 770, 354.3, 570.6], label: { text: 'U1', x: 354.3, y: 567.2, anchor: 'middle' } },
+  { up: false, line: [240.9, 570.6, 540.6, 870.3], label: { text: 'V2', x: 240.9, y: 567.2, anchor: 'middle' } },
+  { up: true, line: [255.1, 870.2, 554.8, 570.5], label: { text: 'U2', x: 554.8, y: 567.2, anchor: 'middle' } },
+  { up: false, line: [441.4, 570.6, 741.1, 870.3], label: { text: 'V3', x: 441.4, y: 567.2, anchor: 'middle' } },
+  { up: true, line: [455.6, 870.2, 755.3, 570.5], label: { text: 'U3', x: 755.3, y: 567.2, anchor: 'middle' } },
+  { up: false, line: [641.8, 570.6, 941.5, 870.3], label: { text: 'V4', x: 641.8, y: 567.2, anchor: 'middle' } },
+  { up: true, line: [656, 870.2, 955.7, 570.5], label: { text: 'U4', x: 955.7, y: 567.2, anchor: 'middle' } },
+  { up: false, line: [842.3, 570.6, 1041.7, 770], label: { text: 'V5', x: 842.3, y: 567.2, anchor: 'middle' } },
+  { up: true, line: [856.4, 870.2, 1041.7, 684.9], label: { text: 'U5', x: 1044.5, y: 687.2 } },
+] as { up: boolean; line: Line; label: Label }[];
 
-const constructionLabels: Label[] = [
-  ...xs.map((x, i) => ({ text: `X${i + 1}`, x, y: 567.2, anchor: 'middle' as const })),
-  ...ys.map((y, i) => ({ text: `Y${i + 1}`, x: 152.6, y: y + 2.2, anchor: 'end' as const })),
-  ...diagonalsU.slice(0, 4).map(([, , x2], i) => ({ text: `U${i + 1}`, x: x2, y: 567.2, anchor: 'middle' as const })),
-  { text: 'U5', x: 1044.5, y: 687.2 },
-  { text: 'V1', x: 152.6, y: 687.2, anchor: 'end' },
-  ...diagonalsV.slice(1).map(([x1], i) => ({ text: `V${i + 2}`, x: x1, y: 567.2, anchor: 'middle' as const })),
-];
-
-// 寸法線
-const dimensionLines: Line[] = [
+// 寸法（A・A/2・45°）
+const dimensions: Dimension[] = [
   // 上の A・A/2・A（4 つの dg ごと）
-  ...[255.1, 455.6, 656, 856.4].flatMap((x): Line[] => [
-    [x, 584.8, x + 28.4, 584.8],
-    [x + 28.4, 584.8, x + 42.5, 584.8],
-    [x + 42.5, 584.8, x + 70.9, 584.8],
+  ...[255.1, 455.6, 656, 856.4].flatMap((x, dg): Dimension[] => [
+    {
+      d: lineD([x, 584.8, x + 28.4, 584.8]),
+      label: { text: 'A', x: x + 14.2, y: 582.2, anchor: 'middle', size: 6.8 },
+      dg,
+      repeated: true,
+    },
+    {
+      d: lineD([x + 28.4, 584.8, x + 42.5, 584.8]),
+      label: { text: 'A/2', x: x + 35.5, y: 582.2, anchor: 'middle', size: 5.4 },
+      dg,
+      repeated: true,
+    },
+    {
+      d: lineD([x + 42.5, 584.8, x + 70.9, 584.8]),
+      label: { text: 'A', x: x + 56.7, y: 582.2, anchor: 'middle', size: 6.8 },
+      dg,
+      repeated: true,
+    },
   ]),
-  // 右の A・A/2
-  [1027.5, 749, 1027.5, 720.7],
-  [1027.5, 627.3, 1027.5, 613.1],
   // ロゴの中の A
-  [226.3, 756.3, 246.3, 736.3],
-  [498.1, 703.2, 526.4, 703.2],
-  [537.6, 706.9, 557.6, 686.9],
-  [714.1, 749, 714.1, 720.7],
-  [717.8, 768.3, 737.8, 788.3],
-  // 5A
-  [1021.9, 704.8, 921.7, 604.6],
-  [924.5, 853.2, 1024.7, 753],
+  {
+    d: lineD([226.3, 756.3, 246.3, 736.3]),
+    label: { text: 'A', x: 236.3, y: 746.3, rotate: -45, anchor: 'middle', dy: 2, knockout: true, size: 5.7 },
+    dg: 0,
+  },
+  {
+    d: lineD([498.1, 703.2, 526.4, 703.2]),
+    label: { text: 'A', x: 512.3, y: 703.2, anchor: 'middle', dy: 2, knockout: true, size: 5.7 },
+    dg: 1,
+  },
+  {
+    d: lineD([537.6, 706.9, 557.6, 686.9]),
+    label: { text: 'A', x: 547.6, y: 696.9, rotate: -45, anchor: 'middle', dy: 2, knockout: true, size: 5.7 },
+    dg: 1,
+  },
+  {
+    d: lineD([714.1, 749, 714.1, 720.7]),
+    label: { text: 'A', x: 714.1, y: 734.9, rotate: -90, anchor: 'middle', dy: 2, knockout: true, size: 5.7 },
+    dg: 2,
+  },
+  {
+    d: lineD([717.8, 768.3, 737.8, 788.3]),
+    label: { text: 'A', x: 727.8, y: 778.3, rotate: 45, anchor: 'middle', dy: 2, knockout: true, size: 5.7 },
+    dg: 2,
+  },
+  // 右の A・A/2
+  {
+    d: lineD([1027.5, 749, 1027.5, 720.7]),
+    label: { text: 'A', x: 1025.2, y: 734.8, rotate: -90, anchor: 'middle' },
+    dg: 3,
+  },
+  {
+    d: lineD([1027.5, 627.3, 1027.5, 613.1]),
+    label: { text: 'A/2', x: 1025.2, y: 620.2, rotate: -90, anchor: 'middle', size: 5.1 },
+    dg: 3,
+  },
+  // 45°
+  {
+    d: 'M297.6,863.1c-9.4,0-18.4-3.7-25.1-10.4',
+    arrow: 'M297.6,863.1l-4.3,1.2v-2.4l4.3,1.2ZM272.6,852.8l3.8,2.2-1.7,1.7-2.2-3.8Z',
+    label: { text: '45°', x: 278.3, y: 868.5, size: 6.8 },
+    dg: 0,
+  },
 ];
 
-const dimensionLabels: Label[] = [
-  ...[255.1, 455.6, 656, 856.4].flatMap((x): Label[] => [
-    { text: 'A', x: x + 14.2, y: 582.2, anchor: 'middle', size: 6.8 },
-    { text: 'A/2', x: x + 35.5, y: 582.2, anchor: 'middle', size: 5.4 },
-    { text: 'A', x: x + 56.7, y: 582.2, anchor: 'middle', size: 6.8 },
-  ]),
-  { text: 'A', x: 1025.2, y: 734.8, rotate: -90, anchor: 'middle' },
-  { text: 'A/2', x: 1025.2, y: 620.2, rotate: -90, anchor: 'middle', size: 5.1 },
-  { text: 'A', x: 236.3, y: 746.3, rotate: -45, anchor: 'middle', dy: 2, knockout: true, size: 5.7 },
-  { text: 'A', x: 512.3, y: 703.2, anchor: 'middle', dy: 2, knockout: true, size: 5.7 },
-  { text: 'A', x: 547.6, y: 696.9, rotate: -45, anchor: 'middle', dy: 2, knockout: true, size: 5.7 },
-  { text: 'A', x: 714.1, y: 734.9, rotate: -90, anchor: 'middle', dy: 2, knockout: true, size: 5.7 },
-  { text: 'A', x: 727.8, y: 778.3, rotate: 45, anchor: 'middle', dy: 2, knockout: true, size: 5.7 },
-  { text: '5A', x: 971.8, y: 654.7, rotate: 45, anchor: 'middle', dy: -2.5, size: 6.8 },
-  { text: '5A', x: 974.6, y: 803.1, rotate: -45, anchor: 'middle', dy: 7.4, size: 6.8 },
-  { text: '45°', x: 278.3, y: 868.5, size: 6.8 },
+// 比（5A）
+const ratios: Dimension[] = [
+  {
+    d: lineD([1021.9, 704.8, 921.7, 604.6]),
+    label: { text: '5A', x: 971.8, y: 654.7, rotate: 45, anchor: 'middle', dy: -2.5, size: 6.8 },
+    dg: 3,
+  },
+  {
+    d: lineD([924.5, 853.2, 1024.7, 753]),
+    label: { text: '5A', x: 974.6, y: 803.1, rotate: -45, anchor: 'middle', dy: 7.4, size: 6.8 },
+    dg: 3,
+  },
 ];
 
-// ロゴ（d と g の組を 4 つ）。輪郭は外形と穴に分けて引き、べた塗りは 1 本のパスにまとめて穴を抜く
+// ロゴ（d と g の組を 4 つ）。4 つは同じ形を横にずらして並べている
 const offsets = [0, 200.45, 400.9, 601.3];
+
+// スマホでは右の dg に寄せて大きく見せるので、ほかの dg の寸法も右の dg の同じ場所へずらして集める
+// （右の dg は 5A などがもともとあり、右どなりに dg がないので、ずらした寸法がほかの dg と重ならない）
+// 寸法は左から順に出す。--t-pc・--t-sp は、寸法の段階が始まってから出るまでの割合（0〜1）
+const round = (n: number) => Math.round(n * 1000) / 1000;
+const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
+const dimensionStyle = ({ label, dg }: Dimension) => {
+  const spDx = round(offsets[3] - offsets[dg]);
+  return [
+    `--sp-dx: ${spDx}px`,
+    `--t-pc: ${round(clamp01((label.x - 230) / 800))}`,
+    `--t-sp: ${round(clamp01((label.x + spDx - 820) / 210))}`,
+  ].join('; ');
+};
+
+// 輪郭は外形と穴に分けて引き、べた塗りは 1 本のパスにまとめて穴を抜く
 const shapes = offsets.flatMap((dx) => [
   {
     outer: `M${283.5 + dx},613.1h-28.3v56.7l-57.7,57.7,86,86v-200.4Z`,
@@ -109,7 +178,8 @@ const shapes = offsets.flatMap((dx) => [
 ]);
 const logoPath = shapes.map(({ outer, hole }) => outer + hole).join('');
 
-const labelAttrs = ({ x, y, rotate, anchor, dy, size }: Label) => ({
+const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
+  class: knockout ? 'bp-label bp-knockout' : 'bp-label',
   transform: `translate(${x} ${y})${rotate ? ` rotate(${rotate})` : ''}`,
   'text-anchor': anchor ?? 'start',
   dy,
@@ -138,51 +208,73 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size }: Label) => ({
     <!-- 方眼は画面いっぱいに敷く（svg の外も overflow: visible で見せる） -->
     <rect class="bp-grid" x="-4000" y="-3000" width="9000" height="7000" fill="url(#bp-grid)"></rect>
 
-    <g class="bp-construction">
-      {
-        [...horizontals, ...verticals].map(([x1, y1, x2, y2], i) => (
-          <path class="bp-draw" d={`M${x1},${y1}L${x2},${y2}`} pathLength="1" style={`--i: ${i}`} />
-        ))
-      }
-      {
-        diagonalsU.map(([x1, y1, x2, y2], i) => (
-          <path class="bp-chain bp-chain--up" d={`M${x1},${y1}L${x2},${y2}`} style={`--i: ${i}`} />
-        ))
-      }
-      {
-        diagonalsV.map(([x1, y1, x2, y2], i) => (
-          <path class="bp-chain bp-chain--down" d={`M${x1},${y1}L${x2},${y2}`} style={`--i: ${i}`} />
-        ))
-      }
-      <g class="bp-labels">
-        {constructionLabels.map((label) => <text {...labelAttrs(label)}>{label.text}</text>)}
-      </g>
-    </g>
-
-    <g class="bp-logo-sketch">
-      <path class="bp-hatch" d={logoPath} fill="url(#bp-hatch)" fill-rule="evenodd"></path>
-      {
-        shapes.flatMap(({ outer, hole }, i) => [
-          <path class="bp-outline" d={outer} pathLength="1" style={`--i: ${i}`} />,
-          <path class="bp-outline" d={hole} pathLength="1" style={`--i: ${i}`} />,
-        ])
-      }
-    </g>
-
-    <g class="bp-dimensions">
-      {
-        dimensionLines.map(([x1, y1, x2, y2], i) => (
-          <path class="bp-draw" d={`M${x1},${y1}L${x2},${y2}`} pathLength="1" style={`--i: ${i}`} />
-        ))
-      }
-      <path class="bp-draw" d="M297.6,863.1c-9.4,0-18.4-3.7-25.1-10.4" pathLength="1" style="--i: 0"></path>
-      <path class="bp-arrow" d="M297.6,863.1l-4.3,1.2v-2.4l4.3,1.2ZM272.6,852.8l3.8,2.2-1.7,1.7-2.2-3.8Z"></path>
-      <g class="bp-labels">
+    <g class="bp-sketch">
+      <g class="bp-step bp-step--horizontal">
         {
-          dimensionLabels.map((label) => (
-            <text class:list={[{ 'bp-knockout': label.knockout }]} {...labelAttrs(label)}>
-              {label.text}
-            </text>
+          horizontals.map(({ d, label }, i) => (
+            <g class="bp-item" style={`--i: ${i}`}>
+              <path class="bp-draw" d={d} pathLength="1" />
+              <text {...labelAttrs(label)}>{label.text}</text>
+            </g>
+          ))
+        }
+      </g>
+
+      <g class="bp-step bp-step--vertical">
+        {
+          verticals.map(({ d, label }, i) => (
+            <g class="bp-item" style={`--i: ${i}`}>
+              <path class="bp-draw" d={d} pathLength="1" />
+              <text {...labelAttrs(label)}>{label.text}</text>
+            </g>
+          ))
+        }
+      </g>
+
+      <g class="bp-step bp-step--diagonal">
+        {
+          diagonals.map(({ up, line, label }, i) => (
+            <g class="bp-item" style={`--i: ${i}`}>
+              <path class:list={['bp-chain', up ? 'bp-chain--up' : 'bp-chain--down']} d={lineD(line)} />
+              <text {...labelAttrs(label)}>{label.text}</text>
+            </g>
+          ))
+        }
+      </g>
+
+      <g class="bp-step bp-step--outline">
+        {
+          shapes.flatMap(({ outer, hole }, i) => [
+            <path class="bp-outline" d={outer} pathLength="1" style={`--i: ${i}`} />,
+            <path class="bp-outline" d={hole} pathLength="1" style={`--i: ${i}`} />,
+          ])
+        }
+      </g>
+
+      <path class="bp-hatch" d={logoPath} fill="url(#bp-hatch)" fill-rule="evenodd"></path>
+
+      <g class="bp-step bp-step--dimension">
+        {
+          dimensions.map((dimension) => (
+            <g
+              class:list={['bp-item', { 'bp-item--repeated': dimension.repeated && dimension.dg < 3 }]}
+              style={dimensionStyle(dimension)}
+            >
+              <path class="bp-draw" d={dimension.d} pathLength="1" />
+              {dimension.arrow && <path class="bp-arrow" d={dimension.arrow} />}
+              <text {...labelAttrs(dimension.label)}>{dimension.label.text}</text>
+            </g>
+          ))
+        }
+      </g>
+
+      <g class="bp-step bp-step--ratio">
+        {
+          ratios.map(({ d, label }, i) => (
+            <g class="bp-item" style={`--i: ${i}`}>
+              <path class="bp-draw" d={d} pathLength="1" />
+              <text {...labelAttrs(label)}>{label.text}</text>
+            </g>
           ))
         }
       </g>
@@ -193,35 +285,63 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size }: Label) => ({
 </svg>
 
 <style lang="sass">
-  // 段階ごとの見た目は、親の .hero に付けた data-stage で切り替える
-  // 段階を戻すときも同じ transition で逆に動く
+  // 段階は親の .hero に付いた is-s1〜is-s8 で切り替える。段階を戻すときも同じ transition で逆に動く
   .blueprint
     --bp-ease: cubic-bezier(0.65, 0, 0.35, 1)
+    // 寸法を左から順に出すのにかける時間
+    --bp-sweep: 1.6s
+    // べた塗りの段階で、線を消し始めるまで・ロゴを塗り始めるまで
+    --bp-erase-delay: 0s
+    --bp-fill-delay: 0.5s
     display: block
     width: min(92vw, 1400px)
     height: auto
     overflow: visible
 
-    path, rect, text
+    path, rect, text, g
       transition-timing-function: var(--bp-ease)
 
-  // スマホでは描いている間、最初の dg に寄せて大きく見せ、べた塗りのときに全体へ引く
+  // スマホでは描いている間、右の dg に寄せて大きく見せ、べた塗りの段階で全体に引く
   .bp-camera
     transform-box: view-box
     transform-origin: 297.6px 714.3px
-    transition: transform 0.9s var(--bp-ease)
+    transition: transform 0.8s var(--bp-ease)
 
   @media (max-width: 768px)
-    :global(.hero:not([data-stage='4'])) .bp-camera
-      transform: translate(297.7px, 0) scale(3)
+    .blueprint
+      --bp-sweep: 1s
+      // 全体に引いてから（0.8s）線を消す
+      --bp-erase-delay: 0.8s
+      --bp-fill-delay: 1.3s
+
+    // 拡大の中心を x にするとき、translate は 595.3（表示の中心）- 297.6 - 3 ×（x - 297.6）
+    // 右の dg と右の寸法（x = 925 のまわり）を真ん中に出す
+    .bp-camera
+      transform: translate(-1584.5px, 0) scale(3)
+
+    // 線を出したまま全体に引き、4 つの dg の設計図を見せてから線を消す
+    :global(.hero.is-s8) .bp-camera
+      transform: none
 
   .bp-grid
-    transition: opacity 0.6s
+    transition: opacity 0.6s 0.4s
 
   .bp-grid-line
     fill: none
     stroke: var(--c-black-a8)
     stroke-width: 0.4
+
+  .bp-label
+    fill: var(--c-gray-800)
+    font-family: var(--font-latin)
+    font-size: 6.2px
+    opacity: 0
+    transition: opacity 0.4s
+
+  .bp-knockout
+    paint-order: stroke
+    stroke: var(--c-white)
+    stroke-width: 3
 
   // 線を伸ばして描く（pathLength を 1 にして、破線の長さとずれで隠す）
   .bp-draw
@@ -230,7 +350,7 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size }: Label) => ({
     stroke-width: 0.5
     stroke-dasharray: 1 1
     stroke-dashoffset: 1
-    transition: stroke-dashoffset 0.7s calc(var(--i) * 18ms), opacity 0.5s
+    transition: stroke-dashoffset 0.6s
 
   // 一点鎖線は破線の模様を使っているので、切り抜く範囲を広げて描く
   .bp-chain
@@ -238,7 +358,7 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size }: Label) => ({
     stroke: var(--c-gray-400)
     stroke-width: 0.6
     stroke-dasharray: 11.3 2.8 1.7 2.8
-    transition: clip-path 0.8s calc(0.35s + var(--i) * 60ms), opacity 0.5s
+    transition: clip-path 0.8s
 
   .bp-chain--up
     clip-path: inset(100% 100% 0 0)
@@ -246,26 +366,13 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size }: Label) => ({
   .bp-chain--down
     clip-path: inset(0 100% 100% 0)
 
-  .bp-labels
-    opacity: 0
-    fill: var(--c-gray-800)
-    font-family: var(--font-latin)
-    font-size: 6.2px
-    transition: opacity 0.5s
-
-  .bp-knockout
-    paint-order: stroke
-    stroke: var(--c-white)
-    stroke-width: 3
-
   .bp-outline
     fill: none
     stroke: var(--c-black)
     stroke-width: 1.3
-    stroke-linejoin: miter
     stroke-dasharray: 1 1
     stroke-dashoffset: 1
-    transition: stroke-dashoffset 0.9s calc(var(--i) * 50ms), opacity 0.5s
+    transition: stroke-dashoffset 1.2s
 
   .bp-hatch
     opacity: 0
@@ -277,73 +384,82 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size }: Label) => ({
     stroke-width: 0.6
 
   .bp-arrow
-    opacity: 0
     fill: var(--c-gray-400)
+    opacity: 0
     transition: opacity 0.4s
 
-  .bp-dimensions
-    .bp-draw
-      transition: stroke-dashoffset 0.6s calc(var(--i) * 25ms), opacity 0.5s
-
   .bp-logo
-    opacity: 0
     fill: var(--c-accent)
-    transition: opacity 0.6s 0.2s
+    opacity: 0
+    transition: opacity 0.4s
 
-  // 1: 補助線とラベル
-  :global(.hero[data-stage='1']),
-  :global(.hero[data-stage='2']),
-  :global(.hero[data-stage='3'])
-    .bp-construction .bp-draw
+  // 1 本ずつ少しずらして出す（--i は並び順）
+  .bp-step--horizontal .bp-item > *
+    transition-delay: calc(var(--i) * 70ms)
+
+  .bp-step--vertical .bp-item > *
+    transition-delay: calc(var(--i) * 35ms)
+
+  .bp-step--diagonal .bp-item > *
+    transition-delay: calc(var(--i) * 80ms)
+
+  .bp-step--ratio .bp-item > *
+    transition-delay: calc(var(--i) * 250ms)
+
+  .bp-step--dimension .bp-item > *
+    transition-delay: calc(var(--t-pc) * var(--bp-sweep))
+
+  @media (max-width: 768px)
+    .bp-step--dimension
+      .bp-item
+        transform: translate(var(--sp-dx), 0)
+      .bp-item > *
+        transition-delay: calc(var(--t-sp) * var(--bp-sweep))
+      .bp-item--repeated
+        display: none
+
+  // 1: 横の補助線 / 2: 縦の補助線 / 6: 寸法 / 7: 比
+  :global(.hero.is-s1) .bp-step--horizontal,
+  :global(.hero.is-s2) .bp-step--vertical,
+  :global(.hero.is-s6) .bp-step--dimension,
+  :global(.hero.is-s7) .bp-step--ratio
+    .bp-draw
       stroke-dashoffset: 0
+    .bp-label,
+    .bp-arrow
+      opacity: 1
+
+  // 3: 45° の補助線
+  :global(.hero.is-s3) .bp-step--diagonal
     .bp-chain
       clip-path: inset(0)
-    .bp-construction .bp-labels
+    .bp-label
       opacity: 1
-      transition-delay: 0.4s
 
-  // 2: ロゴの輪郭と斜線
-  :global(.hero[data-stage='2']),
-  :global(.hero[data-stage='3'])
-    .bp-outline
-      stroke-dashoffset: 0
-    .bp-hatch
-      opacity: 1
-      transition-delay: 0.6s
+  // 4: ロゴの輪郭
+  :global(.hero.is-s4) .bp-outline
+    stroke-dashoffset: 0
 
-  // 3: 寸法と比
-  :global(.hero[data-stage='3'])
-    .bp-dimensions .bp-draw
-      stroke-dashoffset: 0
-    .bp-arrow,
-    .bp-dimensions .bp-labels
-      opacity: 1
-      transition-delay: 0.4s
+  // 5: 斜線
+  :global(.hero.is-s5) .bp-hatch
+    opacity: 1
 
-  // 4: 方眼・補助線・寸法を消し、ロゴをべた塗りにする
-  :global(.hero[data-stage='4'])
-    .bp-grid,
-    .bp-construction,
-    .bp-logo-sketch,
-    .bp-dimensions
+  // 8: （スマホでは全体に引いてから）線と方眼を消し、ロゴをべた塗りにする
+  // 戻るときは、塗りを消してから線を出す
+  .bp-sketch
+    transition: opacity 0.4s 0.3s
+
+  :global(.hero.is-s8)
+    .bp-sketch,
+    .bp-grid
       opacity: 0
-    .bp-construction .bp-draw,
-    .bp-outline,
-    .bp-dimensions .bp-draw
-      stroke-dashoffset: 0
-    .bp-chain
-      clip-path: inset(0)
-    .bp-hatch,
-    .bp-arrow,
-    .bp-labels
-      opacity: 1
+    .bp-sketch
+      transition-delay: var(--bp-erase-delay)
+    .bp-grid
+      transition-delay: calc(var(--bp-erase-delay) + 0.2s)
     .bp-logo
       opacity: 1
-
-  .bp-construction,
-  .bp-logo-sketch,
-  .bp-dimensions
-    transition: opacity 0.5s
+      transition: opacity 0.5s var(--bp-fill-delay)
 
   // 途中の位置で開き直したときは、その段階の状態をそのまま出す
   :global(.hero.is-instant) *
