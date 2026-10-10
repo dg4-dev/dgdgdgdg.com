@@ -7,6 +7,7 @@ import Footer from '@/components/footer.astro';
 import ContactCTA from '@/components/ContactCTA.astro';
 import WorkCard from '@/components/WorkCard.astro';
 import Phrase from '@/components/Phrase.astro';
+import HeroBlueprint from '@/components/HeroBlueprint.astro';
 import { getNotionData } from '@/lib/notion';
 import {
   compareByCreatedDateDesc,
@@ -20,48 +21,6 @@ import {
   isPrivate,
   localizeCover,
 } from '@/lib/works';
-
-// ロゴ周りに表示するテキストデータ
-const meaningRaw: {
-  phrase: string;
-  mean: [string, ...string[]];
-}[] = [
-  {
-    phrase: '4',
-    mean: ['四季', '.mp4', '四次元', '四則演算'],
-  },
-  {
-    phrase: 'dgdg',
-    mean: ['ドラムの音'],
-  },
-  {
-    phrase: 'deep',
-    mean: ['深い', '奥行きのある'],
-  },
-  {
-    phrase: '駄菓子',
-    mean: ['多種多様', '多方面'],
-  },
-  {
-    phrase: 'dig',
-    mean: ['調べる', '発掘する'],
-  },
-  {
-    phrase: 'digital',
-    mean: ['デジタル'],
-  },
-  {
-    phrase: 'delight',
-    mean: ['喜び', '楽しみ'],
-  },
-  {
-    phrase: 'design',
-    mean: ['デザイン'],
-  },
-  { phrase: 'geek', mean: ['オタク'] },
-];
-
-const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
 
 // Featured の作品（プライベートも含める）を新しい順に最大 16 件
 // 表示する作品のカバー画像だけを保存してサイト内のパスにし、カードのリンク先（詳細ページがあるか）を調べる
@@ -90,40 +49,11 @@ const featuredWorks = await Promise.all(
   </Fragment>
   <Header />
   <main>
-    <section class="hero">
+    <section class="hero" data-stage="0">
       {/* 何のサイトかを最初の画面で伝える。ヘッダーを隠している間だけ、ヘッダーの位置に出す */}
       <p class="hero-tagline"><span>デザイン・書体・Web をつくる、</span><span>dgdgdgdg のポートフォリオ</span></p>
       <div class="hero-content">
-        <img src="/images/row.svg" alt="Logo" class="hero-logo" />
-        <div class="orbit-rings">
-          <div class="orbit-ring" data-ring="0"></div>
-          <div class="orbit-ring" data-ring="1"></div>
-          <div class="orbit-ring" data-ring="2"></div>
-          <div class="orbit-ring" data-ring="3"></div>
-          <div class="orbit-ring" data-ring="4"></div>
-          <div class="orbit-ring" data-ring="5"></div>
-          <div class="orbit-ring" data-ring="6"></div>
-          <div class="orbit-ring" data-ring="7"></div>
-          <div class="orbit-ring" data-ring="8"></div>
-        </div>
-        <div class="orbiting-words">
-          {
-            meaningRaw.map((item, index) => (
-              <div class="orbit-item" data-orbit={index}>
-                <span class="phrase">
-                  {item.phrase
-                    .split('')
-                    .map((char) => (highlightChars.has(char) ? <span class="dg4">{char}</span> : <span>{char}</span>))}
-                </span>
-                <div class="satellites">
-                  {item.mean.map((meaning) => (
-                    <span class="satellite">{meaning}</span>
-                  ))}
-                </div>
-              </div>
-            ))
-          }
-        </div>
+        <HeroBlueprint />
         <div class="scroll-indicator">
           <span class="scroll-text">SCROLL</span>
           <svg class="scroll-line" viewBox="0 0 1 60" xmlns="http://www.w3.org/2000/svg">
@@ -198,118 +128,63 @@ const featuredWorks = await Promise.all(
       background-color: var(--c-black)
       color: var(--c-white)
 
+  // sticky の .hero-content に設計図を描き、段階はスクロールの位置で進める
+  // 高さは、画面 1 つ分 + 最後の段階に入る位置（265vh）+ べた塗りを見せておく分（100vh）
   .hero
-    --orbit-scale-y: -0.15
-    --counter-scale-y: -6.667
-    background-color: var(--c-black)
-    height: 300vh
+    background-color: var(--c-white)
+    height: 465vh
     position: relative
     overflow: clip
+    transition: background-color 0.5s
+
+    // ロゴを塗るのと一緒に背景の色を変える（スマホでは全体に引いてから塗るので、その分遅らせる）
+    // ロゴ（#00d4d4）とのコントラスト比が 5.6 になる暗いグレーにする（明るいグレーでは 1.4 に届かない）
+    &[data-stage='8']
+      background-color: var(--c-gray-800)
+
+      @media (max-width: 768px)
+        transition-delay: 0.8s
 
   // ヘッダーの位置（header の padding・枠線・header-bar の padding の分だけ下）にそろえる
-  // 拡大する .hero-content の外に置き、文字の大きさは変えない
   .hero-tagline
     position: fixed
     top: calc(#{space(4)} + 1px + #{space(3)})
     left: space(4)
     right: space(4)
     z-index: 20
-    color: var(--c-gray-200)
+    color: var(--c-gray-800)
     font-family: var(--font-ui)
     font-size: var(--type-caption-size)
     line-height: var(--type-caption-line)
     letter-spacing: 0.04em
     text-align: center
     pointer-events: none
+    transition: opacity 0.4s ease
 
     // 幅が足りないときは「、」のあとで改行し、それ以外の場所では改行しない
     span
       display: inline-block
+
+  // べた塗りの段階では、ヘッダーと入れ替えて消す
+  .hero[data-stage='8'] .hero-tagline
+    opacity: 0
 
   .hero-content
     position: sticky
     top: 0
     width: 100%
     height: 100vh
+    height: 100svh
     display: flex
     align-items: center
     justify-content: center
     overflow: hidden
-    will-change: transform, opacity
-
-  .hero-logo
-    width: 30vw
-    height: auto
-    position: relative
-    z-index: 10
-
-  .orbit-rings
-    position: absolute
-    width: 100%
-    height: 100%
-    top: 0
-    left: 0
-    pointer-events: none
-
-  .orbit-ring
-    position: absolute
-    top: 50%
-    left: 50%
-    border: 1px solid rgba(255, 255, 255, 0.16)
-    border-radius: 50%
-    // 各リングは width = height = radius * 2 で正円を描き、
-    // scaleY + rotate(tilt) で惑星と同じ楕円軌道になる
-
-  .orbit-ring[data-ring="0"]
-    width: 27vw
-    height: 27vw
-    transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(5deg)
-
-  .orbit-ring[data-ring="1"]
-    width: 72vw
-    height: 72vw
-    transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-2.67deg)
-
-  .orbit-ring[data-ring="2"]
-    width: 38vw
-    height: 38vw
-    transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(7.33deg)
-
-  .orbit-ring[data-ring="3"]
-    width: 120vw
-    height: 120vw
-    transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-4deg)
-
-  .orbit-ring[data-ring="4"]
-    width: 45vw
-    height: 45vw
-    transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(10deg)
-
-  .orbit-ring[data-ring="5"]
-    width: 72vw
-    height: 72vw
-    transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-6deg)
-
-  .orbit-ring[data-ring="6"]
-    width: 31vw
-    height: 31vw
-    transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(3.33deg)
-
-  .orbit-ring[data-ring="7"]
-    width: 140vw
-    height: 140vw
-    transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-8.33deg)
-
-  .orbit-ring[data-ring="8"]
-    width: 95vw
-    height: 95vw
-    transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(11.67deg)
 
   .scroll-indicator
     position: absolute
     bottom: space(8)
     left: 50%
-    color: var(--c-white)
+    color: var(--c-gray-800)
     transform: translateX(-50%)
     display: flex
     flex-direction: column
@@ -319,7 +194,7 @@ const featuredWorks = await Promise.all(
     transition: opacity 0.3s ease
 
   .scroll-text
-    color: var(--c-white)
+    color: var(--c-gray-800)
     font-family: var(--font-display)
     font-variation-settings: 'RNDS' 0, 'slnt' 0
     font-weight: var(--type-body-weight)
@@ -345,317 +220,21 @@ const featuredWorks = await Promise.all(
     100%
       stroke-dashoffset: -60
 
-  .orbiting-words
-    position: absolute
-    width: 100%
-    height: 100%
-    top: 0
-    left: 0
-    pointer-events: none
-    font-family: var(--font-display)
-    font-variation-settings: 'RNDS' 0, 'slnt' 0
-    font-weight: var(--type-body-weight)
-    font-style: normal
-    font-synthesis: none
-
-  .orbit-item
-    position: absolute
-    top: 50%
-    left: 50%
-    pointer-events: all
-    transform-origin: 0 0
-
-  .phrase
-    display: block
-    color: var(--c-white)
-    font-size: 5vw
-    white-space: nowrap
-    cursor: default
-    transition: color 0.3s ease
-    transform: translateY(0.5vw)
-
-  .orbit-item[data-orbit="3"] .phrase
-    font-family: var(--font-heading)
-    font-weight: var(--type-h1-weight)
-    font-size: 2.56vw
-    transform: translateY(0.256vw)
-
-  .orbit-item:hover .dg4
-    color: var(--c-accent)
-
-  .satellites
-    position: absolute
-    top: 50%
-    left: 50%
-    transform: translate(-50%, -50%)
-    opacity: 0
-    visibility: hidden
-    transition: opacity 0.3s ease, visibility 0.3s ease
-    pointer-events: none
-
-  .orbit-item:hover .satellites
-    opacity: 1
-    visibility: visible
-
-  .satellite
-    position: absolute
-    top: 50%
-    left: 50%
-    color: var(--c-gray-200)
-    font-family: var(--font-body)
-    font-size: var(--type-body-size)
-    line-height: var(--type-body-line)
-    white-space: nowrap
-    transform-origin: center
-    animation: satellite-orbit 10s linear infinite
-
-  // 各orbit-itemの3D軌道設定（スタート位置をバラバラに）
-  .orbit-item[data-orbit="0"]
-    animation: orbit-3d-0 40s linear infinite
-    animation-delay: 0s
-
-  .orbit-item[data-orbit="1"]
-    animation: orbit-3d-1 50s linear infinite
-    animation-delay: -10s
-
-  .orbit-item[data-orbit="2"]
-    animation: orbit-3d-2 60s linear infinite
-    animation-delay: -24s
-
-  .orbit-item[data-orbit="3"]
-    animation: orbit-3d-3 44s linear infinite
-    animation-delay: -16s
-
-  .orbit-item[data-orbit="4"]
-    animation: orbit-3d-4 56s linear infinite
-    animation-delay: -30s
-
-  .orbit-item[data-orbit="5"]
-    animation: orbit-3d-5 48s linear infinite
-    animation-delay: -20s
-
-  .orbit-item[data-orbit="6"]
-    animation: orbit-3d-6 52s linear infinite
-    animation-delay: -36s
-
-  .orbit-item[data-orbit="7"]
-    animation: orbit-3d-7 64s linear infinite
-    animation-delay: -44s
-
-  .orbit-item[data-orbit="8"]
-    animation: orbit-3d-8 54s linear infinite
-    animation-delay: -28s
-
-  // 楕円軌道アニメーション定義（rotateZで2D回転、scaleYで文字の潰れを打ち消し）
-  // リングサイズ: 17, 52, 28, 110, 35, 62, 21, 130, 85 → 半径(+5vw): 13.5, 31, 19, 60, 22.5, 36, 15.5, 70, 47.5
-  // tilt: 5, -2.67, 7.33, -4, 10, -6, 3.33, -8.33, 11.67
-  // 中心: ロゴ位置（画面中央）
-  @keyframes orbit-3d-0
-    0%
-      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(5deg) rotate(0deg) translateX(13.5vw) rotate(0deg) rotate(-5deg) scaleY(var(--counter-scale-y))
-    100%
-      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(5deg) rotate(360deg) translateX(13.5vw) rotate(-360deg) rotate(-5deg) scaleY(var(--counter-scale-y))
-
-  @keyframes orbit-3d-1
-    0%
-      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-2.67deg) rotate(0deg) translateX(36vw) rotate(0deg) rotate(2.67deg) scaleY(var(--counter-scale-y))
-    100%
-      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-2.67deg) rotate(360deg) translateX(36vw) rotate(-360deg) rotate(2.67deg) scaleY(var(--counter-scale-y))
-
-  @keyframes orbit-3d-2
-    0%
-      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(7.33deg) rotate(0deg) translateX(19vw) rotate(0deg) rotate(-7.33deg) scaleY(var(--counter-scale-y))
-    100%
-      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(7.33deg) rotate(360deg) translateX(19vw) rotate(-360deg) rotate(-7.33deg) scaleY(var(--counter-scale-y))
-
-  @keyframes orbit-3d-3
-    0%
-      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-4deg) rotate(0deg) translateX(60vw) rotate(0deg) rotate(4deg) scaleY(var(--counter-scale-y))
-    100%
-      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-4deg) rotate(360deg) translateX(60vw) rotate(-360deg) rotate(4deg) scaleY(var(--counter-scale-y))
-
-  @keyframes orbit-3d-4
-    0%
-      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(10deg) rotate(0deg) translateX(22.5vw) rotate(0deg) rotate(-10deg) scaleY(var(--counter-scale-y))
-    100%
-      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(10deg) rotate(360deg) translateX(22.5vw) rotate(-360deg) rotate(-10deg) scaleY(var(--counter-scale-y))
-
-  @keyframes orbit-3d-5
-    0%
-      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-6deg) rotate(0deg) translateX(36vw) rotate(0deg) rotate(6deg) scaleY(var(--counter-scale-y))
-    100%
-      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-6deg) rotate(360deg) translateX(36vw) rotate(-360deg) rotate(6deg) scaleY(var(--counter-scale-y))
-
-  @keyframes orbit-3d-6
-    0%
-      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(3.33deg) rotate(0deg) translateX(15.5vw) rotate(0deg) rotate(-3.33deg) scaleY(var(--counter-scale-y))
-    100%
-      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(3.33deg) rotate(360deg) translateX(15.5vw) rotate(-360deg) rotate(-3.33deg) scaleY(var(--counter-scale-y))
-
-  @keyframes orbit-3d-7
-    0%
-      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-8.33deg) rotate(0deg) translateX(70vw) rotate(0deg) rotate(8.33deg) scaleY(var(--counter-scale-y))
-    100%
-      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-8.33deg) rotate(360deg) translateX(70vw) rotate(-360deg) rotate(8.33deg) scaleY(var(--counter-scale-y))
-
-  @keyframes orbit-3d-8
-    0%
-      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(11.67deg) rotate(0deg) translateX(47.5vw) rotate(0deg) rotate(-11.67deg) scaleY(var(--counter-scale-y))
-    100%
-      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(11.67deg) rotate(360deg) translateX(47.5vw) rotate(-360deg) rotate(-11.67deg) scaleY(var(--counter-scale-y))
-
-  // 衛星の周回アニメーション（常に回転）
-  .orbit-item[data-orbit="0"] .satellite:nth-child(1)
-    animation: satellite-orbit 8s linear infinite
-    animation-delay: 0s
-
-  .orbit-item[data-orbit="0"] .satellite:nth-child(2)
-    animation: satellite-orbit 8s linear infinite
-    animation-delay: 2s
-
-  .orbit-item[data-orbit="0"] .satellite:nth-child(3)
-    animation: satellite-orbit 8s linear infinite
-    animation-delay: 4s
-
-  .orbit-item[data-orbit="0"] .satellite:nth-child(4)
-    animation: satellite-orbit 8s linear infinite
-    animation-delay: 6s
-
-  .orbit-item[data-orbit="1"] .satellite:nth-child(1)
-    animation: satellite-orbit 9s linear infinite
-    animation-delay: 0s
-
-  .orbit-item[data-orbit="2"] .satellite:nth-child(1)
-    animation: satellite-orbit 10s linear infinite
-    animation-delay: 0s
-
-  .orbit-item[data-orbit="2"] .satellite:nth-child(2)
-    animation: satellite-orbit 10s linear infinite
-    animation-delay: 5s
-
-  .orbit-item[data-orbit="3"] .satellite:nth-child(1)
-    animation: satellite-orbit 11s linear infinite
-    animation-delay: 0s
-
-  .orbit-item[data-orbit="4"] .satellite:nth-child(1)
-    animation: satellite-orbit 9.5s linear infinite
-    animation-delay: 0s
-
-  .orbit-item[data-orbit="4"] .satellite:nth-child(2)
-    animation: satellite-orbit 9.5s linear infinite
-    animation-delay: 4.75s
-
-  .orbit-item[data-orbit="5"] .satellite:nth-child(1)
-    animation: satellite-orbit 10.5s linear infinite
-    animation-delay: 0s
-
-  .orbit-item[data-orbit="6"] .satellite:nth-child(1)
-    animation: satellite-orbit 8.5s linear infinite
-    animation-delay: 0s
-
-  .orbit-item[data-orbit="7"] .satellite:nth-child(1)
-    animation: satellite-orbit 11.5s linear infinite
-    animation-delay: 0s
-
-  .orbit-item[data-orbit="8"] .satellite:nth-child(1)
-    animation: satellite-orbit 10s linear infinite
-    animation-delay: 0s
-
-  @keyframes satellite-orbit
-    from
-      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(0deg) translateX(120px) rotate(0deg) scaleY(var(--counter-scale-y))
-    to
-      transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(360deg) translateX(120px) rotate(-360deg) scaleY(var(--counter-scale-y))
-
-  // 他のorbit-itemにも衛星アニメーションを適用
-  .orbit-item:not([data-orbit="0"]) .satellite
-    transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) translateX(120px) scaleY(var(--counter-scale-y))
+  @media (prefers-reduced-motion: reduce)
+    .hero,
+    .hero-tagline
+      transition: none
 
   @media (max-width: 768px)
     .scroll-text
       font-variation-settings: 'RNDS' 0, 'slnt' 0
       font-style: normal
-    .orbiting-words
-      font-variation-settings: 'RNDS' 0, 'slnt' 0
-      font-style: normal
-    .phrase
-      font-size: var(--type-display-size)
-      transform: translateY(2.4px)
-      font-variation-settings: 'RNDS' 0, 'slnt' 0
-      font-style: normal
-
-    .satellite
-      font-size: var(--type-caption-size)
-      font-variation-settings: 'RNDS' 0, 'slnt' 0
-      font-style: normal
-
-    @keyframes orbit-3d-0
-      0%
-        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(5deg) rotate(0deg) translateX(13.5vw) rotate(0deg) rotate(-5deg) scaleY(var(--counter-scale-y))
-      100%
-        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(5deg) rotate(360deg) translateX(13.5vw) rotate(-360deg) rotate(-5deg) scaleY(var(--counter-scale-y))
-
-    @keyframes orbit-3d-1
-      0%
-        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-2.67deg) rotate(0deg) translateX(36vw) rotate(0deg) rotate(2.67deg) scaleY(var(--counter-scale-y))
-      100%
-        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-2.67deg) rotate(360deg) translateX(36vw) rotate(-360deg) rotate(2.67deg) scaleY(var(--counter-scale-y))
-
-    @keyframes orbit-3d-2
-      0%
-        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(7.33deg) rotate(0deg) translateX(19vw) rotate(0deg) rotate(-7.33deg) scaleY(var(--counter-scale-y))
-      100%
-        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(7.33deg) rotate(360deg) translateX(19vw) rotate(-360deg) rotate(-7.33deg) scaleY(var(--counter-scale-y))
-
-    @keyframes orbit-3d-3
-      0%
-        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-4deg) rotate(0deg) translateX(60vw) rotate(0deg) rotate(4deg) scaleY(var(--counter-scale-y))
-      100%
-        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-4deg) rotate(360deg) translateX(60vw) rotate(-360deg) rotate(4deg) scaleY(var(--counter-scale-y))
-
-    @keyframes orbit-3d-4
-      0%
-        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(10deg) rotate(0deg) translateX(22.5vw) rotate(0deg) rotate(-10deg) scaleY(var(--counter-scale-y))
-      100%
-        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(10deg) rotate(360deg) translateX(22.5vw) rotate(-360deg) rotate(-10deg) scaleY(var(--counter-scale-y))
-
-    @keyframes orbit-3d-5
-      0%
-        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-6deg) rotate(0deg) translateX(36vw) rotate(0deg) rotate(6deg) scaleY(var(--counter-scale-y))
-      100%
-        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-6deg) rotate(360deg) translateX(36vw) rotate(-360deg) rotate(6deg) scaleY(var(--counter-scale-y))
-
-    @keyframes orbit-3d-6
-      0%
-        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(3.33deg) rotate(0deg) translateX(15.5vw) rotate(0deg) rotate(-3.33deg) scaleY(var(--counter-scale-y))
-      100%
-        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(3.33deg) rotate(360deg) translateX(15.5vw) rotate(-360deg) rotate(-3.33deg) scaleY(var(--counter-scale-y))
-
-    @keyframes orbit-3d-7
-      0%
-        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-8.33deg) rotate(0deg) translateX(70vw) rotate(0deg) rotate(8.33deg) scaleY(var(--counter-scale-y))
-      100%
-        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(-8.33deg) rotate(360deg) translateX(70vw) rotate(-360deg) rotate(8.33deg) scaleY(var(--counter-scale-y))
-
-    @keyframes orbit-3d-8
-      0%
-        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(11.67deg) rotate(0deg) translateX(47.5vw) rotate(0deg) rotate(-11.67deg) scaleY(var(--counter-scale-y))
-      100%
-        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(11.67deg) rotate(360deg) translateX(47.5vw) rotate(-360deg) rotate(-11.67deg) scaleY(var(--counter-scale-y))
-
-    @keyframes satellite-orbit
-      from
-        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(0deg) translateX(80px) rotate(0deg) scaleY(var(--counter-scale-y))
-      to
-        transform: translate(-50%, -50%) scaleY(var(--orbit-scale-y)) rotate(360deg) translateX(80px) rotate(-360deg) scaleY(var(--counter-scale-y))
 
   .featured-works
     background-color: var(--c-white)
     min-height: 100vh
-    // ヒーローの文字が消えてヘッダーが出る位置（進み具合 0.85 = 残り 30vh）で、白いセクションが入ってくるようにする
     position: relative
     z-index: 1
-    margin-top: -30vh
     display: flex
     flex-direction: column
     align-items: center
@@ -694,122 +273,85 @@ const featuredWorks = await Promise.all(
 <script>
   let scrollController: AbortController | null = null;
 
+  // 段階（0: 方眼だけ → 1〜7: 補助線・ロゴ・寸法・比 → 8: べた塗り）に入るスクロールの位置（vh）
+  // 最後の段階のあとも、.hero の高さの残り（100vh）の間はべた塗りのロゴを見せておく
+  const STAGE_POSITIONS_VH = [20, 55, 90, 125, 160, 195, 230, 265];
+  const LAST_STAGE = STAGE_POSITIONS_VH.length;
+  // 境目の近くで上下に小さく動かしたときに、進む・戻るがせわしなく入れ替わらないよう、戻るときは少し手前まで待つ
+  const BACK_MARGIN_VH = 6;
+
+  /** スクロールした量（vh）に合う段階。今の段階から戻るときだけ BACK_MARGIN_VH の分だけ手前で切り替える */
+  function stageAt(scrolledVh: number, current: number): number {
+    let stage = STAGE_POSITIONS_VH.filter((position) => scrolledVh >= position).length;
+    if (stage < current && scrolledVh >= STAGE_POSITIONS_VH[current - 1] - BACK_MARGIN_VH) stage = current;
+    return stage;
+  }
+
   document.addEventListener('astro:page-load', () => {
     // 前のスクロールリスナーをクリーンアップ
     scrollController?.abort();
     scrollController = null;
 
-    // 衛星アニメーションの動的設定
-    const orbitItems = document.querySelectorAll('.orbit-item');
-    const orbitData = Array.from(orbitItems).map((item) => ({
-      el: item as HTMLElement,
-    }));
-    orbitItems.forEach((item) => {
-      const satellites = item.querySelectorAll('.satellite');
-      const satelliteCount = satellites.length;
-      satellites.forEach((satellite, index) => {
-        const delay = (10 / satelliteCount) * index;
-        (satellite as HTMLElement).style.animationDelay = `${delay}s`;
-      });
-    });
-
-    // ヘッダー非表示制御（トランジション完了まで）
+    // ヘッダー非表示制御（べた塗りの段階まで）
     const headerInner = document.querySelector('.header-inner') as HTMLElement;
 
-    // スクロールパララックス + ズームイン
-    const hero = document.querySelector('.hero') as HTMLElement;
-    const heroContent = document.querySelector('.hero-content') as HTMLElement;
-    const heroLogo = document.querySelector('.hero-logo') as HTMLElement;
-    const scrollIndicator = document.querySelector('.scroll-indicator') as HTMLElement;
-    const heroTagline = document.querySelector<HTMLElement>('.hero-tagline');
-    if (!hero || !heroContent) return;
+    const hero = document.querySelector<HTMLElement>('.hero');
+    const scrollIndicator = document.querySelector<HTMLElement>('.scroll-indicator');
+    if (!hero) return;
 
     scrollController = new AbortController();
     let ticking = false;
+    let stage = -1;
+
+    const setStage = (next: number) => {
+      if (next === stage) return;
+      stage = next;
+      hero.dataset.stage = String(next);
+      // その段階まで進んだら is-s1〜is-s8 を付ける（設計図の見た目は HeroBlueprint.astro の CSS で切り替える）
+      for (let i = 1; i <= LAST_STAGE; i++) hero.classList.toggle(`is-s${i}`, next >= i);
+
+      // ヘッダー表示制御: べた塗りの段階で表示し、タグラインと入れ替える（タグラインは CSS で消す）
+      // 隠している間は inert を付け、見えないリンクやボタンに Tab で移動できないようにする
+      if (headerInner) {
+        if (next >= LAST_STAGE) {
+          headerInner.style.removeProperty('opacity');
+          headerInner.style.removeProperty('pointer-events');
+          headerInner.inert = false;
+        } else {
+          headerInner.style.opacity = '0';
+          headerInner.style.pointerEvents = 'none';
+          headerInner.inert = true;
+        }
+      }
+    };
+
+    const update = () => {
+      // ヒーロー内でスクロールした量（vh）
+      const scrolledVh = (Math.max(0, -hero.getBoundingClientRect().top) / window.innerHeight) * 100;
+
+      setStage(stageAt(scrolledVh, Math.max(stage, 0)));
+
+      // スクロールインジケーターのフェードアウト（最初の段階に入るまでに消す）
+      if (scrollIndicator) {
+        const indicatorOpacity = Math.min(1, Math.max(0, 1 - (scrolledVh - 5) / 15));
+        scrollIndicator.style.opacity = String(indicatorOpacity);
+      }
+    };
 
     const onScroll = () => {
       if (ticking) return;
       ticking = true;
       requestAnimationFrame(() => {
-        const heroRect = hero.getBoundingClientRect();
-        const heroHeight = hero.offsetHeight;
-        const viewportHeight = window.innerHeight;
-        const scrollableDistance = heroHeight - viewportHeight;
-
-        // ヒーロー内でスクロールした量（0〜scrollableDistance）
-        const scrolled = Math.max(0, -heroRect.top);
-        const progress = Math.min(1, scrolled / scrollableDistance);
-
-        // ズームイン: 後半で指数的に加速
-        let scale: number;
-        if (progress < 0.55) {
-          scale = 1 + (progress / 0.55) * 0.2;
-        } else {
-          const zoomProgress = (progress - 0.55) / 0.45;
-          const eased = zoomProgress * zoomProgress * zoomProgress;
-          scale = 1.2 + eased * 18.8;
-        }
-
-        heroContent.style.transform = `scale(${scale})`;
-
-        // パララックス: scaleY -0.15 → 1.0（反転楕円→円の変化）
-        const scaleY = -0.15 + progress * 1.15;
-        const counterScaleY = 1 / scaleY;
-
-        hero.style.setProperty('--orbit-scale-y', String(scaleY));
-        hero.style.setProperty('--counter-scale-y', String(counterScaleY));
-
-        // レイヤー管理: z-indexの前後切り替え
-        if (heroLogo) {
-          const logoRect = heroLogo.getBoundingClientRect();
-          const logoCenterY = logoRect.top + logoRect.height / 2;
-
-          orbitData.forEach(({ el }) => {
-            const itemCenterY = el.getBoundingClientRect().top + el.getBoundingClientRect().height / 2;
-            const isFront = scaleY < 0 ? itemCenterY > logoCenterY : itemCenterY < logoCenterY;
-            el.style.zIndex = isFront ? '15' : '5';
-          });
-        }
-
-        // フェードアウト: 65%〜85%でopacity 1→0（黒背景だけ残す）
-        let opacity: number;
-        if (progress < 0.65) {
-          opacity = 1;
-        } else if (progress < 0.85) {
-          opacity = 1 - (progress - 0.65) / 0.2;
-        } else {
-          opacity = 0;
-        }
-        heroContent.style.opacity = String(opacity);
-        // ヘッダーの位置に出している紹介文も同じように消し、ヘッダーと入れ替える
-        if (heroTagline) heroTagline.style.opacity = String(opacity);
-
-        // スクロールインジケーターのフェードアウト
-        if (scrollIndicator) {
-          const indicatorOpacity = progress < 0.03 ? 1 : Math.max(0, 1 - (progress - 0.03) / 0.07);
-          scrollIndicator.style.opacity = String(indicatorOpacity);
-        }
-
-        // ヘッダー表示制御: トランジション完了（progress >= 0.85）で表示
-        // 隠している間は inert を付け、見えないリンクやボタンに Tab で移動できないようにする
-        if (headerInner) {
-          if (progress >= 0.85) {
-            headerInner.style.removeProperty('opacity');
-            headerInner.style.removeProperty('pointer-events');
-            headerInner.inert = false;
-          } else {
-            headerInner.style.opacity = '0';
-            headerInner.style.pointerEvents = 'none';
-            headerInner.inert = true;
-          }
-        }
-
+        update();
         ticking = false;
       });
     };
 
     window.addEventListener('scroll', onScroll, { passive: true, signal: scrollController.signal });
-    // 初期状態を設定
-    onScroll();
+
+    // 途中の位置で開き直したときや、戻るボタンで位置が戻ったときは、その段階の状態から動かさずに始める
+    hero.classList.add('is-instant');
+    update();
+    requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.remove('is-instant')));
   });
 </script>
