@@ -63,14 +63,14 @@ const meaningRaw: {
 
 const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
 
-// Featured の作品（プライベートは含めない）を新しい順に最大 8 件
+// Featured の作品（プライベートは含めない）を新しい順に最大 16 件
 // 表示する作品のカバー画像だけを保存してサイト内のパスにし、カードのリンク先（詳細ページがあるか）を調べる
 const { results } = await getNotionData();
 const featuredWorks = await Promise.all(
   results
     .filter((work) => isFeatured(work) && !isPrivate(work))
     .sort(compareByCreatedDateDesc)
-    .slice(0, 8)
+    .slice(0, 16)
     .map(async (work) => ({ work, cover: await localizeCover(work), link: await getWorkLink(work) })),
 );
 ---
