@@ -19,6 +19,8 @@ export interface Props {
   dataWorkTitle?: string;
   dataWorkDate?: string;
   dataWorkCategories?: string;
+  /** works ページの絞り込み用。このサイトの中に詳細ページがあるか（外部リンクは含めない） */
+  dataWorkArticle?: boolean;
 }
 
 const {
@@ -33,6 +35,7 @@ const {
   dataWorkTitle,
   dataWorkDate,
   dataWorkCategories,
+  dataWorkArticle = false,
 } = Astro.props;
 
 // プライベート作品とカバー画像がない作品には、代わりの画像（No Image）を出す
@@ -52,6 +55,7 @@ const dataAttrs = hasDataAttrs
       'data-work-date': dataWorkDate ?? '',
       'data-work-private': String(isPrivate),
       'data-work-categories': dataWorkCategories ?? '',
+      'data-work-article': String(dataWorkArticle),
     }
   : {};
 ---
@@ -191,6 +195,9 @@ const dataAttrs = hasDataAttrs
     line-height: var(--type-caption-line)
     margin-top: space(2)
     transition: color 0.3s ease
+
+    @media (max-width: 768px)
+      font-size: 0.8rem
 
   :global([data-works-dark] .work-summary)
     color: var(--c-gray-200)
