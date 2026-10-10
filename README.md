@@ -131,7 +131,7 @@ Data and images fetched from Notion during a build are kept for the next build.
 
 - The list of works is fetched on every build so that changes in Notion are always reflected
 - Page content is cached in `node_modules/.astro/notion-cache/`. The cache key includes the page's last edited time, so only pages edited in Notion are fetched again. Editing the original of a synced block on another page does not change the last edited time; such content is refreshed when the cache expires (24 hours by default, configurable with `NOTION_CACHE_TTL_MS`)
-- Images are saved to `public/works-images/` and backed up to `node_modules/.astro/works-images/`. The backup is restored at the start of each build, so the same images are not downloaded again
+- Images are saved to `public/images/works/` and backed up to `node_modules/.astro/images/works/`. The backup is restored at the start of each build, so the same images are not downloaded again
 - Cached content and images not used in a build are deleted at the end of that build, so outdated cache entries (e.g. after editing a page in Notion) and images of removed works do not pile up
 
 On Cloudflare Pages, `node_modules/.astro` is kept between builds only when the build cache is enabled (Settings → Build → Build cache). Without it, everything is fetched again on every build.
