@@ -23,7 +23,7 @@ import {
 const { results } = await getNotionData();
 
 // カバー画像を保存してサイト内のパスにし、カードのリンク先（詳細ページがあるか）を調べる
-// プライベート作品はサンプル画像を表示するため、カバー画像を取得・保存しない
+// プライベート作品は No Image の画像を表示するため、カバー画像を取得・保存しない
 const sortedWorks = await Promise.all(
   [...results].sort(compareByCreatedDateDesc).map(async (work) => ({
     work,
