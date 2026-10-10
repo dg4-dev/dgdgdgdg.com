@@ -65,7 +65,7 @@ const highlightChars = new Set(['d', 'g', '4', '駄', '菓', '子']);
 
 // Featured の作品（プライベートも含める）を新しい順に最大 16 件
 // 表示する作品のカバー画像だけを保存してサイト内のパスにし、カードのリンク先（詳細ページがあるか）を調べる
-// プライベート作品はサンプル画像を表示するため、カバー画像を取得・保存しない
+// プライベート作品は No Image の画像を表示するため、カバー画像を取得・保存しない
 const { results } = await getNotionData();
 const featuredWorks = await Promise.all(
   results
