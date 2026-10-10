@@ -35,9 +35,12 @@ const {
   dataWorkCategories,
 } = Astro.props;
 
-const coverSrc = isPrivate ? '/images/private-sample.png' : coverImageUrl;
-// プライベート作品の画像はどの作品でも同じ見本なので、alt を空にして読み上げでは読まない（非公開であることは文字で伝える）
-const coverAlt = isPrivate ? '' : title;
+// プライベート作品とカバー画像がない作品には、代わりの画像（No Image）を出す
+const NO_IMAGE_SRC = '/images/no-image.png';
+const showsNoImage = isPrivate || !coverImageUrl;
+const coverSrc = showsNoImage ? NO_IMAGE_SRC : coverImageUrl;
+// 代わりの画像はどの作品でも同じなので、alt を空にして読み上げでは読まない（非公開であることは文字で伝える）
+const coverAlt = showsNoImage ? '' : title;
 const hasDataAttrs = dataWorkTitle !== undefined;
 
 // リンクのときは <a>、リンクなし（プライベート作品）のときは <article> で中身は共通
@@ -54,9 +57,8 @@ const dataAttrs = hasDataAttrs
 ---
 
 <Tag class:list={['work-card', { 'work-card--link': href }]} {...linkAttrs} {...dataAttrs}>
-  {/* 画像がないときも空の .work-cover を置き、文字の段の位置をほかのカードとそろえる */}
   <div class="work-cover">
-    {coverSrc && <Image src={coverSrc} alt={coverAlt} width={520} height={390} loading="lazy" />}
+    <Image src={coverSrc} alt={coverAlt} width={520} height={390} loading="lazy" />
   </div>
   <div class="work-content">
     <h2 class="work-card-title">
