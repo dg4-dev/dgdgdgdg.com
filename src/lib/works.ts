@@ -59,7 +59,7 @@ function getCoverUrl(work: Work): string {
 }
 
 /**
- * カバー画像を public/notion-images/ に保存し、サイト内のパスを返す。
+ * カバー画像を public/images/works/ に保存し、サイト内のパスを返す。
  * カバー画像がなければ空文字、保存できなければ Notion の URL を返す。
  */
 export async function localizeCover(work: Work): Promise<string> {

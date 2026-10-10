@@ -4,10 +4,13 @@ import { join } from 'path';
 import { clearManifest, getUsedFiles } from '../lib/notion-images';
 
 /** 画像の控えの置き場所（Cloudflare Pages のビルドキャッシュに残る） */
-const BACKUP_DIR = join(process.cwd(), 'node_modules', '.astro', 'notion-images');
+const BACKUP_DIR = join(process.cwd(), 'node_modules', '.astro', 'images', 'works');
+
+/** 前の控えの置き場所（画像の置き場所を notion-images から images/works にする前のもの。ビルドの始めに消す） */
+const OLD_BACKUP_DIR = join(process.cwd(), 'node_modules', '.astro', 'notion-images');
 
 /**
- * ビルド中に public/notion-images/ にダウンロードされた画像を
+ * ビルド中に public/images/works/ にダウンロードされた画像を
  * dist/ 出力ディレクトリにコピーする Astro Integration。
  *
  * Astro は public/ → dist/ のコピーをビルド開始時に行うため、
@@ -15,8 +18,8 @@ const BACKUP_DIR = join(process.cwd(), 'node_modules', '.astro', 'notion-images'
  *
  * ビルド完了後、今回使われなかったファイルだけを削除する（未使用ファイルの掃除）。
  *
- * public/notion-images/ は Cloudflare Pages のビルドキャッシュに残らないので、
- * 残る node_modules/.astro/notion-images/ に控えを置き、次のビルドの始めに戻す（画像をダウンロードし直さない）。
+ * public/images/works/ は Cloudflare Pages のビルドキャッシュに残らないので、
+ * 残る node_modules/.astro/images/works/ に控えを置き、次のビルドの始めに戻す（画像をダウンロードし直さない）。
  */
 export function notionImages(): AstroIntegration {
   return {
@@ -26,16 +29,19 @@ export function notionImages(): AstroIntegration {
         // 前回のマニフェストをリセット（画像ファイルは消さない）
         clearManifest();
 
+        // 前の置き場所の控えは読まないので消す
+        rmSync(OLD_BACKUP_DIR, { recursive: true, force: true });
+
         // 前回のビルドで控えた画像を戻す（すでにあるファイルは上書きしない）
         if (existsSync(BACKUP_DIR)) {
-          const src = join(process.cwd(), 'public', 'notion-images');
+          const src = join(process.cwd(), 'public', 'images', 'works');
           cpSync(BACKUP_DIR, src, { recursive: true, force: false });
           console.log(`[notion-images] Restored ${readdirSync(BACKUP_DIR).length} file(s) from the build cache.`);
         }
       },
       'astro:build:done': ({ dir }) => {
-        const src = join(process.cwd(), 'public', 'notion-images');
-        const dest = join(dir.pathname, 'notion-images');
+        const src = join(process.cwd(), 'public', 'images', 'works');
+        const dest = join(dir.pathname, 'images', 'works');
 
         if (!existsSync(src)) {
           console.log('[notion-images] No downloaded images found, skipping copy.');
@@ -50,7 +56,7 @@ export function notionImages(): AstroIntegration {
 
         // dist/ にコピー
         cpSync(src, dest, { recursive: true });
-        console.log(`[notion-images] Copied notion-images to build output.`);
+        console.log(`[notion-images] Copied images/works to build output.`);
 
         // 今回のビルドで使われなかったファイルを掃除
         const allFiles = readdirSync(src).filter((f) => !f.startsWith('.'));
