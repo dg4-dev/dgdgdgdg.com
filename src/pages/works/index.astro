@@ -51,7 +51,6 @@ const uniqueCategories = [...new Set(results.flatMap((work) => getCategories(wor
       window.__CATEGORIES_DATA__ = categoriesData;
     </script>
     <div class="works-inner">
-      <p class="works-note title">掲載していない作品もあります。少しずつ追加しています。</p>
       <div class="works-grid" id="works-grid">
         {
           sortedWorks.map(({ work, cover, link }) => {
@@ -72,6 +71,7 @@ const uniqueCategories = [...new Set(results.flatMap((work) => getCategories(wor
                 dataWorkTitle={title}
                 dataWorkDate={createdDate}
                 dataWorkCategories={categories.map((cat) => cat.name).join(',')}
+                dataWorkArticle={link !== null && !link.external}
               />
             );
           })
@@ -103,21 +103,6 @@ const uniqueCategories = [...new Set(results.flatMap((work) => getCategories(wor
   @media (max-width: 768px)
     .works-inner
       padding: space(0) space(4)
-
-  .works-note
-    margin: space(0) space(0) space(4) space(0)
-    font-size: var(--type-body-size)
-    color: var(--c-gray-400)
-    line-height: var(--type-body-line)
-    transition: color 0.3s ease
-
-  :global([data-works-dark] .works-note)
-    color: var(--c-gray-200)
-
-  @media (max-width: 768px)
-    .works-note
-      margin-bottom: space(3)
-      font-size: var(--type-caption-size)
 
   .works-grid
     display: grid
@@ -176,13 +161,16 @@ const uniqueCategories = [...new Set(results.flatMap((work) => getCategories(wor
 
     cards.forEach((card) => {
       const isPrivate = card.getAttribute('data-work-private') === 'true';
+      const hasArticle = card.getAttribute('data-work-article') === 'true';
       const categories = card.getAttribute('data-work-categories') || '';
       const categoryList = categories ? categories.split(',').map((c) => c.trim()) : [];
 
-      // 公開/プライベートフィルター
+      // 表示の絞り込み（公開・詳細ページあり・非公開）
       let shouldShow = false;
       if (filterValue === 'public') {
         shouldShow = !isPrivate;
+      } else if (filterValue === 'article') {
+        shouldShow = hasArticle;
       } else if (filterValue === 'private') {
         shouldShow = isPrivate;
       } else {
