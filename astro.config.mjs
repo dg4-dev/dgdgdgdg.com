@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import sitemap from '@astrojs/sitemap';
+import { notionCache } from './src/integrations/notion-cache';
 import { notionImages } from './src/integrations/notion-images';
 
 // https://astro.build/config
@@ -11,6 +12,7 @@ export default defineConfig({
   output: 'server',
   integrations: [
     notionImages(),
+    notionCache(),
     // /sitemap-index.xml を作る（404 は入れない）
     sitemap({ filter: (page) => !page.endsWith('/404/') }),
   ],
