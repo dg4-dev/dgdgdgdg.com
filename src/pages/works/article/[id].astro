@@ -209,7 +209,7 @@ const ogImage = coverImage.startsWith('/') ? new URL(coverImage, Astro.site ?? A
       object-position: left
       display: block
 
-  // カードの Summary（WorkCard.astro の .work-summary）と同じ見た目にする
+  // カードの Summary（WorkCard.astro の .work-summary）と同じ見た目にする（スマホでも文字は小さくしない）
   .work-summary
     margin-bottom: space(12)
 
@@ -219,9 +219,6 @@ const ogImage = coverImage.startsWith('/') ? new URL(coverImage, Astro.site ?? A
       line-height: var(--type-caption-line)
       color: var(--c-gray-800)
       transition: color 0.3s ease
-
-      @media (max-width: 768px)
-        font-size: 0.8rem
 
   :global([data-works-dark] .work-summary)
     p
