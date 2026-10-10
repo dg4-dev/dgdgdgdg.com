@@ -138,8 +138,9 @@ const featuredWorks = await Promise.all(
     transition: background-color 0.5s
 
     // ロゴを塗るのと一緒に背景の色を変える（スマホでは全体に引いてから塗るので、その分遅らせる）
+    // ロゴ（#00d4d4）とのコントラスト比が 5.6 になる暗いグレーにする（明るいグレーでは 1.4 に届かない）
     &[data-stage='8']
-      background-color: var(--c-gray-200)
+      background-color: var(--c-gray-800)
 
       @media (max-width: 768px)
         transition-delay: 0.8s
