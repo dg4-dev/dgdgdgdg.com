@@ -1,7 +1,10 @@
 ---
 // トップページのファーストビューに出す、ロゴの設計図（dgdgdgdg_logo_blueprint.svg のロゴのまわり）
-// 座標は設計図のまま。方眼の 1 目盛（14.173）が A/2、2 目盛が A
-// 設計図の方眼は図面の枠から始まっていて、縦の向きがロゴとずれているので、ロゴに合わせて敷き直す
+// 座標は設計図のまま。A は 28.35
+// 方眼は設計図のもの（1 目盛 = A/2 = 14.173、図面の枠から始まる）を使わず、ロゴに合わせて敷き直す
+// 4 つの dg は 200.45（5√2 × A）ずつ並んでいて、A/2 の目盛では 14.147 目盛と割り切れず、右の dg ほど方眼とずれる
+// そこで 1 目盛を dg の並びの 1/14（14.318。A/2 より約 1% 広い）にし、X2・Y7 から敷く。
+// どの dg でも、縦線 X1〜X6・上端 Y7・Y6・中心 Y4・下端 Y1 が方眼の線に乗る（ずれは 0.03 目盛まで）
 // 段階は親の .hero に付けた is-s1〜is-s8（その段階まで進んだら付く）で切り替え、スクリプトはトップページ側に置く
 //   0: 方眼だけ / 1: 横の補助線 / 2: 縦の補助線 / 3: 45° の補助線 / 4: ロゴの輪郭 / 5: 斜線
 //   6: 寸法（A・A/2・45°） / 7: 比（5A） / 8: べた塗り
@@ -195,9 +198,9 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
   xmlns="http://www.w3.org/2000/svg"
 >
   <defs>
-    <!-- 方眼はロゴの左上の角（X2・Y7）から始め、ロゴの縦線・上端と方眼の線をそろえる -->
-    <pattern id="bp-grid" patternUnits="userSpaceOnUse" x="255.1" y="613.1" width="14.1732" height="14.1732">
-      <path d="M0,0H14.1732M0,0V14.1732" class="bp-grid-line"></path>
+    <!-- 方眼はロゴの左上の角（X2・Y7）から始め、1 目盛を dg の並び（200.45）の 1/14 にする -->
+    <pattern id="bp-grid" patternUnits="userSpaceOnUse" x="255.1" y="613.1" width="14.3179" height="14.3179">
+      <path d="M0,0H14.3179M0,0V14.3179" class="bp-grid-line"></path>
     </pattern>
     <pattern id="bp-hatch" patternUnits="userSpaceOnUse" x="0" y="0" width="5" height="5">
       <path d="M-1.25,1.25l2.5-2.5M0,5l5-5M3.75,6.25l2.5-2.5" class="bp-hatch-line"></path>
