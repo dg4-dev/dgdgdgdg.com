@@ -6,6 +6,10 @@ import Header from '@/components/header.astro';
 import Footer from '@/components/footer.astro';
 import Phrase from '@/components/Phrase.astro';
 import ContactCTA from '@/components/ContactCTA.astro';
+import { highlightChars, meanings } from '@/data/meanings';
+
+// ASCII だけの言葉は DG4 Atomic Dot で出す。収録されていない日本語の言葉（駄菓子）は見出しの書体で出す
+const isAscii = (text: string) => /^[\x20-\x7e]+$/.test(text);
 ---
 
 <BaseLayout
@@ -38,6 +42,25 @@ import ContactCTA from '@/components/ContactCTA.astro';
           />
         </p>
       </div>
+    </section>
+
+    <section class="about-name">
+      <h2 class="section-title">Name</h2>
+      <p class="section-subtitle">dgdgdgdgに込めた意味</p>
+      <dl class="name-list">
+        {
+          meanings.map(({ phrase, mean }) => (
+            <div class="name-item">
+              <dt class:list={['name-phrase', { 'name-phrase--ja': !isAscii(phrase) }]}>
+                {phrase.split('').map((char) => (highlightChars.has(char) ? <span class="dg4">{char}</span> : char))}
+              </dt>
+              {mean.map((meaning) => (
+                <dd class="name-meaning">{meaning}</dd>
+              ))}
+            </div>
+          ))
+        }
+      </dl>
     </section>
 
     <section class="about-activities">
@@ -139,6 +162,56 @@ import ContactCTA from '@/components/ContactCTA.astro';
       &:not(:first-child)
         margin-top: space(6)
 
+  // Name
+  .about-name
+    width: 100%
+    max-width: 720px
+
+  // 言葉を大きく並べ、その下に意味を小さく出す
+  .name-list
+    margin: space(0)
+    display: grid
+    grid-template-columns: repeat(3, 1fr)
+    gap: space(8) space(6)
+
+  .name-item
+    display: flex
+    flex-wrap: wrap
+    align-content: flex-start
+    gap: space(1) space(3)
+    padding-top: space(4)
+    border-top: 1px solid var(--c-white-a30)
+
+  .name-phrase
+    flex-basis: 100%
+    margin-bottom: space(1)
+    color: var(--c-white)
+    font-family: var(--font-display)
+    font-variation-settings: 'RNDS' 0, 'slnt' 0
+    font-weight: var(--type-body-weight)
+    font-style: normal
+    font-synthesis: none
+    font-size: var(--type-display-size)
+    line-height: var(--type-display-line)
+    letter-spacing: 0
+
+    .dg4
+      color: var(--c-accent)
+
+  .name-phrase--ja
+    font-family: var(--font-heading)
+    font-weight: var(--type-h1-weight)
+    font-size: var(--type-h1-size)
+    line-height: var(--type-display-line)
+
+  // Profile の dt・dd の指定（書体・幅）を打ち消す
+  .name-meaning
+    color: var(--c-gray-200)
+    font-family: var(--font-body)
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
+    letter-spacing: 0.04em
+
   // Activities
   .about-activities
     width: 100%
@@ -225,6 +298,10 @@ import ContactCTA from '@/components/ContactCTA.astro';
         line-height: var(--type-body-line)
         &:not(:first-child)
           margin-top: space(5)
+
+    .name-list
+      grid-template-columns: repeat(2, 1fr)
+      gap: space(6) space(4)
 
     .profile-row
       gap: space(6)
