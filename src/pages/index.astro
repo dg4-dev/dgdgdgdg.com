@@ -137,13 +137,12 @@ const featuredWorks = await Promise.all(
     overflow: clip
     transition: background-color 0.5s
 
-    // 線を消してから背景の色を変える（スマホでは全体に引いてから線を消すので、その分遅らせる）
+    // ロゴを塗るのと一緒に背景の色を変える（スマホでは全体に引いてから塗るので、その分遅らせる）
     &[data-stage='8']
       background-color: var(--c-gray-200)
-      transition-delay: 0.4s
 
       @media (max-width: 768px)
-        transition-delay: 1.2s
+        transition-delay: 0.8s
 
   // ヘッダーの位置（header の padding・枠線・header-bar の padding の分だけ下）にそろえる
   .hero-tagline
