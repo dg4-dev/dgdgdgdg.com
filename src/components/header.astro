@@ -99,11 +99,12 @@ const PageNameTag = isWorksArticlePage ? 'p' : 'h1';
             <label class="works-control">
               <span class="works-control-label">
                 <Filter class="works-control-icon" size={16} />
-                公開
+                表示
               </span>
               <select class="works-control-select" data-works-filter>
                 <option value="all">すべて</option>
-                <option value="public">詳細あり</option>
+                <option value="public">公開</option>
+                <option value="article">詳細ページあり</option>
                 <option value="private">非公開</option>
               </select>
             </label>

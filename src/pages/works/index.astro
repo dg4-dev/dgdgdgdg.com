@@ -72,6 +72,7 @@ const uniqueCategories = [...new Set(results.flatMap((work) => getCategories(wor
                 dataWorkTitle={title}
                 dataWorkDate={createdDate}
                 dataWorkCategories={categories.map((cat) => cat.name).join(',')}
+                dataWorkArticle={link !== null && !link.external}
               />
             );
           })
@@ -176,13 +177,16 @@ const uniqueCategories = [...new Set(results.flatMap((work) => getCategories(wor
 
     cards.forEach((card) => {
       const isPrivate = card.getAttribute('data-work-private') === 'true';
+      const hasArticle = card.getAttribute('data-work-article') === 'true';
       const categories = card.getAttribute('data-work-categories') || '';
       const categoryList = categories ? categories.split(',').map((c) => c.trim()) : [];
 
-      // 公開/プライベートフィルター
+      // 表示の絞り込み（公開・詳細ページあり・非公開）
       let shouldShow = false;
       if (filterValue === 'public') {
         shouldShow = !isPrivate;
+      } else if (filterValue === 'article') {
+        shouldShow = hasArticle;
       } else if (filterValue === 'private') {
         shouldShow = isPrivate;
       } else {
