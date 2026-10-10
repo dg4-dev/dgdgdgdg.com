@@ -128,16 +128,22 @@ const featuredWorks = await Promise.all(
       background-color: var(--c-black)
       color: var(--c-white)
 
-  // 画面 1 つ分 + 段階 4 つ分のスクロール。sticky の .hero-content に設計図を描き、段階はスクロールの位置で進める
+  // sticky の .hero-content に設計図を描き、段階はスクロールの位置で進める
+  // 高さは、画面 1 つ分 + 最後の段階に入る位置（265vh）+ べた塗りを見せておく分（100vh）
   .hero
     background-color: var(--c-white)
-    height: 300vh
+    height: 465vh
     position: relative
     overflow: clip
-    transition: background-color 0.6s
+    transition: background-color 0.5s
 
-    &[data-stage='4']
+    // 線を消してから背景の色を変える（スマホでは全体に引いてから線を消すので、その分遅らせる）
+    &[data-stage='8']
       background-color: var(--c-gray-200)
+      transition-delay: 0.4s
+
+      @media (max-width: 768px)
+        transition-delay: 1.2s
 
   // ヘッダーの位置（header の padding・枠線・header-bar の padding の分だけ下）にそろえる
   .hero-tagline
@@ -160,7 +166,7 @@ const featuredWorks = await Promise.all(
       display: inline-block
 
   // べた塗りの段階では、ヘッダーと入れ替えて消す
-  .hero[data-stage='4'] .hero-tagline
+  .hero[data-stage='8'] .hero-tagline
     opacity: 0
 
   .hero-content
@@ -267,16 +273,17 @@ const featuredWorks = await Promise.all(
 <script>
   let scrollController: AbortController | null = null;
 
-  // 段階（0: 方眼だけ → 1: 補助線 → 2: ロゴ → 3: 寸法 → 4: べた塗り）に進む位置（ヒーロー内の進み具合 0〜1）
-  const STAGE_THRESHOLDS = [0.125, 0.375, 0.625, 0.875];
-  const LAST_STAGE = STAGE_THRESHOLDS.length;
+  // 段階（0: 方眼だけ → 1〜7: 補助線・ロゴ・寸法・比 → 8: べた塗り）に入るスクロールの位置（vh）
+  // 最後の段階のあとも、.hero の高さの残り（100vh）の間はべた塗りのロゴを見せておく
+  const STAGE_POSITIONS_VH = [20, 55, 90, 125, 160, 195, 230, 265];
+  const LAST_STAGE = STAGE_POSITIONS_VH.length;
   // 境目の近くで上下に小さく動かしたときに、進む・戻るがせわしなく入れ替わらないよう、戻るときは少し手前まで待つ
-  const BACK_MARGIN = 0.03;
+  const BACK_MARGIN_VH = 6;
 
-  /** 進み具合に合う段階。今の段階から戻るときだけ BACK_MARGIN の分だけ手前で切り替える */
-  function stageAt(progress: number, current: number): number {
-    let stage = STAGE_THRESHOLDS.filter((threshold) => progress >= threshold).length;
-    if (stage < current && progress >= STAGE_THRESHOLDS[current - 1] - BACK_MARGIN) stage = current;
+  /** スクロールした量（vh）に合う段階。今の段階から戻るときだけ BACK_MARGIN_VH の分だけ手前で切り替える */
+  function stageAt(scrolledVh: number, current: number): number {
+    let stage = STAGE_POSITIONS_VH.filter((position) => scrolledVh >= position).length;
+    if (stage < current && scrolledVh >= STAGE_POSITIONS_VH[current - 1] - BACK_MARGIN_VH) stage = current;
     return stage;
   }
 
@@ -300,6 +307,8 @@ const featuredWorks = await Promise.all(
       if (next === stage) return;
       stage = next;
       hero.dataset.stage = String(next);
+      // その段階まで進んだら is-s1〜is-s8 を付ける（設計図の見た目は HeroBlueprint.astro の CSS で切り替える）
+      for (let i = 1; i <= LAST_STAGE; i++) hero.classList.toggle(`is-s${i}`, next >= i);
 
       // ヘッダー表示制御: べた塗りの段階で表示し、タグラインと入れ替える（タグラインは CSS で消す）
       // 隠している間は inert を付け、見えないリンクやボタンに Tab で移動できないようにする
@@ -317,16 +326,14 @@ const featuredWorks = await Promise.all(
     };
 
     const update = () => {
-      const scrollableDistance = hero.offsetHeight - window.innerHeight;
-      // ヒーロー内でスクロールした量（0〜scrollableDistance）
-      const scrolled = Math.max(0, -hero.getBoundingClientRect().top);
-      const progress = Math.min(1, scrolled / scrollableDistance);
+      // ヒーロー内でスクロールした量（vh）
+      const scrolledVh = (Math.max(0, -hero.getBoundingClientRect().top) / window.innerHeight) * 100;
 
-      setStage(stageAt(progress, Math.max(stage, 0)));
+      setStage(stageAt(scrolledVh, Math.max(stage, 0)));
 
-      // スクロールインジケーターのフェードアウト
+      // スクロールインジケーターのフェードアウト（最初の段階に入るまでに消す）
       if (scrollIndicator) {
-        const indicatorOpacity = progress < 0.03 ? 1 : Math.max(0, 1 - (progress - 0.03) / 0.07);
+        const indicatorOpacity = Math.min(1, Math.max(0, 1 - (scrolledVh - 5) / 15));
         scrollIndicator.style.opacity = String(indicatorOpacity);
       }
     };
