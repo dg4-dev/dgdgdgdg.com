@@ -24,8 +24,8 @@ export interface TypefaceSource {
 
 export const typefaces: TypefaceSource[] = [
   {
-    slug: 'atomic-dot',
-    repo: 'dg4-dev/atomic-dot',
+    slug: 'atomic_dot',
+    repo: 'dg4-dev/atomic_dot',
     ref: 'main',
     fontPath: 'dg4-atomic_dot.ttf',
     licensePath: 'LICENSE',
@@ -46,8 +46,8 @@ export const typefaces: TypefaceSource[] = [
     ],
   },
   {
-    slug: 'wave-live',
-    repo: 'dg4-dev/wave-live',
+    slug: 'wave_live',
+    repo: 'dg4-dev/wave_live',
     ref: 'main',
     fontPath: 'dg4-wave_live.ttf',
     licensePath: 'LICENSE',
