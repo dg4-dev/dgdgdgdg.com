@@ -9,6 +9,7 @@ import WorkCard from '@/components/WorkCard.astro';
 import Phrase from '@/components/Phrase.astro';
 import HeroBlueprint from '@/components/HeroBlueprint.astro';
 import { getNotionData } from '@/lib/notion';
+import { fontFaceCss, getTypefaces, variationSettings } from '@/lib/typefaces';
 import {
   compareByCreatedDateDesc,
   formatYearMonth,
@@ -37,6 +38,9 @@ const featuredWorks = await Promise.all(
       link: await getWorkLink(work),
     })),
 );
+
+// Featured Works の上の帯に出す自作書体（新しい順）。GitHub から 1 つも取れなかったときは帯ごと出さない
+const typefaces = await getTypefaces();
 ---
 
 <BaseLayout
@@ -46,6 +50,7 @@ const featuredWorks = await Promise.all(
 >
   <Fragment slot="head">
     <!-- ページ固有の追加メタタグやスクリプトをここに記述可能 -->
+    {typefaces.length > 0 && <style is:inline set:html={fontFaceCss(typefaces)} />}
   </Fragment>
   <Header />
   <main>
@@ -57,11 +62,39 @@ const featuredWorks = await Promise.all(
         <div class="scroll-indicator">
           <span class="scroll-text">SCROLL</span>
           <svg class="scroll-line" viewBox="0 0 1 60" xmlns="http://www.w3.org/2000/svg">
-            <line x1="0.5" y1="0" x2="0.5" y2="60" stroke="currentColor" stroke-width="1"></line>
+            <line class="scroll-rail" x1="0.5" y1="0" x2="0.5" y2="60" stroke="currentColor" stroke-width="1"></line>
+            <line class="scroll-run" x1="0.5" y1="0" x2="0.5" y2="60" stroke="currentColor" stroke-width="1"></line>
           </svg>
         </div>
       </div>
     </section>
+    {
+      typefaces.length > 0 && (
+        <a href="/typefaces" class="top-typefaces">
+          <span class="top-typefaces-inner">
+            <span class="top-typefaces-label">Typefaces</span>
+            <span class="top-typefaces-list">
+              {typefaces.map((t) => {
+                const first = t.presets[0]?.coordinates ?? {};
+                const last = t.presets[t.presets.length - 1]?.coordinates ?? first;
+                return (
+                  <span
+                    style={{
+                      fontFamily: `'${t.cssFamily}'`,
+                      '--sample-from': variationSettings(first),
+                      '--sample-to': variationSettings(last),
+                    }}
+                  >
+                    {t.familyName}
+                  </span>
+                );
+              })}
+            </span>
+            <span class="top-typefaces-more section-link">書体一覧を見る</span>
+          </span>
+        </a>
+      )
+    }
     <section class="featured-works">
       <h2>Featured Works</h2>
       <p><Phrase text="ピックアップした作品" /></p>
@@ -208,27 +241,107 @@ const featuredWorks = await Promise.all(
     width: 1px
     height: 60px
     overflow: visible
-    line
-      stroke-dasharray: 60 60
-      animation: scroll-line-trim 2s ease-in-out infinite
 
-  @keyframes scroll-line-trim
+  // 薄い補助線を常に出し、その上を短い線が下から上へ走る（読み進めると中身が上へ動くのと同じ向き）
+  .scroll-rail
+    opacity: 0.25
+
+  // 16 の線と 60 のすき間をくり返す破線をずらし、線を下の端（60）から上の端の外（-16）まで動かす
+  .scroll-run
+    stroke-dasharray: 16 60
+    animation: scroll-line-run 1.6s cubic-bezier(0.6, 0, 0.4, 1) infinite
+
+  @keyframes scroll-line-run
     0%
-      stroke-dashoffset: 60
-    50%
-      stroke-dashoffset: 0
-    100%
       stroke-dashoffset: -60
+    100%
+      stroke-dashoffset: 16
 
   @media (prefers-reduced-motion: reduce)
     .hero,
     .hero-tagline
       transition: none
+    .scroll-run
+      display: none
 
   @media (max-width: 768px)
     .scroll-text
       font-variation-settings: 'RNDS' 0, 'slnt' 0
       font-style: normal
+
+  // Hero と Featured Works の間に置く、自作書体へ案内する 1 行の帯。Hero のアニメーションと目を取り合わないよう動かさない
+  // 帯全体を書体一覧へのリンクにする
+  .top-typefaces
+    display: block
+    color: var(--c-black)
+    text-decoration: none
+    background-color: var(--c-white)
+    border-bottom: 1px solid var(--c-black-a25)
+    position: relative
+    z-index: 1
+    // 左右の余白と最大幅を Featured Works（左右 space(8)、作品の並びは最大 1200px）にそろえる
+    padding: space(0) space(8)
+
+  .top-typefaces-inner
+    max-width: 1200px
+    margin: space(0) auto
+    padding: space(6) space(0)
+    display: flex
+    flex-wrap: wrap
+    align-items: center
+    gap: space(8)
+
+  .top-typefaces-label
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
+    letter-spacing: 0.06em
+    font-family: var(--font-latin)
+    color: var(--c-black-a60)
+
+  .top-typefaces-list
+    flex: 1
+    display: flex
+    flex-wrap: wrap
+    gap: space(2) space(10)
+
+    span
+      font-size: clamp(2.25rem, 4.5vw, 3.5rem)
+      line-height: 1.1
+      font-variation-settings: var(--sample-from)
+      font-synthesis: none
+      transition: font-variation-settings 0.6s ease
+
+  // 見た目は「作品一覧を見る」と同じボタンにする（リンクは帯全体のまま）
+  .top-typefaces-more
+    white-space: nowrap
+
+  // 書体ページと同じく、カーソルを乗せると書体名を最後のスタイルへ形を変える
+  .top-typefaces:hover,
+  .top-typefaces:focus-visible
+    .top-typefaces-list span
+      font-variation-settings: var(--sample-to)
+
+    .top-typefaces-more
+      background-color: var(--c-black)
+      color: var(--c-white)
+
+  @media (prefers-reduced-motion: reduce)
+    .top-typefaces-list span
+      transition: none
+
+  // スマホでは「Typefaces」「書体一覧を見る」を 1 行目に、書体名をその下に縦に並べる
+  @media (max-width: 768px)
+    .top-typefaces
+      padding: space(0) space(4)
+
+    .top-typefaces-inner
+      padding: space(5) space(0)
+      gap: space(3) space(6)
+
+    .top-typefaces-list
+      flex-basis: 100%
+      order: 1
+      flex-direction: column
 
   .featured-works
     background-color: var(--c-white)
