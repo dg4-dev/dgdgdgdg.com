@@ -70,34 +70,29 @@ const typefaces = await getTypefaces();
     </section>
     {
       typefaces.length > 0 && (
-        <nav class="top-typefaces" aria-label="Typefaces">
-          <div class="top-typefaces-inner">
+        <a href="/typefaces" class="top-typefaces">
+          <span class="top-typefaces-inner">
             <span class="top-typefaces-label">Typefaces</span>
-            <ul class="top-typefaces-list">
+            <span class="top-typefaces-list">
               {typefaces.map((t) => {
                 const first = t.presets[0]?.coordinates ?? {};
                 const last = t.presets[t.presets.length - 1]?.coordinates ?? first;
                 return (
-                  <li>
-                    <a
-                      href={`/typefaces/${t.slug}`}
-                      style={{
-                        fontFamily: `'${t.cssFamily}'`,
-                        '--sample-from': variationSettings(first),
-                        '--sample-to': variationSettings(last),
-                      }}
-                    >
-                      {t.familyName}
-                    </a>
-                  </li>
+                  <span
+                    style={{
+                      fontFamily: `'${t.cssFamily}'`,
+                      '--sample-from': variationSettings(first),
+                      '--sample-to': variationSettings(last),
+                    }}
+                  >
+                    {t.familyName}
+                  </span>
                 );
               })}
-            </ul>
-            <a href="/typefaces" class="top-typefaces-more">
-              書体一覧
-            </a>
-          </div>
-        </nav>
+            </span>
+            <span class="top-typefaces-more">書体一覧</span>
+          </span>
+        </a>
       )
     }
     <section class="featured-works">
@@ -275,7 +270,11 @@ const typefaces = await getTypefaces();
       font-style: normal
 
   // Hero と Featured Works の間に置く、自作書体へ案内する 1 行の帯。Hero のアニメーションと目を取り合わないよう動かさない
+  // 帯全体を書体一覧へのリンクにする
   .top-typefaces
+    display: block
+    color: var(--c-black)
+    text-decoration: none
     background-color: var(--c-white)
     border-bottom: 1px solid var(--c-black-a25)
     position: relative
@@ -306,38 +305,31 @@ const typefaces = await getTypefaces();
     flex-wrap: wrap
     gap: space(2) space(10)
 
-    a
-      color: var(--c-black)
+    span
       font-size: clamp(1.75rem, 3.5vw, 2.5rem)
       line-height: 1.1
-      text-decoration: none
       font-variation-settings: var(--sample-from)
       font-synthesis: none
       transition: font-variation-settings 0.6s ease
 
-      // 書体ページと同じく、カーソルを乗せると最後のスタイルへ形を変える
-      &:hover,
-      &:focus-visible
-        font-variation-settings: var(--sample-to)
-        text-decoration: underline
-        text-decoration-thickness: 1px
-        text-underline-offset: 0.2em
-
   .top-typefaces-more
-    color: var(--c-black)
-    text-decoration: none
     white-space: nowrap
 
     &::after
       // 矢印は飾りなので、読み上げでは読まない
       content: ' →' / ''
 
-    &:hover,
-    &:focus-visible
+  // 書体ページと同じく、カーソルを乗せると書体名を最後のスタイルへ形を変える
+  .top-typefaces:hover,
+  .top-typefaces:focus-visible
+    .top-typefaces-list span
+      font-variation-settings: var(--sample-to)
+
+    .top-typefaces-more
       text-decoration: underline
 
   @media (prefers-reduced-motion: reduce)
-    .top-typefaces-list a
+    .top-typefaces-list span
       transition: none
 
   // スマホでは「Typefaces」「書体一覧」を 1 行目に、書体名をその下に縦に並べる
