@@ -57,7 +57,8 @@ const featuredWorks = await Promise.all(
         <div class="scroll-indicator">
           <span class="scroll-text">SCROLL</span>
           <svg class="scroll-line" viewBox="0 0 1 60" xmlns="http://www.w3.org/2000/svg">
-            <line x1="0.5" y1="0" x2="0.5" y2="60" stroke="currentColor" stroke-width="1"></line>
+            <line class="scroll-rail" x1="0.5" y1="0" x2="0.5" y2="60" stroke="currentColor" stroke-width="1"></line>
+            <line class="scroll-run" x1="0.5" y1="0" x2="0.5" y2="60" stroke="currentColor" stroke-width="1"></line>
           </svg>
         </div>
       </div>
@@ -208,22 +209,28 @@ const featuredWorks = await Promise.all(
     width: 1px
     height: 60px
     overflow: visible
-    line
-      stroke-dasharray: 60 60
-      animation: scroll-line-trim 2s ease-in-out infinite
 
-  @keyframes scroll-line-trim
+  // 薄い補助線を常に出し、その上を短い線が下から上へ走る（読み進めると中身が上へ動くのと同じ向き）
+  .scroll-rail
+    opacity: 0.25
+
+  // 16 の線と 60 のすき間をくり返す破線をずらし、線を下の端（60）から上の端の外（-16）まで動かす
+  .scroll-run
+    stroke-dasharray: 16 60
+    animation: scroll-line-run 1.6s cubic-bezier(0.6, 0, 0.4, 1) infinite
+
+  @keyframes scroll-line-run
     0%
-      stroke-dashoffset: 60
-    50%
-      stroke-dashoffset: 0
-    100%
       stroke-dashoffset: -60
+    100%
+      stroke-dashoffset: 16
 
   @media (prefers-reduced-motion: reduce)
     .hero,
     .hero-tagline
       transition: none
+    .scroll-run
+      display: none
 
   @media (max-width: 768px)
     .scroll-text
