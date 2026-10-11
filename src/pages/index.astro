@@ -9,6 +9,7 @@ import WorkCard from '@/components/WorkCard.astro';
 import Phrase from '@/components/Phrase.astro';
 import HeroBlueprint from '@/components/HeroBlueprint.astro';
 import { getNotionData } from '@/lib/notion';
+import { fontFaceCss, getTypefaces, variationSettings } from '@/lib/typefaces';
 import {
   compareByCreatedDateDesc,
   formatYearMonth,
@@ -37,6 +38,9 @@ const featuredWorks = await Promise.all(
       link: await getWorkLink(work),
     })),
 );
+
+// Featured Works の上の帯に出す自作書体（新しい順）。GitHub から 1 つも取れなかったときは帯ごと出さない
+const typefaces = await getTypefaces();
 ---
 
 <BaseLayout
@@ -46,6 +50,7 @@ const featuredWorks = await Promise.all(
 >
   <Fragment slot="head">
     <!-- ページ固有の追加メタタグやスクリプトをここに記述可能 -->
+    {typefaces.length > 0 && <style is:inline set:html={fontFaceCss(typefaces)} />}
   </Fragment>
   <Header />
   <main>
@@ -63,6 +68,38 @@ const featuredWorks = await Promise.all(
         </div>
       </div>
     </section>
+    {
+      typefaces.length > 0 && (
+        <nav class="top-typefaces" aria-label="Typefaces">
+          <div class="top-typefaces-inner">
+            <span class="top-typefaces-label">Typefaces</span>
+            <ul class="top-typefaces-list">
+              {typefaces.map((t) => {
+                const first = t.presets[0]?.coordinates ?? {};
+                const last = t.presets[t.presets.length - 1]?.coordinates ?? first;
+                return (
+                  <li>
+                    <a
+                      href={`/typefaces/${t.slug}`}
+                      style={{
+                        fontFamily: `'${t.cssFamily}'`,
+                        '--sample-from': variationSettings(first),
+                        '--sample-to': variationSettings(last),
+                      }}
+                    >
+                      {t.familyName}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+            <a href="/typefaces" class="top-typefaces-more">
+              書体一覧
+            </a>
+          </div>
+        </nav>
+      )
+    }
     <section class="featured-works">
       <h2>Featured Works</h2>
       <p><Phrase text="ピックアップした作品" /></p>
@@ -236,6 +273,83 @@ const featuredWorks = await Promise.all(
     .scroll-text
       font-variation-settings: 'RNDS' 0, 'slnt' 0
       font-style: normal
+
+  // Hero と Featured Works の間に置く、自作書体へ案内する 1 行の帯。Hero のアニメーションと目を取り合わないよう動かさない
+  .top-typefaces
+    background-color: var(--c-white)
+    border-bottom: 1px solid var(--c-black-a25)
+    position: relative
+    z-index: 1
+
+  .top-typefaces-inner
+    max-width: 1200px
+    margin: space(0) auto
+    padding: space(6) space(8)
+    display: flex
+    flex-wrap: wrap
+    align-items: baseline
+    gap: space(8)
+
+  .top-typefaces-label,
+  .top-typefaces-more
+    font-size: var(--type-caption-size)
+    line-height: var(--type-caption-line)
+    letter-spacing: 0.06em
+
+  .top-typefaces-label
+    font-family: var(--font-latin)
+    color: var(--c-black-a60)
+
+  .top-typefaces-list
+    flex: 1
+    display: flex
+    flex-wrap: wrap
+    gap: space(2) space(10)
+
+    a
+      color: var(--c-black)
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem)
+      line-height: 1.1
+      text-decoration: none
+      font-variation-settings: var(--sample-from)
+      font-synthesis: none
+      transition: font-variation-settings 0.6s ease
+
+      // 書体ページと同じく、カーソルを乗せると最後のスタイルへ形を変える
+      &:hover,
+      &:focus-visible
+        font-variation-settings: var(--sample-to)
+        text-decoration: underline
+        text-decoration-thickness: 1px
+        text-underline-offset: 0.2em
+
+  .top-typefaces-more
+    color: var(--c-black)
+    text-decoration: none
+    white-space: nowrap
+
+    &::after
+      // 矢印は飾りなので、読み上げでは読まない
+      content: ' →' / ''
+
+    &:hover,
+    &:focus-visible
+      text-decoration: underline
+
+  @media (prefers-reduced-motion: reduce)
+    .top-typefaces-list a
+      transition: none
+
+  // スマホでは「Typefaces」「書体一覧」を 1 行目に、書体名をその下に縦に並べる
+  @media (max-width: 768px)
+    .top-typefaces-inner
+      padding: space(5) space(4)
+      gap: space(3) space(6)
+
+    .top-typefaces-list
+      flex-basis: 100%
+      order: 1
+      flex-direction: column
 
   .featured-works
     background-color: var(--c-white)
