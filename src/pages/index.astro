@@ -66,6 +66,9 @@ const typefaces = await getTypefaces();
             <line class="scroll-run" x1="0.5" y1="0" x2="0.5" y2="60" stroke="currentColor" stroke-width="1"></line>
           </svg>
         </div>
+        {/* 設計図のアニメーション（段階 1〜8）の進み具合。左右の端に縦に出す */}
+        <span class="hero-progress hero-progress--left" aria-hidden="true"></span>
+        <span class="hero-progress hero-progress--right" aria-hidden="true"></span>
       </div>
     </section>
     {
@@ -212,6 +215,38 @@ const typefaces = await getTypefaces();
     align-items: center
     justify-content: center
     overflow: hidden
+
+  // 設計図のアニメーションの進み具合（--hero-progress: 0〜1。スクリプトが決める）を、上から下へ伸ばす
+  .hero-progress
+    position: absolute
+    top: space(16)
+    bottom: space(16)
+    width: 2px
+    background-color: var(--c-black-a8)
+    z-index: 20
+    pointer-events: none
+
+    &::after
+      content: ''
+      position: absolute
+      inset: 0
+      background-color: var(--c-gray-800)
+      transform: scaleY(var(--hero-progress, 0))
+      transform-origin: top
+      transition: background-color 0.5s
+
+  .hero-progress--left
+    left: space(4)
+
+  .hero-progress--right
+    right: space(4)
+
+  // べた塗りの段階（暗い背景）では、ロゴと同じ色にする
+  .hero[data-stage='8'] .hero-progress
+    background-color: var(--c-white-a8)
+
+    &::after
+      background-color: var(--c-accent)
 
   .scroll-indicator
     position: absolute
@@ -391,6 +426,7 @@ const typefaces = await getTypefaces();
   //   1: 横の補助線 1.6 秒 → 45vh / 2: 縦の補助線 1.5 秒 → 42vh / 3: 45° の補助線 1.5 秒 → 42vh / 4: 輪郭 1.7 秒 → 48vh
   //   5: 斜線 0.45 秒 → 13vh / 6: 寸法 1.2 秒 → 34vh / 7: 5A 0.45 秒 → 13vh（動きの長さは HeroBlueprint.astro の CSS から）
   // 最後の段階のあとも、.hero の高さの残り（100vh）の間はべた塗りのロゴを見せておく
+  // 段階は 1 段ずつ動かし、その段階のアニメーションが終わるまでスクロールを止める（左右のバーに進み具合を出す）
   const STAGE_POSITIONS_VH = [20, 65, 107, 149, 197, 210, 244, 257];
   const LAST_STAGE = STAGE_POSITIONS_VH.length;
   // 境目の近くで上下に小さく動かしたときに、進む・戻るがせわしなく入れ替わらないよう、戻るときは少し手前まで待つ
@@ -416,11 +452,13 @@ const typefaces = await getTypefaces();
     if (!hero) return;
 
     scrollController = new AbortController();
+    const { signal } = scrollController;
     let ticking = false;
-    // スクロールの位置が指す段階
+    // 見せている段階
     let stage = -1;
-    // べた塗りの段階を待っている間に、ほかの段階へ移ったら待つのをやめるための番号
-    let swapWait = 0;
+    // 段階のアニメーションの間は、スクロールをこの位置（px）で止める。止めていないときは null
+    let lockY: number | null = null;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     /** 見せる段階を切り替える */
     const showStage = (shown: number) => {
@@ -443,55 +481,102 @@ const typefaces = await getTypefaces();
       }
     };
 
-    // 設計図の線・文字などで、まだ動いている transition（Web Animations API で取り出す）
-    const sketch = hero.querySelector('.bp-sketch');
-    const runningTransitions = () =>
-      sketch
-        ? sketch
-            .getAnimations({ subtree: true })
-            .filter((animation) => 'transitionProperty' in animation && animation.playState !== 'finished')
-        : [];
+    /** 設計図のアニメーション全体（段階 1〜8）の進み具合（0〜1）を、左右のバーに出す */
+    const setProgress = (value: number) => hero.style.setProperty('--hero-progress', value.toFixed(4));
 
-    /** 設計図の線・文字などがすべて描き終わるまで待つ（待っている間に始まった transition も待つ） */
-    const waitForDrawing = async () => {
-      // class を付け替えた直後は transition がまだ始まっていないので、次の描画まで待ってから取り出す
-      await new Promise((resolve) => requestAnimationFrame(resolve));
-      for (let running = runningTransitions(); running.length > 0; running = runningTransitions()) {
-        await Promise.allSettled(running.map((animation) => animation.finished));
-      }
+    /** ヒーローの中の段階の位置（vh）を、ページの上からのスクロールの位置（px）にする */
+    const scrollYOf = (positionVh: number) =>
+      hero.getBoundingClientRect().top + window.scrollY + (positionVh / 100) * window.innerHeight;
+
+    const holdScroll = () => {
+      if (lockY !== null && Math.abs(window.scrollY - lockY) > 1) window.scrollTo({ top: lockY, behavior: 'instant' });
     };
 
-    const setStage = (next: number) => {
-      if (next === stage) return;
-      stage = next;
-      swapWait++;
-      if (next < LAST_STAGE) {
-        showStage(next);
-        return;
-      }
+    // ヒーローの中で動いている transition（Web Animations API で取り出す。SCROLL の線のような繰り返す animation は除く）
+    const runningTransitions = () =>
+      hero
+        .getAnimations({ subtree: true })
+        .filter((animation) => 'transitionProperty' in animation && animation.playState !== 'finished');
+    /** transition が終わるまでの残り（ms。始まるまでの待ち時間も含む） */
+    const remainingMs = (animation: Animation) => {
+      const timing = animation.effect?.getComputedTiming();
+      return timing ? Number(timing.endTime) - Number(timing.localTime ?? 0) : 0;
+    };
+    const nextFrame = () => new Promise((resolve) => requestAnimationFrame(resolve));
 
-      // べた塗りの段階は、速くスクロールしても描いている途中の線を消さないよう、
-      // それまでの段階をすべて描き終えてから、線と塗りの入れ替え（とヘッダーの表示）を始める
-      // 待っている間に上へ戻ったら（swapWait が変わったら）入れ替えない
-      showStage(LAST_STAGE - 1);
-      const wait = swapWait;
-      waitForDrawing().then(() => {
-        if (wait === swapWait) showStage(LAST_STAGE);
-      });
+    /**
+     * 隣の段階（to）へ 1 段だけ動かす。アニメーションが終わるまでスクロールを holdY で止め、左右のバーを伸ばす（戻すときは縮める）。
+     * 終わったら止めるのをやめ、スクロールの位置がまだ先（手前）を指していれば、続けて次の段階を動かす
+     */
+    const playStage = async (to: number, holdY: number) => {
+      const from = stage;
+      stage = to;
+      lockY = holdY;
+      holdScroll();
+      showStage(to);
+
+      // class を付け替えた直後は transition がまだ始まっていないので、次の描画まで待ってから取り出す
+      await nextFrame();
+      const total = Math.max(1, ...runningTransitions().map(remainingMs));
+      for (let running = runningTransitions(); running.length > 0; running = runningTransitions()) {
+        const done = 1 - Math.max(0, ...running.map(remainingMs)) / total;
+        setProgress((to > from ? from + done : from - done) / LAST_STAGE);
+        await nextFrame();
+      }
+      setProgress(to / LAST_STAGE);
+      lockY = null;
+      update();
     };
 
     const update = () => {
       // ヒーロー内でスクロールした量（vh）
       const scrolledVh = (Math.max(0, -hero.getBoundingClientRect().top) / window.innerHeight) * 100;
 
-      setStage(stageAt(scrolledVh, Math.max(stage, 0)));
-
       // スクロールインジケーターのフェードアウト（最初の段階に入るまでに消す）
       if (scrollIndicator) {
         const indicatorOpacity = Math.min(1, Math.max(0, 1 - (scrolledVh - 5) / 15));
         scrollIndicator.style.opacity = String(indicatorOpacity);
       }
+
+      // アニメーションの間は、スクロールバーを動かされたときなども元の位置に戻す
+      if (lockY !== null) {
+        holdScroll();
+        return;
+      }
+
+      const target = stageAt(scrolledVh, Math.max(stage, 0));
+      if (target === stage) return;
+
+      // 読み込んだときと、動きを減らす設定のときは、止めずにその段階をそのまま出す
+      if (stage < 0 || reducedMotion.matches) {
+        stage = target;
+        showStage(target);
+        setProgress(target / LAST_STAGE);
+        return;
+      }
+
+      // 速くスクロールしても段階を飛ばさないよう、1 段ずつ動かす。止める位置は、
+      // 進むときは次の段階に入る位置、戻るときは今の段階から戻る境目のすぐ手前
+      if (target > stage) playStage(stage + 1, scrollYOf(STAGE_POSITIONS_VH[stage]));
+      else playStage(stage - 1, scrollYOf(STAGE_POSITIONS_VH[stage - 1] - BACK_MARGIN_VH - 0.5));
     };
+
+    // アニメーションの間は、ホイール・タッチ・キーボードでのスクロールを受け付けない
+    const blockWhileLocked = (event: Event) => {
+      if (lockY !== null) event.preventDefault();
+    };
+    const SCROLL_KEYS = new Set([' ', 'PageDown', 'PageUp', 'ArrowDown', 'ArrowUp', 'Home', 'End']);
+    window.addEventListener('wheel', blockWhileLocked, { passive: false, signal });
+    window.addEventListener('touchmove', blockWhileLocked, { passive: false, signal });
+    window.addEventListener(
+      'keydown',
+      (event) => {
+        // ボタンやリンクなどにフォーカスがあるときのスペースキーは、その操作のために残す
+        const onPage = event.target === document.body || event.target === document.documentElement;
+        if (onPage && SCROLL_KEYS.has(event.key)) blockWhileLocked(event);
+      },
+      { signal },
+    );
 
     const onScroll = () => {
       if (ticking) return;
@@ -502,7 +587,7 @@ const typefaces = await getTypefaces();
       });
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true, signal: scrollController.signal });
+    window.addEventListener('scroll', onScroll, { passive: true, signal });
 
     // 設計図（ロゴの幅を本文の幅にそろえた svg）が、線が出ている間は画面の左右 16px の内側に収まるよう、縮める割合（--bp-fit）を決める
     // 収まるときは 1。べた塗りの段階では縮めない（HeroBlueprint.astro の .bp-fit）
@@ -513,7 +598,7 @@ const typefaces = await getTypefaces();
       const fit = Math.min(1, (heroContent.clientWidth - 32) / blueprint.getBoundingClientRect().width);
       hero.style.setProperty('--bp-fit', fit.toFixed(4));
     };
-    window.addEventListener('resize', fitBlueprint, { passive: true, signal: scrollController.signal });
+    window.addEventListener('resize', fitBlueprint, { passive: true, signal });
 
     // 途中の位置で開き直したときや、戻るボタンで位置が戻ったときは、その段階の状態から動かさずに始める
     // HTML でも最初から is-instant を付けておき、このスクリプトが動くまでの間に設計図の transition が走らないようにする
