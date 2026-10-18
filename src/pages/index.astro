@@ -465,10 +465,22 @@ const typefaces = await getTypefaces();
 
     window.addEventListener('scroll', onScroll, { passive: true, signal: scrollController.signal });
 
+    // 設計図（ロゴの幅を本文の幅にそろえた svg）が、描いている間は画面の左右 16px の内側に収まるよう、縮める割合（--bp-fit）を決める
+    // 収まるときは 1。べた塗りの段階では縮めない（HeroBlueprint.astro の .bp-camera）
+    const blueprint = hero.querySelector<SVGSVGElement>('.blueprint');
+    const heroContent = hero.querySelector<HTMLElement>('.hero-content');
+    const fitBlueprint = () => {
+      if (!blueprint || !heroContent) return;
+      const fit = Math.min(1, (heroContent.clientWidth - 32) / blueprint.getBoundingClientRect().width);
+      hero.style.setProperty('--bp-fit', fit.toFixed(4));
+    };
+    window.addEventListener('resize', fitBlueprint, { passive: true, signal: scrollController.signal });
+
     // 途中の位置で開き直したときや、戻るボタンで位置が戻ったときは、その段階の状態から動かさずに始める
     // HTML でも最初から is-instant を付けておき、このスクリプトが動くまでの間に設計図の transition が走らないようにする
     // （Safari では、読み込んだ直後に線や文字が一瞬すべて出てから消えることがあった）
     hero.classList.add('is-instant');
+    fitBlueprint();
     update();
     requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.remove('is-instant')));
   });

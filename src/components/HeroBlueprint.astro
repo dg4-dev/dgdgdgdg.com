@@ -222,7 +222,7 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
 
 <svg
   class="blueprint"
-  viewBox="127.6 544.2 935.4 340.2"
+  viewBox="130.6 544.2 935.4 340.2"
   role="img"
   aria-label="dgdgdgdg"
   xmlns="http://www.w3.org/2000/svg"
@@ -319,6 +319,8 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
 </svg>
 
 <style lang="sass">
+  @use '../styles/spacing' as *
+
   // 段階は親の .hero に付いた is-s1〜is-s8 で切り替える。段階を戻すときも同じ transition で逆に動く
   .blueprint
     --bp-ease: cubic-bezier(0.65, 0, 0.35, 1)
@@ -328,18 +330,32 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
     // 塗りが出るのと線・方眼が消えるのを同時にし、ロゴの形がとぎれないようにする
     --bp-swap-delay: 0s
     display: block
-    width: min(92vw, 1400px)
+    // ロゴの左右の先端（X1〜X21、801.8）の幅を、ページの本文の幅（Featured Works と同じ。最大 1200px、左右の余白 space(8)）にそろえる
+    // svg は viewBox（935.4）の分だけ広くし、viewBox の真ん中をロゴの真ん中（598.3）に合わせて、ロゴを画面の真ん中に出す
+    width: calc(min(1200px, 100% - #{space(16)}) * 935.4 / 801.8)
     height: auto
+    flex-shrink: 0
     overflow: visible
+
+    // スマホでは、全体に引いたとき（べた塗りの段階）のロゴの幅を本文の幅（左右の余白 space(4)）にそろえる
+    @media (max-width: 768px)
+      width: calc((100% - #{space(8)}) * 935.4 / 801.8)
 
     path, rect, text, g
       transition-timing-function: var(--bp-ease)
 
+  // PC では、ロゴを本文の幅にそろえると、ロゴの外に出す補助線のラベルや右の寸法が画面からはみ出すことがある
+  // 描いている間は、設計図全体が画面に収まるよう --bp-fit 倍に縮め（トップページのスクリプトが画面の幅から決める。収まるときは 1）、
+  // べた塗りの段階で 1 倍に戻して、ロゴを本文の幅にそろえる。縮める中心はロゴの真ん中（598.3。transform-origin から 300.7 右）
   // スマホでは描いている間、右の dg に寄せて大きく見せ、べた塗りの段階で全体に引く
   .bp-camera
     transform-box: view-box
     transform-origin: 297.6px 714.3px
+    transform: translate(calc((1 - var(--bp-fit, 1)) * 300.7px), 0) scale(var(--bp-fit, 1))
     transition: transform 0.8s var(--bp-ease)
+
+  :global(.hero.is-s8) .bp-camera
+    transform: none
 
   @media (max-width: 768px)
     .blueprint
@@ -347,10 +363,10 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
       // 全体に引いてから（0.8s）入れ替える
       --bp-swap-delay: 0.8s
 
-    // 拡大の中心を x にするとき、translate は 595.3（表示の中心）- 297.6 - 3 ×（x - 297.6）
+    // 拡大の中心を x にするとき、translate は 598.3（表示の中心）- 297.6 - 3 ×（x - 297.6）
     // 右の dg と右の寸法（x = 925 のまわり）を真ん中に出す
     .bp-camera
-      transform: translate(-1584.5px, 0) scale(3)
+      transform: translate(-1581.5px, 0) scale(3)
 
     // 線を出したまま全体に引き、4 つの dg の設計図を見せてから線を消す
     :global(.hero.is-s8) .bp-camera
