@@ -417,19 +417,21 @@ const typefaces = await getTypefaces();
 
     scrollController = new AbortController();
     let ticking = false;
+    // スクロールの位置が指す段階
     let stage = -1;
+    // べた塗りの段階を待っている間に、ほかの段階へ移ったら待つのをやめるための番号
+    let swapWait = 0;
 
-    const setStage = (next: number) => {
-      if (next === stage) return;
-      stage = next;
-      hero.dataset.stage = String(next);
+    /** 見せる段階を切り替える */
+    const showStage = (shown: number) => {
+      hero.dataset.stage = String(shown);
       // その段階まで進んだら is-s1〜is-s8 を付ける（設計図の見た目は HeroBlueprint.astro の CSS で切り替える）
-      for (let i = 1; i <= LAST_STAGE; i++) hero.classList.toggle(`is-s${i}`, next >= i);
+      for (let i = 1; i <= LAST_STAGE; i++) hero.classList.toggle(`is-s${i}`, shown >= i);
 
       // ヘッダー表示制御: べた塗りの段階で表示し、タグラインと入れ替える（タグラインは CSS で消す）
       // 隠している間は inert を付け、見えないリンクやボタンに Tab で移動できないようにする
       if (headerInner) {
-        if (next >= LAST_STAGE) {
+        if (shown >= LAST_STAGE) {
           headerInner.style.removeProperty('opacity');
           headerInner.style.removeProperty('pointer-events');
           headerInner.inert = false;
@@ -439,6 +441,43 @@ const typefaces = await getTypefaces();
           headerInner.inert = true;
         }
       }
+    };
+
+    // 設計図の線・文字などで、まだ動いている transition（Web Animations API で取り出す）
+    const sketch = hero.querySelector('.bp-sketch');
+    const runningTransitions = () =>
+      sketch
+        ? sketch
+            .getAnimations({ subtree: true })
+            .filter((animation) => 'transitionProperty' in animation && animation.playState !== 'finished')
+        : [];
+
+    /** 設計図の線・文字などがすべて描き終わるまで待つ（待っている間に始まった transition も待つ） */
+    const waitForDrawing = async () => {
+      // class を付け替えた直後は transition がまだ始まっていないので、次の描画まで待ってから取り出す
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+      for (let running = runningTransitions(); running.length > 0; running = runningTransitions()) {
+        await Promise.allSettled(running.map((animation) => animation.finished));
+      }
+    };
+
+    const setStage = (next: number) => {
+      if (next === stage) return;
+      stage = next;
+      swapWait++;
+      if (next < LAST_STAGE) {
+        showStage(next);
+        return;
+      }
+
+      // べた塗りの段階は、速くスクロールしても描いている途中の線を消さないよう、
+      // それまでの段階をすべて描き終えてから、線と塗りの入れ替え（とヘッダーの表示）を始める
+      // 待っている間に上へ戻ったら（swapWait が変わったら）入れ替えない
+      showStage(LAST_STAGE - 1);
+      const wait = swapWait;
+      waitForDrawing().then(() => {
+        if (wait === swapWait) showStage(LAST_STAGE);
+      });
     };
 
     const update = () => {
