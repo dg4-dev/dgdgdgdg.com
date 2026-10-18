@@ -9,7 +9,6 @@
 //   6: 寸法（A・A/2・45°） / 7: 比（5A） / 8: べた塗り
 // 同時に動くものを減らすため、1 つの段階では 1 種類だけを動かす
 // 線は同じ速さで描く（短い線はすぐ描き終わり、長い線は時間をかける）。線の多い段階は 1 本ずつ大きくずらして描き始める
-// 段階ごとに動くものには data-bp-stage（1〜8）を付ける。トップページのスクリプトが、左右のバーに出す進み具合を求めるのに使う
 
 /** 線（始点と終点） */
 type Line = [x1: number, y1: number, x2: number, y2: number];
@@ -247,7 +246,7 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
       <rect class="bp-grid" x="-4000" y="-3000" width="9000" height="7000"></rect>
 
       <g class="bp-sketch">
-        <g class="bp-step bp-step--horizontal" data-bp-stage="1">
+        <g class="bp-step bp-step--horizontal">
           {
             horizontals.map(({ d, style, label }) => (
               <g class="bp-item" style={style}>
@@ -258,7 +257,7 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
           }
         </g>
 
-        <g class="bp-step bp-step--vertical" data-bp-stage="2">
+        <g class="bp-step bp-step--vertical">
           {
             verticals.map(({ d, style, label }) => (
               <g class="bp-item" style={style}>
@@ -269,7 +268,7 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
           }
         </g>
 
-        <g class="bp-step bp-step--diagonal" data-bp-stage="3">
+        <g class="bp-step bp-step--diagonal">
           {
             diagonals.map(({ up, line, label }, i) => (
               <g class="bp-item" style={diagonalStyle(line, i)}>
@@ -280,13 +279,13 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
           }
         </g>
 
-        <g class="bp-step bp-step--outline" data-bp-stage="4">
+        <g class="bp-step bp-step--outline">
           {outlines.map(({ d, style }) => <path class="bp-outline" d={d} pathLength="1" style={style} />)}
         </g>
 
-        <path class="bp-hatch" d={logoPath} fill="url(#bp-hatch)" fill-rule="evenodd" data-bp-stage="5"></path>
+        <path class="bp-hatch" d={logoPath} fill="url(#bp-hatch)" fill-rule="evenodd"></path>
 
-        <g class="bp-step bp-step--dimension" data-bp-stage="6">
+        <g class="bp-step bp-step--dimension">
           {
             dimensions.map((dimension) => (
               <g
@@ -301,7 +300,7 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
           }
         </g>
 
-        <g class="bp-step bp-step--ratio" data-bp-stage="7">
+        <g class="bp-step bp-step--ratio">
           {
             ratios.map(({ d, label }, i) => (
               <g
@@ -316,7 +315,7 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
         </g>
       </g>
 
-      <path class="bp-logo" d={logoPath} fill-rule="evenodd" data-bp-stage="8"></path>
+      <path class="bp-logo" d={logoPath} fill-rule="evenodd"></path>
     </g>
   </g>
 </svg>
