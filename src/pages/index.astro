@@ -162,10 +162,10 @@ const typefaces = await getTypefaces();
       color: var(--c-white)
 
   // sticky の .hero-content に設計図を描き、段階はスクロールの位置で進める
-  // 高さは、画面 1 つ分 + 最後の段階に入る位置（265vh）+ べた塗りを見せておく分（100vh）
+  // 高さは、画面 1 つ分 + 最後の段階に入る位置（257vh）+ べた塗りを見せておく分（100vh）
   .hero
     background-color: var(--c-white)
-    height: 465vh
+    height: 457vh
     position: relative
     overflow: clip
     transition: background-color 0.5s
@@ -387,8 +387,11 @@ const typefaces = await getTypefaces();
   let scrollController: AbortController | null = null;
 
   // 段階（0: 方眼だけ → 1〜7: 補助線・ロゴ・寸法・比 → 8: べた塗り）に入るスクロールの位置（vh）
+  // 次の段階までのスクロールの量は、その段階の動きの長さに合わせる（1 秒あたり 28vh、短くても 13vh）
+  //   1: 横の補助線 1.6 秒 → 45vh / 2: 縦の補助線 1.5 秒 → 42vh / 3: 45° の補助線 1.5 秒 → 42vh / 4: 輪郭 1.7 秒 → 48vh
+  //   5: 斜線 0.45 秒 → 13vh / 6: 寸法 1.2 秒 → 34vh / 7: 5A 0.45 秒 → 13vh（動きの長さは HeroBlueprint.astro の CSS から）
   // 最後の段階のあとも、.hero の高さの残り（100vh）の間はべた塗りのロゴを見せておく
-  const STAGE_POSITIONS_VH = [20, 55, 90, 125, 160, 195, 230, 265];
+  const STAGE_POSITIONS_VH = [20, 65, 107, 149, 197, 210, 244, 257];
   const LAST_STAGE = STAGE_POSITIONS_VH.length;
   // 境目の近くで上下に小さく動かしたときに、進む・戻るがせわしなく入れ替わらないよう、戻るときは少し手前まで待つ
   const BACK_MARGIN_VH = 6;
