@@ -42,8 +42,12 @@ const lineLength = ([x1, y1, x2, y2]: Line) => Math.hypot(x2 - x1, y2 - y1);
 
 // 線を描く時間（ms）。長さ 1 あたり 0.85ms に、描き始めと描き終わりのゆるやかな部分の分を足す
 const drawMs = (length: number) => Math.round(180 + length * 0.85);
-/** 線を描く時間（--dur）と、段階が始まってから描き始めるまで（--delay） */
-const drawStyle = (length: number, delayMs: number) => `--dur: ${drawMs(length)}ms; --delay: ${delayMs}ms`;
+/**
+ * 線を描く時間（--dur）と、段階が始まってから描き始めるまで（--delay）。
+ * 段階を戻すときは描いた順の逆に消すので、消し始めるまで（--delay-out）は、その段階でいちばん遅く描き始める線（lastDelayMs）から数える
+ */
+const drawStyle = (length: number, delayMs: number, lastDelayMs: number) =>
+  `--dur: ${drawMs(length)}ms; --delay: ${delayMs}ms; --delay-out: ${lastDelayMs - delayMs}ms`;
 
 // 補助線（横 Y1〜Y7、縦 X1〜X21）
 const ys = [827.7, 787.6, 749, 727.5, 720.6, 627.3, 613.1];
@@ -55,7 +59,7 @@ const horizontals = ys.map((y, i) => {
   const line: Line = [154.9, y, 1041.7, y];
   return {
     d: lineD(line),
-    style: drawStyle(lineLength(line), i * 110),
+    style: drawStyle(lineLength(line), i * 110, (ys.length - 1) * 110),
     label: { text: `Y${i + 1}`, x: 152.6, y: y + 2.2, anchor: 'end' } as Label,
   };
 });
@@ -63,7 +67,7 @@ const verticals = xs.map((x, i) => {
   const line: Line = [x, 570.6, x, 870.2];
   return {
     d: lineD(line),
-    style: drawStyle(lineLength(line), i * 55),
+    style: drawStyle(lineLength(line), i * 55, (xs.length - 1) * 55),
     label: { text: `X${i + 1}`, x, y: 567.2, anchor: 'middle' } as Label,
   };
 });
@@ -81,7 +85,7 @@ const diagonals = [
   { up: false, line: [842.3, 570.6, 1041.7, 770], label: { text: 'V5', x: 842.3, y: 567.2, anchor: 'middle' } },
   { up: true, line: [856.4, 870.2, 1041.7, 684.9], label: { text: 'U5', x: 1044.5, y: 687.2 } },
 ] as { up: boolean; line: Line; label: Label }[];
-const diagonalStyle = (line: Line, i: number) => drawStyle(lineLength(line), i * 110);
+const diagonalStyle = (line: Line, i: number) => drawStyle(lineLength(line), i * 110, (diagonals.length - 1) * 110);
 
 // 寸法（A・A/2・45°）
 const dimensions: Dimension[] = [
@@ -201,9 +205,10 @@ const shapes = offsets.flatMap((dx) => [
 ]);
 const logoPath = shapes.map(({ outer, hole }) => outer + hole).join('');
 // 左の dg から、外形・穴の順に 1 本ずつずらして描く
+const lastOutlineDelay = (shapes.length - 1) * 140 + 70;
 const outlines = shapes.flatMap(({ outer, outerLength, hole }, i) => [
-  { d: outer, style: drawStyle(outerLength, i * 140) },
-  { d: hole, style: drawStyle(85, i * 140 + 70) },
+  { d: outer, style: drawStyle(outerLength, i * 140, lastOutlineDelay) },
+  { d: hole, style: drawStyle(85, i * 140 + 70, lastOutlineDelay) },
 ]);
 
 const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
@@ -297,7 +302,10 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
       <g class="bp-step bp-step--ratio">
         {
           ratios.map(({ d, label }, i) => (
-            <g class="bp-item" style={drawStyle(lineLength([1021.9, 704.8, 921.7, 604.6]), i * 150)}>
+            <g
+              class="bp-item"
+              style={drawStyle(lineLength([1021.9, 704.8, 921.7, 604.6]), i * 150, (ratios.length - 1) * 150)}
+            >
               <path class="bp-draw" d={d} pathLength="1" />
               <text {...labelAttrs(label)}>{label.text}</text>
             </g>
@@ -366,7 +374,7 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
     font-family: var(--font-latin)
     font-size: 6.2px
     opacity: 0
-    transition: opacity 0.3s var(--delay, 0s)
+    transition: opacity 0.3s var(--delay-out, 0s)
 
   .bp-knockout
     paint-order: stroke
@@ -380,7 +388,7 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
     stroke-width: 0.5
     stroke-dasharray: 1 1
     stroke-dashoffset: 1
-    transition: stroke-dashoffset var(--dur) var(--delay)
+    transition: stroke-dashoffset var(--dur) var(--delay-out)
 
   // 一点鎖線は破線の模様を使っているので、切り抜く範囲を広げて描く
   .bp-chain
@@ -388,7 +396,7 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
     stroke: var(--c-gray-400)
     stroke-width: 0.6
     stroke-dasharray: 11.3 2.8 1.7 2.8
-    transition: clip-path var(--dur) var(--delay)
+    transition: clip-path var(--dur) var(--delay-out)
 
   .bp-chain--up
     clip-path: inset(100% 100% 0 0)
@@ -402,7 +410,7 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
     stroke-width: 1.3
     stroke-dasharray: 1 1
     stroke-dashoffset: 1
-    transition: stroke-dashoffset var(--dur) var(--delay)
+    transition: stroke-dashoffset var(--dur) var(--delay-out)
 
   .bp-hatch
     opacity: 0
@@ -416,25 +424,28 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
   .bp-arrow
     fill: var(--c-gray-400)
     opacity: 0
-    transition: opacity 0.3s var(--delay)
+    transition: opacity 0.3s var(--delay-out)
 
   .bp-logo
     fill: var(--c-accent)
     opacity: 0
     transition: opacity 0.5s
 
-  // 寸法は左から順に出す（--t-pc・--t-sp は、寸法の段階が始まってから出るまでの割合）
+  // 寸法は左から順に出し、戻るときは右から消す（--t-pc・--t-sp は、寸法の段階が始まってから出るまでの割合）
   .bp-step--dimension .bp-item
     --delay: calc(var(--t-pc) * var(--bp-sweep))
+    --delay-out: calc((1 - var(--t-pc)) * var(--bp-sweep))
 
   @media (max-width: 768px)
     .bp-step--dimension
       .bp-item
         --delay: calc(var(--t-sp) * var(--bp-sweep))
+        --delay-out: calc((1 - var(--t-sp)) * var(--bp-sweep))
         transform: translate(var(--sp-dx), 0)
       .bp-item--repeated
         display: none
 
+  // 描くときは --delay、戻って消すときは（ふだんの指定の）--delay-out の分だけ待つ
   // 1: 横の補助線 / 2: 縦の補助線 / 6: 寸法 / 7: 比
   :global(.hero.is-s1) .bp-step--horizontal,
   :global(.hero.is-s2) .bp-step--vertical,
@@ -442,20 +453,25 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
   :global(.hero.is-s7) .bp-step--ratio
     .bp-draw
       stroke-dashoffset: 0
+      transition-delay: var(--delay)
     .bp-label,
     .bp-arrow
       opacity: 1
+      transition-delay: var(--delay)
 
   // 3: 45° の補助線
   :global(.hero.is-s3) .bp-step--diagonal
     .bp-chain
       clip-path: inset(0)
+      transition-delay: var(--delay)
     .bp-label
       opacity: 1
+      transition-delay: var(--delay)
 
   // 4: ロゴの輪郭
   :global(.hero.is-s4) .bp-outline
     stroke-dashoffset: 0
+    transition-delay: var(--delay)
 
   // 5: 斜線
   :global(.hero.is-s5) .bp-hatch

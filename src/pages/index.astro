@@ -54,7 +54,7 @@ const typefaces = await getTypefaces();
   </Fragment>
   <Header />
   <main>
-    <section class="hero" data-stage="0">
+    <section class="hero is-instant" data-stage="0">
       {/* 何のサイトかを最初の画面で伝える。ヘッダーを隠している間だけ、ヘッダーの位置に出す */}
       <p class="hero-tagline"><span>デザイン・書体・Web をつくる、</span><span>dgdgdgdg のポートフォリオ</span></p>
       <div class="hero-content">
@@ -466,6 +466,8 @@ const typefaces = await getTypefaces();
     window.addEventListener('scroll', onScroll, { passive: true, signal: scrollController.signal });
 
     // 途中の位置で開き直したときや、戻るボタンで位置が戻ったときは、その段階の状態から動かさずに始める
+    // HTML でも最初から is-instant を付けておき、このスクリプトが動くまでの間に設計図の transition が走らないようにする
+    // （Safari では、読み込んだ直後に線や文字が一瞬すべて出てから消えることがあった）
     hero.classList.add('is-instant');
     update();
     requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.remove('is-instant')));
