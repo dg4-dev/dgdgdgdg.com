@@ -219,8 +219,8 @@ const typefaces = await getTypefaces();
   // 設計図のアニメーションの進み具合（--hero-progress: 0〜1。スクリプトが決める）を、上から下へ伸ばす
   .hero-progress
     position: absolute
-    top: space(16)
-    bottom: space(16)
+    top: 0
+    bottom: 0
     width: 2px
     background-color: var(--c-black-a8)
     z-index: 20
@@ -236,10 +236,24 @@ const typefaces = await getTypefaces();
       transition: background-color 0.5s
 
   .hero-progress--left
-    left: space(4)
+    left: 0
 
   .hero-progress--right
-    right: space(4)
+    right: 0
+
+  // スマホの慣性スクロールは止められないので、ヒーローの上端と各段階の位置にスクロールスナップの点を置き、
+  // そこを越えずに止まるようにする（点はトップページのスクリプトが STAGE_POSITIONS_VH から作る）
+  :global(html:has(.hero-snap))
+    scroll-snap-type: y proximity
+
+  :global(.hero-snap)
+    position: absolute
+    left: 0
+    width: 1px
+    height: 1px
+    scroll-snap-align: start
+    scroll-snap-stop: always
+    pointer-events: none
 
   // べた塗りの段階（暗い背景）では、ロゴと同じ色にする
   .hero[data-stage='8'] .hero-progress
@@ -504,6 +518,22 @@ const typefaces = await getTypefaces();
     };
     const nextFrame = () => new Promise((resolve) => requestAnimationFrame(resolve));
 
+    // べた塗りへの入れ替えは、設計図の線・文字などがすべて描き終わってから始める
+    // （スクロールを止めている間は描き終わっているが、止めない設定のときや、止める条件を変えたときのため）
+    const sketch = hero.querySelector('.bp-sketch');
+    const waitForDrawing = async () => {
+      await nextFrame();
+      const drawing = () =>
+        sketch
+          ? sketch
+              .getAnimations({ subtree: true })
+              .filter((animation) => 'transitionProperty' in animation && animation.playState !== 'finished')
+          : [];
+      for (let running = drawing(); running.length > 0; running = drawing()) {
+        await Promise.allSettled(running.map((animation) => animation.finished));
+      }
+    };
+
     /**
      * 隣の段階（to）へ 1 段だけ動かす。アニメーションが終わるまでスクロールを holdY で止め、左右のバーを伸ばす（戻すときは縮める）。
      * 終わったら止めるのをやめ、スクロールの位置がまだ先（手前）を指していれば、続けて次の段階を動かす
@@ -513,6 +543,7 @@ const typefaces = await getTypefaces();
       stage = to;
       lockY = holdY;
       holdScroll();
+      if (to === LAST_STAGE) await waitForDrawing();
       showStage(to);
 
       // class を付け替えた直後は transition がまだ始まっていないので、次の描画まで待ってから取り出す
@@ -547,36 +578,124 @@ const typefaces = await getTypefaces();
       const target = stageAt(scrolledVh, Math.max(stage, 0));
       if (target === stage) return;
 
-      // 読み込んだときと、動きを減らす設定のときは、止めずにその段階をそのまま出す
+      // 読み込んだときと、動きを減らす設定のときは、止めずにその段階をそのまま出す（べた塗りは描き終わりを待つ）
       if (stage < 0 || reducedMotion.matches) {
         stage = target;
-        showStage(target);
         setProgress(target / LAST_STAGE);
+        if (target < LAST_STAGE) {
+          showStage(target);
+          return;
+        }
+        showStage(LAST_STAGE - 1);
+        waitForDrawing().then(() => {
+          if (stage === LAST_STAGE && lockY === null) showStage(LAST_STAGE);
+        });
         return;
       }
 
-      // 速くスクロールしても段階を飛ばさないよう、1 段ずつ動かす。止める位置は、
-      // 進むときは次の段階に入る位置、戻るときは今の段階から戻る境目のすぐ手前
-      if (target > stage) playStage(stage + 1, scrollYOf(STAGE_POSITIONS_VH[stage]));
-      else playStage(stage - 1, scrollYOf(STAGE_POSITIONS_VH[stage - 1] - BACK_MARGIN_VH - 0.5));
+      // 速くスクロールしても段階を飛ばさないよう、1 段ずつ動かす
+      if (target > stage) playStage(stage + 1, holdYOf(stage + 1));
+      else playStage(stage - 1, holdYOf(stage - 1));
+    };
+
+    /**
+     * 段階 to を動かしている間にスクロールを止める位置（px）。その段階に入る位置（段階 0 はヒーローの上端）。
+     * 戻るときもこの位置で止めるので、止める位置はいつもスクロールスナップの点と同じになる
+     */
+    const holdYOf = (to: number) => scrollYOf(to > 0 ? STAGE_POSITIONS_VH[to - 1] : 0);
+
+    /**
+     * スクロールしたあとの位置（nextY）が、次の段階に入る位置（戻るときは戻る境目）を越えるなら、その段階を返す。
+     * 越えた画面を一度描いてから戻すとちらつくので、ホイールとキーボードは、越える前に入力を取り消してこの段階を動かす
+     */
+    const stageCrossedBy = (nextY: number) => {
+      const y = window.scrollY;
+      if (nextY > y && stage < LAST_STAGE) {
+        const enter = scrollYOf(STAGE_POSITIONS_VH[stage]);
+        if (y < enter && nextY >= enter) return stage + 1;
+      }
+      if (nextY < y && stage > 0) {
+        const leave = scrollYOf(STAGE_POSITIONS_VH[stage - 1] - BACK_MARGIN_VH);
+        if (y >= leave && nextY < leave) return stage - 1;
+      }
+      return null;
+    };
+    const stopBeforeCrossing = (event: Event, nextY: number) => {
+      if (stage < 0 || reducedMotion.matches) return;
+      const crossed = stageCrossedBy(nextY);
+      if (crossed === null) return;
+      event.preventDefault();
+      playStage(crossed, holdYOf(crossed));
     };
 
     // アニメーションの間は、ホイール・タッチ・キーボードでのスクロールを受け付けない
+    // 止めていない間も、ホイールとキーボードは次の段階の位置を越える前に止める（慣性スクロールはスクロールスナップで止める）
     const blockWhileLocked = (event: Event) => {
       if (lockY !== null) event.preventDefault();
     };
-    const SCROLL_KEYS = new Set([' ', 'PageDown', 'PageUp', 'ArrowDown', 'ArrowUp', 'Home', 'End']);
-    window.addEventListener('wheel', blockWhileLocked, { passive: false, signal });
+    window.addEventListener(
+      'wheel',
+      (event) => {
+        if (lockY !== null) return event.preventDefault();
+        // ctrl を押しながらのホイール（トラックパッドのピンチ）は拡大・縮小なので止めない
+        if (event.ctrlKey) return;
+        const unit =
+          event.deltaMode === WheelEvent.DOM_DELTA_LINE
+            ? 16
+            : event.deltaMode === WheelEvent.DOM_DELTA_PAGE
+              ? window.innerHeight
+              : 1;
+        stopBeforeCrossing(event, window.scrollY + event.deltaY * unit);
+      },
+      { passive: false, signal },
+    );
     window.addEventListener('touchmove', blockWhileLocked, { passive: false, signal });
+
+    /** キーボードでスクロールしたあとの位置。スクロールしないキーなら null */
+    const keyScrollTarget = (event: KeyboardEvent) => {
+      const page = window.innerHeight * 0.875;
+      switch (event.key) {
+        case 'ArrowDown':
+          return window.scrollY + 40;
+        case 'ArrowUp':
+          return window.scrollY - 40;
+        case 'PageDown':
+          return window.scrollY + page;
+        case 'PageUp':
+          return window.scrollY - page;
+        case ' ':
+          return window.scrollY + (event.shiftKey ? -page : page);
+        case 'Home':
+          return 0;
+        case 'End':
+          return document.documentElement.scrollHeight;
+        default:
+          return null;
+      }
+    };
     window.addEventListener(
       'keydown',
       (event) => {
-        // ボタンやリンクなどにフォーカスがあるときのスペースキーは、その操作のために残す
+        // ボタンやリンクなどにフォーカスがあるときのキーは、その操作のために残す
         const onPage = event.target === document.body || event.target === document.documentElement;
-        if (onPage && SCROLL_KEYS.has(event.key)) blockWhileLocked(event);
+        const nextY = keyScrollTarget(event);
+        if (!onPage || nextY === null) return;
+        if (lockY !== null) return event.preventDefault();
+        stopBeforeCrossing(event, nextY);
       },
       { signal },
     );
+
+    // スクロールスナップの点（ヒーローの上端と各段階の位置）
+    if (!hero.querySelector('.hero-snap')) {
+      for (const positionVh of [0, ...STAGE_POSITIONS_VH]) {
+        const point = document.createElement('span');
+        point.className = 'hero-snap';
+        point.setAttribute('aria-hidden', 'true');
+        point.style.top = `${positionVh}vh`;
+        hero.append(point);
+      }
+    }
 
     const onScroll = () => {
       if (ticking) return;
