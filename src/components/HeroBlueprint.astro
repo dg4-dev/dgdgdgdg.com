@@ -240,81 +240,83 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
     </pattern>
   </defs>
 
-  <g class="bp-camera">
-    <!-- 方眼は画面いっぱいに敷く（svg の外も overflow: visible で見せる） -->
-    <rect class="bp-grid" x="-4000" y="-3000" width="9000" height="7000"></rect>
+  <g class="bp-fit">
+    <g class="bp-camera">
+      <!-- 方眼は画面いっぱいに敷く（svg の外も overflow: visible で見せる） -->
+      <rect class="bp-grid" x="-4000" y="-3000" width="9000" height="7000"></rect>
 
-    <g class="bp-sketch">
-      <g class="bp-step bp-step--horizontal">
-        {
-          horizontals.map(({ d, style, label }) => (
-            <g class="bp-item" style={style}>
-              <path class="bp-draw" d={d} pathLength="1" />
-              <text {...labelAttrs(label)}>{label.text}</text>
-            </g>
-          ))
-        }
+      <g class="bp-sketch">
+        <g class="bp-step bp-step--horizontal">
+          {
+            horizontals.map(({ d, style, label }) => (
+              <g class="bp-item" style={style}>
+                <path class="bp-draw" d={d} pathLength="1" />
+                <text {...labelAttrs(label)}>{label.text}</text>
+              </g>
+            ))
+          }
+        </g>
+
+        <g class="bp-step bp-step--vertical">
+          {
+            verticals.map(({ d, style, label }) => (
+              <g class="bp-item" style={style}>
+                <path class="bp-draw" d={d} pathLength="1" />
+                <text {...labelAttrs(label)}>{label.text}</text>
+              </g>
+            ))
+          }
+        </g>
+
+        <g class="bp-step bp-step--diagonal">
+          {
+            diagonals.map(({ up, line, label }, i) => (
+              <g class="bp-item" style={diagonalStyle(line, i)}>
+                <path class:list={['bp-chain', up ? 'bp-chain--up' : 'bp-chain--down']} d={lineD(line)} />
+                <text {...labelAttrs(label)}>{label.text}</text>
+              </g>
+            ))
+          }
+        </g>
+
+        <g class="bp-step bp-step--outline">
+          {outlines.map(({ d, style }) => <path class="bp-outline" d={d} pathLength="1" style={style} />)}
+        </g>
+
+        <path class="bp-hatch" d={logoPath} fill="url(#bp-hatch)" fill-rule="evenodd"></path>
+
+        <g class="bp-step bp-step--dimension">
+          {
+            dimensions.map((dimension) => (
+              <g
+                class:list={['bp-item', { 'bp-item--repeated': dimension.repeated && dimension.dg < 3 }]}
+                style={dimensionStyle(dimension)}
+              >
+                <path class="bp-draw" d={dimension.d} pathLength="1" />
+                {dimension.arrow && <path class="bp-arrow" d={dimension.arrow} />}
+                <text {...labelAttrs(dimension.label)}>{dimension.label.text}</text>
+              </g>
+            ))
+          }
+        </g>
+
+        <g class="bp-step bp-step--ratio">
+          {
+            ratios.map(({ d, label }, i) => (
+              <g
+                class="bp-item"
+                style={drawStyle(lineLength([1021.9, 704.8, 921.7, 604.6]), i * 150, (ratios.length - 1) * 150)}
+              >
+                <path class="bp-draw" d={d} pathLength="1" />
+                <text {...labelAttrs(label)}>{label.text}</text>
+              </g>
+            ))
+          }
+        </g>
       </g>
 
-      <g class="bp-step bp-step--vertical">
-        {
-          verticals.map(({ d, style, label }) => (
-            <g class="bp-item" style={style}>
-              <path class="bp-draw" d={d} pathLength="1" />
-              <text {...labelAttrs(label)}>{label.text}</text>
-            </g>
-          ))
-        }
-      </g>
-
-      <g class="bp-step bp-step--diagonal">
-        {
-          diagonals.map(({ up, line, label }, i) => (
-            <g class="bp-item" style={diagonalStyle(line, i)}>
-              <path class:list={['bp-chain', up ? 'bp-chain--up' : 'bp-chain--down']} d={lineD(line)} />
-              <text {...labelAttrs(label)}>{label.text}</text>
-            </g>
-          ))
-        }
-      </g>
-
-      <g class="bp-step bp-step--outline">
-        {outlines.map(({ d, style }) => <path class="bp-outline" d={d} pathLength="1" style={style} />)}
-      </g>
-
-      <path class="bp-hatch" d={logoPath} fill="url(#bp-hatch)" fill-rule="evenodd"></path>
-
-      <g class="bp-step bp-step--dimension">
-        {
-          dimensions.map((dimension) => (
-            <g
-              class:list={['bp-item', { 'bp-item--repeated': dimension.repeated && dimension.dg < 3 }]}
-              style={dimensionStyle(dimension)}
-            >
-              <path class="bp-draw" d={dimension.d} pathLength="1" />
-              {dimension.arrow && <path class="bp-arrow" d={dimension.arrow} />}
-              <text {...labelAttrs(dimension.label)}>{dimension.label.text}</text>
-            </g>
-          ))
-        }
-      </g>
-
-      <g class="bp-step bp-step--ratio">
-        {
-          ratios.map(({ d, label }, i) => (
-            <g
-              class="bp-item"
-              style={drawStyle(lineLength([1021.9, 704.8, 921.7, 604.6]), i * 150, (ratios.length - 1) * 150)}
-            >
-              <path class="bp-draw" d={d} pathLength="1" />
-              <text {...labelAttrs(label)}>{label.text}</text>
-            </g>
-          ))
-        }
-      </g>
+      <path class="bp-logo" d={logoPath} fill-rule="evenodd"></path>
     </g>
-
-    <path class="bp-logo" d={logoPath} fill-rule="evenodd"></path>
   </g>
 </svg>
 
@@ -344,18 +346,24 @@ const labelAttrs = ({ x, y, rotate, anchor, dy, size, knockout }: Label) => ({
     path, rect, text, g
       transition-timing-function: var(--bp-ease)
 
-  // PC では、ロゴを本文の幅にそろえると、ロゴの外に出す補助線のラベルや右の寸法が画面からはみ出すことがある
-  // 描いている間は、設計図全体が画面に収まるよう --bp-fit 倍に縮め（トップページのスクリプトが画面の幅から決める。収まるときは 1）、
-  // べた塗りの段階で 1 倍に戻して、ロゴを本文の幅にそろえる。縮める中心はロゴの真ん中（598.3。transform-origin から 300.7 右）
-  // スマホでは描いている間、右の dg に寄せて大きく見せ、べた塗りの段階で全体に引く
+  // ロゴを本文の幅にそろえると、ロゴの外に出す補助線・寸法・ラベルが画面からはみ出すことがある
+  // 線が出ている間は、設計図全体が画面に収まるよう --bp-fit 倍に縮め（トップページのスクリプトが画面の幅から決める。収まるときは 1）、
+  // 線と塗りを入れ替えるのと同時に 1 倍に戻して、ロゴを本文の幅にそろえる。縮める中心はロゴの真ん中（598.3）
+  .bp-fit
+    transform-box: view-box
+    transform-origin: 598.3px 714.3px
+    transform: scale(var(--bp-fit, 1))
+    transition: transform 0.5s var(--bp-ease)
+
+  :global(.hero.is-s8) .bp-fit
+    transform: none
+    transition-delay: var(--bp-swap-delay)
+
+  // スマホでは描いている間、右の dg に寄せて大きく見せ、べた塗りの段階で全体に引く（引いたあと、上の .bp-fit で本文の幅に寄せる）
   .bp-camera
     transform-box: view-box
     transform-origin: 297.6px 714.3px
-    transform: translate(calc((1 - var(--bp-fit, 1)) * 300.7px), 0) scale(var(--bp-fit, 1))
     transition: transform 0.8s var(--bp-ease)
-
-  :global(.hero.is-s8) .bp-camera
-    transform: none
 
   @media (max-width: 768px)
     .blueprint
