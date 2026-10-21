@@ -49,7 +49,7 @@ export const typefaces: TypefaceSource[] = [
     slug: 'wave_live',
     repo: 'dg4-dev/wave_live',
     ref: 'main',
-    fontPath: 'dg4-wave_live.ttf',
+    fontPath: 'dg4wavelive-Regular.ttf',
     licensePath: 'LICENSE',
     year: 2026,
     description: [
