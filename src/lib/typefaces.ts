@@ -23,8 +23,14 @@ async function resolveRef(source: TypefaceSource): Promise<string> {
   return latest?.version ?? source.ref;
 }
 
+/** ブラウザに配信するフォントファイルのパス */
+function webFontPath(source: TypefaceSource): string {
+  return source.webFontPath ?? source.fontPath;
+}
+
 export function fontFileName(source: TypefaceSource): string {
-  const ext = source.fontPath.match(/\.(ttf|otf|woff2?)$/i)?.[0].toLowerCase() ?? '.ttf';
+  const path = webFontPath(source);
+  const ext = path.match(/\.(ttf|otf|woff2?)$/i)?.[0].toLowerCase() ?? '.ttf';
   return `${source.slug}${ext}`;
 }
 
@@ -39,17 +45,28 @@ async function fetchFromGitHub(url: string): Promise<Response> {
 // build 中は同じフォントを何度も取得しないよう、プロセス内で結果を使い回す
 const fontCache = new Map<string, Promise<ArrayBuffer>>();
 
-/** GitHub の最新リリースからフォントファイルを取得する */
-export function fetchFontFile(source: TypefaceSource): Promise<ArrayBuffer> {
-  let pending = fontCache.get(source.slug);
+/** GitHub の最新リリースから、リポジトリ内のフォントファイルを取得する */
+function fetchRepoFont(source: TypefaceSource, path: string): Promise<ArrayBuffer> {
+  const key = `${source.repo}/${path}`;
+  let pending = fontCache.get(key);
   if (!pending) {
     pending = resolveRef(source)
-      .then((ref) => fetchFromGitHub(rawUrl(source.repo, ref, source.fontPath)))
+      .then((ref) => fetchFromGitHub(rawUrl(source.repo, ref, path)))
       .then((res) => res.arrayBuffer());
-    pending.catch(() => fontCache.delete(source.slug));
-    fontCache.set(source.slug, pending);
+    pending.catch(() => fontCache.delete(key));
+    fontCache.set(key, pending);
   }
   return pending;
+}
+
+/** 書体の情報を読み取るフォントファイル（TTF / OTF）を取得する */
+function fetchFontFile(source: TypefaceSource): Promise<ArrayBuffer> {
+  return fetchRepoFont(source, source.fontPath);
+}
+
+/** ブラウザに配信するフォントファイルを取得する */
+export function fetchWebFontFile(source: TypefaceSource): Promise<ArrayBuffer> {
+  return fetchRepoFont(source, webFontPath(source));
 }
 
 function githubApi(path: string, token?: string): Promise<Response> {
@@ -189,8 +206,10 @@ function featureOrder(feature: string): number {
 
 async function loadTypeface(source: TypefaceSource): Promise<Typeface | null> {
   try {
-    const [font, latest, licenseText] = await Promise.all([
+    const [font, , latest, licenseText] = await Promise.all([
       fetchFontFile(source),
+      // 配信するファイルが取れない書体は、ページだけ出てフォントが表示されないので、ここで確かめる
+      fetchWebFontFile(source).then(() => undefined),
       getLatestVersion(source.repo),
       source.licensePath
         ? resolveRef(source)

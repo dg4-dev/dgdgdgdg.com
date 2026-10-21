@@ -10,8 +10,10 @@ export interface TypefaceSource {
   repo: string;
   /** 最新リリース（なければ最新のバージョンタグ）が取れないときに、ファイルを取得するブランチ */
   ref: string;
-  /** リポジトリ内のフォントファイルのパス */
+  /** リポジトリ内のフォントファイル（TTF / OTF）のパス。書体名・収録文字などはここから読み取る */
   fontPath: string;
+  /** ブラウザに配信する、軽い形式（WOFF2 など）のフォントファイルのパス。未指定なら fontPath を配信する */
+  webFontPath?: string;
   /** リポジトリ内のライセンスファイルのパス */
   licensePath?: string;
   /** 公開年（一覧の並び順と表示に使う） */
@@ -50,6 +52,7 @@ export const typefaces: TypefaceSource[] = [
     repo: 'dg4-dev/wave_live',
     ref: 'main',
     fontPath: 'dg4wavelive-Regular.ttf',
+    webFontPath: 'dg4wavelive-Regular.woff2',
     licensePath: 'LICENSE',
     year: 2026,
     description: [
