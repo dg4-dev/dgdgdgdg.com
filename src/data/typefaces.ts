@@ -10,8 +10,10 @@ export interface TypefaceSource {
   repo: string;
   /** 最新リリース（なければ最新のバージョンタグ）が取れないときに、ファイルを取得するブランチ */
   ref: string;
-  /** リポジトリ内のフォントファイルのパス */
+  /** リポジトリ内のフォントファイル（TTF / OTF）のパス。書体名・収録文字などはここから読み取る */
   fontPath: string;
+  /** ブラウザに配信する、軽い形式（WOFF2 など）のフォントファイルのパス。未指定なら fontPath を配信する */
+  webFontPath?: string;
   /** リポジトリ内のライセンスファイルのパス */
   licensePath?: string;
   /** 公開年（一覧の並び順と表示に使う） */
@@ -49,12 +51,13 @@ export const typefaces: TypefaceSource[] = [
     slug: 'wave_live',
     repo: 'dg4-dev/wave_live',
     ref: 'main',
-    fontPath: 'dg4-wave_live.ttf',
+    fontPath: 'dg4wavelive-Regular.ttf',
+    webFontPath: 'dg4wavelive-Regular.woff2',
     licensePath: 'LICENSE',
     year: 2026,
     description: [
-      '手元に PC がなかった時期に、iPad だけで書体を作れるか試したのがはじまりです。基本の字形は iPad で描き、PC が使えるようになってからは、合字やカーニングなどの制作を PC で続けています。',
-      'ff / fi / fl などの合字のほか、「dg」をロゴの形にする任意の合字（dlig）と、「12:34」のような時刻表示で、数字にはさまれたコロンの位置を整える字形（calt）を入れています。',
+      '手元に PC がなかった時期に、iPad だけで書体を作れるか試したのがはじまりです。基本の字形は iPad で描き、新しい字形や太さなどの制作を PC で続けています。',
+      '「wave live」には、3 つの意味を重ねました。有機的な曲線で描いていること。画面をライブ配信して作っていること。体調の波に揺られながらも生きていくこと。',
     ],
   },
 ];

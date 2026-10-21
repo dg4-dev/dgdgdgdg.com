@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { fetchFontFile, fontFileName, getTypefaces, type Typeface } from '@/lib/typefaces';
+import { fetchWebFontFile, fontFileName, getTypefaces, type Typeface } from '@/lib/typefaces';
 
 export const prerender = true;
 
@@ -20,7 +20,7 @@ const CONTENT_TYPES: Record<string, string> = {
 };
 
 export const GET: APIRoute<{ typeface: Typeface }> = async ({ props }) => {
-  const font = await fetchFontFile(props.typeface);
+  const font = await fetchWebFontFile(props.typeface);
   const ext = fontFileName(props.typeface).split('.').pop() ?? 'ttf';
   return new Response(font, {
     headers: { 'Content-Type': CONTENT_TYPES[ext] ?? 'application/octet-stream' },
