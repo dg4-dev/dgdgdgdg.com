@@ -11,7 +11,7 @@
 
   --font-display: 'dg4 atomic dot', system-ui, sans-serif
   // 欧文と数字だけの短い情報（英語のラベル・日付・バージョン・数）に使う
-  // wave live は ASCII だけで Regular しかないので、日本語や収録外の記号は Zen Kaku Gothic New で出し、太字では使わない
+  // wave live は ASCII だけなので、日本語や収録外の記号は Zen Kaku Gothic New で出す
   --font-latin: 'dg4 wave live', 'Zen Kaku Gothic New', system-ui, sans-serif
   --font-heading: 'Zen Kaku Gothic New', system-ui, sans-serif
   --font-ui: 'Zen Kaku Gothic New', system-ui, sans-serif
@@ -48,7 +48,8 @@
 @font-face
   font-family: 'dg4 wave live'
   src: url('/typefaces/files/wave_live.woff2') format('woff2')
-  font-weight: normal
+  // 可変フォント（wght 100〜800）。900 を指定したところは 800 で出る
+  font-weight: 100 800
   font-style: normal
   font-display: swap
 
