@@ -51,8 +51,8 @@ export const typefaces: TypefaceSource[] = [
     slug: 'wave_live',
     repo: 'dg4-dev/wave_live',
     ref: 'main',
-    fontPath: 'dg4wavelive-Regular.ttf',
-    webFontPath: 'dg4wavelive-Regular.woff2',
+    fontPath: 'dg4waveliveVF.ttf',
+    webFontPath: 'dg4waveliveVF.woff2',
     licensePath: 'LICENSE',
     year: 2026,
     description: [
